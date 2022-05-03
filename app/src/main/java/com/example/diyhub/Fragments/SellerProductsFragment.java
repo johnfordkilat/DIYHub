@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -43,6 +44,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 public class SellerProductsFragment extends Fragment {
@@ -97,6 +99,8 @@ public class SellerProductsFragment extends Fragment {
     ArrayList<AllProductsList> filterListAll = new ArrayList<>();
     ArrayList<RestockProductsList> filterListRestock = new ArrayList<>();
 
+    SearchView searchView;
+
 
 
 
@@ -112,7 +116,7 @@ public class SellerProductsFragment extends Fragment {
         progressDialog = new ProgressDialog(getContext());
         tabLayout = view.findViewById(R.id.tabLayoutSellerOrdersPageFragment);
         viewPager = view.findViewById(R.id.viewPageSellerOrdersPageFragment);
-        searchProduct = view.findViewById(R.id.searchProductTxt);
+        searchView = view.findViewById(R.id.searchProductTxt);
 
 
         Bundle extra = this.getArguments();
@@ -157,6 +161,8 @@ public class SellerProductsFragment extends Fragment {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recycler_divider));
         allProductsRecyclerView.addItemDecoration(dividerItemDecoration);
+        restockProductRecycler.addItemDecoration(dividerItemDecoration);
+
 
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -199,41 +205,6 @@ public class SellerProductsFragment extends Fragment {
             }
         });
 
-        searchProduct.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-                filterListAll.clear();
-                filterListRestock.clear();
-
-
-                if(s.toString().isEmpty())
-                {
-                    allProductsRecyclerView.setAdapter(new AllProductsAdapter(getContext(), allProductsLists));
-                    allProductsAdapter = new AllProductsAdapter(getContext(), allProductsLists);
-                    allProductsAdapter.notifyDataSetChanged();
-
-
-                    restockProductRecycler.setAdapter(new RestockProductsAdapter(getContext(), restockProductsList));
-                    restockProductsAdapter = new RestockProductsAdapter(getContext(), restockProductsList);
-                    restockProductsAdapter.notifyDataSetChanged();
-                }
-                else
-                {
-                    Filter(s.toString());
-                }
-            }
-        });
 
 
 
@@ -241,33 +212,7 @@ public class SellerProductsFragment extends Fragment {
 
     }
 
-    private void Filter(String text) {
 
-        for(AllProductsList post: allProductsLists)
-        {
-            post.toString().toLowerCase();
-            if(post.getProductName().toLowerCase().equals(text))
-            {
-                filterListAll.add(post);
-            }
-
-        }
-        for(RestockProductsList post: restockProductsList)
-        {
-            post.toString().toLowerCase();
-            if(post.getProductName().toLowerCase().equals(text))
-            {
-                filterListRestock.add(post);
-            }
-
-        }
-        allProductsRecyclerView.setAdapter(new AllProductsAdapter(getContext(), filterListAll));
-        allProductsAdapter.notifyDataSetChanged();
-
-        restockProductRecycler.setAdapter(new RestockProductsAdapter(getContext(), filterListRestock));
-        restockProductsAdapter.notifyDataSetChanged();
-
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -335,5 +280,50 @@ public class SellerProductsFragment extends Fragment {
                 Toast.makeText(getContext(), ""+e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(searchView != null)
+        {
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    search(newText);
+                    return true;
+                }
+            });
+        }
+    }
+
+    private void search(String text) {
+        ArrayList<AllProductsList> filterList = new ArrayList<>();
+        for(AllProductsList list : allProductsLists)
+        {
+            if(list.getProductName().toLowerCase().contains(text.toLowerCase()))
+            {
+                filterList.add(list);
+            }
+        }
+        AllProductsAdapter adapter = new AllProductsAdapter(getContext(),filterList);
+        allProductsRecyclerView.setAdapter(adapter);
+
+        ArrayList<RestockProductsList> filterListRestock = new ArrayList<>();
+        for(RestockProductsList list : restockProductsList)
+        {
+            if(list.getProductName().toLowerCase().contains(text.toLowerCase()))
+            {
+                filterListRestock.add(list);
+            }
+        }
+        RestockProductsAdapter adapterRestock = new RestockProductsAdapter(getContext(),filterListRestock);
+        restockProductRecycler.setAdapter(adapterRestock);
+
     }
 }

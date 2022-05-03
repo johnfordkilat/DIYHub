@@ -11,13 +11,14 @@ public class OrdersList implements Parcelable {
     String BuyerImage;
     String BookingAddress;
     String OrderStatus;
+    String ShopName;
 
     public OrdersList(){
 
     }
 
     public OrdersList(String productName, String productQuantity, String prodImage, String prodID, String orderType, String paymentOption, String itemCode,
-                       String buyerName, String paymentStatus, String orderDate, String buyerImage, String bookingAddress, String orderStatus ) {
+                       String buyerName, String paymentStatus, String orderDate, String buyerImage, String bookingAddress, String orderStatus, String shopName ) {
         OrderProductName = productName;
         OrderQuantity = productQuantity;
         OrderProductImage = prodImage;
@@ -31,7 +32,16 @@ public class OrdersList implements Parcelable {
         BuyerImage = buyerImage;
         BookingAddress = bookingAddress;
         OrderStatus = orderStatus;
+        ShopName = shopName;
 
+    }
+
+    public String getShopName() {
+        return ShopName;
+    }
+
+    public void setShopName(String shopName) {
+        ShopName = shopName;
     }
 
     public String getOrderStatus() {
@@ -124,6 +134,7 @@ public class OrdersList implements Parcelable {
         dest.writeString(BuyerImage);
         dest.writeString(BookingAddress);
         dest.writeString(OrderStatus);
+        dest.writeString(ShopName);
 
     }
 
@@ -141,6 +152,7 @@ public class OrdersList implements Parcelable {
         BuyerImage = in.readString();
         BookingAddress = in.readString();
         OrderStatus = in.readString();
+        ShopName = in.readString();
     }
 
     public static final Parcelable.Creator<OrdersList> CREATOR = new Parcelable.Creator<OrdersList>() {

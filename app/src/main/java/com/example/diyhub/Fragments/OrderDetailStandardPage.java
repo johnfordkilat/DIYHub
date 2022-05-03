@@ -289,7 +289,7 @@ public class OrderDetailStandardPage extends AppCompatActivity {
 
 
 
-                reference.child("Orders").child(user.getUid()).child(list.get(pos).getItemCode()).updateChildren(hashMap);
+                reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap);
 
                 Toast.makeText(OrderDetailStandardPage.this, "Order is MOVED TO ACCEPTED", Toast.LENGTH_SHORT).show();
                 finish();

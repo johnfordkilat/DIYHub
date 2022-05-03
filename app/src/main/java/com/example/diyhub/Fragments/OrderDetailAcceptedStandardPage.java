@@ -291,7 +291,7 @@ public class OrderDetailAcceptedStandardPage extends AppCompatActivity {
 
 
 
-                reference.child("Orders").child(user.getUid()).child(list.get(pos).getItemCode()).updateChildren(hashMap);
+                reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap);
 
                 Toast.makeText(OrderDetailAcceptedStandardPage.this, "Order is MOVED TO ONGOING", Toast.LENGTH_SHORT).show();
                 finish();

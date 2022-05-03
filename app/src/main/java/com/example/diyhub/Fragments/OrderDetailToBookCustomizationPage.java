@@ -288,7 +288,7 @@ public class OrderDetailToBookCustomizationPage extends AppCompatActivity {
 
 
 
-                reference.child("Orders").child(user.getUid()).child(list.get(pos).getItemCode()).updateChildren(hashMap);
+                reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap);
 
                 Toast.makeText(OrderDetailToBookCustomizationPage.this, "Order is moved to TO RECEIVE", Toast.LENGTH_SHORT).show();
                 finish();

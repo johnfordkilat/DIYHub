@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +31,8 @@ public class UsersFragment extends Fragment {
     private UserAdapter userAdapter;
     private List<User> mUsers;
 
+    SearchView searchView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -40,6 +43,8 @@ public class UsersFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recuclerViewUsers);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        searchView = view.findViewById(R.id.searchUsers);
 
         mUsers = new ArrayList<>();
 
@@ -82,5 +87,38 @@ public class UsersFragment extends Fragment {
 
             }
         });
+    }
+
+    public void onStart() {
+        super.onStart();
+        if(searchView != null)
+        {
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    search(newText);
+                    return true;
+                }
+            });
+        }
+    }
+
+    private void search(String text) {
+        ArrayList<User> filterList = new ArrayList<>();
+        for(User list : mUsers)
+        {
+            if(list.getUsername().toLowerCase().contains(text.toLowerCase()))
+            {
+                filterList.add(list);
+            }
+        }
+        UserAdapter adapter = new UserAdapter(getContext(),filterList,false);
+        recyclerView.setAdapter(adapter);
+
     }
 }

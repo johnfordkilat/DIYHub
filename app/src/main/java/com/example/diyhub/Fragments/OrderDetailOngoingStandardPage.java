@@ -291,7 +291,7 @@ public class OrderDetailOngoingStandardPage extends AppCompatActivity {
 
 
 
-                reference.child("Orders").child(user.getUid()).child(list.get(pos).getItemCode()).updateChildren(hashMap);
+                reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap);
 
                 Toast.makeText(OrderDetailOngoingStandardPage.this, "Order is moved to TO BOOK ORDERS", Toast.LENGTH_SHORT).show();
                 finish();

@@ -347,13 +347,30 @@ public class ToReceiveCustomizationOrdersPage extends AppCompatActivity {
                             String ItemCode, BuyerName, PaymentStatus, OrderDate;
                             String BuyerImage;
 
+                            DatabaseReference referenceHistory = FirebaseDatabase.getInstance().getReference();
+                            HashMap<String, Object> hashMapHistory = new HashMap<>();
+                            hashMapHistory.put("BookingAddress", list.get(pos).getBookingAddress());
+                            hashMapHistory.put("BuyerImage", list.get(pos).getBuyerImage());
+                            hashMapHistory.put("BuyerName", list.get(pos).getBuyerName());
+                            hashMapHistory.put("ItemCode", list.get(pos).getItemCode());
+                            hashMapHistory.put("OrderDate", list.get(pos).getOrderDate());
+                            hashMapHistory.put("OrderID", list.get(pos).getOrderID());
+                            hashMapHistory.put("OrderProductImage", list.get(pos).getOrderProductImage());
+                            hashMapHistory.put("OrderProductName", list.get(pos).getOrderProductName());
+                            hashMapHistory.put("OrderQuantity", list.get(pos).getOrderQuantity());
+                            hashMapHistory.put("OrderType", list.get(pos).getOrderType());
+                            hashMapHistory.put("PaymentOption", list.get(pos).getPaymentOption());
+                            hashMapHistory.put("PaymentStatus", list.get(pos).getPaymentStatus());
+                            hashMapHistory.put("ShopName", list.get(pos).getShopName());
+                            hashMapHistory.put("OrderStatus", item);
+                            referenceHistory.child("TransactionHistory").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMapHistory);
+
+
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                             HashMap<String, Object> hashMap = new HashMap<>();
                             hashMap.put("OrderStatus", item);
 
-
-
-                            reference.child("Orders").child(user.getUid()).child(list.get(pos).getItemCode()).updateChildren(hashMap);
+                            reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap);
 
                             Toast.makeText(ToReceiveCustomizationOrdersPage.this, "Order is moved to " + item, Toast.LENGTH_SHORT).show();
                             finish();

@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -18,13 +19,23 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.diyhub.Fragments.CancelledOrdersAdapter;
+import com.example.diyhub.Fragments.CompletedOrdersAdapter;
+import com.example.diyhub.Fragments.OrdersAcceptedAdapter;
 import com.example.diyhub.Fragments.OrdersAdapter;
 import com.example.diyhub.Fragments.OrdersList;
+import com.example.diyhub.Fragments.OrdersOngoingAdapter;
+import com.example.diyhub.Fragments.ReturnOrRefundOrdersAdapter;
+import com.example.diyhub.Fragments.ToBookAdapter;
+import com.example.diyhub.Fragments.ToReceiveAdapter;
+import com.example.diyhub.MESSAGES.User;
+import com.example.diyhub.MESSAGES.UserAdapter;
 import com.example.diyhub.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -32,7 +43,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -53,9 +68,7 @@ public class PastTransactionHistory extends AppCompatActivity implements DatePic
     ViewPager viewPager;
 
     View view;
-    RecyclerView recyclerViewCompleted;
-    ArrayList<CompletedOrderList> completedOrderLists;
-    CompletedOrderRecyclerAdapter completedOrderRecyclerAdapter;
+
 
     TextView all,res,hold;
     int count=0;
@@ -86,8 +99,6 @@ public class PastTransactionHistory extends AppCompatActivity implements DatePic
     int dialog = 0;
     TextView noProduct;
     Button toOrderPage;
-    RecyclerView recyclerViewCancelled;
-    RecyclerView recyclerViewReturnRefund;
 
     private int[] tabIcons = {
             R.drawable.ic_baseline_home_24,
@@ -98,7 +109,30 @@ public class PastTransactionHistory extends AppCompatActivity implements DatePic
     Button datePickerButton;
     private DatePickerDialog datePickerDialog;
 
-    ArrayList<CompletedOrderList> filterList = new ArrayList<>();
+    DatabaseReference referenceOrderRequest;
+    DatabaseReference referenceAccepted;
+    DatabaseReference referenceOngoing;
+    DatabaseReference referenceToBook;
+    DatabaseReference referenceToReceive;
+
+
+    ArrayList<OrdersList> ordersListsCompleted;
+    ArrayList<OrdersList> ordersListsCancelled;
+    ArrayList<OrdersList> ordersListsReturnOrRefund;
+
+
+
+    CompletedOrderRecyclerAdapter ordersAdapterCompleted;
+    CancelledOrdersRecyclerAdapter ordersAdapterCancelled;
+    ReturnRefundOrdersRecyclerAdapter ordersAdapterReturnOrRefund;
+
+    RecyclerView recyclerViewCompleted;
+    RecyclerView recyclerViewCancelled;
+    RecyclerView recyclerViewReturnOrRefund;
+
+    SearchView searchView;
+
+    int tabSelect;
 
 
 
@@ -109,10 +143,10 @@ public class PastTransactionHistory extends AppCompatActivity implements DatePic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_past_transaction_history);
 
-        searchTxt = findViewById(R.id.searchHistoryTxt);
         tabLayout = findViewById(R.id.tabLayoutTransactionHistory);
         viewPager = findViewById(R.id.viewPagePastTransac);
         datePickerButton = findViewById(R.id.datePickerButtonTransactionHistory);
+        searchView = findViewById(R.id.searchHistoryTxt);
 
 
 
@@ -127,12 +161,10 @@ public class PastTransactionHistory extends AppCompatActivity implements DatePic
         recyclerViewCancelled.setHasFixedSize(true);
         recyclerViewCancelled.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerViewReturnRefund = findViewById(R.id.returnRefundOrderRecyclerPastTransac);
-        recyclerViewReturnRefund.setHasFixedSize(true);
-        recyclerViewReturnRefund.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewReturnOrRefund = findViewById(R.id.returnRefundOrderRecyclerPastTransac);
+        recyclerViewReturnOrRefund.setHasFixedSize(true);
+        recyclerViewReturnOrRefund.setLayoutManager(new LinearLayoutManager(this));
 
-        dbFirestore = FirebaseFirestore.getInstance();
-        completedOrderLists = new ArrayList<CompletedOrderList>();
         mAuth = FirebaseAuth.getInstance();
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -142,6 +174,9 @@ public class PastTransactionHistory extends AppCompatActivity implements DatePic
             showData();
         }
 
+        recyclerViewCompleted.setVisibility(View.VISIBLE);
+        recyclerViewCancelled.setVisibility(View.INVISIBLE);
+        recyclerViewReturnOrRefund.setVisibility(View.INVISIBLE);
 
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -151,23 +186,29 @@ public class PastTransactionHistory extends AppCompatActivity implements DatePic
 
                 if(tab.getPosition() == 0)
                 {
+                    tabSelect = 0;
                     recyclerViewCompleted.setVisibility(View.VISIBLE);
                     recyclerViewCancelled.setVisibility(View.INVISIBLE);
-                    recyclerViewReturnRefund.setVisibility(View.INVISIBLE);
+                    recyclerViewReturnOrRefund.setVisibility(View.INVISIBLE);
+                    showData();
                 }
 
                 if(tab.getPosition() == 1)
                 {
+                    tabSelect = 1;
                     recyclerViewCompleted.setVisibility(View.INVISIBLE);
-                    recyclerViewReturnRefund.setVisibility(View.INVISIBLE);
+                    recyclerViewReturnOrRefund.setVisibility(View.INVISIBLE);
                     recyclerViewCancelled.setVisibility(View.VISIBLE);
+                    showData();
                 }
 
                 if(tab.getPosition() == 2)
                 {
+                    tabSelect = 2;
                     recyclerViewCompleted.setVisibility(View.INVISIBLE);
                     recyclerViewCancelled.setVisibility(View.INVISIBLE);
-                    recyclerViewReturnRefund.setVisibility(View.VISIBLE);
+                    recyclerViewReturnOrRefund.setVisibility(View.VISIBLE);
+                    showData();
                 }
 
             }
@@ -185,43 +226,6 @@ public class PastTransactionHistory extends AppCompatActivity implements DatePic
 
 
 
-
-
-
-        searchTxt.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-                filterList.clear();
-
-                if(s.toString().isEmpty())
-                {
-                    recyclerViewCompleted.setAdapter(new CompletedOrderRecyclerAdapter(getApplicationContext(), completedOrderLists));
-                    completedOrderRecyclerAdapter.notifyDataSetChanged();
-
-                    recyclerViewCancelled.setAdapter(new CompletedOrderRecyclerAdapter(getApplicationContext(), completedOrderLists));
-                    completedOrderRecyclerAdapter.notifyDataSetChanged();
-
-                    recyclerViewReturnRefund.setAdapter(new CompletedOrderRecyclerAdapter(getApplicationContext(), completedOrderLists));
-                    completedOrderRecyclerAdapter.notifyDataSetChanged();
-                }
-                else
-                {
-                    Filter(s.toString());
-                }
-            }
-        });
-
         setupTabIcons();
 
         datePickerButton.setOnClickListener(new View.OnClickListener() {
@@ -235,75 +239,69 @@ public class PastTransactionHistory extends AppCompatActivity implements DatePic
 
     }
 
-    private void Filter(String text) {
 
-        for(CompletedOrderList post: completedOrderLists)
-        {
-            post.toString().toLowerCase();
-            if(post.getDate().toLowerCase().equals(text))
-            {
-                filterList.add(post);
-            }
-            if(post.getProductName().toLowerCase().equals(text))
-            {
-                filterList.add(post);
-            }
-            if(post.getShopName().toLowerCase().equals(text))
-            {
-                filterList.add(post);
-            }
-        }
-        recyclerViewCompleted.setAdapter(new CompletedOrderRecyclerAdapter(getApplicationContext(), filterList));
-        completedOrderRecyclerAdapter.notifyDataSetChanged();
-
-        recyclerViewCancelled.setAdapter(new CompletedOrderRecyclerAdapter(getApplicationContext(), filterList));
-        completedOrderRecyclerAdapter.notifyDataSetChanged();
-
-        recyclerViewReturnRefund.setAdapter(new CompletedOrderRecyclerAdapter(getApplicationContext(), filterList));
-        completedOrderRecyclerAdapter.notifyDataSetChanged();
-    }
-
-
-    public void showData()
-    {
+    public void showData() {
         String sellerEmail = mAuth.getCurrentUser().getEmail();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         progressDialog.setTitle("Loading Data");
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        dbFirestore.collection("USERPROFILE").document(sellerEmail).collection("PASTTRANSACTIONHISTORY")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        completedOrderLists.clear();
-                        for(DocumentSnapshot doc : task.getResult())
-                        {
-                            CompletedOrderList list = new CompletedOrderList(doc.getString("TransactionDate"),
-                                    doc.getString("TransProductName"),
-                                    doc.getString("TransShopName"),
-                                    doc.getString("TransImage"));
 
-                            completedOrderLists.add(list);
-                        }
-                        completedOrderRecyclerAdapter = new CompletedOrderRecyclerAdapter(PastTransactionHistory.this,completedOrderLists);
-                        recyclerViewCompleted.setAdapter(completedOrderRecyclerAdapter);
-                        recyclerViewCancelled.setAdapter(completedOrderRecyclerAdapter);
-                        recyclerViewReturnRefund.setAdapter(completedOrderRecyclerAdapter);
-                        recyclerViewCancelled.setVisibility(View.INVISIBLE);
-                        recyclerViewReturnRefund.setVisibility(View.INVISIBLE);
+        ordersListsCompleted = new ArrayList<>();
+        ordersListsCancelled = new ArrayList<>();
+        ordersListsReturnOrRefund = new ArrayList<>();
 
-                        progressDialog.dismiss();
 
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
+
+        referenceOrderRequest = FirebaseDatabase.getInstance().getReference("TransactionHistory").child(user.getUid());
+
+        referenceOrderRequest.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ordersListsCompleted.clear();
+                ordersListsCancelled.clear();
+                ordersListsReturnOrRefund.clear();
+
+
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    OrdersList ordersList1 = snapshot.getValue(OrdersList.class);
+
+                    if(ordersList1.getOrderStatus().equalsIgnoreCase("Completed Order"))
+                    {
+                        ordersListsCompleted.add(ordersList1);
+                    }
+                    else if(ordersList1.getOrderStatus().equalsIgnoreCase("Cancelled Order"))
+                    {
+                        ordersListsCancelled.add(ordersList1);
+                    }
+                    else if(ordersList1.getOrderStatus().equalsIgnoreCase("Return/Refund Order"))
+                    {
+                        ordersListsReturnOrRefund.add(ordersList1);
+                    }
+                }
+                Log.d("SELLERERROR", "error");
+
+                ordersAdapterCompleted = new CompletedOrderRecyclerAdapter(getApplicationContext(), ordersListsCompleted);
+                ordersAdapterCancelled = new CancelledOrdersRecyclerAdapter(getApplicationContext(), ordersListsCancelled);
+                ordersAdapterReturnOrRefund = new ReturnRefundOrdersRecyclerAdapter(getApplicationContext(), ordersListsReturnOrRefund);
+
+
+                recyclerViewCompleted.setAdapter(ordersAdapterCompleted);
+                recyclerViewCancelled.setAdapter(ordersAdapterCancelled);
+                recyclerViewReturnOrRefund.setAdapter(ordersAdapterReturnOrRefund);
+
+
+                progressDialog.dismiss();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
-
-
 
     }
 
@@ -322,12 +320,82 @@ public class PastTransactionHistory extends AppCompatActivity implements DatePic
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-        String date = formatter. format(Date. parse(currentDateString));
-        searchTxt.setText(date);
+        String date = formatter. format(Date.parse(currentDateString));
+        searchView.setQuery(date,false);
     }
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    public void onStart() {
+        super.onStart();
+        if(searchView != null)
+        {
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    search(newText);
+                    return true;
+                }
+            });
+        }
+    }
+
+    private void search(String text) {
+
+        //Search for completed orders
+        ArrayList<OrdersList> filterList = new ArrayList<>();
+        for(OrdersList post: ordersListsCompleted)
+        {
+            post.toString().toLowerCase();
+            if(post.getOrderDate().toLowerCase().contains(text.toLowerCase()) ||
+                    post.getOrderProductName().toLowerCase().contains(text.toLowerCase()) ||
+                    post.getShopName().toLowerCase().contains(text.toLowerCase()))
+            {
+                filterList.add(post);
+            }
+        }
+        CompletedOrderRecyclerAdapter adapter = new CompletedOrderRecyclerAdapter(getApplicationContext(),filterList);
+        recyclerViewCompleted.setAdapter(adapter);
+
+        //Search for cancelled orders
+        ArrayList<OrdersList> filterListCancelled = new ArrayList<>();
+        for(OrdersList post: ordersListsCancelled)
+        {
+            post.toString().toLowerCase();
+            if(post.getOrderDate().toLowerCase().contains(text.toLowerCase()) ||
+                    post.getOrderProductName().toLowerCase().contains(text.toLowerCase()) ||
+                    post.getShopName().toLowerCase().contains(text.toLowerCase()))
+            {
+                filterListCancelled.add(post);
+            }
+        }
+        CancelledOrdersRecyclerAdapter adapterCancelled = new CancelledOrdersRecyclerAdapter(getApplicationContext(),filterListCancelled);
+        recyclerViewCancelled.setAdapter(adapterCancelled);
+
+        //Search for return or refund orders
+        ArrayList<OrdersList> filterListReturnRefund = new ArrayList<>();
+        for(OrdersList post: ordersListsReturnOrRefund)
+        {
+            post.toString().toLowerCase();
+            if(post.getOrderDate().toLowerCase().contains(text.toLowerCase()) ||
+                    post.getOrderProductName().toLowerCase().contains(text.toLowerCase()) ||
+                    post.getShopName().toLowerCase().contains(text.toLowerCase()))
+            {
+                filterListReturnRefund.add(post);
+            }
+        }
+        ReturnRefundOrdersRecyclerAdapter adapterReturnRefund = new ReturnRefundOrdersRecyclerAdapter(getApplicationContext(),filterListReturnRefund);
+        recyclerViewReturnOrRefund.setAdapter(adapterReturnRefund);
+
+
 
     }
 

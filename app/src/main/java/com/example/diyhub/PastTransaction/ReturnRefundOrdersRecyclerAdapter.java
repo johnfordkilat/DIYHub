@@ -27,7 +27,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class CompletedOrderRecyclerAdapter extends RecyclerView.Adapter<CompletedOrderRecyclerAdapter.MyViewHolder>{
+public class ReturnRefundOrdersRecyclerAdapter extends RecyclerView.Adapter<ReturnRefundOrdersRecyclerAdapter.MyViewHolder>{
 
     Context context;
     FirebaseFirestore dbFirestore;
@@ -44,13 +44,13 @@ public class CompletedOrderRecyclerAdapter extends RecyclerView.Adapter<Complete
 
     ArrayList<OrdersList> list;
 
-    public CompletedOrderRecyclerAdapter(){
+    public ReturnRefundOrdersRecyclerAdapter(){
 
     }
 
 
 
-    public CompletedOrderRecyclerAdapter(Context context, ArrayList<OrdersList> list)
+    public ReturnRefundOrdersRecyclerAdapter(Context context, ArrayList<OrdersList> list)
     {
         this.context = context;
         this.list = list;

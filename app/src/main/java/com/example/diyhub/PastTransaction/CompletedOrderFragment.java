@@ -117,12 +117,6 @@ public class CompletedOrderFragment extends Fragment {
 
 
 
-
-
-
-
-
-
         return view;
     }
 

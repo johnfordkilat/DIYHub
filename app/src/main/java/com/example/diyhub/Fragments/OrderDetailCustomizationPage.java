@@ -136,7 +136,7 @@ public class OrderDetailCustomizationPage extends AppCompatActivity {
 
 
 
-                reference1.child("Orders").child(user.getUid()).child(list.get(pos).getItemCode()).updateChildren(hashMap1);
+                reference1.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap1);
 
 
 

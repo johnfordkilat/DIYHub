@@ -5,10 +5,17 @@
     android:layout_height="match_parent"
     tools:context=".MESSAGES.UsersFragment">
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchUsers"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_marginTop="110dp"
+        android:background="@drawable/custom_gray" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recuclerViewUsers"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="100dp" />
+        android:layout_marginTop="150dp" />
 
 </FrameLayout>

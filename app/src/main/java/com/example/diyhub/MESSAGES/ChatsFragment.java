@@ -9,10 +9,13 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.diyhub.AllProductsAdapter;
+import com.example.diyhub.AllProductsList;
 import com.example.diyhub.Notifications.Token;
 import com.example.diyhub.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,6 +50,8 @@ public class ChatsFragment extends Fragment {
 
     private List<String> userslist1;
 
+    SearchView searchView;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,7 +67,7 @@ public class ChatsFragment extends Fragment {
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        searchMessage = view.findViewById(R.id.searchMessages);
+        searchView = view.findViewById(R.id.searchMessages);
 
         usersList = new ArrayList<>();
 
@@ -87,36 +92,7 @@ public class ChatsFragment extends Fragment {
             }
         });
 
-        searchMessage.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-                filterlist.clear();
-
-
-
-                if(s.toString().isEmpty())
-                {
-                    recyclerView.setAdapter(new UserAdapter(getContext(), mUsers,false));
-                    userAdapter.notifyDataSetChanged();
-
-                }
-                else
-                {
-                    Filter(s.toString());
-                }
-            }
-        });
 
 
         updateToken(FirebaseInstanceId.getInstance().getToken());
@@ -125,21 +101,7 @@ public class ChatsFragment extends Fragment {
         return view;
     }
 
-    private void Filter(String text) {
 
-        for(User post: mUsers)
-        {
-            post.toString().toLowerCase();
-            if(post.getUsername().toLowerCase().equals(text))
-            {
-                filterlist.add(post);
-            }
-
-        }
-        recyclerView.setAdapter(new UserAdapter(getContext(), filterlist,false));
-        userAdapter.notifyDataSetChanged();
-
-    }
 
     private void updateToken(String token)
     {
@@ -182,6 +144,39 @@ public class ChatsFragment extends Fragment {
 
             }
         });
+
+    }
+
+    public void onStart() {
+        super.onStart();
+        if(searchView != null)
+        {
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    search(newText);
+                    return true;
+                }
+            });
+        }
+    }
+
+    private void search(String text) {
+        ArrayList<User> filterList = new ArrayList<>();
+        for(User list : mUsers)
+        {
+            if(list.getUsername().toLowerCase().contains(text.toLowerCase()))
+            {
+                filterList.add(list);
+            }
+        }
+        UserAdapter adapter = new UserAdapter(getContext(),filterList,true);
+        recyclerView.setAdapter(adapter);
 
     }
 

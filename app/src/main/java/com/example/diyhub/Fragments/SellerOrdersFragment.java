@@ -31,6 +31,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class SellerOrdersFragment extends Fragment {
@@ -165,6 +166,27 @@ public class SellerOrdersFragment extends Fragment {
 
 
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        /*
+        DatabaseReference referenceHistory = FirebaseDatabase.getInstance().getReference();
+        HashMap<String, Object> hashMapHistory = new HashMap<>();
+        hashMapHistory.put("BookingAddress", "Cebu City");
+        hashMapHistory.put("BuyerImage", "https://firebasestorage.googleapis.com/v0/b/diy-hub-847fb.appspot.com/o/johnfordtapales8%40gmail.com%2FProfile-Picture%2FdTvGFHWaFKZ9DBqZmwyEsCl6NbU2.jpeg?alt=media&token=3e31b767-2d83-4d8b-ba1c-b33a8f0b2e36");
+        hashMapHistory.put("BuyerName", "Sherwin Larona");
+        hashMapHistory.put("ItemCode", "CK001");
+        hashMapHistory.put("OrderDate", "05/02/2022");
+        hashMapHistory.put("OrderID", "s2ssjwifk8f");
+        hashMapHistory.put("OrderProductImage", "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F19%2F2018%2F04%2F04%2FMyRecipes_032718_1776-2000.jpg");
+        hashMapHistory.put("OrderProductName", "Birthday Cake");
+        hashMapHistory.put("OrderQuantity", "3");
+        hashMapHistory.put("OrderType", "Custom");
+        hashMapHistory.put("PaymentOption", "COD");
+        hashMapHistory.put("PaymentStatus", "TO PAY");
+        hashMapHistory.put("ShopName", "Chocolate Factory");
+        hashMapHistory.put("OrderStatus", "Order Request");
+        referenceHistory.child("Orders").child(user.getUid()).child("s2ssjwifk8f").updateChildren(hashMapHistory);
+
+         */
 
 
 
@@ -184,7 +206,7 @@ public class SellerOrdersFragment extends Fragment {
 
 
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if(user != null)
             showData();
