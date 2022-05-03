@@ -61,6 +61,8 @@ public class ToReceiveAdapter extends RecyclerView.Adapter<ToReceiveAdapter.MyVi
         holder.paymentOption.setText(productsList.getPaymentOption());
         Glide.with(context).load(list.get(position).getOrderProductImage()).into(holder.prodImage);
         holder.orderid.setText("Order ID: "+productsList.getOrderID());
+        holder.delOption.setText(productsList.getDeliveryType());
+
 
 
         holder.nextButton.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +110,7 @@ public class ToReceiveAdapter extends RecyclerView.Adapter<ToReceiveAdapter.MyVi
         ImageView prodImage,deleteProd,updateProd,nextButton;
         Button orderType,paymentOption;
         TextView orderid;
+        TextView delOption;
 
 
 
@@ -120,6 +123,8 @@ public class ToReceiveAdapter extends RecyclerView.Adapter<ToReceiveAdapter.MyVi
             paymentOption = itemView.findViewById(R.id.paymentOption);
             nextButton = itemView.findViewById(R.id.nextButtonOrdersPage);
             orderid = itemView.findViewById(R.id.orderIDOrdersPage);
+            delOption = itemView.findViewById(R.id.deliveryTypeOrdersPage);
+
 
         }
     }

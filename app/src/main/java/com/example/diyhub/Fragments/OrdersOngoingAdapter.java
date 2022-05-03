@@ -62,6 +62,8 @@ public class OrdersOngoingAdapter extends RecyclerView.Adapter<OrdersOngoingAdap
         Glide.with(context).load(list.get(position).getOrderProductImage()).into(holder.prodImage);
         holder.orderid.setText("Order ID: "+productsList.getOrderID());
 
+        holder.delOption.setText(productsList.getDeliveryType());
+
 
         holder.nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +108,7 @@ public class OrdersOngoingAdapter extends RecyclerView.Adapter<OrdersOngoingAdap
         ImageView prodImage,deleteProd,updateProd,nextButton;
         Button orderType,paymentOption;
         TextView orderid;
+        TextView delOption;
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -117,6 +120,7 @@ public class OrdersOngoingAdapter extends RecyclerView.Adapter<OrdersOngoingAdap
             paymentOption = itemView.findViewById(R.id.paymentOption);
             nextButton = itemView.findViewById(R.id.nextButtonOrdersPage);
             orderid = itemView.findViewById(R.id.orderIDOrdersPage);
+            delOption = itemView.findViewById(R.id.deliveryTypeOrdersPage);
 
         }
     }

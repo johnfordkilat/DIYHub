@@ -252,7 +252,7 @@ public class SellerHomeFragment extends Fragment {
         reference = FirebaseDatabase.getInstance().getReference("PaymentOptions").child(user.getUid());
         referenceBooking = FirebaseDatabase.getInstance().getReference("BookingOptions").child(user.getUid());
 
-        String[] allList = getActivity().getResources().getStringArray(R.array.Payment_Options);
+        String[] allList = getActivity().getResources().getStringArray(R.array.Payment_Accounts);
         String[] allListBooking = getActivity().getResources().getStringArray(R.array.Booking_Options);
         listBooking = new ArrayList<>();
 

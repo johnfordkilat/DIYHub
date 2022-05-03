@@ -75,9 +75,7 @@
     </string-array>
 
     <string-array name="Payment_Accounts">
-        <item>Gcash</item>
-        <item>Paymaya</item>
-        <item>Unionbank</item>
+        <item>Online(Visa Debit Card)</item>
         <item>Cash on Delivery</item>
     </string-array>
     <string-array name="Tag_Options">
