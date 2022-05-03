@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "243495394416",
+    "project_id": "diy-hub-847fb",
+    "storage_bucket": "diy-hub-847fb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243495394416:android:273f5bb35b1d5c4d03a8b5",
+        "android_client_info": {
+          "package_name": "com.example.diyhub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243495394416-t2fu5fu1q551t7pdadje6fc1v8ltktjf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDe5VezjzN4SW93rMQHMomLGKPmSKtYcAE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "243495394416-t2fu5fu1q551t7pdadje6fc1v8ltktjf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

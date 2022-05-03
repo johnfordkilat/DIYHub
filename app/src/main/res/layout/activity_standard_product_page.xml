@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_one"
+    tools:context=".StandardProductPage">
+
+    <TextView
+        android:id="@+id/textView68"
+        android:layout_width="421dp"
+        android:layout_height="28dp"
+        android:layout_marginEnd="3dp"
+        android:background="@color/white"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="REVIEWS"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.226"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.856" />
+
+    <TextView
+        android:id="@+id/textView67"
+        android:layout_width="304dp"
+        android:layout_height="20dp"
+        android:text="________________________________________________"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.532"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.722" />
+
+    <TextView
+        android:id="@+id/textView60"
+        android:layout_width="196dp"
+        android:layout_height="37dp"
+        android:background="@color/red"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView59"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/addToCartStandard"
+        android:layout_width="219dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="2dp"
+        android:background="@color/red"
+        android:gravity="center_horizontal|center_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView58" />
+
+    <TextView
+        android:id="@+id/textView57"
+        android:layout_width="218dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="3dp"
+        android:background="@color/white"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Standard"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.224" />
+
+    <TextView
+        android:id="@+id/customizeButton"
+        android:layout_width="218dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="3dp"
+        android:background="@color/white"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Customize"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.224" />
+
+    <ImageView
+        android:id="@+id/imageView32"
+        android:layout_width="43dp"
+        android:layout_height="37dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.061"
+        app:srcCompat="@drawable/img_13" />
+
+    <TextView
+        android:id="@+id/textView54"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Glass Jar"
+        android:textColor="@color/black"
+        android:textSize="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.044" />
+
+    <TextView
+        android:id="@+id/textView55"
+        android:layout_width="304dp"
+        android:layout_height="20dp"
+        android:text="________________________________________________"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.654"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.146" />
+
+    <ImageView
+        android:id="@+id/imageView33"
+        android:layout_width="49dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.051"
+        app:srcCompat="@drawable/heart" />
+
+    <TextView
+        android:id="@+id/textView58"
+        android:layout_width="196dp"
+        android:layout_height="37dp"
+        android:background="@color/red"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="BUY NOW"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView59"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView61"
+        android:layout_width="421dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="278dp"
+        android:layout_marginEnd="5dp"
+        android:background="@color/red"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="P 100.00"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textView60"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView34" />
+
+    <ImageView
+        android:id="@+id/imageView41"
+        android:layout_width="114dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="692dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.781"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/cart1" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="279dp"
+        android:layout_marginBottom="231dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView61"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView34" />
+
+    <TextView
+        android:id="@+id/textView62"
+        android:layout_width="232dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="225dp"
+        android:letterSpacing="0.5"
+        android:text="4.5 | 29.1k Sold"
+        app:layout_constraintBottom_toTopOf="@+id/textView61"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ratingBar"
+        app:layout_constraintTop_toBottomOf="@+id/imageView34" />
+
+    <TextView
+        android:id="@+id/textView63"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="151dp"
+        android:layout_marginBottom="201dp"
+        android:letterSpacing="0.5"
+        android:text="Product Details"
+        app:layout_constraintBottom_toTopOf="@+id/textView61"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView62" />
+
+    <TextView
+        android:id="@+id/textView64"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="149dp"
+        android:layout_marginBottom="10dp"
+        android:text="Stock : 100"
+        app:layout_constraintBottom_toTopOf="@+id/textView65"
+        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView63" />
+
+    <TextView
+        android:id="@+id/textView65"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="146dp"
+        android:text="Book From : Canduman Mandaue"
+        app:layout_constraintBottom_toTopOf="@+id/textView67"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView64" />
+
+    <TextView
+        android:id="@+id/textView66"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="23dp"
+        android:text="Glass Jars of great quality which comes in a variety \n of designs..."
+        app:layout_constraintBottom_toTopOf="@+id/textView68"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView67" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button2"
+        android:layout_width="112dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/custom_white"
+        android:text="Visit Shop"
+        app:layout_constraintBottom_toTopOf="@+id/textView67"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.946"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView62" />
+
+    <ImageView
+        android:id="@+id/imageView39"
+        android:layout_width="226dp"
+        android:layout_height="169dp"
+        android:layout_marginStart="93dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="93dp"
+        android:layout_marginBottom="22dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView62"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView57"
+        app:srcCompat="@drawable/glass" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

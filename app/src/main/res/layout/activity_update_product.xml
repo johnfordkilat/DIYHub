@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_one"
+    tools:context=".Fragments.UpdateProduct"
+    android:id="@+id/updateProductPage">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/updateProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="280dp"
+        android:background="@drawable/custom_green"
+        android:text="UPDATE PRODUCT"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/updateProdStocks"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/updateProdName"
+        android:layout_width="250dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="67dp"
+        android:layout_marginEnd="81dp"
+        android:background="@drawable/textview_border"
+        android:ems="10"
+        android:hint="Product Name"
+        android:inputType="textPersonName"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView77"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/updateProdQuantity"
+        android:layout_width="250dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="81dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/textview_border"
+        android:ems="10"
+        android:hint="Product Quantity"
+        android:inputType="number"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/updateProdStocks"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/updateProdName" />
+
+    <EditText
+        android:id="@+id/updateProdStocks"
+        android:layout_width="250dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="81dp"
+        android:layout_marginBottom="346dp"
+        android:background="@drawable/textview_border"
+        android:ems="10"
+        android:hint="Product Stocks"
+        android:inputType="number"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView77"
+        app:layout_constraintVertical_bias="0.892" />
+
+    <TextView
+        android:id="@+id/textView77"
+        android:layout_width="415dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="633dp"
+        android:gravity="center"
+        android:text="UPDATE PRODUCT"
+        android:textSize="48dp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

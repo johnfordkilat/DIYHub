@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="-5dp">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bookButtonToBook"
+        android:layout_width="93dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/custom_black"
+        android:text="BOOK"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/paymentOptionToBook"
+        app:layout_constraintTop_toBottomOf="@+id/copyButtonToBook"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/orderQuantityTxt5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Location: "
+        app:layout_constraintBottom_toTopOf="@+id/orderTypeToBook"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.365"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/itemImageToBook"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/locationTxtToBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Product Name"
+        android:textAlignment="textStart"
+        app:layout_constraintBottom_toTopOf="@+id/paymentOptionToBook"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/orderQuantityTxt5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.979" />
+
+    <TextView
+        android:id="@+id/orderQuantityTxt4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Buyer: "
+        app:layout_constraintBottom_toTopOf="@+id/orderQuantityTxt5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.347"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/itemImageToBook"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/buyerNameTxtToBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Product Name"
+        android:textAlignment="textStart"
+        app:layout_constraintBottom_toTopOf="@+id/locationTxtToBook"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintStart_toEndOf="@+id/orderQuantityTxt4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/orderTypeToBook"
+        android:layout_width="93dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="192dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/custom_white"
+        android:text="CUSTOM"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/itemImageToBook"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toEndOf="@+id/itemImageToBook" />
+
+
+    <TextView
+        android:id="@+id/itemNameTxtToBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Product Name"
+        android:textAlignment="textStart"
+        app:layout_constraintBottom_toTopOf="@+id/buyerNameTxtToBook"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.164"
+        app:layout_constraintStart_toEndOf="@+id/orderQuantityTxt"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/itemImageToBook"
+        android:layout_width="108dp"
+        android:layout_height="93dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_marginTop="5dp" />
+
+    <TextView
+        android:id="@+id/orderQuantityTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Item: "
+        app:layout_constraintBottom_toTopOf="@+id/orderQuantityTxt4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.34"
+        app:layout_constraintLeft_toRightOf="@id/itemImageToBook"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.961" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/paymentOptionToBook"
+        android:layout_width="93dp"
+        android:layout_height="36dp"
+        android:background="@drawable/custom_white"
+        android:text="ONLINE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/orderTypeToBook"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.912" />
+
+    <ImageView
+        android:id="@+id/nextButtonToBook"
+        android:layout_width="58dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="7dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/arrowright" />
+
+    <ImageButton
+        android:id="@+id/copyButtonToBook"
+        android:layout_width="61dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@+id/nextButtonToBook"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.858"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_baseline_content_copy_24" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

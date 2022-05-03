@@ -1,0 +1,90 @@
+<resources>
+    <string name="app_name">DIY Hub</string>
+    <string name="signup"><u>Here</u></string>
+    <string name="api_key">AIzaSyAGujRBknHGgwDqerP3XyF3t6sJR6PgJ7E</string>
+    <string name="paymentBackendUrl">https://diyhub-payment.herokuapp.com/payment-sheet</string>
+
+    <string-array name="item_name">
+        <item>one</item>
+        <item>two</item>
+        <item>three</item>
+        <item>four</item>
+        <item>five</item>
+        <item>six</item>
+    </string-array>
+    <string-array name="purchases">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+    <string-array name="amount">
+        <item>P 50.00</item>
+        <item>P 100.00</item>
+        <item>P 80.00</item>
+        <item>P 50.00</item>
+        <item>P 100.00</item>
+        <item>P 80.00</item>
+    </string-array>
+    <string-array name="item_name_toPay">
+        <item>x5 Key Chain</item>
+        <item>Christmas Jar</item>
+        <item>x5 Key Chain</item>
+        <item>x5 Key Chain</item>
+        <item>Christmas Jar</item>
+        <item>x5 Key Chain</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="tab1">Home</string>
+    <string name="tab2">Products</string>
+    <string name="tab3">Orders</string>
+    <string name="tab4">Stats</string>
+
+    <string name="pastTab1">Completed</string>
+    <string name="pastTab2">Cancelled</string>
+    <string name="pastTab3">Return/Refund</string>
+
+    <string name="AllTab">All</string>
+    <string name="RestockTab">Restock</string>
+    <string name="Hold">Hold</string>
+
+    <string name="Chats">Chats</string>
+    <string name="Users">Users</string>
+    <string name="BookMark">Bookmarks</string>
+
+    <string-array name="Payment_Options">
+        <item>Gcash</item>
+        <item>Paymaya</item>
+        <item>Unionbank</item>
+        <item>Cash on Delivery</item>
+    </string-array>
+
+    <string-array name="Booking_Options">
+        <item>Lalamove</item>
+        <item>Maxim</item>
+    </string-array>
+
+    <string-array name="Accounts_Verified">
+        <item>Facebook</item>
+        <item>Instagram</item>
+        <item>Twitter</item>
+    </string-array>
+
+    <string-array name="Payment_Accounts">
+        <item>Gcash</item>
+        <item>Paymaya</item>
+        <item>Unionbank</item>
+        <item>Cash on Delivery</item>
+    </string-array>
+    <string-array name="Tag_Options">
+        <item>Completed Order</item>
+        <item>Cancelled Order</item>
+        <item>Return/Refund Order</item>
+    </string-array>
+
+
+</resources>

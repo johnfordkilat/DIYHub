@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_one"
+    tools:context=".Fragments.SellerProductsFragment">
+
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPageSellerOrdersPageFragment"
+        android:layout_width="403dp"
+        android:layout_height="731dp"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayoutSellerOrdersPageFragment"
+        android:layout_width="413dp"
+        android:layout_height="28dp"
+        android:background="@drawable/gradient"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.297"
+        app:tabSelectedTextColor="@color/yellow">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Restock" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hold" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/uploadProductButtonSeller2"
+        android:layout_width="415dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="2dp"
+        android:background="@color/green"
+        android:gravity="bottom|center|top"
+        android:text="+"
+        android:textColor="@color/white"
+        android:textSize="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/searchProductTxt"
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="166dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/textview_border"
+        android:ems="10"
+        android:hint="Search Product"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/tabLayoutSellerOrdersPageFragment"
+        app:layout_constraintEnd_toStartOf="@+id/imageView48"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/restockProductsSellerRecyclerFragment"
+        android:layout_width="406dp"
+        android:layout_height="479dp"
+        android:layout_marginTop="228dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintBottom_toBottomOf="@+id/uploadProductButtonSeller2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.19" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/allProductsSellerRecyclerFragment"
+        android:layout_width="407dp"
+        android:layout_height="424dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/uploadProductButtonSeller2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView48"
+        android:layout_width="37dp"
+        android:layout_height="40dp"
+        android:rotation="90"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.84"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.24000001"
+        app:srcCompat="@drawable/img_14" />
+</androidx.constraintlayout.widget.ConstraintLayout>
