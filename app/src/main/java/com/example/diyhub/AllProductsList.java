@@ -3,7 +3,7 @@ package com.example.diyhub;
 public class AllProductsList {
 
     String ProductName, ProductQuantity, ProductStocks;
-    String ProductImage,ProductID,ProductImageStatus,ProductStatus;
+    String ProductImage,ProductID,ProductStatusImage,ProductStatus;
 
     public AllProductsList(){
 
@@ -15,11 +15,17 @@ public class AllProductsList {
         ProductStocks = productStocks;
         ProductImage = prodImage;
         ProductID = prodID;
-        ProductImageStatus = prodImgStatus;
+        ProductStatusImage = prodImgStatus;
         ProductStatus = prodStatus;
     }
 
+    public String getProductStatusImage() {
+        return ProductStatusImage;
+    }
 
+    public void setProductStatusImage(String productStatusImage) {
+        ProductStatusImage = productStatusImage;
+    }
 
     public void setProductName(String productName) {
         ProductName = productName;
@@ -37,9 +43,7 @@ public class AllProductsList {
         ProductImage = productImage;
     }
 
-    public void setProductImageStatus(String productImageStatus) {
-        ProductImageStatus = productImageStatus;
-    }
+
 
     public String getProductName() {
         return ProductName;
@@ -56,7 +60,6 @@ public class AllProductsList {
         return ProductImage;
     }
     public String getProductID(){return ProductID;}
-    public String getProductImageStatus(){return ProductImageStatus;}
     public String getProductStatus(){return ProductStatus;}
     public void setProductStatus(String status)
     {

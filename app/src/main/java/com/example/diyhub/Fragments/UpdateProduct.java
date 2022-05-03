@@ -71,12 +71,33 @@ public class UpdateProduct extends AppCompatActivity {
         updateProd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id = prodID;
-                String name1 = name.getText().toString().trim();
-                String quan = quantity.getText().toString().trim();
-                String sto = stocks.getText().toString();
 
-                updateData(id,name1,quan,sto);
+                if(name.getText().toString().trim().isEmpty())
+                {
+                    name.setError("Product Name is Required");
+                    name.requestFocus();
+                    return;
+                }
+                else if(quantity.getText().toString().trim().isEmpty())
+                {
+                    quantity.setError("Product Quantity is Required");
+                    quantity.requestFocus();
+                    return;
+                }
+                else if(stocks.getText().toString().trim().isEmpty())
+                {
+                    stocks.setError("Product Stocks is Required");
+                    stocks.requestFocus();
+                    return;
+                }
+                else {
+                    String id = prodID;
+                    String name1 = name.getText().toString().trim();
+                    String quan = quantity.getText().toString().trim();
+                    String sto = stocks.getText().toString();
+
+                    updateData(id,name1,quan,sto);
+                }
             }
         });
 
@@ -87,30 +108,8 @@ public class UpdateProduct extends AppCompatActivity {
 
     private void updateData(String id1, String name1, String quan1, String stocks1)
     {
-        String a = name.getText().toString();
-        String b = quantity.getText().toString();
-        String c = stocks.getText().toString();
         int q = Integer.parseInt(quan1);
         int s = Integer.parseInt(stocks1);
-
-        if(a.matches(""))
-        {
-            name.setError("Product Name is Required");
-            name.requestFocus();
-            return;
-        }
-        if(b.matches(""))
-        {
-            quantity.setError("Product Quantity is Required");
-            quantity.requestFocus();
-            return;
-        }
-        if(c.matches(""))
-        {
-            stocks.setError("Product Stocks is Required");
-            stocks.requestFocus();
-            return;
-        }
         if(q > s)
         {
             quantity.setError("Product Quantity should not be greater than Product Stocks");
@@ -123,8 +122,21 @@ public class UpdateProduct extends AppCompatActivity {
 
         if(q == s)
         {
+
+
             final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+
+            DatabaseReference reference4 = FirebaseDatabase.getInstance().getReference("SellerProducts").child(firebaseUser.getUid()).child(id1);
+            HashMap<String, Object> hashMap4 = new HashMap<>();
+            hashMap4.put("ProductName", name1);
+            hashMap4.put("ProductQuantity", quan1);
+            hashMap4.put("ProductStocks", stocks1);
+            hashMap4.put("ProductImage", prodImage);
+            hashMap4.put("ProductID", id1);
+            hashMap4.put("ProductStatus", "Hold");
+            hashMap4.put("ProductStatusImage", playImageStatus);
+            reference4.updateChildren(hashMap4);
 
             reference.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -147,7 +159,7 @@ public class UpdateProduct extends AppCompatActivity {
                             hashMap.put("ProductStocks", stocks1);
                             hashMap.put("ProductImage", prodImage);
                             hashMap.put("ProductID", id1);
-                            hashMap.put("ProductImageStatus", playImageStatus);
+                            hashMap.put("ProductStatusImage", playImageStatus);
                             hashMap.put("ProductStatus", "Hold");
                             reference.child("RestockNotification").child(user.getId()).child(id1).setValue(hashMap);
 
@@ -157,8 +169,11 @@ public class UpdateProduct extends AppCompatActivity {
                             hashMap1.put("ProductQuantity", quan1);
                             hashMap1.put("ProductStocks", stocks1);
                             hashMap1.put("ProductStatus", "Hold");
-                            hashMap1.put("ProductImageStatus", playImageStatus);
+                            hashMap1.put("ProductStatusImage", playImageStatus);
                             reference2.updateChildren(hashMap1);
+                            progressDialog.dismiss();
+
+                            finish();
                         }
                     }
                 }
@@ -168,34 +183,26 @@ public class UpdateProduct extends AppCompatActivity {
 
                 }
             });
-            dbFirestore.collection("USERPROFILE").document(firebaseUser.getEmail()).collection("SELLERPRODUCTS").document(id1)
-                    .update("ProductName", name1, "ProductQuantity", quan1, "ProductStocks", stocks1, "ProductStatus", "Hold", "ProductStatusImage",playImageStatus)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            progressDialog.dismiss();
-                            int tab = 1;
-                            Toast.makeText(getApplicationContext(), "Product Updated Successfully", Toast.LENGTH_SHORT).show();
-
-                            Intent intent = new Intent(UpdateProduct.this, SellerHomePage.class);
-                            intent.putExtra("Tab", tab);
-                            startActivity(intent);
-                            finish();
-
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    progressDialog.dismiss();
-                    Toast.makeText(getApplicationContext(), "Product Update Failed!", Toast.LENGTH_SHORT).show();
-                }
-            });
         }
        else if(q < s)
         {
 
             final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+
+
+            DatabaseReference reference4 = FirebaseDatabase.getInstance().getReference("SellerProducts").child(firebaseUser.getUid()).child(id1);
+            HashMap<String, Object> hashMap4 = new HashMap<>();
+            hashMap4.put("ProductName", name1);
+            hashMap4.put("ProductQuantity", quan1);
+            hashMap4.put("ProductStocks", stocks1);
+            hashMap4.put("ProductImage", prodImage);
+            hashMap4.put("ProductID", id1);
+            hashMap4.put("ProductStatus", "Active");
+            hashMap4.put("ProductStatusImage", pauseImageStatus);
+            reference4.updateChildren(hashMap4);
+
+            Toast.makeText(UpdateProduct.this, "Product Updated Successfully", Toast.LENGTH_SHORT).show();
 
             reference.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -218,7 +225,7 @@ public class UpdateProduct extends AppCompatActivity {
                             hashMap.put("ProductStocks", stocks1);
                             hashMap.put("ProductImage", prodImage);
                             hashMap.put("ProductID", id1);
-                            hashMap.put("ProductImageStatus", pauseImageStatus);
+                            hashMap.put("ProductStatusImage", pauseImageStatus);
                             hashMap.put("ProductStatus", "Active");
                             reference.child("RestockNotification").child(user.getId()).child(id1).setValue(hashMap);
 
@@ -229,8 +236,14 @@ public class UpdateProduct extends AppCompatActivity {
                             hashMap1.put("ProductQuantity", quan1);
                             hashMap1.put("ProductStocks", stocks1);
                             hashMap1.put("ProductStatus", "Active");
-                            hashMap1.put("ProductImageStatus", playImageStatus);
+                            hashMap1.put("ProductStatusImage", playImageStatus);
                             reference2.updateChildren(hashMap1);
+
+                            progressDialog.dismiss();
+
+                            finish();
+
+
                         }
                     }
                 }
@@ -238,29 +251,6 @@ public class UpdateProduct extends AppCompatActivity {
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
 
-                }
-            });
-            dbFirestore.collection("USERPROFILE").document(firebaseUser.getEmail()).collection("SELLERPRODUCTS").document(id1)
-                    .update("ProductName", name1, "ProductQuantity", quan1, "ProductStocks", stocks1, "ProductStatus", "Active", "ProductStatusImage",pauseImageStatus)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            progressDialog.dismiss();
-                            int tab = 1;
-                            Toast.makeText(getApplicationContext(), "Product Updated Successfully", Toast.LENGTH_SHORT).show();
-
-                            Intent intent = new Intent(UpdateProduct.this, SellerHomePage.class);
-                            intent.putExtra("Tab", tab);
-                            startActivity(intent);
-                            finish();
-
-
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    progressDialog.dismiss();
-                    Toast.makeText(getApplicationContext(), "Product Update Failed!", Toast.LENGTH_SHORT).show();
                 }
             });
         }

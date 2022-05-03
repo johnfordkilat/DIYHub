@@ -2,7 +2,9 @@ package com.example.diyhub.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,19 +16,27 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.diyhub.AllProductsAdapter;
 import com.example.diyhub.AllProductsList;
+import com.example.diyhub.Notifications.UserNotif;
 import com.example.diyhub.R;
+import com.example.diyhub.SellerHomePage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.binary.StringUtils;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -77,6 +87,8 @@ public class AddProduct extends AppCompatActivity {
     String pauseImageStatus = "https://firebasestorage.googleapis.com/v0/b/diy-hub-847fb.appspot.com/o/PRODUCTSTATUS%2Fpause__video__stop-removebg-preview.png?alt=media&token=dc125631-d226-41e1-91ac-6abf0b97c18d";
 
 
+    String id;
+    String cutid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,11 +120,34 @@ public class AddProduct extends AppCompatActivity {
         uploadProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String pName = productName.getText().toString();
-                String pQuan = productQuantity.getText().toString();
-                String pStocks = productStocks.getText().toString();
-                String sellerEmail = mAuth.getCurrentUser().getEmail();
-                uploadImage(pName,pQuan,pStocks,sellerEmail);
+
+                if(productName.getText().toString().trim().isEmpty())
+                {
+                    productName.setError("Product Name is Required");
+                    productName.requestFocus();
+                    return;
+                }
+                else if(productQuantity.getText().toString().trim().isEmpty())
+                {
+                    productQuantity.setError("Product Quantity is Required");
+                    productQuantity.requestFocus();
+                    return;
+                }
+                else if(productStocks.getText().toString().trim().isEmpty())
+                {
+                    productStocks.setError("Product Stocks is Required");
+                    productStocks.requestFocus();
+                    return;
+                }
+                else {
+                    String pName = productName.getText().toString();
+                    String pQuan = productQuantity.getText().toString();
+                    String pStocks = productStocks.getText().toString();
+                    String sellerEmail = mAuth.getCurrentUser().getEmail();
+                    uploadImage(pName,pQuan,pStocks,sellerEmail);
+                }
+
+
 
             }
         });
@@ -137,61 +172,111 @@ public class AddProduct extends AppCompatActivity {
         String sellerEmail = selleEm;
 
 
+
+        Log.d("drawableImage", String.valueOf(imageUri1) + clicked);
         int pQUan = Integer.parseInt(prodQuan);
         int pSTock = Integer.parseInt(prodStocks);
+        if(pQUan > pSTock)
+        {
+            productQuantity.setError("Product Quantity should not be greater than Product Stocks");
+            productQuantity.requestFocus();
+            return;
+        }
+        else if(clicked == 0 && imageUri1 == null)
+        {
+            Toast.makeText(this, "Please choose Product Image", Toast.LENGTH_SHORT).show();
+            prodImage.requestFocus();
+            return;
+        }
 
+        else if(pQUan == pSTock)
+        {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setCancelable(false);
+            progressDialog.setTitle("Uploading Product....");
+            progressDialog.show();
 
+            StorageReference ImageFolder =  FirebaseStorage.getInstance().getReference().child(sellerEmail);
+            for (uploads=0; uploads < ImageList.size(); uploads++) {
+                Uri Image  = ImageList.get(uploads);
+                StorageReference imagename = ImageFolder.child("Seller-Products/"+Image.getLastPathSegment());
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(false);
-        progressDialog.setTitle("Uploading Product....");
-        progressDialog.show();
+                imagename.putFile(ImageList.get(uploads)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        imagename.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
 
-        StorageReference ImageFolder =  FirebaseStorage.getInstance().getReference().child(sellerEmail);
-        for (uploads=0; uploads < ImageList.size(); uploads++) {
-            Uri Image  = ImageList.get(uploads);
-            StorageReference imagename = ImageFolder.child("Seller-Products/"+Image.getLastPathSegment());
+                                String url = String.valueOf(uri);
+                                progressDialog.dismiss();
+                                Log.d("DownloadUrl", url);
+                                id = UUID.randomUUID().toString();
+                                cutid = id.substring(0,11);
 
-            imagename.putFile(ImageList.get(uploads)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    imagename.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                                Map<String,Object> sellerProductsfb = new HashMap<>();
+                                sellerProductsfb.put("ProductImage", url);
+                                sellerProductsfb.put("ProductName", prodName);
+                                sellerProductsfb.put("ProductQuantity", prodQuan);
+                                sellerProductsfb.put("ProductStocks", prodStocks);
+                                sellerProductsfb.put("ProductID", cutid);
+                                sellerProductsfb.put("ProductStatus", "Hold");
+                                sellerProductsfb.put("ProductStatusImage", playImageStatus);
+                                reference.child("SellerProducts").child(user.getUid()).child(cutid).setValue(sellerProductsfb);
+                                Toast.makeText(getApplicationContext(), "Product Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        });
+                    }
+                });
+            }
+        }
 
-                            String url = String.valueOf(uri);
-                            progressDialog.dismiss();
-                            Log.d("DownloadUrl", url);
-                            String id = UUID.randomUUID().toString();
-                            String cutid = id.substring(0,11);
-                            Map<String,Object> sellerProducts = new HashMap<>();
-                            sellerProducts.put("ProductImage", url);
-                            sellerProducts.put("ProductName", prodName);
-                            sellerProducts.put("ProductQuantity", prodQuan);
-                            sellerProducts.put("ProductStocks", prodStocks);
-                            sellerProducts.put("ProductID", id);
-                            sellerProducts.put("ProductStatus", "Active");
-                            sellerProducts.put("ProductStatusImage", pauseImageStatus);
-                            dbFirestore.collection("USERPROFILE").document(sellerEmail).collection("SELLERPRODUCTS").document(cutid).set(sellerProducts)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            progressDialog.dismiss();
-                                            Toast.makeText(getApplicationContext(), "Product Uploaded Successfully!", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(AddProduct.this, SellerProductsFragment.class);
-                                            startActivity(intent);
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    progressDialog.dismiss();
-                                    Toast.makeText(getApplicationContext(), "Upload Failed!", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
-                    });
-                }
-            });
+        else
+        {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setCancelable(false);
+            progressDialog.setTitle("Uploading Product....");
+            progressDialog.show();
+
+            StorageReference ImageFolder =  FirebaseStorage.getInstance().getReference().child(sellerEmail);
+            for (uploads=0; uploads < ImageList.size(); uploads++) {
+                Uri Image  = ImageList.get(uploads);
+                StorageReference imagename = ImageFolder.child("Seller-Products/"+Image.getLastPathSegment());
+
+                imagename.putFile(ImageList.get(uploads)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        imagename.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+
+                                String url = String.valueOf(uri);
+                                progressDialog.dismiss();
+                                Log.d("DownloadUrl", url);
+                                id = UUID.randomUUID().toString();
+                                cutid = id.substring(0,11);
+
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                                Map<String,Object> sellerProductsfb = new HashMap<>();
+                                sellerProductsfb.put("ProductImage", url);
+                                sellerProductsfb.put("ProductName", prodName);
+                                sellerProductsfb.put("ProductQuantity", prodQuan);
+                                sellerProductsfb.put("ProductStocks", prodStocks);
+                                sellerProductsfb.put("ProductID", cutid);
+                                sellerProductsfb.put("ProductStatus", "Active");
+                                sellerProductsfb.put("ProductStatusImage", pauseImageStatus);
+                                reference.child("SellerProducts").child(user.getUid()).child(cutid).setValue(sellerProductsfb);
+                                Toast.makeText(getApplicationContext(), "Product Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        });
+                    }
+                });
+            }
         }
     }
 

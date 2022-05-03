@@ -37,7 +37,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -231,55 +235,44 @@ public class SellerProductsFragment extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-
-        dbFirestore.collection("USERPROFILE").document(firebaseUser.getEmail()).collection("SELLERPRODUCTS")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        allProductsLists.clear();
-
-                        for(DocumentSnapshot doc : task.getResult())
-                        {
-                            pQuan = Integer.parseInt(doc.getString("ProductQuantity"));
-                            pStocks = Integer.parseInt(doc.getString("ProductStocks"));
-
-                            if(pQuan >= pStocks)
-                            {
-                                RestockProductsList restockList = new RestockProductsList(doc.getString("ProductName"),
-                                        doc.getString("ProductQuantity"),
-                                        doc.getString("ProductStocks"),
-                                        doc.getString("ProductImage"),
-                                        doc.getString("ProductID"),
-                                        doc.getString("ProductStatusImage"),
-                                        doc.getString("ProductStatus"));
-                                restockProductsList.add(restockList);
-                            }
-                            AllProductsList list = new AllProductsList(doc.getString("ProductName"),
-                                    doc.getString("ProductQuantity"),
-                                    doc.getString("ProductStocks"),
-                                    doc.getString("ProductImage"),
-                                    doc.getString("ProductID"),
-                                    doc.getString("ProductStatusImage"),
-                                    doc.getString("ProductStatus"));
-                            allProductsLists.add(list);
-
-                        }
-                        allProductsAdapter = new AllProductsAdapter(getContext(),allProductsLists);
-                        restockProductsAdapter = new RestockProductsAdapter(getContext(), restockProductsList);
-
-                        allProductsRecyclerView.setAdapter(allProductsAdapter);
-                        restockProductRecycler.setAdapter(restockProductsAdapter);
-                        restockProductRecycler.setVisibility(View.INVISIBLE);
-                        progressDialog.dismiss();
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(firebaseUser.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(), ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                allProductsLists.clear();
+                restockProductsList.clear();
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    AllProductsList allList = snapshot.getValue(AllProductsList.class);
+                    String pQuan = allList.getProductQuantity();
+                    String pStocks = allList.getProductStocks();
+                    allProductsLists.add(allList);
+                    int quantity = Integer.parseInt(pQuan);
+                    int stocks = Integer.parseInt(pStocks);
+                    if(quantity >= stocks)
+                    {
+                        RestockProductsList restockList = snapshot.getValue(RestockProductsList.class);
+                        restockProductsList.add(restockList);
+                    }
+
+                }
+                allProductsAdapter = new AllProductsAdapter(getContext(),allProductsLists);
+                restockProductsAdapter = new RestockProductsAdapter(getContext(), restockProductsList);
+
+                allProductsRecyclerView.setAdapter(allProductsAdapter);
+                restockProductRecycler.setAdapter(restockProductsAdapter);
+                restockProductRecycler.setVisibility(View.INVISIBLE);
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
+
+
+
     }
 
     @Override

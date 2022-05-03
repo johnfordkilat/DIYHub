@@ -50,6 +50,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -132,7 +133,7 @@ public class RestockProductsAdapter extends RecyclerView.Adapter<RestockProducts
             type = "restock";
 
         }
-        Glide.with(context).load(list.get(position).getProductImageStatus()).into(holder.pauseButton);
+        Glide.with(context).load(list.get(position).getProductStatusImage()).into(holder.pauseButton);
 
 
 
@@ -209,63 +210,42 @@ public class RestockProductsAdapter extends RecyclerView.Adapter<RestockProducts
 
                                     if(productsList.getProductStatus().equals("Hold"))
                                     {
-                                        dbFirestore.collection("USERPROFILE").document(sellerEmail).collection("SELLERPRODUCTS").document(productsList.getProductID())
-                                                .update("ProductStatus", "Active", "ProductStatusImage", pauseImageStatus)
-                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        progressDialog.dismiss();
-                                                        Toast.makeText(context, "Product is NOW ACTIVE!!", Toast.LENGTH_SHORT).show();
-                                                        //Glide.with(context).load(list.get(position).getProductImageStatus()).into(holder.pauseButton);
-                                                        holder.pauseButton.setImageBitmap(getBitmapFromURL(pauseImageStatus));
-                                                        productsList.setProductImageStatus(pauseImageStatus);
-                                                        productsList.setProductStatus("Active");
-                                                        dbStatus = "Active";
-                                                        imageStatus = pauseImageStatus;
-                                                        pos = position;
-                                                        readUsers("Product is NOW ACTIVE!!");
 
+                                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(fUser.getUid()).child(list.get(position).getProductID());
+                                        Map<String, Object> map = new HashMap<>();
+                                        map.put("ProductStatus", "Active");
+                                        map.put("ProductStatusImage", pauseImageStatus);
+                                        reference.updateChildren(map);
+                                        Toast.makeText(context, "Product is NOW ACTIVE!!", Toast.LENGTH_SHORT).show();
+                                        //Glide.with(context).load(list.get(position).getProductImageStatus()).into(holder.pauseButton);
+                                        holder.pauseButton.setImageBitmap(getBitmapFromURL(pauseImageStatus));
+                                        productsList.setProductStatusImage(pauseImageStatus);
+                                        productsList.setProductStatus("Active");
+                                        dbStatus = "Active";
+                                        imageStatus = pauseImageStatus;
+                                        pos = position;
+                                        readUsers("Product is NOW ACTIVE!!");
+                                        progressDialog.dismiss();
 
-
-                                                        //notifyDataSetChanged();
-
-                                                    }
-                                                }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                progressDialog.dismiss();
-                                                Toast.makeText(context, "Product Update Failed!", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
                                     }
-                                    if(productsList.getProductStatus().equals("Active"))
+                                    else if(productsList.getProductStatus().equals("Active"))
                                     {
-                                        dbFirestore.collection("USERPROFILE").document(sellerEmail).collection("SELLERPRODUCTS").document(productsList.getProductID())
-                                                .update("ProductStatus", "Hold", "ProductStatusImage", playImageStatus)
-                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        progressDialog.dismiss();
-                                                        Toast.makeText(context, "Product is ON HOLD!", Toast.LENGTH_SHORT).show();
-                                                        //Glide.with(context).load(list.get(position).getProductImageStatus()).into(holder.pauseButton);
-                                                        holder.pauseButton.setImageBitmap(getBitmapFromURL(playImageStatus));
-                                                        productsList.setProductImageStatus(playImageStatus);
-                                                        productsList.setProductStatus("Hold");
-                                                        dbStatus = "Hold";
-                                                        imageStatus = playImageStatus;
-                                                        pos = position;
-                                                        readUsers("Product is ON HOLD!");
 
-
-                                                        //notifyDataSetChanged();
-                                                    }
-                                                }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                progressDialog.dismiss();
-                                                Toast.makeText(context, "Product Update Failed!", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
+                                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(fUser.getUid()).child(list.get(position).getProductID());
+                                        Map<String, Object> map = new HashMap<>();
+                                        map.put("ProductStatus", "Hold");
+                                        map.put("ProductStatusImage", playImageStatus);
+                                        reference.updateChildren(map);
+                                        Toast.makeText(context, "Product is ON HOLD!!", Toast.LENGTH_SHORT).show();
+                                        //Glide.with(context).load(list.get(position).getProductImageStatus()).into(holder.pauseButton);
+                                        holder.pauseButton.setImageBitmap(getBitmapFromURL(playImageStatus));
+                                        productsList.setProductStatusImage(playImageStatus);
+                                        productsList.setProductStatus("Hold");
+                                        dbStatus = "Hold";
+                                        imageStatus = playImageStatus;
+                                        pos = position;
+                                        readUsers("Product is ON HOLD!!");
+                                        progressDialog.dismiss();
                                     }
                                 }
                             }).setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -300,22 +280,20 @@ public class RestockProductsAdapter extends RecyclerView.Adapter<RestockProducts
                                 progressDialog.show();
                                 //Toast.makeText(context,   "Product ID: " + productsList.getProductID(), Toast.LENGTH_SHORT).show();
 
-                                String sellerEmail = mAuth.getCurrentUser().getEmail();
-                                dbFirestore.collection("USERPROFILE").document(sellerEmail).collection("SELLERPRODUCTS").document(productsList.getProductID())
-                                        .delete()
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                progressDialog.dismiss();
-                                                Toast.makeText(context, "Product Deleted Successfully", Toast.LENGTH_SHORT).show();
-                                                list.remove(position);
-                                                notifyItemRemoved(position);
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(fUser.getUid()).child(list.get(position).getProductID());
+                                reference.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
-                                    public void onFailure(@NonNull Exception e) {
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        reference.removeValue();
+                                        list.remove(position);
+                                        Toast.makeText(context, "Product Deleted", Toast.LENGTH_SHORT).show();
+                                        notifyItemRemoved(position);
                                         progressDialog.dismiss();
-                                        Toast.makeText(context, "Product Deletion Failed!", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
                                     }
                                 });
 
@@ -430,7 +408,7 @@ public class RestockProductsAdapter extends RecyclerView.Adapter<RestockProducts
                         hashMap.put("ProductStocks", list.get(pos).getProductStocks());
                         hashMap.put("ProductImage", list.get(pos).getProductImage());
                         hashMap.put("ProductID", list.get(pos).getProductID());
-                        hashMap.put("ProductImageStatus", list.get(pos).getProductImageStatus());
+                        hashMap.put("ProductImageStatus", list.get(pos).getProductStatusImage());
                         hashMap.put("ProductStatus", list.get(pos).getProductStatus());
                         reference.child("RestockNotification").child(user.getId()).child(list.get(pos).getProductID()).setValue(hashMap);
 
