@@ -11,6 +11,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -64,6 +65,10 @@ public class ChatsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerViewChats);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recycler_divider));
+        recyclerView.addItemDecoration(dividerItemDecoration);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 

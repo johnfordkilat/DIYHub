@@ -185,6 +185,8 @@ public class LoginPage extends AppCompatActivity {
             Toast.makeText(LoginPage.this, "Username is invalid!!", Toast.LENGTH_SHORT).show();
         }
 
+
+
     }
 
     public void fetchData()

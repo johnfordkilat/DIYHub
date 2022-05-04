@@ -36,6 +36,7 @@ import com.example.diyhub.MESSAGES.MessageActivity;
 import com.example.diyhub.MESSAGES.MessageAdapter;
 import com.example.diyhub.Notifications.NotificationPromo;
 import com.example.diyhub.Notifications.NotificationPromoDisplay;
+import com.example.diyhub.Notifications.NotificationPromoList;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -152,12 +153,20 @@ public class SellerHomePage extends AppCompatActivity {
     public static final String Username = "username";
     public static final String Password = "password";
 
-    TextView notifCounter;
     Button increaseButton;
     int count = 0;
     int passedTab;
 
-    CardView chatNumber;
+    TextView chatCounter;
+    CardView chatCardview;
+
+    CardView notifCardview;
+    TextView notifCounter;
+
+    int ordersTab;
+    int orderRequestTab;
+
+
 
 
     @Override
@@ -171,8 +180,14 @@ public class SellerHomePage extends AppCompatActivity {
 
         chatImage = findViewById(R.id.chatImageViewButton);
         notifButton = findViewById(R.id.notificationButtonHome);
-        notifCounter = findViewById(R.id.chatCounter);
-        chatNumber = findViewById(R.id.chatNumberContainer);
+
+        chatCounter = findViewById(R.id.chatCounter);
+        chatCardview = findViewById(R.id.chatNumberContainer);
+
+        notifCounter = findViewById(R.id.notifCounter);
+        notifCardview = findViewById(R.id.notificationNumberContainer);
+
+
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -199,7 +214,19 @@ public class SellerHomePage extends AppCompatActivity {
             shMotto = extras.getString("UserMotto");
             userType = extras.getString("UserTypeSeller");
             passedTab = extras.getInt("Tab");
+            ordersTab = extras.getInt("HomepageTab");
+            orderRequestTab = extras.getInt("TablayoutTab");
         }
+
+
+
+
+        if(ordersTab == 2)
+        {
+            tabLayout.getTabAt(2).select();
+        }
+
+
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -219,6 +246,7 @@ public class SellerHomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                /*
                 Toast.makeText(SellerHomePage.this, "Reminder Set", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(SellerHomePage.this, NotificationPromoDisplay.class);
@@ -233,6 +261,8 @@ public class SellerHomePage extends AppCompatActivity {
                 alarmManager.set(AlarmManager.RTC_WAKEUP, timeAtButtonClick + tenSeconds, pendingIntent);
 
                 //Log.d("SELLERERROR", "error");
+
+                 */
 
                 Intent intent1 = new Intent(SellerHomePage.this, NotificationPromo.class);
                 startActivity(intent1);
@@ -330,6 +360,33 @@ public class SellerHomePage extends AppCompatActivity {
 
     private void updateNotificationsCount() {
         // TODO: larona, add your logic here
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Notifications").child(user.getUid());
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                int counterNotif = 0;
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    NotificationPromoList notif = snapshot.getValue(NotificationPromoList.class);
+                    if(notif.getIsSeen().equalsIgnoreCase("false"))
+                    {
+                        counterNotif++;
+                    }
+
+                    notifCounter.setText(String.valueOf(counterNotif));
+                    notifCardview.setVisibility(counterNotif == 0 ? View.INVISIBLE : View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void updateMessageCount() {
@@ -349,8 +406,8 @@ public class SellerHomePage extends AppCompatActivity {
                         counter++;
                     }
 
-                    notifCounter.setText(String.valueOf(counter));
-                    chatNumber.setVisibility(counter == 0 ? View.INVISIBLE : View.VISIBLE);
+                    chatCounter.setText(String.valueOf(counter));
+                    chatCardview.setVisibility(counter == 0 ? View.INVISIBLE : View.VISIBLE);
                 }
             }
 

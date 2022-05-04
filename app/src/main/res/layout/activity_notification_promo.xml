@@ -7,11 +7,6 @@
     android:background="@drawable/gradient_one"
     tools:context=".Notifications.NotificationPromo">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPageNotificationPage"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <TextView
         android:id="@+id/textView20"
         android:layout_width="370dp"
@@ -63,20 +58,17 @@
         app:layout_constraintVertical_bias="0.062"
         app:srcCompat="@drawable/img_14" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayoutNotificationPage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="544dp"
-        android:background="@color/design_default_color_primary_dark"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerNotifList"
+        android:layout_width="409dp"
+        android:layout_height="605dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView20"
-        app:tabIndicatorColor="#fff"
-        app:tabSelectedTextColor="#fff"
-        app:tabTextColor="#fff" />
+        app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,6 @@
         android:id="@+id/recuclerViewUsers"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="150dp" />
+        android:layout_marginTop="160dp" />
 
 </FrameLayout>

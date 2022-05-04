@@ -5,18 +5,21 @@ import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.diyhub.MyAdapter;
 import com.example.diyhub.R;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,20 +35,26 @@ public class NotificationPromo extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewPager;
     ImageView backButton;
+    NotificationPromoAdapter notificationPromoAdapter;
+    List<NotificationPromoList> list;
 
 
-    MyAdapter myAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_promo);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        tabLayout = findViewById(R.id.tabLayoutNotificationPage);
-        viewPager = findViewById(R.id.viewPageNotificationPage);
         backButton = findViewById(R.id.backButtonNotifPage);
+
+        recyclerView = findViewById(R.id.recyclerNotifList);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recycler_divider));
+        recyclerView.addItemDecoration(dividerItemDecoration);
+
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,64 +63,36 @@ public class NotificationPromo extends AppCompatActivity {
             }
         });
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 
+        list = new ArrayList<>();
+        reference = FirebaseDatabase.getInstance().getReference("Notifications").child(user.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                list.clear();
 
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    NotificationPromoList notiflist = snapshot.getValue(NotificationPromoList.class);
+                    list.add(notiflist);
+                }
 
-        ViewPageAdapter viewPageAdapter = new ViewPageAdapter(getSupportFragmentManager());
+                notificationPromoAdapter = new NotificationPromoAdapter(getApplicationContext(), list);
+                recyclerView.setAdapter(notificationPromoAdapter);
 
-        viewPageAdapter.addFragment(new PromoFragment(), "Promos");
-        viewPageAdapter.addFragment(new RestockFragment(), "Restocked");
+            }
 
-        viewPager.setAdapter(viewPageAdapter);
-        tabLayout.setupWithViewPager(viewPager);
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-
+            }
+        });
 
 
 
     }
-
-    class ViewPageAdapter extends FragmentPagerAdapter {
-
-
-        private ArrayList<Fragment> fragments;
-        private ArrayList<String> titles;
-
-        public ViewPageAdapter(@NonNull FragmentManager fm) {
-            super(fm);
-            this.fragments = new ArrayList<>();
-            this.titles = new ArrayList<>();
-        }
-
-        public ViewPageAdapter(@NonNull FragmentManager fm, int behavior) {
-            super(fm, behavior);
-        }
-
-        @NonNull
-        @Override
-        public Fragment getItem(int position) {
-            return fragments.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return fragments.size();
-        }
-
-        public void addFragment(Fragment fragment, String title)
-        {
-            fragments.add(fragment);
-            titles.add(title);
-        }
-
-        @Nullable
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return titles.get(position);
-        }
-    }
-
 
 
 
