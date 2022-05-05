@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.diyhub.Fragments.OrderDetailStandardPage;
+import com.example.diyhub.Fragments.SellerOrdersFragment;
 import com.example.diyhub.MESSAGES.Bookmark;
 import com.example.diyhub.MESSAGES.Chat;
 import com.example.diyhub.MESSAGES.MessageActivity;
@@ -80,7 +81,7 @@ public class NotificationPromoAdapter extends RecyclerView.Adapter<NotificationP
 
                 if(promoList.getNotifHeader().equalsIgnoreCase("Order Request"))
                 {
-                    Intent intent = new Intent(mContext, OrderDetailStandardPage.class);
+                    Intent intent = new Intent(mContext, SellerOrdersFragment.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContext.startActivity(intent);
                 }

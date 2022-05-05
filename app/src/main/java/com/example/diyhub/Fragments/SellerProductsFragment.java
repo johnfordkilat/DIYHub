@@ -28,6 +28,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.diyhub.AllProductsAdapter;
 import com.example.diyhub.AllProductsList;
+import com.example.diyhub.HoldProductsAdapter;
+import com.example.diyhub.HoldProductsList;
 import com.example.diyhub.R;
 import com.example.diyhub.RestockProductsAdapter;
 import com.example.diyhub.RestockProductsList;
@@ -105,6 +107,12 @@ public class SellerProductsFragment extends Fragment {
 
     SearchView searchView;
 
+    RecyclerView holdProductRecycler;
+    HoldProductsAdapter holdProductsAdapter;
+    ArrayList<HoldProductsList> holdProductsLists;
+    String playImageStatus = "https://firebasestorage.googleapis.com/v0/b/diy-hub-847fb.appspot.com/o/PRODUCTSTATUS%2Fillust58-7479-01-removebg-preview.png?alt=media&token=63a829e1-660e-47e6-9b26-dc66d8eaac48";
+
+
 
 
 
@@ -137,9 +145,14 @@ public class SellerProductsFragment extends Fragment {
         allProductsRecyclerView.setHasFixedSize(true);
         allProductsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        holdProductRecycler = view.findViewById(R.id.holdProductsSellerRecyclerFragment);
+        holdProductRecycler.setHasFixedSize(true);
+        holdProductRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+
         dbFirestore = FirebaseFirestore.getInstance();
         restockProductsList = new ArrayList<RestockProductsList>();
         allProductsLists = new ArrayList<AllProductsList>();
+        holdProductsLists = new ArrayList<>();
 
 
 
@@ -166,6 +179,7 @@ public class SellerProductsFragment extends Fragment {
         dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recycler_divider));
         allProductsRecyclerView.addItemDecoration(dividerItemDecoration);
         restockProductRecycler.addItemDecoration(dividerItemDecoration);
+        holdProductRecycler.addItemDecoration(dividerItemDecoration);
 
 
 
@@ -178,6 +192,7 @@ public class SellerProductsFragment extends Fragment {
                 {
                     allProductsRecyclerView.setVisibility(View.VISIBLE);
                     restockProductRecycler.setVisibility(View.INVISIBLE);
+                    holdProductRecycler.setVisibility(View.INVISIBLE);
                     uploadProduct.setVisibility(View.VISIBLE);
                 }
 
@@ -185,6 +200,7 @@ public class SellerProductsFragment extends Fragment {
                 {
                     allProductsRecyclerView.setVisibility(View.INVISIBLE);
                     restockProductRecycler.setVisibility(View.VISIBLE);
+                    holdProductRecycler.setVisibility(View.INVISIBLE);
                     uploadProduct.setVisibility(View.INVISIBLE);
                 }
 
@@ -192,6 +208,7 @@ public class SellerProductsFragment extends Fragment {
                 {
                     allProductsRecyclerView.setVisibility(View.INVISIBLE);
                     restockProductRecycler.setVisibility(View.INVISIBLE);
+                    holdProductRecycler.setVisibility(View.VISIBLE);
                     uploadProduct.setVisibility(View.INVISIBLE);
                 }
 
@@ -241,6 +258,7 @@ public class SellerProductsFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 allProductsLists.clear();
                 restockProductsList.clear();
+                holdProductsLists.clear();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren())
                 {
                     AllProductsList allList = snapshot.getValue(AllProductsList.class);
@@ -249,6 +267,13 @@ public class SellerProductsFragment extends Fragment {
                     allProductsLists.add(allList);
                     int quantity = Integer.parseInt(pQuan);
                     int stocks = Integer.parseInt(pStocks);
+
+                    if(allList.getProductStatus().equalsIgnoreCase("Hold") && stocks > quantity)
+                    {
+                        HoldProductsList holdlist = snapshot.getValue(HoldProductsList.class);
+                        holdProductsLists.add(holdlist);
+                    }
+
                     if(quantity >= stocks)
                     {
                         RestockProductsList restockList = snapshot.getValue(RestockProductsList.class);
@@ -258,10 +283,14 @@ public class SellerProductsFragment extends Fragment {
                 }
                 allProductsAdapter = new AllProductsAdapter(getContext(),allProductsLists);
                 restockProductsAdapter = new RestockProductsAdapter(getContext(), restockProductsList);
+                holdProductsAdapter = new HoldProductsAdapter(getContext(), holdProductsLists);
+
 
                 allProductsRecyclerView.setAdapter(allProductsAdapter);
                 restockProductRecycler.setAdapter(restockProductsAdapter);
+                holdProductRecycler.setAdapter(holdProductsAdapter);
                 restockProductRecycler.setVisibility(View.INVISIBLE);
+                holdProductRecycler.setVisibility(View.INVISIBLE);
                 progressDialog.dismiss();
             }
 

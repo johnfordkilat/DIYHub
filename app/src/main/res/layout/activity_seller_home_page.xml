@@ -7,10 +7,41 @@
     android:background="@drawable/gradient_one"
     tools:context=".SellerHomePage">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ordersNotificationNumberContainer"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:visibility="invisible"
+        app:cardBackgroundColor="@color/red"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tabLayoutSellerHomePage"
+        app:layout_constraintEnd_toEndOf="@+id/tabLayoutSellerHomePage"
+        app:layout_constraintHorizontal_bias="0.69"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.83">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/ordersNotifCounter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPageSellerHomePage1"
-        android:layout_width="407dp"
-        android:layout_height="736dp"
+        android:layout_width="412dp"
+        android:layout_height="728dp"
         android:layout_marginBottom="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

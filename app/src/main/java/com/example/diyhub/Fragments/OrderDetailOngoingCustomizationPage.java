@@ -48,6 +48,8 @@ public class OrderDetailOngoingCustomizationPage extends AppCompatActivity {
     ImageButton copyButton;
     ImageView movetoAccepted;
 
+    TextView movetoLabel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +71,7 @@ public class OrderDetailOngoingCustomizationPage extends AppCompatActivity {
         backButton = findViewById(R.id.backButtonCustomPageOngoing);
         copyButton = findViewById(R.id.copyButtonCustomPageOngoing);
         movetoAccepted = findViewById(R.id.moveToToBookCustom);
+        movetoLabel = findViewById(R.id.moveToTextviewOngoingCustom);
 
 
         Bundle extras = getIntent().getExtras();
@@ -124,26 +127,55 @@ public class OrderDetailOngoingCustomizationPage extends AppCompatActivity {
         }
         orderDate.setText(list.get(pos).getOrderDate());
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        movetoAccepted.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if(list.get(pos).getDeliveryType().equalsIgnoreCase("For Pickup"))
+        {
+            movetoLabel.setText("Move to TO RECEIVE");
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            movetoAccepted.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
-                HashMap<String, Object> hashMap1 = new HashMap<>();
-                hashMap1.put("OrderStatus", "To Book");
-
-
-
-                reference1.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap1);
-
+                    DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
+                    HashMap<String, Object> hashMap1 = new HashMap<>();
+                    hashMap1.put("OrderStatus", "To Receive");
 
 
-                Toast.makeText(OrderDetailOngoingCustomizationPage.this, "Order is moved to TO BOOK", Toast.LENGTH_SHORT).show();
-                finish();
 
-            }
-        });
+                    reference1.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap1);
+
+
+
+                    Toast.makeText(OrderDetailOngoingCustomizationPage.this, "Order is moved to TO RECEIVE", Toast.LENGTH_SHORT).show();
+                    finish();
+
+                }
+            });
+        }
+        else
+        {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            movetoAccepted.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
+                    HashMap<String, Object> hashMap1 = new HashMap<>();
+                    hashMap1.put("OrderStatus", "To Book");
+
+
+
+                    reference1.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap1);
+
+
+
+                    Toast.makeText(OrderDetailOngoingCustomizationPage.this, "Order is moved to TO BOOK", Toast.LENGTH_SHORT).show();
+                    finish();
+
+                }
+            });
+        }
+
+
 
 
 

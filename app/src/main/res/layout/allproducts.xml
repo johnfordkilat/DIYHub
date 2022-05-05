@@ -12,13 +12,14 @@
         android:id="@+id/productNameSeller"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="start"
         android:text="Product Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.573"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/productNameLabel"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.23" />
+        app:layout_constraintVertical_bias="0.232" />
 
     <TextView
         android:id="@+id/purchaseCountSeller"

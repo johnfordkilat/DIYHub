@@ -358,7 +358,7 @@
         android:layout_marginTop="448dp"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toBottomOf="@+id/logoutTxtview3O"
+        app:layout_constraintBottom_toBottomOf="@+id/moveToTextviewOngoingStandard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
@@ -372,7 +372,7 @@
         android:layout_marginTop="536dp"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toBottomOf="@+id/logoutTxtview3O"
+        app:layout_constraintBottom_toBottomOf="@+id/moveToTextviewOngoingStandard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
@@ -386,7 +386,7 @@
         android:layout_marginTop="492dp"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toBottomOf="@+id/logoutTxtview3O"
+        app:layout_constraintBottom_toBottomOf="@+id/moveToTextviewOngoingStandard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
@@ -394,7 +394,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/logoutTxtview3O"
+        android:id="@+id/moveToTextviewOngoingStandard"
         android:layout_width="427dp"
         android:layout_height="47dp"
         android:layout_marginEnd="3dp"

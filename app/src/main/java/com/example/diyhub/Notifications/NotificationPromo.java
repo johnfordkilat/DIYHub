@@ -76,7 +76,12 @@ public class NotificationPromo extends AppCompatActivity {
                 for(DataSnapshot snapshot : dataSnapshot.getChildren())
                 {
                     NotificationPromoList notiflist = snapshot.getValue(NotificationPromoList.class);
-                    list.add(notiflist);
+                    if(!(notiflist.getNotifHeader().equalsIgnoreCase("Order Request") ||
+                        notiflist.getNotifHeader().equalsIgnoreCase("Accepted") ||
+                        notiflist.getNotifHeader().equalsIgnoreCase("Ongoing")))
+                    {
+                        list.add(notiflist);
+                    }
                 }
 
                 notificationPromoAdapter = new NotificationPromoAdapter(getApplicationContext(), list);

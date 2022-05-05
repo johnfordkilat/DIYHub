@@ -53,6 +53,8 @@ public class OrderDetailOngoingStandardPage extends AppCompatActivity {
     ImageView moveToOngoing;
     CardView notif;
 
+    TextView movetoLabel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +77,7 @@ public class OrderDetailOngoingStandardPage extends AppCompatActivity {
         copyButton = findViewById(R.id.copyButtonStandardPageOngoing);
         moveToOngoing = findViewById(R.id.moveToToBookStandard);
         notif = findViewById(R.id.notificationNumberContainerOngoing);
+        movetoLabel = findViewById(R.id.moveToTextviewOngoingStandard);
 
 
         Bundle extras = getIntent().getExtras();
@@ -270,33 +273,64 @@ public class OrderDetailOngoingStandardPage extends AppCompatActivity {
 
 
 
+        if(list.get(pos).getDeliveryType().equalsIgnoreCase("For Pickup"))
+        {
+            movetoLabel.setText("Move to TO RECEIVE");
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            moveToOngoing.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    String OrderProductName, OrderQuantity;
+                    String OrderProductImage,OrderID,OrderType,PaymentOption;
+                    String ItemCode, BuyerName, PaymentStatus, OrderDate;
+                    String BuyerImage;
 
-        moveToOngoing.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String OrderProductName, OrderQuantity;
-                String OrderProductImage,OrderID,OrderType,PaymentOption;
-                String ItemCode, BuyerName, PaymentStatus, OrderDate;
-                String BuyerImage;
-
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-                HashMap<String, Object> hashMap = new HashMap<>();
-                hashMap.put("OrderProductImage",list.get(pos).getOrderProductImage());
-                hashMap.put("OrderStatus", "To Book");
-
-
-
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                    HashMap<String, Object> hashMap = new HashMap<>();
+                    hashMap.put("OrderProductImage",list.get(pos).getOrderProductImage());
+                    hashMap.put("OrderStatus", "To Receive");
 
 
-                reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap);
 
-                Toast.makeText(OrderDetailOngoingStandardPage.this, "Order is moved to TO BOOK ORDERS", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        });
+
+
+                    reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap);
+
+                    Toast.makeText(OrderDetailOngoingStandardPage.this, "Order is moved to TO RECEIVE", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            });
+        }
+        else
+        {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            moveToOngoing.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    String OrderProductName, OrderQuantity;
+                    String OrderProductImage,OrderID,OrderType,PaymentOption;
+                    String ItemCode, BuyerName, PaymentStatus, OrderDate;
+                    String BuyerImage;
+
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                    HashMap<String, Object> hashMap = new HashMap<>();
+                    hashMap.put("OrderProductImage",list.get(pos).getOrderProductImage());
+                    hashMap.put("OrderStatus", "To Book");
+
+
+
+
+
+                    reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap);
+
+                    Toast.makeText(OrderDetailOngoingStandardPage.this, "Order is moved to TO BOOK", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            });
+        }
+
     }
 
     @Override

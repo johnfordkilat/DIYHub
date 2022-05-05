@@ -53,6 +53,7 @@ import com.google.firebase.storage.StorageTask;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -163,9 +164,15 @@ public class SellerHomePage extends AppCompatActivity {
     CardView notifCardview;
     TextView notifCounter;
 
+    CardView ordersnotifCardview;
+    TextView ordersnotifCounter;
+
     int ordersTab;
     int orderRequestTab;
 
+    String notifid[];
+
+    int tabselected;
 
 
 
@@ -186,6 +193,9 @@ public class SellerHomePage extends AppCompatActivity {
 
         notifCounter = findViewById(R.id.notifCounter);
         notifCardview = findViewById(R.id.notificationNumberContainer);
+
+        ordersnotifCardview = findViewById(R.id.ordersNotificationNumberContainer);
+        ordersnotifCounter = findViewById(R.id.ordersNotifCounter);
 
 
 
@@ -288,6 +298,57 @@ public class SellerHomePage extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
+
+                if(tabLayout.getTabAt(0).isSelected())
+                {
+                    tabselected = 0;
+                }
+                else if(tabLayout.getTabAt(1).isSelected())
+                {
+                    tabselected = 1;
+                }
+
+                else if(tabLayout.getTabAt(2).isSelected())
+                {
+                    tabselected = 2;
+                    if(tabselected == 2)
+                    {
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Notifications").child(user.getUid());
+
+                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                                {
+                                    NotificationPromoList notif = snapshot.getValue(NotificationPromoList.class);
+                                    if(notif.getIsSeen().equalsIgnoreCase("false") &&
+                                            (notif.getNotifHeader().equalsIgnoreCase("Order Request") ||
+                                             notif.getNotifHeader().equalsIgnoreCase("Accepted") ||
+                                             notif.getNotifHeader().equalsIgnoreCase("Ongoing")))
+                                    {
+                                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
+                                        Map<String, Object> map = new HashMap<>();
+                                        map.put("IsSeen", "true");
+                                        reference1.child("Notifications").child(user.getUid()).child(notif.getNotifID()).updateChildren(map);
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                        tabselected = 0;
+                    }
+
+                }
+                else if(tabLayout.getTabAt(3).isSelected())
+                {
+                    tabselected = 3;
+                }
                 viewPager.setCurrentItem(tab.getPosition());
                 headerSeller.setTextSize(44);
                 headerSeller.setText(tab.getText());
@@ -307,6 +368,7 @@ public class SellerHomePage extends AppCompatActivity {
         createNotificationChannel();
         updateNotificationsCount();
         updateMessageCount();
+        updateOrdersNotificationsCount();
     }
 
 
@@ -358,6 +420,41 @@ public class SellerHomePage extends AppCompatActivity {
         reference.updateChildren(hashMap);
     }
 
+    private void updateOrdersNotificationsCount() {
+        // TODO: larona, add your logic here
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Notifications").child(user.getUid());
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                int counterNotif = 0;
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    NotificationPromoList notif = snapshot.getValue(NotificationPromoList.class);
+                    if(notif.getIsSeen().equalsIgnoreCase("false") &&
+                            (notif.getNotifHeader().equalsIgnoreCase("Order Request") ||
+                             notif.getNotifHeader().equalsIgnoreCase("Accepted") ||
+                             notif.getNotifHeader().equalsIgnoreCase("Ongoing")))
+                    {
+                        counterNotif++;
+                    }
+
+
+                    ordersnotifCounter.setText(String.valueOf(counterNotif));
+                    ordersnotifCardview.setVisibility(counterNotif == 0 ? View.INVISIBLE : View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     private void updateNotificationsCount() {
         // TODO: larona, add your logic here
 
@@ -372,7 +469,10 @@ public class SellerHomePage extends AppCompatActivity {
                 for(DataSnapshot snapshot : dataSnapshot.getChildren())
                 {
                     NotificationPromoList notif = snapshot.getValue(NotificationPromoList.class);
-                    if(notif.getIsSeen().equalsIgnoreCase("false"))
+                    if(notif.getIsSeen().equalsIgnoreCase("false") &&
+                            !(notif.getNotifHeader().equalsIgnoreCase("Order Request") ||
+                             notif.getNotifHeader().equalsIgnoreCase("Accepted") ||
+                             notif.getNotifHeader().equalsIgnoreCase("Ongoing")))
                     {
                         counterNotif++;
                     }
@@ -425,6 +525,7 @@ public class SellerHomePage extends AppCompatActivity {
 
         updateNotificationsCount();
         updateMessageCount();
+        updateOrdersNotificationsCount();
     }
 
     @Override

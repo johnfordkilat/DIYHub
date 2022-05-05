@@ -5,25 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/notificationIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_notifications_active_24" />
-
     <androidx.cardview.widget.CardView
         android:id="@+id/notificationNumberContainer"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
         app:cardBackgroundColor="@color/red"
         app:cardCornerRadius="50dp"
-        app:layout_constraintEnd_toEndOf="@+id/notificationIcon"
-        app:layout_constraintTop_toTopOf="@+id/notificationIcon" >
+        tools:layout_editor_absoluteX="31dp"
+        tools:layout_editor_absoluteY="4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

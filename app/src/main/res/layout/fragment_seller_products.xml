@@ -8,15 +8,28 @@
     tools:context=".Fragments.SellerProductsFragment">
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/holdProductsSellerRecyclerFragment"
+        android:layout_width="402dp"
+        android:layout_height="425dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/uploadProductButtonSeller2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPageSellerOrdersPageFragment"
-        android:layout_width="403dp"
-        android:layout_height="731dp"
+        android:layout_width="416dp"
+        android:layout_height="727dp"
         android:layout_marginBottom="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayoutSellerOrdersPageFragment"
