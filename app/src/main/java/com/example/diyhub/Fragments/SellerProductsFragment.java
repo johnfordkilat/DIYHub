@@ -347,5 +347,16 @@ public class SellerProductsFragment extends Fragment {
         RestockProductsAdapter adapterRestock = new RestockProductsAdapter(getContext(),filterListRestock);
         restockProductRecycler.setAdapter(adapterRestock);
 
+        ArrayList<HoldProductsList> filterListHold = new ArrayList<>();
+        for(HoldProductsList list : holdProductsLists)
+        {
+            if(list.getProductName().toLowerCase().contains(text.toLowerCase()))
+            {
+                filterListHold.add(list);
+            }
+        }
+        HoldProductsAdapter adapterHold = new HoldProductsAdapter(getContext(),filterListHold);
+        holdProductRecycler.setAdapter(adapterHold);
+
     }
 }
