@@ -277,6 +277,18 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
 
             }
         });
+
+        if(productsList.getProductType().equalsIgnoreCase("Standard"))
+        {
+            holder.prodTypeLabel.setText("Standard Product");
+        }
+        else
+        {
+            holder.prodTypeLabel.setText("Customizable Product");
+        }
+
+
+
         holder.deleteProd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -449,6 +461,7 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
         TextView prodName,prodQuan,prodStocks,stocksLabel,restockTab,holdTab,productNameLabel,purchasesLabel;
         ImageView prodImage,deleteProd,updateProd,pauseButton;
         Button toOrderPage;
+        TextView prodTypeLabel;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -464,6 +477,8 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
             productNameLabel = itemView.findViewById(R.id.productNameLabel);
             purchasesLabel = itemView.findViewById(R.id.purchasesLabel);
             pauseButton = itemView.findViewById(R.id.pauseButton);
+            prodTypeLabel = itemView.findViewById(R.id.productTypeProductsPage);
+
         }
     }
 }

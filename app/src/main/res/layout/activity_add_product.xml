@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_one"
-    tools:context=".Fragments.AddProduct">
+    tools:context=".Fragments.AddStandardProduct">
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/addProductButton"
@@ -66,8 +66,8 @@
         android:layout_marginTop="30dp"
         android:layout_marginBottom="633dp"
         android:gravity="center"
-        android:text="ADD PRODUCT"
-        android:textSize="48dp"
+        android:text="ADD STANDARD PRODUCT"
+        android:textSize="32dp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

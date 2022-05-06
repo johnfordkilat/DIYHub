@@ -2,12 +2,13 @@ package com.example.diyhub.Fragments;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,9 +34,6 @@ import com.example.diyhub.HoldProductsList;
 import com.example.diyhub.R;
 import com.example.diyhub.RestockProductsAdapter;
 import com.example.diyhub.RestockProductsList;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -44,13 +42,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.Locale;
+import java.util.List;
 
 
 public class SellerProductsFragment extends Fragment {
@@ -114,7 +110,17 @@ public class SellerProductsFragment extends Fragment {
 
 
 
+    Dialog addProductDialog;
 
+    EditText optionTxtProductType;
+    Button submitProductType;
+
+    int position = 0;
+
+    Dialog productTypeDialog;
+
+    String prodType="";
+    Dialog errorAddProdctDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -159,17 +165,71 @@ public class SellerProductsFragment extends Fragment {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+
+
+
         if(user != null)
             showData();
+
+        String[] allListProductType = getActivity().getResources().getStringArray(R.array.Product_Type);
 
 
         uploadProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getContext(), AddProduct.class);
-                startActivity(intent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                addProductDialog = builder.create();
+                builder.setTitle("Choose Product Type");
+                builder.setCancelable(false);
+                builder.setSingleChoiceItems(allListProductType, position, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        prodType =  allListProductType[i];
+                    }
+                });
+                builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
+                        if(prodType.equals("")){
+                            AlertDialog.Builder error = new AlertDialog.Builder(getContext());
+                            errorAddProdctDialog = error.create();
+                            error.setTitle("NO OPTION SELECTED!");
+                            error.setMessage("PLese select PRODUCT TYPE!");
+                            error.setCancelable(false);
+                            error.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    errorAddProdctDialog.dismiss();
+                                }
+                            });
+
+                            error.show();
+                        }
+                        else
+                        {
+                            if(prodType.equalsIgnoreCase("Standard Product"))
+                            {
+                                Intent intent = new Intent(getContext(), AddStandardProduct.class);
+                                startActivity(intent);
+                            }
+                            else
+                            {
+                                Intent intent = new Intent(getContext(), AddCustomProduct.class);
+                                startActivity(intent);
+                            }
+                            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    addProductDialog.dismiss();
+                                }
+                            });
+
+                        }
+                    }
+                });
+                builder.show();
             }
         });
 

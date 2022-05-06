@@ -4,12 +4,14 @@ public class AllProductsList {
 
     String ProductName, ProductQuantity, ProductStocks;
     String ProductImage,ProductID,ProductStatusImage,ProductStatus;
+    String ProductType;
 
     public AllProductsList(){
 
     }
 
-    public AllProductsList(String productName, String productQuantity, String productStocks, String prodImage, String prodID, String prodImgStatus, String prodStatus) {
+    public AllProductsList(String productName, String productQuantity, String productStocks, String prodImage, String prodID, String prodImgStatus, String prodStatus,
+                           String productType) {
         ProductName = productName;
         ProductQuantity = productQuantity;
         ProductStocks = productStocks;
@@ -17,6 +19,15 @@ public class AllProductsList {
         ProductID = prodID;
         ProductStatusImage = prodImgStatus;
         ProductStatus = prodStatus;
+        ProductType = productType;
+    }
+
+    public String getProductType() {
+        return ProductType;
+    }
+
+    public void setProductType(String productType) {
+        ProductType = productType;
     }
 
     public String getProductStatusImage() {

@@ -47,7 +47,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class AddProduct extends AppCompatActivity {
+public class AddStandardProduct extends AppCompatActivity {
 
 
 
@@ -223,6 +223,7 @@ public class AddProduct extends AppCompatActivity {
                                 sellerProductsfb.put("ProductStocks", prodStocks);
                                 sellerProductsfb.put("ProductID", cutid);
                                 sellerProductsfb.put("ProductStatus", "Hold");
+                                sellerProductsfb.put("ProductType", "Standard");
                                 sellerProductsfb.put("ProductStatusImage", playImageStatus);
                                 reference.child("SellerProducts").child(user.getUid()).child(cutid).setValue(sellerProductsfb);
                                 Toast.makeText(getApplicationContext(), "Product Uploaded Successfully!", Toast.LENGTH_SHORT).show();

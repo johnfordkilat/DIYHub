@@ -84,5 +84,10 @@
         <item>Return/Refund Order</item>
     </string-array>
 
+    <string-array name="Product_Type">
+        <item>Standard Product</item>
+        <item>Customizable Product</item>
+    </string-array>
+
 
 </resources>
