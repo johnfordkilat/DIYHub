@@ -604,7 +604,6 @@ public class SellerHomeFragment extends Fragment {
                     SubscriptionList subscriptionList = snapshot.getValue(SubscriptionList.class);
                     if(subscriptionList.getSubscriptionStatus().equalsIgnoreCase("Premium"))
                     {
-
                         subscription.setText("PREMIUM ACCOUNT");
                         subscription.setBackgroundResource(R.drawable.custom_green);
                         premiumLogo.setVisibility(View.VISIBLE);

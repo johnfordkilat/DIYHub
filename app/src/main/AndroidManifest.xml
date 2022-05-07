@@ -27,6 +27,9 @@
         android:theme="@style/Theme.DIYHub"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Fragments.AddVariationsStandardPage"
+            android:exported="false" />
+        <activity
             android:name=".Fragments.AddCustomProduct"
             android:exported="false" />
         <activity

@@ -193,19 +193,9 @@ public class SellerProductsFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
 
                         if(prodType.equals("")){
-                            AlertDialog.Builder error = new AlertDialog.Builder(getContext());
-                            errorAddProdctDialog = error.create();
-                            error.setTitle("NO OPTION SELECTED!");
-                            error.setMessage("PLese select PRODUCT TYPE!");
-                            error.setCancelable(false);
-                            error.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    errorAddProdctDialog.dismiss();
-                                }
-                            });
-
-                            error.show();
+                            prodType = "Standard Product";
+                            Intent intent = new Intent(getContext(), AddStandardProduct.class);
+                            startActivity(intent);
                         }
                         else
                         {
