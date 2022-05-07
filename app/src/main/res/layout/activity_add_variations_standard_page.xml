@@ -57,20 +57,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.408" />
 
-    <ImageView
-        android:id="@+id/addProductImageView"
-        android:layout_width="191dp"
-        android:layout_height="149dp"
-        android:layout_marginStart="101dp"
-        android:layout_marginEnd="102dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.137"
-        app:srcCompat="@drawable/diy" />
-
     <TextView
         android:id="@+id/addVariationButtonStandard"
         android:layout_width="101dp"
@@ -103,10 +89,10 @@
         android:textSize="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.327" />
+        app:layout_constraintVertical_bias="0.134" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/addProductButton"
@@ -192,6 +178,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.41" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/uploadProductImagesStandardPage"
+        android:layout_width="409dp"
+        android:layout_height="157dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/shopMottoTxt2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addProductImageButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,14 +3,20 @@ package com.example.diyhub.Fragments;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,6 +31,7 @@ import android.widget.Toast;
 
 import com.example.diyhub.R;
 import com.example.diyhub.SellerHomePage;
+import com.example.diyhub.UploadListAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -117,6 +124,14 @@ public class AddVariationsStandardPage extends AppCompatActivity {
     String todelete;
     TextView deleteVarButton;
 
+    RecyclerView productImagesRecycler;
+
+    List<String> fileNameList;
+    List<String> fileDoneList;
+
+    UploadListAdapter uploadListAdapter;
+
+    StorageReference mStorage;
 
 
     @Override
@@ -127,11 +142,27 @@ public class AddVariationsStandardPage extends AppCompatActivity {
         varSpinner = findViewById(R.id.spinnerAddVariationsStandard);
         addVarButton = findViewById(R.id.addVariationButtonStandard);
         uploadProduct = findViewById(R.id.addProductButton);
-        prodImage = findViewById(R.id.addProductImageView);
+        //prodImage = findViewById(R.id.addProductImageView);
         addProduct = findViewById(R.id.addProductImageButton);
         deleteVarButton = findViewById(R.id.removeVariationButtonStandard);
+        productImagesRecycler = findViewById(R.id.uploadProductImagesStandardPage);
+
+        mStorage = FirebaseStorage.getInstance().getReference();
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recycler_divider));
+        productImagesRecycler.addItemDecoration(dividerItemDecoration);
 
 
+        fileNameList = new ArrayList<>();
+        fileDoneList = new ArrayList<>();
+
+
+        uploadListAdapter = new UploadListAdapter(fileNameList, fileDoneList);
+
+        productImagesRecycler.setLayoutManager(new LinearLayoutManager(this));
+        productImagesRecycler.setHasFixedSize(true);
+        productImagesRecycler.setAdapter(uploadListAdapter);
 
 
         Bundle extras = getIntent().getExtras();
@@ -333,6 +364,7 @@ public class AddVariationsStandardPage extends AppCompatActivity {
                     clicked++;
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                     intent.setType("image/*");
+                    intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                     startActivityForResult(intent,SELECT_PHOTOGOV_PRODUCT);
                 }
                 else
@@ -340,6 +372,7 @@ public class AddVariationsStandardPage extends AppCompatActivity {
                     clicked++;
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                     intent.setType("image/*");
+                    intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                     startActivityForResult(intent,SELECT_PHOTOGOV_PRODUCT);
                 }
 
@@ -361,13 +394,73 @@ public class AddVariationsStandardPage extends AppCompatActivity {
             ImageListVariation.add(imageUriVariation);
         }
 
-        if(requestCode == SELECT_PHOTOGOV_PRODUCT && resultCode == RESULT_OK && data != null && data.getData() != null)
+        if(requestCode == SELECT_PHOTOGOV_PRODUCT && resultCode == RESULT_OK)
         {
-            imageUriProduct = data.getData();
-            ImageListProduct.add(imageUriProduct);
-            prodImage.setImageURI(imageUriProduct);
+            if(data.getClipData() != null)
+            {
+                int totalItemSelected = data.getClipData().getItemCount();
+
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                for(int i = 0; i < totalItemSelected; i++)
+                {
+                    Uri fileUri = data.getClipData().getItemAt(i).getUri();
+
+                    String fileName = getFileName(fileUri);
+
+                    fileNameList.add(fileName);
+                    fileDoneList.add("Uploading");
+                    uploadListAdapter.notifyDataSetChanged();
+
+                    StorageReference fileToUpload = mStorage.child(user.getEmail()).child("Seller-Products").child(itemid).child(fileName);
+                    final int finalI = i;
+                    fileToUpload.putFile(fileUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            fileDoneList.remove(finalI);
+                            fileDoneList.add(finalI, "done");
+
+                            uploadListAdapter.notifyDataSetChanged();
+                        }
+                    });
+                }
+                //Toast.makeText(this, "Multiple Files", Toast.LENGTH_SHORT).show();
+            }
+            else if(data.getData() != null)
+            {
+                Toast.makeText(this, "Single File", Toast.LENGTH_SHORT).show();
+            }
         }
     }
+
+    @SuppressLint("Range")
+    public String getFileName(Uri uri)
+    {
+        String result = null;
+        if(uri.getScheme().equals("content"))
+        {
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            try{
+                if(cursor != null && cursor.moveToFirst())
+                {
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                }
+
+            } finally {
+                cursor.close();
+            }
+        }
+        if(result == null)
+        {
+            result = uri.getPath();
+            int cut = result.lastIndexOf('/');
+            if(cut != -1)
+            {
+                result = result.substring(cut + 1);
+            }
+        }
+        return result;
+    }
+
     private void uploadImage(String pN, int pQ, int pS, String selleEm)
     {
         String prodName=pN;
@@ -487,7 +580,7 @@ public class AddVariationsStandardPage extends AppCompatActivity {
 
         FirebaseStorage storage = FirebaseStorage.getInstance(); // add this
         firebaseStorage = storage.getReference(); // and this
-        StorageReference ImageFolder =  firebaseStorage.child(user.getUid());
+        StorageReference ImageFolder =  firebaseStorage.child(user.getEmail());
         for (uploadsVariation=0; uploadsVariation < ImageListVariation.size(); uploadsVariation++) {
             Uri Image  = ImageListVariation.get(uploadsVariation);
             StorageReference imagename = ImageFolder.child("Seller-Products").child("Variations-Standard").child(varNameLabel+".jpeg");
