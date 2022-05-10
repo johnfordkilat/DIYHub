@@ -24,7 +24,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,20 +41,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.UUID;
 
-public class AddVariationsStandardPage extends AppCompatActivity {
+public class AddVariationsCustomizePage extends AppCompatActivity {
 
     Spinner varSpinner;
 
@@ -147,15 +142,15 @@ public class AddVariationsStandardPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_variations_standard_page);
+        setContentView(R.layout.activity_add_variations_customize_page);
 
-        varSpinner = findViewById(R.id.spinnerAddVariationsStandard);
-        addVarButton = findViewById(R.id.addVariationButtonStandard);
-        uploadProduct = findViewById(R.id.addProductButton);
+        varSpinner = findViewById(R.id.spinnerAddVariationsCustom);
+        addVarButton = findViewById(R.id.addVariationButtonCustom);
+        uploadProduct = findViewById(R.id.addProductButtonCustom);
         //prodImage = findViewById(R.id.addProductImageView);
-        addProduct = findViewById(R.id.addProductImageButton);
-        deleteVarButton = findViewById(R.id.removeVariationButtonStandard);
-        productImagesRecycler = findViewById(R.id.uploadProductImagesStandardPage);
+        addProduct = findViewById(R.id.addProductImageButtonCustom);
+        deleteVarButton = findViewById(R.id.removeVariationButtonCustom);
+        productImagesRecycler = findViewById(R.id.uploadProductImagesCustomPage);
 
         mStorage = FirebaseStorage.getInstance().getReference();
 
@@ -194,7 +189,7 @@ public class AddVariationsStandardPage extends AppCompatActivity {
         list = new ArrayList<>();
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(itemid).child("Variations-Standard");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(itemid).child("Variations-Customized");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -205,7 +200,7 @@ public class AddVariationsStandardPage extends AppCompatActivity {
                     list.add(standardProductVariationList);
                 }
 
-                adapter = new StandardProductVariationAdapter(AddVariationsStandardPage.this, list);
+                adapter = new StandardProductVariationAdapter(AddVariationsCustomizePage.this, list);
                 varSpinner.setAdapter(adapter);
 
             }
@@ -220,7 +215,7 @@ public class AddVariationsStandardPage extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 todelete = list.get(position).getVariationName();
-                Toast.makeText(AddVariationsStandardPage.this, todelete, Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddVariationsCustomizePage.this, todelete, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -233,18 +228,18 @@ public class AddVariationsStandardPage extends AppCompatActivity {
         deleteVarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder removeVar = new AlertDialog.Builder(AddVariationsStandardPage.this);
+                AlertDialog.Builder removeVar = new AlertDialog.Builder(AddVariationsCustomizePage.this);
                 removeVar.setTitle("Delete Confirmation");
                 removeVar.setMessage("Are you sure you want to delete Color - "+ todelete+" ?");
                 removeVar.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(itemid).child("Variations-Standard").child(todelete);
+                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(itemid).child("Variations-Customized").child(todelete);
                         reference1.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(AddVariationsStandardPage.this, "Variation Deleted successfully", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddVariationsCustomizePage.this, "Variation Deleted successfully", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -264,7 +259,7 @@ public class AddVariationsStandardPage extends AppCompatActivity {
         addVarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builderBooking = new AlertDialog.Builder(AddVariationsStandardPage.this);
+                AlertDialog.Builder builderBooking = new AlertDialog.Builder(AddVariationsCustomizePage.this);
                 builderBooking.setTitle("Add Variation");
 
                 View view1 = getLayoutInflater().inflate(R.layout.layout_dialog_variation_standard, null);
@@ -298,7 +293,7 @@ public class AddVariationsStandardPage extends AppCompatActivity {
                         {
                             if(ImageListVariation.size() == 0)
                             {
-                                Toast.makeText(AddVariationsStandardPage.this, "Please select Image", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddVariationsCustomizePage.this, "Please select Image", Toast.LENGTH_SHORT).show();
                             }
                             else
                             {
@@ -313,7 +308,7 @@ public class AddVariationsStandardPage extends AppCompatActivity {
                                 else
                                 {
                                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(itemid).child("Variations-Standard");
+                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(itemid).child("Variations-Customized");
                                     reference.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -401,8 +396,8 @@ public class AddVariationsStandardPage extends AppCompatActivity {
             }
         });
 
-    }
 
+    }
 
 
     @Override
@@ -564,7 +559,7 @@ public class AddVariationsStandardPage extends AppCompatActivity {
 
         if(clicked == 0 && imageUriProduct == null)
         {
-            Toast.makeText(AddVariationsStandardPage.this, "Please choose Product Image", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddVariationsCustomizePage.this, "Please choose Product Image", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -602,11 +597,11 @@ public class AddVariationsStandardPage extends AppCompatActivity {
                                 sellerProductsfb.put("ProductStocks", pS);
                                 sellerProductsfb.put("ProductID", itemid);
                                 sellerProductsfb.put("ProductStatus", "Hold");
-                                sellerProductsfb.put("ProductType", "Standard");
+                                sellerProductsfb.put("ProductType", "Customized");
                                 sellerProductsfb.put("ProductStatusImage", playImageStatus);
                                 reference.child("SellerProducts").child(user.getUid()).child(itemid).updateChildren(sellerProductsfb);
                                 Toast.makeText(getApplicationContext(), "Product Uploaded Successfully!", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(AddVariationsStandardPage.this, SellerHomePage.class);
+                                Intent intent = new Intent(AddVariationsCustomizePage.this, SellerHomePage.class);
                                 startActivity(intent);
                                 finish();
                             }
@@ -652,10 +647,10 @@ public class AddVariationsStandardPage extends AppCompatActivity {
                                 sellerProductsfb.put("ProductID", itemid);
                                 sellerProductsfb.put("ProductStatus", "Active");
                                 sellerProductsfb.put("ProductStatusImage", pauseImageStatus);
-                                sellerProductsfb.put("ProductType", "Standard");
+                                sellerProductsfb.put("ProductType", "Customized");
                                 reference.child("SellerProducts").child(user.getUid()).child(itemid).updateChildren(sellerProductsfb);
                                 Toast.makeText(getApplicationContext(), "Product Uploaded Successfully!", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(AddVariationsStandardPage.this, SellerHomePage.class);
+                                Intent intent = new Intent(AddVariationsCustomizePage.this, SellerHomePage.class);
                                 startActivity(intent);
                                 finish();
 
@@ -672,7 +667,7 @@ public class AddVariationsStandardPage extends AppCompatActivity {
     private void uploadImageVariation(String varNameLabel) {
         Log.d("UPLOADINGERROR", "IMAGEERROR");
 
-        Toast.makeText(AddVariationsStandardPage.this, "Added: " + varNameLabel, Toast.LENGTH_SHORT).show();
+        Toast.makeText(AddVariationsCustomizePage.this, "Added: " + varNameLabel, Toast.LENGTH_SHORT).show();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         FirebaseStorage storage = FirebaseStorage.getInstance(); // add this
@@ -680,7 +675,7 @@ public class AddVariationsStandardPage extends AppCompatActivity {
         StorageReference ImageFolder =  firebaseStorage.child(user.getEmail());
         for (uploadsVariation=0; uploadsVariation < ImageListVariation.size(); uploadsVariation++) {
             Uri Image  = ImageListVariation.get(uploadsVariation);
-            StorageReference imagename = ImageFolder.child("Seller-Products").child("Variations-Standard").child(fileNameListVar.get(uploadsVariation)+".jpeg");
+            StorageReference imagename = ImageFolder.child("Seller-Products").child("Variations-Customized").child(fileNameListVar.get(uploadsVariation)+".jpeg");
 
             imagename.putFile(Image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -697,7 +692,7 @@ public class AddVariationsStandardPage extends AppCompatActivity {
                             Map<String, Object> map = new HashMap<>();
                             map.put("variationImage", url);
                             map.put("variationName", varNameLabel);
-                            reference.child("SellerProducts").child(user.getUid()).child(itemid).child("Variations-Standard").child(varNameLabel).updateChildren(map);
+                            reference.child("SellerProducts").child(user.getUid()).child(itemid).child("Variations-Customized").child(varNameLabel).updateChildren(map);
                             ImageListVariation.clear();
                             //reference.child("Products").child(varNameLabel).setValue(map);
 

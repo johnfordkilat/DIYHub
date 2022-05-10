@@ -116,8 +116,8 @@ public class HoldProductsAdapter extends RecyclerView.Adapter<HoldProductsAdapte
         holder.prodStocks.setText(productsList.getProductStocks());
         Glide.with(context).load(list.get(position).getProductImage()).into(holder.prodImage);
 
-        pQuan = Integer.parseInt(productsList.getProductQuantity());
-        pStocks = Integer.parseInt(productsList.getProductStocks());
+        pQuan = productsList.getProductQuantity();
+        pStocks = productsList.getProductStocks();
 
         if(pQuan >= pStocks)
         {
@@ -147,8 +147,13 @@ public class HoldProductsAdapter extends RecyclerView.Adapter<HoldProductsAdapte
                                 String sellerEmail = mAuth.getCurrentUser().getEmail();
                                 String id = list.get(position).getProductID();
                                 String name = list.get(position).getProductName();
-                                String quantity = list.get(position).getProductQuantity();
-                                String stocks = list.get(position).getProductStocks();
+                                int quantity = list.get(position).getProductQuantity();
+                                int stocks = list.get(position).getProductStocks();
+                                String prodImage = list.get(position).getProductImage();
+                                String description = list.get(position).getProductDescription();
+                                String material = list.get(position).getProductMaterial();
+                                double price = list.get(position).getProductPrice();
+                                double sold = list.get(position).getProductSold();
 
                                 Intent intent = new Intent(context, UpdateProduct.class);
                                 intent.putExtra("ProductName", name);
@@ -157,6 +162,10 @@ public class HoldProductsAdapter extends RecyclerView.Adapter<HoldProductsAdapte
                                 intent.putExtra("ProductID", id);
                                 intent.putExtra("EmailSeller", sellerEmail);
                                 intent.putExtra("ProductImage", list.get(pos).getProductImage());
+                                intent.putExtra("ProductDescription", description);
+                                intent.putExtra("ProductMaterial", material);
+                                intent.putExtra("ProductPrice", price);
+                                intent.putExtra("ProductSold", sold);
 
 
                                 context.startActivity(intent);

@@ -312,19 +312,18 @@ public class SellerProductsFragment extends Fragment {
                 for(DataSnapshot snapshot : dataSnapshot.getChildren())
                 {
                     AllProductsList allList = snapshot.getValue(AllProductsList.class);
-                    String pQuan = allList.getProductQuantity();
-                    String pStocks = allList.getProductStocks();
+                    int pQuan = allList.getProductQuantity();
+                    int pStocks = allList.getProductStocks();
                     allProductsLists.add(allList);
-                    int quantity = Integer.parseInt(pQuan);
-                    int stocks = Integer.parseInt(pStocks);
 
-                    if(allList.getProductStatus().equalsIgnoreCase("Hold") && stocks > quantity)
+
+                    if(allList.getProductStatus().equalsIgnoreCase("Hold") && pStocks > pQuan)
                     {
                         HoldProductsList holdlist = snapshot.getValue(HoldProductsList.class);
                         holdProductsLists.add(holdlist);
                     }
 
-                    if(quantity >= stocks)
+                    if(pQuan >= pStocks)
                     {
                         RestockProductsList restockList = snapshot.getValue(RestockProductsList.class);
                         restockProductsList.add(restockList);

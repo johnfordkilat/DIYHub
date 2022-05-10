@@ -8,8 +8,58 @@
     tools:context=".Fragments.AddStandardProduct">
 
     <EditText
+        android:id="@+id/productMaterialsUsedAddStandard"
+        android:layout_width="382dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="82dp"
+        android:layout_marginEnd="120dp"
+        android:background="@drawable/textview_border"
+        android:ems="10"
+        android:hint="Product Materials Used"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.364"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.427" />
+
+    <EditText
+        android:id="@+id/productPriceAddStandard"
+        android:layout_width="382dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="82dp"
+        android:layout_marginEnd="120dp"
+        android:background="@drawable/textview_border"
+        android:ems="10"
+        android:hint="Product Price"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.364"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.51" />
+
+    <EditText
+        android:id="@+id/productSoldAddStandard"
+        android:layout_width="382dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="82dp"
+        android:layout_marginEnd="120dp"
+        android:background="@drawable/textview_border"
+        android:ems="10"
+        android:hint="Product Sold"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.364"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.604" />
+
+    <EditText
         android:id="@+id/addProdName"
-        android:layout_width="250dp"
+        android:layout_width="382dp"
         android:layout_height="46dp"
         android:layout_marginStart="80dp"
         android:layout_marginTop="55dp"
@@ -21,14 +71,14 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.462"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.223" />
+        app:layout_constraintVertical_bias="0.106" />
 
     <EditText
         android:id="@+id/addProdStocks"
-        android:layout_width="250dp"
+        android:layout_width="382dp"
         android:layout_height="46dp"
         android:layout_marginStart="82dp"
         android:layout_marginEnd="120dp"
@@ -38,27 +88,45 @@
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.364"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.534" />
+        app:layout_constraintVertical_bias="0.341" />
+
+    <EditText
+        android:id="@+id/productDescriptionTxtAddStandard"
+        android:layout_width="381dp"
+        android:layout_height="187dp"
+        android:layout_marginStart="82dp"
+        android:layout_marginEnd="120dp"
+        android:background="@drawable/textview_border"
+        android:ems="10"
+        android:hint="Product Description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.364"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.87" />
 
     <Button
         android:id="@+id/addVariationsStandard"
         android:layout_width="253dp"
         android:layout_height="45dp"
         android:layout_marginStart="80dp"
-        android:layout_marginTop="36dp"
         android:layout_marginEnd="78dp"
+        android:layout_marginBottom="16dp"
         android:text="Add Variations"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addProdStocks" />
+        app:layout_constraintTop_toBottomOf="@+id/productDescriptionTxtAddStandard"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/addProdQuantity"
-        android:layout_width="250dp"
+        android:layout_width="382dp"
         android:layout_height="46dp"
         android:layout_marginStart="85dp"
         android:layout_marginEnd="117dp"
@@ -68,10 +136,10 @@
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.121"
+        app:layout_constraintHorizontal_bias="0.381"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.407" />
+        app:layout_constraintVertical_bias="0.261" />
 
     <TextView
         android:id="@+id/textView83"

@@ -23,6 +23,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.diyhub.Fragments.CustomProductDetails;
+import com.example.diyhub.Fragments.StandardProductDetails;
 import com.example.diyhub.Fragments.UpdateProduct;
 import com.example.diyhub.Notifications.APIService;
 import com.example.diyhub.Notifications.CLient;
@@ -63,8 +65,8 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
     FirebaseFirestore dbFirestore;
     FirebaseAuth mAuth;
     ProgressDialog progressDialog;
-    int pQuan;
-    int pStocks;
+    double pQuan;
+    double pStocks;
     String type;
     private boolean clicked = false;
     String color[];
@@ -120,16 +122,48 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         AllProductsList productsList = list.get(position);
         holder.prodName.setText(productsList.getProductName());
-        holder.prodQuan.setText(productsList.getProductQuantity());
-        holder.prodStocks.setText(productsList.getProductStocks());
+        holder.prodQuan.setText(String.valueOf(productsList.getProductQuantity()));
+        holder.prodStocks.setText(String.valueOf(productsList.getProductStocks()));
         Glide.with(context).load(list.get(position).getProductImage()).into(holder.prodImage);
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if(productsList.getProductType().equalsIgnoreCase("Standard"))
+                {
+                    Intent intent = new Intent(context, StandardProductDetails.class);
+                    intent.putExtra("ProductID", productsList.getProductID());
+                    intent.putExtra("ProductName", productsList.getProductName());
+                    intent.putExtra("ProductPrice", productsList.getProductPrice());
+                    intent.putExtra("ProductSold", productsList.getProductSold());
+                    intent.putExtra("ProductMaterial", productsList.getProductMaterial());
+                    intent.putExtra("ProductDescription", productsList.getProductDescription());
+                    intent.putExtra("ProductStock", productsList.getProductStocks());
+                    context.startActivity(intent);
+                }
+                else
+                {
+                    Intent intent = new Intent(context, CustomProductDetails.class);
+                    intent.putExtra("ProductID", productsList.getProductID());
+                    intent.putExtra("ProductName", productsList.getProductName());
+                    intent.putExtra("ProductPrice", productsList.getProductPrice());
+                    intent.putExtra("ProductSold", productsList.getProductSold());
+                    intent.putExtra("ProductMaterial", productsList.getProductMaterial());
+                    intent.putExtra("ProductDescription", productsList.getProductDescription());
+                    intent.putExtra("ProductStock", productsList.getProductStocks());
+                    context.startActivity(intent);
+                }
+
+            }
+        });
 
 
 
 
-        pQuan = Integer.parseInt(productsList.getProductQuantity());
-        pStocks = Integer.parseInt(productsList.getProductStocks());
+        pQuan = productsList.getProductQuantity();
+        pStocks = productsList.getProductStocks();
 
         if(pQuan >= pStocks)
         {
@@ -251,9 +285,13 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
                                 String sellerEmail = mAuth.getCurrentUser().getEmail();
                                 String id = list.get(position).getProductID();
                                 String name = list.get(position).getProductName();
-                                String quantity = list.get(position).getProductQuantity();
-                                String stocks = list.get(position).getProductStocks();
+                                int quantity = list.get(position).getProductQuantity();
+                                int stocks = list.get(position).getProductStocks();
                                 String prodImage = list.get(position).getProductImage();
+                                String description = list.get(position).getProductDescription();
+                                String material = list.get(position).getProductMaterial();
+                                double price = list.get(position).getProductPrice();
+                                double sold = list.get(position).getProductSold();
 
                                 Intent intent = new Intent(context, UpdateProduct.class);
                                 intent.putExtra("ProductName", name);
@@ -262,6 +300,10 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
                                 intent.putExtra("ProductID", id);
                                 intent.putExtra("ProductImage", prodImage);
                                 intent.putExtra("EmailSeller", sellerEmail);
+                                intent.putExtra("ProductDescription", description);
+                                intent.putExtra("ProductMaterial", material);
+                                intent.putExtra("ProductPrice", price);
+                                intent.putExtra("ProductSold", sold);
 
                                 context.startActivity(intent);
                             }

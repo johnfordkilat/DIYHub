@@ -31,7 +31,7 @@ import java.util.HashMap;
 public class UpdateProduct extends AppCompatActivity {
 
     EditText name,quantity,stocks;
-    String prodName,prodQuant,prodStocks,prodID;
+    String prodName,prodID;
     Button updateProd;
     ProgressDialog progressDialog;
     FirebaseFirestore dbFirestore;
@@ -40,6 +40,13 @@ public class UpdateProduct extends AppCompatActivity {
 
     String productID;
     String prodImage;
+    String description,material;
+    double price,sold;
+
+    double prodStocks,prodQuant;
+
+    EditText descriptionTxt,materialTxt,priceTxt,soldTxt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +56,10 @@ public class UpdateProduct extends AppCompatActivity {
         quantity = findViewById(R.id.updateProdQuantity);
         stocks = findViewById(R.id.updateProdStocks);
         updateProd = findViewById(R.id.updateProduct);
+        descriptionTxt = findViewById(R.id.productDescriptionTxtUpdateStandard);
+        materialTxt = findViewById(R.id.productMaterialsUsedUpdateStandard);
+        priceTxt = findViewById(R.id.productPriceUpdateStandard);
+        soldTxt = findViewById(R.id.productSoldUpdateStandard);
         progressDialog = new ProgressDialog(this);
         dbFirestore = FirebaseFirestore.getInstance();
 
@@ -57,16 +68,25 @@ public class UpdateProduct extends AppCompatActivity {
         if(extra != null)
         {
             prodName = extra.getString("ProductName");
-            prodQuant = extra.getString("ProductQuantity");
-            prodStocks = extra.getString("ProductStocks");
+            prodQuant = extra.getDouble("ProductQuantity");
+            prodStocks = extra.getDouble("ProductStocks");
             prodID = extra.getString("ProductID");
             prodImage = extra.getString("ProductImage");
+            description = extra.getString("ProductDescription");
+            material = extra.getString("ProductMaterial");
+            price = extra.getDouble("ProductPrice");
+            sold = extra.getDouble("ProductSold");
         }
 
         productID = prodID;
         name.setText(prodName);
-        quantity.setText(prodQuant);
-        stocks.setText(prodStocks);
+        quantity.setText(String.valueOf(prodQuant));
+        stocks.setText(String.valueOf(prodStocks));
+        descriptionTxt.setText(description);
+        materialTxt.setText(material);
+        priceTxt.setText(String.valueOf(price));
+        soldTxt.setText(String.valueOf(sold));
+
 
         updateProd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,13 +110,41 @@ public class UpdateProduct extends AppCompatActivity {
                     stocks.requestFocus();
                     return;
                 }
+                else if(descriptionTxt.getText().toString().trim().isEmpty())
+                {
+                    descriptionTxt.setError("Product Stocks is Required");
+                    descriptionTxt.requestFocus();
+                    return;
+                }
+                else if(materialTxt.getText().toString().trim().isEmpty())
+                {
+                    materialTxt.setError("Product Stocks is Required");
+                    materialTxt.requestFocus();
+                    return;
+                }
+                else if(priceTxt.getText().toString().trim().isEmpty())
+                {
+                    priceTxt.setError("Product Stocks is Required");
+                    priceTxt.requestFocus();
+                    return;
+                }
+                else if(soldTxt.getText().toString().trim().isEmpty())
+                {
+                    soldTxt.setError("Product Stocks is Required");
+                    soldTxt.requestFocus();
+                    return;
+                }
                 else {
                     String id = prodID;
                     String name1 = name.getText().toString().trim();
-                    String quan = quantity.getText().toString().trim();
-                    String sto = stocks.getText().toString();
+                    double quan = Double.parseDouble(quantity.getText().toString().trim());
+                    double sto = Double.parseDouble(stocks.getText().toString().trim());
+                    String desc = descriptionTxt.getText().toString().trim();
+                    String materials = materialTxt.getText().toString().trim();
+                    double price1 = Double.parseDouble(priceTxt.getText().toString().trim());
+                    double sold1 = Double.parseDouble(soldTxt.getText().toString().trim());
 
-                    updateData(id,name1,quan,sto);
+                    updateData(id,name1,quan,sto,desc,materials,price1,sold1);
                 }
             }
         });
@@ -106,11 +154,10 @@ public class UpdateProduct extends AppCompatActivity {
 
     }
 
-    private void updateData(String id1, String name1, String quan1, String stocks1)
+    private void updateData(String id1, String name1, double quan1, double stocks1, String description, String material, double price, double sold)
     {
-        int q = Integer.parseInt(quan1);
-        int s = Integer.parseInt(stocks1);
-        if(q > s)
+
+        if(quan1 > stocks1)
         {
             quantity.setError("Product Quantity should not be greater than Product Stocks");
             quantity.requestFocus();
@@ -120,7 +167,7 @@ public class UpdateProduct extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        if(q == s)
+        if(quan1 == stocks1)
         {
 
 
@@ -136,6 +183,10 @@ public class UpdateProduct extends AppCompatActivity {
             hashMap4.put("ProductID", id1);
             hashMap4.put("ProductStatus", "Hold");
             hashMap4.put("ProductStatusImage", playImageStatus);
+            hashMap4.put("ProductDescription", description);
+            hashMap4.put("ProductMaterial", material);
+            hashMap4.put("ProductPrice", price);
+            hashMap4.put("ProductSold", sold);
             reference4.updateChildren(hashMap4);
 
             reference.addValueEventListener(new ValueEventListener() {
@@ -161,6 +212,10 @@ public class UpdateProduct extends AppCompatActivity {
                             hashMap.put("ProductID", id1);
                             hashMap.put("ProductStatusImage", playImageStatus);
                             hashMap.put("ProductStatus", "Hold");
+                            hashMap.put("ProductDescription", description);
+                            hashMap.put("ProductMaterial", material);
+                            hashMap.put("ProductPrice", price);
+                            hashMap.put("ProductSold", sold);
                             reference.child("RestockNotification").child(user.getId()).child(id1).setValue(hashMap);
 
                             DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("RestockNotification").child(user.getId()).child(id1);
@@ -170,6 +225,10 @@ public class UpdateProduct extends AppCompatActivity {
                             hashMap1.put("ProductStocks", stocks1);
                             hashMap1.put("ProductStatus", "Hold");
                             hashMap1.put("ProductStatusImage", playImageStatus);
+                            hashMap1.put("ProductDescription", description);
+                            hashMap1.put("ProductMaterial", material);
+                            hashMap1.put("ProductPrice", price);
+                            hashMap1.put("ProductSold", sold);
                             reference2.updateChildren(hashMap1);
                             progressDialog.dismiss();
 
@@ -184,7 +243,7 @@ public class UpdateProduct extends AppCompatActivity {
                 }
             });
         }
-       else if(q < s)
+       else if(quan1 < stocks1)
         {
 
             final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -200,6 +259,10 @@ public class UpdateProduct extends AppCompatActivity {
             hashMap4.put("ProductID", id1);
             hashMap4.put("ProductStatus", "Active");
             hashMap4.put("ProductStatusImage", pauseImageStatus);
+            hashMap4.put("ProductDescription", description);
+            hashMap4.put("ProductMaterial", material);
+            hashMap4.put("ProductPrice", price);
+            hashMap4.put("ProductSold", sold);
             reference4.updateChildren(hashMap4);
 
             Toast.makeText(UpdateProduct.this, "Product Updated Successfully", Toast.LENGTH_SHORT).show();
@@ -227,6 +290,10 @@ public class UpdateProduct extends AppCompatActivity {
                             hashMap.put("ProductID", id1);
                             hashMap.put("ProductStatusImage", pauseImageStatus);
                             hashMap.put("ProductStatus", "Active");
+                            hashMap.put("ProductDescription", description);
+                            hashMap.put("ProductMaterial", material);
+                            hashMap.put("ProductPrice", price);
+                            hashMap.put("ProductSold", sold);
                             reference.child("RestockNotification").child(user.getId()).child(id1).setValue(hashMap);
 
 
@@ -237,6 +304,10 @@ public class UpdateProduct extends AppCompatActivity {
                             hashMap1.put("ProductStocks", stocks1);
                             hashMap1.put("ProductStatus", "Active");
                             hashMap1.put("ProductStatusImage", playImageStatus);
+                            hashMap1.put("ProductDescription", description);
+                            hashMap1.put("ProductMaterial", material);
+                            hashMap1.put("ProductPrice", price);
+                            hashMap1.put("ProductSold", sold);
                             reference2.updateChildren(hashMap1);
 
                             progressDialog.dismiss();

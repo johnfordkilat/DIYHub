@@ -27,8 +27,25 @@
         android:theme="@style/Theme.DIYHub"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".Fragments.AddVariationsStandardPage"
+            android:name=".Fragments.StandardProductDetailsPageSeller"
             android:exported="false" />
+        <activity
+            android:name=".Fragments.StandardProductDetails"
+            android:exported="false" />
+        <activity
+            android:name=".Fragments.CustomProductDetails"
+            android:exported="false" />
+        <activity
+            android:name=".Fragments.AddCustomSpecificationPage"
+            android:exported="false" />
+        <activity
+            android:name=".Fragments.AddVariationsCustomizePage"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".Fragments.AddVariationsStandardPage"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Fragments.AddCustomProduct"
             android:exported="false" />

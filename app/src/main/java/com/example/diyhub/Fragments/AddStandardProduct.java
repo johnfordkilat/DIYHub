@@ -38,46 +38,17 @@ public class AddStandardProduct extends AppCompatActivity {
 
 
 
-    Button addProduct;
-    TextView all,res,hold;
-    int count=0;
-    String emailSeller;
-    RecyclerView recyclerView;
-    FirebaseFirestore dbFirestore;
-    AllProductsAdapter allProductsAdapter;
-    ArrayList<AllProductsList> allProductsLists;
-    ProgressDialog progressDialog;
-    Button uploadProduct;
 
-    Uri imageUri1,imageUri2,imageUri3;
-    StorageReference storageReference1,storageReference2,storageReference3;
     private ArrayList<Uri> ImageList = new ArrayList<Uri>();
-    int index = 0;
-    private int uploads = 0;
-    private int success = 0;
-    ImageView profPic;
-    String usernameSeller;
-    FirebaseAuth mAuth;
-    String myUri;
-    private DatabaseReference databaseReference;
-    String value1,value2,value3,value4,value5,value6,value7,value8,value9,value10,value11,value12;
-    TextView shopN,locSeller,phoneSeller;
-    String locSell,phoneSell;
-    ImageView products,orders,stats;
     EditText productName,productQuantity,productStocks;
-    private static final int SELECT_PHOTOGOV = 1;
-    int dialog = 0;
-    TextView noProduct;
-    ImageView prodImage;
-    int clicked=0;
     String playImageStatus = "https://firebasestorage.googleapis.com/v0/b/diy-hub-847fb.appspot.com/o/PRODUCTSTATUS%2Fillust58-7479-01-removebg-preview.png?alt=media&token=63a829e1-660e-47e6-9b26-dc66d8eaac48";
     String pauseImageStatus = "https://firebasestorage.googleapis.com/v0/b/diy-hub-847fb.appspot.com/o/PRODUCTSTATUS%2Fpause__video__stop-removebg-preview.png?alt=media&token=dc125631-d226-41e1-91ac-6abf0b97c18d";
-
-
     String id;
     String cutid;
 
     Button addVariations;
+
+    EditText prodDescriptionTxt,prodMaterialTxt,prodPriceTxt,prodSoldTxt;
 
 
     @Override
@@ -85,12 +56,14 @@ public class AddStandardProduct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_standard_product);
 
-        dbFirestore = FirebaseFirestore.getInstance();
-        mAuth = FirebaseAuth.getInstance();
         productName = findViewById(R.id.addProdName);
         productQuantity = findViewById(R.id.addProdQuantity);
         productStocks = findViewById(R.id.addProdStocks);
         addVariations = findViewById(R.id.addVariationsStandard);
+        prodDescriptionTxt = findViewById(R.id.productDescriptionTxtAddStandard);
+        prodMaterialTxt = findViewById(R.id.productMaterialsUsedAddStandard);
+        prodPriceTxt = findViewById(R.id.productPriceAddStandard);
+        prodSoldTxt = findViewById(R.id.productSoldAddStandard);
 
 
         id = UUID.randomUUID().toString();
@@ -104,6 +77,11 @@ public class AddStandardProduct extends AppCompatActivity {
                 String prodName = productName.getText().toString().trim().isEmpty() ? "" : productName.getText().toString().trim();
                 String pQuans = productQuantity.getText().toString().trim().isEmpty() ? "0" : productQuantity.getText().toString().trim();
                 String pStocks = productStocks.getText().toString().trim().isEmpty() ? "0" : productStocks.getText().toString().trim();
+                String description = prodDescriptionTxt.getText().toString().trim();
+                String materialUsed = prodMaterialTxt.getText().toString().trim();
+                double price = prodPriceTxt.getText().toString().trim().isEmpty() ? 0 : Double.parseDouble(prodPriceTxt.getText().toString().trim());
+                double sold = prodSoldTxt.getText().toString().trim().isEmpty() ? 0 : Double.parseDouble(prodSoldTxt.getText().toString().trim());
+
                 int pQUan = Integer.parseInt(pQuans);
                 int pSTock = Integer.parseInt(pStocks);
 
@@ -135,6 +113,30 @@ public class AddStandardProduct extends AppCompatActivity {
                     productStocks.requestFocus();
                     return;
                 }
+                else if(prodDescriptionTxt.getText().toString().trim().isEmpty())
+                {
+                    prodDescriptionTxt.setError("Product Stocks is Required");
+                    prodDescriptionTxt.requestFocus();
+                    return;
+                }
+                else if(prodMaterialTxt.getText().toString().trim().isEmpty())
+                {
+                    prodMaterialTxt.setError("Product Stocks is Required");
+                    prodMaterialTxt.requestFocus();
+                    return;
+                }
+                else if(prodPriceTxt.getText().toString().trim().isEmpty())
+                {
+                    prodPriceTxt.setError("Product Stocks is Required");
+                    prodPriceTxt.requestFocus();
+                    return;
+                }
+                else if(prodSoldTxt.getText().toString().trim().isEmpty())
+                {
+                    prodSoldTxt.setError("Product Stocks is Required");
+                    prodSoldTxt.requestFocus();
+                    return;
+                }
                 else if(pQUan > pSTock)
                 {
                     productQuantity.setError("Product Quantity should not be greater than Product Stocks");
@@ -149,12 +151,17 @@ public class AddStandardProduct extends AppCompatActivity {
                         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                         Map<String,Object> sellerProductsfb = new HashMap<>();
                         sellerProductsfb.put("ProductName", prodName);
-                        sellerProductsfb.put("ProductQuantity", String.valueOf(pQUan));
-                        sellerProductsfb.put("ProductStocks", String.valueOf(pSTock));
+                        sellerProductsfb.put("ProductQuantity", pQUan);
+                        sellerProductsfb.put("ProductStocks", pSTock);
                         sellerProductsfb.put("ProductID", cutid);
                         sellerProductsfb.put("ProductStatus", "Hold");
                         sellerProductsfb.put("ProductType", "Standard");
                         sellerProductsfb.put("ProductStatusImage", playImageStatus);
+                        sellerProductsfb.put("ProductDescription", description);
+                        sellerProductsfb.put("ProductMaterial", materialUsed);
+                        sellerProductsfb.put("ProductPrice", price);
+                        sellerProductsfb.put("ProductSold", sold);
+
                         reference.child("SellerProducts").child(user.getUid()).child(cutid).setValue(sellerProductsfb);
                     }
                     else
@@ -163,12 +170,16 @@ public class AddStandardProduct extends AppCompatActivity {
                         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                         Map<String,Object> sellerProductsfb = new HashMap<>();
                         sellerProductsfb.put("ProductName", prodName);
-                        sellerProductsfb.put("ProductQuantity", String.valueOf(pQUan));
-                        sellerProductsfb.put("ProductStocks", String.valueOf(pSTock));
+                        sellerProductsfb.put("ProductQuantity", pQUan);
+                        sellerProductsfb.put("ProductStocks", pSTock);
                         sellerProductsfb.put("ProductID", cutid);
                         sellerProductsfb.put("ProductStatus", "Active");
                         sellerProductsfb.put("ProductStatusImage", pauseImageStatus);
                         sellerProductsfb.put("ProductType", "Standard");
+                        sellerProductsfb.put("ProductDescription", description);
+                        sellerProductsfb.put("ProductMaterial", materialUsed);
+                        sellerProductsfb.put("ProductPrice", price);
+                        sellerProductsfb.put("ProductSold", sold);
                         reference.child("SellerProducts").child(user.getUid()).child(cutid).setValue(sellerProductsfb);
                     }
 

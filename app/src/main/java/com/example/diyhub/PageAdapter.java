@@ -78,4 +78,3 @@ public class PageAdapter extends FragmentPagerAdapter {
         return mContext.getResources().getString(TAB_TITLES[position]);
     }
 }
-

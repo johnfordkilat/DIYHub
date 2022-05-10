@@ -2,16 +2,22 @@ package com.example.diyhub;
 
 public class AllProductsList {
 
-    String ProductName, ProductQuantity, ProductStocks;
+    String ProductName;
     String ProductImage,ProductID,ProductStatusImage,ProductStatus;
     String ProductType;
+    double ProductPrice;
+    double ProductSold;
+    String ProductMaterial;
+    String ProductDescription;
+    int ProductQuantity;
+    int ProductStocks;
 
     public AllProductsList(){
 
     }
 
-    public AllProductsList(String productName, String productQuantity, String productStocks, String prodImage, String prodID, String prodImgStatus, String prodStatus,
-                           String productType) {
+    public AllProductsList(String productName, int productQuantity, int productStocks, String prodImage, String prodID, String prodImgStatus, String prodStatus,
+                           String productType, double productPrice, double productSold, String productDescription, String productMaterial) {
         ProductName = productName;
         ProductQuantity = productQuantity;
         ProductStocks = productStocks;
@@ -20,14 +26,34 @@ public class AllProductsList {
         ProductStatusImage = prodImgStatus;
         ProductStatus = prodStatus;
         ProductType = productType;
+        ProductPrice = productPrice;
+        ProductSold = productSold;
+        ProductDescription = productDescription;
+        ProductMaterial = productMaterial;
     }
 
-    public String getProductType() {
-        return ProductType;
+    public String getProductName() {
+        return ProductName;
     }
 
-    public void setProductType(String productType) {
-        ProductType = productType;
+    public void setProductName(String productName) {
+        ProductName = productName;
+    }
+
+    public String getProductImage() {
+        return ProductImage;
+    }
+
+    public void setProductImage(String productImage) {
+        ProductImage = productImage;
+    }
+
+    public String getProductID() {
+        return ProductID;
+    }
+
+    public void setProductID(String productID) {
+        ProductID = productID;
     }
 
     public String getProductStatusImage() {
@@ -38,46 +64,67 @@ public class AllProductsList {
         ProductStatusImage = productStatusImage;
     }
 
-    public void setProductName(String productName) {
-        ProductName = productName;
+    public String getProductStatus() {
+        return ProductStatus;
     }
 
-    public void setProductQuantity(String productQuantity) {
-        ProductQuantity = productQuantity;
+    public void setProductStatus(String productStatus) {
+        ProductStatus = productStatus;
     }
 
-    public void setProductStocks(String productStocks) {
-        ProductStocks = productStocks;
+    public String getProductType() {
+        return ProductType;
     }
 
-    public void setProductImage(String productImage) {
-        ProductImage = productImage;
+    public void setProductType(String productType) {
+        ProductType = productType;
     }
 
-
-
-    public String getProductName() {
-        return ProductName;
+    public double getProductPrice() {
+        return ProductPrice;
     }
 
-    public String getProductQuantity() {
+    public void setProductPrice(double productPrice) {
+        ProductPrice = productPrice;
+    }
+
+    public double getProductSold() {
+        return ProductSold;
+    }
+
+    public void setProductSold(double productSold) {
+        ProductSold = productSold;
+    }
+
+    public String getProductMaterial() {
+        return ProductMaterial;
+    }
+
+    public void setProductMaterial(String productMaterial) {
+        ProductMaterial = productMaterial;
+    }
+
+    public String getProductDescription() {
+        return ProductDescription;
+    }
+
+    public void setProductDescription(String productDescription) {
+        ProductDescription = productDescription;
+    }
+
+    public int getProductQuantity() {
         return ProductQuantity;
     }
 
-    public String getProductStocks() {
+    public void setProductQuantity(int productQuantity) {
+        ProductQuantity = productQuantity;
+    }
+
+    public int getProductStocks() {
         return ProductStocks;
     }
-    public String getProductImage() {
-        return ProductImage;
-    }
-    public String getProductID(){return ProductID;}
-    public String getProductStatus(){return ProductStatus;}
-    public void setProductStatus(String status)
-    {
-        this.ProductStatus = status;
-    }
-    public void setProductID(String prodID)
-    {
-        this.ProductID = prodID;
+
+    public void setProductStocks(int productStocks) {
+        ProductStocks = productStocks;
     }
 }

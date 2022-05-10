@@ -7,4 +7,163 @@
     android:background="@drawable/gradient_one"
     tools:context=".Fragments.AddCustomProduct">
 
+    <TextView
+        android:id="@+id/textView91"
+        android:layout_width="415dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="9dp"
+        android:gravity="center"
+        android:text="ADD CUSTOM PRODUCT"
+        android:textSize="32dp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/addProdNameCustom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/addProdStocksCustom"
+        android:layout_width="382dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="82dp"
+        android:layout_marginEnd="120dp"
+        android:background="@drawable/textview_border"
+        android:ems="10"
+        android:hint="Product Stocks"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.352"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <EditText
+        android:id="@+id/productMaterialsUsedAddCustom"
+        android:layout_width="382dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="82dp"
+        android:layout_marginEnd="120dp"
+        android:background="@drawable/textview_border"
+        android:ems="10"
+        android:hint="Product Materials Used"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.352"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.386" />
+
+    <EditText
+        android:id="@+id/productDescriptionTxtAddCustom"
+        android:layout_width="381dp"
+        android:layout_height="187dp"
+        android:layout_marginStart="82dp"
+        android:layout_marginEnd="120dp"
+        android:background="@drawable/textview_border"
+        android:ems="10"
+        android:hint="Product Description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.348"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.819" />
+
+    <EditText
+        android:id="@+id/productPriceAddCustom"
+        android:layout_width="382dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="82dp"
+        android:layout_marginEnd="120dp"
+        android:background="@drawable/textview_border"
+        android:ems="10"
+        android:hint="Product Price"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.352"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.468" />
+
+    <EditText
+        android:id="@+id/addProdQuantityCustom"
+        android:layout_width="382dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginEnd="117dp"
+        android:background="@drawable/textview_border"
+        android:ems="10"
+        android:hint="Product Quantity"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.364"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.22" />
+
+    <EditText
+        android:id="@+id/productSoldAddCustom"
+        android:layout_width="382dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="82dp"
+        android:layout_marginEnd="120dp"
+        android:background="@drawable/textview_border"
+        android:ems="10"
+        android:hint="Product Sold"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.352"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.563" />
+
+    <EditText
+        android:id="@+id/addProdNameCustom"
+        android:layout_width="382dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="81dp"
+        android:background="@drawable/textview_border"
+        android:ems="10"
+        android:hint="Product Name"
+        android:inputType="textPersonName"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.446"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.06" />
+
+    <Button
+        android:id="@+id/addVariationsCustom"
+        android:layout_width="253dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="79dp"
+        android:text="Add Variations"
+        app:layout_constraintBottom_toTopOf="@+id/addSpecificationCustom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productDescriptionTxtAddCustom" />
+
+    <Button
+        android:id="@+id/addSpecificationCustom"
+        android:layout_width="253dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="79dp"
+        android:layout_marginBottom="3dp"
+        android:text="Add Specifications"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addVariationsCustom" />
 </androidx.constraintlayout.widget.ConstraintLayout>

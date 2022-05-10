@@ -22,7 +22,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class NotificationPromo extends AppCompatActivity {
 
@@ -94,6 +97,26 @@ public class NotificationPromo extends AppCompatActivity {
 
             }
         });
+        String id = UUID.randomUUID().toString();
+        String cutid = id.substring(0,11);
+
+
+
+        /*
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        Map<String, Object> map = new HashMap<>();
+        map.put("IsSeen", "false");
+        map.put("NotifDateAndTime", "05/04/2022 10:57PM");
+        map.put("NotifDescription", "John Ford Kilat is now following you");
+        map.put("NotifHeader", "Follow Notifications");
+        map.put("NotifID", cutid);
+        map.put("NotifImage","https://logos.flamingtext.com/Word-Logos/following-design-amped-logo.webp");
+        reference.child("Notifications").child(user.getUid()).child(cutid).setValue(map);
+
+         */
+
+
+
 
 
 

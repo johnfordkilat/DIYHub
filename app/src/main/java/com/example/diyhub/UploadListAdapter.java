@@ -2,6 +2,7 @@ package com.example.diyhub;
 
 import android.content.Context;
 import android.media.Image;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +23,14 @@ public class UploadListAdapter extends RecyclerView.Adapter<UploadListAdapter.Vi
 
     public List<String> fileNameList;
     public List<String> fileDoneList;
+    public List<Uri> fileImageList;
+    public List<Integer> counterList;
 
-    public UploadListAdapter(List<String> fileNameList, List<String> fileDoneList) {
+    public UploadListAdapter(List<String> fileNameList, List<String> fileDoneList, List<Uri> fileImageList, List<Integer> counterList) {
         this.fileNameList = fileNameList;
         this.fileDoneList = fileDoneList;
+        this.fileImageList = fileImageList;
+        this.counterList = counterList;
     }
 
     @NonNull
@@ -39,8 +44,13 @@ public class UploadListAdapter extends RecyclerView.Adapter<UploadListAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         String filename = fileNameList.get(position);
-        holder.filenameView.setText(filename);
+        Uri fileImage = fileImageList.get(position);
+        Integer count = counterList.get(position);
 
+        holder.filenameView.setText(filename);
+        holder.counter.setText(String.valueOf(count));
+
+        holder.prodImage.setImageURI(fileImage);
 
         String filedone = fileDoneList.get(position);
         if(filedone.equals("Uploading"))
@@ -49,7 +59,7 @@ public class UploadListAdapter extends RecyclerView.Adapter<UploadListAdapter.Vi
         }
         else
         {
-            holder.filedoneView.setImageResource(R.drawable.check);
+            holder.filedoneView.setImageResource(R.drawable.checkicon);
         }
     }
 
@@ -65,6 +75,7 @@ public class UploadListAdapter extends RecyclerView.Adapter<UploadListAdapter.Vi
         public TextView filenameView;
         public ImageView filedoneView;
         public CircleImageView prodImage;
+        public TextView counter;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,6 +84,7 @@ public class UploadListAdapter extends RecyclerView.Adapter<UploadListAdapter.Vi
             filenameView = mView.findViewById(R.id.uploadFileNameTxtProductsStandard);
             filedoneView = mView.findViewById(R.id.uploadLoadingProductsStandard);
             prodImage = mView.findViewById(R.id.prodImageProductsStandard);
+            counter = mView.findViewById(R.id.counterTxtStandardProductImages);
 
         }
     }

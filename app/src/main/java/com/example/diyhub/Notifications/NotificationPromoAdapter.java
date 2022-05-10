@@ -9,8 +9,10 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,7 @@ import com.example.diyhub.MESSAGES.MessageActivity;
 import com.example.diyhub.MESSAGES.User;
 import com.example.diyhub.R;
 import com.example.diyhub.SellerHomePage;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -103,6 +106,37 @@ public class NotificationPromoAdapter extends RecyclerView.Adapter<NotificationP
         }
 
 
+        holder.removeNotif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getRootView().getContext());
+                builder.setTitle("Remove Confirmation");
+                builder.setMessage("Are you sure you want to remove this from notifications?");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Notifications").child(user.getUid()).child(promoList.getNotifID());
+                        reference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(mContext, "Notification Deleted Successfully!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        
+                    }
+                });
+
+                builder.show();
+            }
+        });
 
 
     }
@@ -122,6 +156,7 @@ public class NotificationPromoAdapter extends RecyclerView.Adapter<NotificationP
         CardView notifCardview;
         TextView dateAndTime;
         TextView notifHeader;
+        ImageView removeNotif;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.itemImageView);
@@ -129,6 +164,7 @@ public class NotificationPromoAdapter extends RecyclerView.Adapter<NotificationP
             notifCardview = itemView.findViewById(R.id.notifCardViewNotifList);
             dateAndTime = itemView.findViewById(R.id.dateAndTimeTextViewNotif);
             notifHeader = itemView.findViewById(R.id.notificationHeaderNotifList);
+            removeNotif = itemView.findViewById(R.id.removeFromNotifList);
 
 
         }

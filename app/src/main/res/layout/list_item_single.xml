@@ -11,15 +11,25 @@
         android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
+        <TextView
+            android:id="@+id/counterTxtStandardProductImages"
+            android:layout_width="69dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+            android:text="1"
+            android:textSize="20dp"
+            android:textStyle="bold|italic" />
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/prodImageProductsStandard"
-            android:layout_width="61dp"
+            android:layout_width="80dp"
             android:layout_height="49dp"
-            android:layout_marginLeft="30dp"
-            android:layout_weight="1"
+            android:layout_marginLeft="-20dp"
             android:layout_marginRight="10dp"
-            android:visibility="visible"
-            android:background="@drawable/diy" />
+            android:layout_weight="1"
+            android:background="@drawable/diy"
+            android:visibility="visible" />
 
         <TextView
             android:id="@+id/uploadFileNameTxtProductsStandard"

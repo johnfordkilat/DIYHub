@@ -2,21 +2,33 @@ package com.example.diyhub;
 
 public class HoldProductsList {
 
-    String ProductName, ProductQuantity, ProductStocks;
+    String ProductName;
     String ProductImage,ProductID,ProductStatusImage,ProductStatus;
+    String ProductType;
+    double ProductPrice;
+    double ProductSold;
+    String ProductMaterial;
+    String ProductDescription;
+    int ProductQuantity;
+    int ProductStocks;
 
     public HoldProductsList(){
 
     }
 
-    public HoldProductsList(String productName, String productQuantity, String productStocks, String prodImage, String prodID, String prodImgStatus, String prodStatus) {
+    public HoldProductsList(String productName, String productImage, String productID, String productStatusImage, String productStatus, String productType, double productPrice, double productSold, String productMaterial, String productDescription, int productQuantity, int productStocks) {
         ProductName = productName;
+        ProductImage = productImage;
+        ProductID = productID;
+        ProductStatusImage = productStatusImage;
+        ProductStatus = productStatus;
+        ProductType = productType;
+        ProductPrice = productPrice;
+        ProductSold = productSold;
+        ProductMaterial = productMaterial;
+        ProductDescription = productDescription;
         ProductQuantity = productQuantity;
         ProductStocks = productStocks;
-        ProductImage = prodImage;
-        ProductID = prodID;
-        ProductStatusImage = prodImgStatus;
-        ProductStatus = prodStatus;
     }
 
     public String getProductName() {
@@ -25,22 +37,6 @@ public class HoldProductsList {
 
     public void setProductName(String productName) {
         ProductName = productName;
-    }
-
-    public String getProductQuantity() {
-        return ProductQuantity;
-    }
-
-    public void setProductQuantity(String productQuantity) {
-        ProductQuantity = productQuantity;
-    }
-
-    public String getProductStocks() {
-        return ProductStocks;
-    }
-
-    public void setProductStocks(String productStocks) {
-        ProductStocks = productStocks;
     }
 
     public String getProductImage() {
@@ -73,5 +69,61 @@ public class HoldProductsList {
 
     public void setProductStatus(String productStatus) {
         ProductStatus = productStatus;
+    }
+
+    public String getProductType() {
+        return ProductType;
+    }
+
+    public void setProductType(String productType) {
+        ProductType = productType;
+    }
+
+    public double getProductPrice() {
+        return ProductPrice;
+    }
+
+    public void setProductPrice(double productPrice) {
+        ProductPrice = productPrice;
+    }
+
+    public double getProductSold() {
+        return ProductSold;
+    }
+
+    public void setProductSold(double productSold) {
+        ProductSold = productSold;
+    }
+
+    public String getProductMaterial() {
+        return ProductMaterial;
+    }
+
+    public void setProductMaterial(String productMaterial) {
+        ProductMaterial = productMaterial;
+    }
+
+    public String getProductDescription() {
+        return ProductDescription;
+    }
+
+    public void setProductDescription(String productDescription) {
+        ProductDescription = productDescription;
+    }
+
+    public int getProductQuantity() {
+        return ProductQuantity;
+    }
+
+    public void setProductQuantity(int productQuantity) {
+        ProductQuantity = productQuantity;
+    }
+
+    public int getProductStocks() {
+        return ProductStocks;
+    }
+
+    public void setProductStocks(int productStocks) {
+        ProductStocks = productStocks;
     }
 }
