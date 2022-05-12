@@ -254,7 +254,7 @@ public class PastTransactionHistory extends AppCompatActivity implements DatePic
 
 
 
-        referenceOrderRequest = FirebaseDatabase.getInstance().getReference("TransactionHistory").child(user.getUid());
+        referenceOrderRequest = FirebaseDatabase.getInstance().getReference("Orders").child(user.getUid());
 
         referenceOrderRequest.addValueEventListener(new ValueEventListener() {
             @Override

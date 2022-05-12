@@ -63,9 +63,9 @@ public class ToBookAdapter extends RecyclerView.Adapter<ToBookAdapter.MyViewHold
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         OrdersList productsList = list.get(position);
 
-        holder.itemName.setText(productsList.getOrderProductName());
-        holder.buyerName.setText(productsList.getBuyerName());
-        holder.location.setText(productsList.getBookingAddress());
+        holder.itemName.setText("Item: "+productsList.getOrderProductName());
+        holder.buyerName.setText("Buyer: "+productsList.getBuyerName());
+        holder.location.setText("Location: "+productsList.getBookingAddress());
         holder.orderType.setText(productsList.getOrderType());
         holder.paymentOption.setText(productsList.getPaymentOption());
         //holder.orderid.setText("Order ID: "+productsList.getOrderID());

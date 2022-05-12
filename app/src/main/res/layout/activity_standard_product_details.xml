@@ -7,12 +7,12 @@
     android:background="@drawable/gradient_one"
     tools:context=".Fragments.StandardProductDetails">
 
+
     <TextView
         android:id="@+id/textView90"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="33dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="598dp"
         android:gravity="center"
@@ -22,18 +22,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPagerStandardProductDetails"
         android:layout_width="398dp"
-        android:layout_height="159dp"
-        android:layout_marginTop="32dp"
+        android:layout_height="300dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView90"
         app:layout_constraintVertical_bias="0.0" />
@@ -50,7 +48,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView90"
-        app:layout_constraintVertical_bias="0.41000003">
+        app:layout_constraintVertical_bias="0.55">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -141,7 +139,6 @@
         android:layout_width="391dp"
         android:layout_height="70dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="13dp"
         android:layout_marginBottom="142dp"
         app:cardCornerRadius="20dp"
@@ -149,7 +146,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
-        app:layout_constraintVertical_bias="0.16000003"
+        app:layout_constraintVertical_bias="1.0"
         tools:layout_marginTop="1dp">
 
         <RelativeLayout
@@ -189,9 +186,9 @@
                 android:id="@+id/shopRatingStandardDetails"
                 android:layout_width="300dp"
                 android:layout_height="20dp"
+                android:layout_marginStart="110dp"
                 android:layout_marginTop="44dp"
                 android:background="@drawable/textview_border_rectangle"
-                android:layout_marginStart="110dp"
                 android:text="ShopName" />
 
         </RelativeLayout>
@@ -202,15 +199,13 @@
         android:layout_width="391dp"
         android:layout_height="150dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="13dp"
-        android:layout_marginBottom="6dp"
         app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView2"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="1.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -257,8 +252,8 @@
                 android:id="@+id/descriptionStandardDetailsFinal"
                 android:layout_width="373dp"
                 android:layout_height="54dp"
-                android:layout_marginBottom="7dp"
                 android:layout_marginTop="-15dp"
+                android:layout_marginBottom="7dp"
                 android:background="@drawable/textview_border_rectangle"
                 android:text="Description"
                 app:layout_constraintBottom_toBottomOf="parent"

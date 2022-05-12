@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class OrderDetailOngoingCustomizationPage extends AppCompatActivity {
 
@@ -143,6 +144,11 @@ public class OrderDetailOngoingCustomizationPage extends AppCompatActivity {
 
                     reference1.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap1);
 
+                    DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference();
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("IsSeen","true");
+                    map.put("NotifHeader","To Receive");
+                    reference2.child("Notifications").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map);
 
 
                     Toast.makeText(OrderDetailOngoingCustomizationPage.this, "Order is moved to TO RECEIVE", Toast.LENGTH_SHORT).show();
@@ -167,6 +173,11 @@ public class OrderDetailOngoingCustomizationPage extends AppCompatActivity {
                     reference1.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap1);
 
 
+                    DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference();
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("IsSeen","true");
+                    map.put("NotifHeader","To Receive");
+                    reference2.child("Notifications").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map);
 
                     Toast.makeText(OrderDetailOngoingCustomizationPage.this, "Order is moved to TO BOOK", Toast.LENGTH_SHORT).show();
                     finish();

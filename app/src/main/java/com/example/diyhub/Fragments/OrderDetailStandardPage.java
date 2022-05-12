@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class OrderDetailStandardPage extends AppCompatActivity {
 
@@ -285,11 +286,12 @@ public class OrderDetailStandardPage extends AppCompatActivity {
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                 HashMap<String, Object> hashMap = new HashMap<>();
                 hashMap.put("OrderStatus", "Accepted");
-
-
-
-
                 reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap);
+
+                DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
+                Map<String, Object> map = new HashMap<>();
+                map.put("IsSeen","true");
+                reference1.child("Notifications").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map);
 
                 Toast.makeText(OrderDetailStandardPage.this, "Order is MOVED TO ACCEPTED", Toast.LENGTH_SHORT).show();
                 finish();

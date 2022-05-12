@@ -23,56 +23,36 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/orderQuantityTxt5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Location: "
-        app:layout_constraintBottom_toTopOf="@+id/orderTypeToBook"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.365"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/itemImageToBook"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
         android:id="@+id/locationTxtToBook"
-        android:layout_width="wrap_content"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="196dp"
+        android:background="@drawable/textview_border_rectangle"
         android:text="Product Name"
         android:textAlignment="textStart"
         app:layout_constraintBottom_toTopOf="@+id/paymentOptionToBook"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/orderQuantityTxt5"
+        app:layout_constraintStart_toEndOf="@+id/itemImageToBook"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.979" />
-
-    <TextView
-        android:id="@+id/orderQuantityTxt4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Buyer: "
-        app:layout_constraintBottom_toTopOf="@+id/orderQuantityTxt5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.347"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/itemImageToBook"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.937" />
 
     <TextView
         android:id="@+id/buyerNameTxtToBook"
-        android:layout_width="wrap_content"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="196dp"
+        android:background="@drawable/textview_border_rectangle"
         android:text="Product Name"
         android:textAlignment="textStart"
         app:layout_constraintBottom_toTopOf="@+id/locationTxtToBook"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"
-        app:layout_constraintStart_toEndOf="@+id/orderQuantityTxt4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/itemImageToBook"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.964" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/orderTypeToBook"
@@ -92,14 +72,17 @@
 
     <TextView
         android:id="@+id/itemNameTxtToBook"
-        android:layout_width="wrap_content"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="196dp"
+        android:background="@drawable/textview_border_rectangle"
         android:text="Product Name"
         android:textAlignment="textStart"
         app:layout_constraintBottom_toTopOf="@+id/buyerNameTxtToBook"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.164"
-        app:layout_constraintStart_toEndOf="@+id/orderQuantityTxt"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/itemImageToBook"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -118,19 +101,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
         tools:layout_marginTop="5dp" />
-
-    <TextView
-        android:id="@+id/orderQuantityTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Item: "
-        app:layout_constraintBottom_toTopOf="@+id/orderQuantityTxt4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.34"
-        app:layout_constraintLeft_toRightOf="@id/itemImageToBook"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.961" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/paymentOptionToBook"

@@ -118,37 +118,16 @@
         android:text="Item Code:"
         android:textColor="@color/black"
         android:textSize="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/itemNameTxtStandardToBook"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName8B"
         app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName9B"
         app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName8B"
-        app:layout_constraintTop_toBottomOf="@+id/standardPageImageToBook" />
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName8B" />
 
     <EditText
         android:id="@+id/orderDateTxtStandardToBook"
         android:layout_width="71dp"
         android:layout_height="33dp"
-        android:layout_marginTop="206dp"
         android:layout_marginEnd="44dp"
-        android:layout_marginBottom="178dp"
-        android:background="@android:color/transparent"
-        android:ems="10"
-        android:enabled="false"
-        android:focusable="false"
-        android:text="Item Code:"
-        android:textColor="@color/black"
-        android:textSize="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView38B"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName9B"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/orderTypeTxtStandardToBook"
-        android:layout_width="139dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="11dp"
-        android:layout_marginEnd="243dp"
-        android:layout_marginBottom="4dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:enabled="false"
@@ -159,7 +138,28 @@
         app:layout_constraintBottom_toTopOf="@+id/buyerNameTxtStandardToBook"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName6B" />
+        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName9B"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName9B"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/orderTypeTxtStandardToBook"
+        android:layout_width="139dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginBottom="4dp"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:enabled="false"
+        android:focusable="false"
+        android:text="Item Code:"
+        android:textColor="@color/black"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName6B"
+        app:layout_constraintEnd_toStartOf="@+id/orderDateTxtStandardToBook"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName6B"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName6B" />
 
     <EditText
         android:id="@+id/editTextTextPersonName8B"
@@ -204,8 +204,6 @@
         android:layout_width="139dp"
         android:layout_height="33dp"
         android:layout_marginStart="1dp"
-        android:layout_marginEnd="66dp"
-        android:layout_marginBottom="4dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:enabled="false"
@@ -213,16 +211,16 @@
         android:text="Item Code:"
         android:textColor="@color/black"
         android:textSize="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/quantityTxtStandardToBook"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName9B"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName01B"
+        app:layout_constraintEnd_toStartOf="@+id/orderDateTxtStandardToBook"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName01B" />
+        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName01B"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName01B" />
 
     <EditText
         android:id="@+id/quantityTxtStandardToBook"
         android:layout_width="139dp"
         android:layout_height="33dp"
-        android:layout_marginEnd="252dp"
         android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
         android:ems="10"
@@ -231,10 +229,12 @@
         android:text="Item Code:"
         android:textColor="@color/black"
         android:textSize="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/orderTypeTxtStandardToBook"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName4B"
+        app:layout_constraintEnd_toStartOf="@+id/orderDateTxtStandardToBook"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName4B" />
+        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName4B"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName4B"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/editTextTextPersonName9B"
@@ -446,14 +446,12 @@
         android:id="@+id/moveToToReceiveStandard"
         android:layout_width="90dp"
         android:layout_height="50dp"
-        android:layout_marginTop="67dp"
-        android:layout_marginBottom="76dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/logoutTxtview3B"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.984"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customerRequestSpinnerStandardToBook"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toBottomOf="@+id/orderTrackerSpinnerStandardToBook"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/arrowright" />
 
     <EditText

@@ -13,11 +13,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.diyhub.Notifications.NotificationPromoList;
 import com.example.diyhub.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,8 +32,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 
 public class SellerOrdersFragment extends Fragment {
@@ -111,12 +119,28 @@ public class SellerOrdersFragment extends Fragment {
     RecyclerView recyclerViewReturnOrRefund;
 
 
+    String orderRequestImage="https://firebasestorage.googleapis.com/v0/b/diy-hub-847fb.appspot.com/o/johnfordtapales8%40gmail.com%2FOrderForm-Icon-removebg-preview.png?alt=media&token=a290336b-566b-4a74-bee0-b7ed261961d7";
 
 
     boolean orderRequestTab = false;
     boolean acceptedTab = false;
     boolean ongoingTab = false;
 
+    CardView ordersnotifCardviewOrderRequest;
+    TextView ordersnotifCounterOrderRequest;
+
+    CardView ordersnotifCardviewAccepted;
+    TextView ordersnotifCounterAccepted;
+
+    CardView ordersnotifCardviewOngoing;
+    TextView ordersnotifCounterOngoing;
+
+
+    String[] notifidNotif;
+    int indexcount = 0;
+
+    List<String> listorder;
+    List<Integer> indexorder;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -162,6 +186,15 @@ public class SellerOrdersFragment extends Fragment {
         recyclerViewReturnOrRefund = view.findViewById(R.id.ordersReturnOrRefundRecyclerSeller);
         recyclerViewReturnOrRefund.setHasFixedSize(true);
         recyclerViewReturnOrRefund.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        ordersnotifCardviewOrderRequest = view.findViewById(R.id.ordersNotificationNumberContainerOrderRequest);
+        ordersnotifCounterOrderRequest = view.findViewById(R.id.ordersNotifCounterOrderRequest);
+
+        ordersnotifCardviewAccepted = view.findViewById(R.id.ordersNotificationNumberContainerAccepted);
+        ordersnotifCounterAccepted = view.findViewById(R.id.ordersNotifCounterAccepted);
+
+        ordersnotifCardviewOngoing= view.findViewById(R.id.ordersNotificationNumberContainerOngoing);
+        ordersnotifCounterOngoing = view.findViewById(R.id.ordersNotifCounterOngoing);
 
 
 
@@ -234,6 +267,11 @@ public class SellerOrdersFragment extends Fragment {
                     tabLayoutOngoing.setVisibility(View.VISIBLE);
                     tabLayoutToBook.setVisibility(View.INVISIBLE);
                     tabLayoutToReceive.setVisibility(View.INVISIBLE);
+                    updateOrdersNotificationsCountOrderRequest();
+                    updateOrdersNotificationsCountAccepted();
+                    updateOrdersNotificationsCountOngoing();
+
+
 
                     if(orderRequestTab == true)
                     {
@@ -274,6 +312,9 @@ public class SellerOrdersFragment extends Fragment {
                     tabLayoutOngoing.setVisibility(View.INVISIBLE);
                     tabLayoutToBook.setVisibility(View.VISIBLE);
                     tabLayoutToReceive.setVisibility(View.INVISIBLE);
+                    ordersnotifCardviewOrderRequest.setVisibility(View.INVISIBLE);
+                    ordersnotifCardviewAccepted.setVisibility(View.INVISIBLE);
+                    ordersnotifCardviewOngoing.setVisibility(View.INVISIBLE);
 
                     if(acceptedTab == true)
                     {
@@ -301,6 +342,9 @@ public class SellerOrdersFragment extends Fragment {
                     tabLayoutOngoing.setVisibility(View.INVISIBLE);
                     tabLayoutToBook.setVisibility(View.INVISIBLE);
                     tabLayoutToReceive.setVisibility(View.VISIBLE);
+                    ordersnotifCardviewOrderRequest.setVisibility(View.INVISIBLE);
+                    ordersnotifCardviewAccepted.setVisibility(View.INVISIBLE);
+                    ordersnotifCardviewOngoing.setVisibility(View.INVISIBLE);
 
                     if(acceptedTab == true)
                     {
@@ -328,6 +372,9 @@ public class SellerOrdersFragment extends Fragment {
                     tabLayoutOngoing.setVisibility(View.INVISIBLE);
                     tabLayoutToBook.setVisibility(View.INVISIBLE);
                     tabLayoutToReceive.setVisibility(View.VISIBLE);
+                    ordersnotifCardviewOrderRequest.setVisibility(View.INVISIBLE);
+                    ordersnotifCardviewAccepted.setVisibility(View.INVISIBLE);
+                    ordersnotifCardviewOngoing.setVisibility(View.INVISIBLE);
 
                     if(acceptedTab == true)
                     {
@@ -355,6 +402,9 @@ public class SellerOrdersFragment extends Fragment {
                     tabLayoutOngoing.setVisibility(View.INVISIBLE);
                     tabLayoutToBook.setVisibility(View.INVISIBLE);
                     tabLayoutToReceive.setVisibility(View.VISIBLE);
+                    ordersnotifCardviewOrderRequest.setVisibility(View.INVISIBLE);
+                    ordersnotifCardviewAccepted.setVisibility(View.INVISIBLE);
+                    ordersnotifCardviewOngoing.setVisibility(View.INVISIBLE);
 
                     if(acceptedTab == true)
                     {
@@ -382,6 +432,9 @@ public class SellerOrdersFragment extends Fragment {
                     tabLayoutOngoing.setVisibility(View.INVISIBLE);
                     tabLayoutToBook.setVisibility(View.INVISIBLE);
                     tabLayoutToReceive.setVisibility(View.VISIBLE);
+                    ordersnotifCardviewOrderRequest.setVisibility(View.INVISIBLE);
+                    ordersnotifCardviewAccepted.setVisibility(View.INVISIBLE);
+                    ordersnotifCardviewOngoing.setVisibility(View.INVISIBLE);
 
                     if(acceptedTab == true)
                     {
@@ -424,6 +477,7 @@ public class SellerOrdersFragment extends Fragment {
                     recyclerOrdersAccepted.setVisibility(View.INVISIBLE);
                     recyclerOredersOngoing.setVisibility(View.INVISIBLE);
                     Toast.makeText(getContext(), "ORDERS REQUEST", Toast.LENGTH_SHORT).show();
+
                 }
 
                 if(tab.getPosition() == 1)
@@ -466,8 +520,111 @@ public class SellerOrdersFragment extends Fragment {
             }
         });
 
+        updateOrdersNotificationsCountOrderRequest();
+        updateOrdersNotificationsCountAccepted();
+        updateOrdersNotificationsCountOngoing();
+
         return view;
+
+
     }
+
+    private void updateOrdersNotificationsCountOrderRequest() {
+        // TODO: larona, add your logic here
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Notifications").child(user.getUid());
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                int counterNotif = 0;
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    NotificationPromoList notif = snapshot.getValue(NotificationPromoList.class);
+                    if(notif.getIsSeen().equalsIgnoreCase("false") && notif.getNotifHeader().equalsIgnoreCase("Order Request"))
+                    {
+                        counterNotif++;
+                    }
+
+
+                    ordersnotifCounterOrderRequest.setText(String.valueOf(counterNotif));
+                    ordersnotifCardviewOrderRequest.setVisibility(counterNotif == 0 ? View.INVISIBLE : View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private void updateOrdersNotificationsCountAccepted() {
+        // TODO: larona, add your logic here
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Notifications").child(user.getUid());
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                int counterNotif = 0;
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    NotificationPromoList notif = snapshot.getValue(NotificationPromoList.class);
+                    if(notif.getIsSeen().equalsIgnoreCase("false") && notif.getNotifHeader().equalsIgnoreCase("Accepted"))
+                    {
+                        counterNotif++;
+                    }
+
+
+                    ordersnotifCounterAccepted.setText(String.valueOf(counterNotif));
+                    ordersnotifCardviewAccepted.setVisibility(counterNotif == 0 ? View.INVISIBLE : View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void updateOrdersNotificationsCountOngoing() {
+        // TODO: larona, add your logic here
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Notifications").child(user.getUid());
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                int counterNotif = 0;
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    NotificationPromoList notif = snapshot.getValue(NotificationPromoList.class);
+                    if(notif.getIsSeen().equalsIgnoreCase("false") && notif.getNotifHeader().equalsIgnoreCase("Ongoing"))
+                    {
+                        counterNotif++;
+                    }
+
+
+                    ordersnotifCounterOngoing.setText(String.valueOf(counterNotif));
+                    ordersnotifCardviewOngoing.setVisibility(counterNotif == 0 ? View.INVISIBLE : View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+
 
 
     public void showData() {
@@ -486,6 +643,8 @@ public class SellerOrdersFragment extends Fragment {
         ordersListsCompleted = new ArrayList<>();
         ordersListsCancelled = new ArrayList<>();
         ordersListsReturnOrRefund = new ArrayList<>();
+        listorder = new ArrayList<>();
+        indexorder = new ArrayList<>();
 
 
 
@@ -502,22 +661,57 @@ public class SellerOrdersFragment extends Fragment {
                 ordersListsCompleted.clear();
                 ordersListsCancelled.clear();
                 ordersListsReturnOrRefund.clear();
+                listorder.clear();
+                indexorder.clear();
+
+
 
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren())
                 {
+                    DateFormat dateFormat2 = new SimpleDateFormat("MM/dd/yyyy hh.mm aa");
+                    String currentDateAndTime = dateFormat2.format(new Date()).toString();
+                    String notifid = UUID.randomUUID().toString();
+                    String finalid = notifid.substring(0,11);
                     OrdersList ordersList1 = snapshot.getValue(OrdersList.class);
                     if(ordersList1.getOrderStatus().equalsIgnoreCase("Order Request"))
                     {
                         ordersListsOrderRequest.add(ordersList1);
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("IsSeen","false");
+                        map.put("NotifDateAndTime", currentDateAndTime);
+                        map.put("NotifDescription", ordersList1.getBuyerName() + " made an Order of the Product "+ ordersList1.getOrderProductName());
+                        map.put("NotifHeader", "Order Request");
+                        map.put("NotifID",ordersList1.getOrderID());
+                        map.put("NotifImage",ordersList1.getOrderProductImage());
+                        reference.child("Notifications").child(user.getUid()).child(ordersList1.getOrderID()).setValue(map);
                     }
                     else if(ordersList1.getOrderStatus().equalsIgnoreCase("Accepted"))
                     {
                         ordersListsAccepted.add(ordersList1);
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("IsSeen","false");
+                        map.put("NotifDateAndTime", currentDateAndTime);
+                        map.put("NotifDescription", ordersList1.getBuyerName() + " made an Order of the Product "+ ordersList1.getOrderProductName());
+                        map.put("NotifHeader", "Accepted");
+                        map.put("NotifID",ordersList1.getOrderID());
+                        map.put("NotifImage",ordersList1.getOrderProductImage());
+                        reference.child("Notifications").child(user.getUid()).child(ordersList1.getOrderID()).setValue(map);
                     }
                     else if(ordersList1.getOrderStatus().equalsIgnoreCase("Ongoing"))
                     {
                         ordersListsOngoing.add(ordersList1);
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("IsSeen","false");
+                        map.put("NotifDateAndTime", currentDateAndTime);
+                        map.put("NotifDescription", ordersList1.getBuyerName() + " made an Order of the Product "+ ordersList1.getOrderProductName());
+                        map.put("NotifHeader", "Ongoing");
+                        map.put("NotifID",ordersList1.getOrderID());
+                        map.put("NotifImage",ordersList1.getOrderProductImage());
+                        reference.child("Notifications").child(user.getUid()).child(ordersList1.getOrderID()).setValue(map);
                     }
                     else if(ordersList1.getOrderStatus().equalsIgnoreCase("To Book"))
                     {
@@ -571,6 +765,16 @@ public class SellerOrdersFragment extends Fragment {
 
             }
         });
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        updateOrdersNotificationsCountOrderRequest();
+        updateOrdersNotificationsCountAccepted();
+        updateOrdersNotificationsCountOngoing();
 
     }
 }

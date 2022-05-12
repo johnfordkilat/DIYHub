@@ -16,6 +16,7 @@
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/drawable/ic_launcher_stats_background.xml" value="0.321" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/drawable/layout_bottom_sheet.xml" value="0.285" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/drawable/textview_border_rectangle.xml" value="0.285" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_account_verification_page.xml" value="0.371875" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_add_custom_product.xml" value="0.33" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_add_custom_specification_page.xml" value="0.3578125" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_add_customized_product.xml" value="0.371875" />
@@ -24,21 +25,30 @@
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_add_standard_product.xml" value="0.371875" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_add_variations_customize_page.xml" value="0.371875" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_add_variations_standard_page.xml" value="0.33" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_all_products_seller.xml" value="0.371875" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_buyer_registration_page.xml" value="0.371875" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_cancelled_orders_customization_page.xml" value="0.371875" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_cart_page.xml" value="0.358695652173913" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_chat_page.xml" value="0.26992753623188404" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_completed_orders_customization_page.xml" value="0.371875" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_custom_product_details.xml" value="0.33" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_customized_product_page.xml" value="0.371875" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_diypage.xml" value="0.371875" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_home_page.xml" value="0.26132246376811596" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_listview_page.xml" value="0.371875" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_login_page.xml" value="0.23731884057971014" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_main.xml" value="0.371875" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_message.xml" value="0.23731884057971014" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_notification_display_page.xml" value="0.371875" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_notification_promo.xml" value="0.26992753623188404" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_accepted_customization_page.xml" value="0.371875" />
-        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_accepted_standard_page.xml" value="0.26132246376811596" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_accepted_standard_page.xml" value="0.33" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_customization_page.xml" value="0.33" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_ongoing_customization_page.xml" value="0.371875" />
-        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_ongoing_standard_page.xml" value="0.26132246376811596" />
-        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_standard_page.xml" value="0.26132246376811596" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_ongoing_standard_page.xml" value="0.5" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_standard_page.xml" value="0.33" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_to_book_customization_page.xml" value="0.371875" />
-        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_to_book_page.xml" value="0.26132246376811596" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_to_book_page.xml" value="0.33" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_orders_page.xml" value="0.371875" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_past_transaction_history.xml" value="0.371875" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_products_page.xml" value="0.19166666666666668" />
@@ -47,7 +57,7 @@
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_standard_product_details.xml" value="0.371875" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_standard_product_details_page_seller.xml" value="0.371875" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_to_receive_customization_orders_page.xml" value="0.371875" />
-        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_to_receive_order.xml" value="0.371875" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_to_receive_order.xml" value="0.33" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_update_product.xml" value="0.358695652173913" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/add_button_layout.xml" value="0.371875" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/allproducts.xml" value="0.33" />
@@ -57,11 +67,12 @@
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/custom_grid_layout.xml" value="0.371875" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/custom_homepage.xml" value="0.19166666666666668" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/fragment_bookmark.xml" value="0.26992753623188404" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/fragment_cancelled_order.xml" value="0.23731884057971014" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/fragment_chats.xml" value="0.26992753623188404" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/fragment_completed_order.xml" value="0.371875" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/fragment_restock.xml" value="0.26992753623188404" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/fragment_seller_home.xml" value="0.26132246376811596" />
-        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/fragment_seller_orders.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/fragment_seller_orders.xml" value="0.33" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/fragment_seller_products.xml" value="0.33" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/fragment_users.xml" value="0.26992753623188404" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/fragment_users2.xml" value="0.26992753623188404" />
@@ -70,6 +81,7 @@
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/layout_dialog.xml" value="0.358695652173913" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/layout_dialog_booking_options.xml" value="0.358695652173913" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/layout_dialog_delete.xml" value="0.371875" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/layout_dialog_editable.xml" value="0.371875" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/layout_dialog_variation_standard.xml" value="0.22708333333333333" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/layout_listitem.xml" value="0.371875" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/list_item_single.xml" value="0.371875" />
@@ -78,6 +90,7 @@
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/orders_page.xml" value="0.33" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/past_orders.xml" value="0.26992753623188404" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/product_details_images_standard.xml" value="0.371875" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/product_second_variation_standard.xml" value="0.33" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/product_variations_standard.xml" value="0.371875" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/recommendedshopslayout.xml" value="0.371875" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/recyclerview_divider.xml" value="0.371875" />

@@ -149,21 +149,20 @@
         app:cardBackgroundColor="@color/red"
         app:cardCornerRadius="50dp"
         app:layout_constraintEnd_toEndOf="@+id/notificationButtonHome"
-        app:layout_constraintTop_toTopOf="@+id/notificationButtonHome" >
+        app:layout_constraintTop_toTopOf="@+id/notificationButtonHome">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="20dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/notifCounter"
-                android:layout_width="22dp"
-                android:layout_height="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="1"
                 android:textColor="@color/white"
                 android:textSize="15dp"
                 android:textStyle="bold"
-                android:layout_marginStart="18dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -175,11 +174,11 @@
         android:layout_height="25dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
-        app:cardBackgroundColor="@color/red"
         android:visibility="invisible"
+        app:cardBackgroundColor="@color/red"
         app:cardCornerRadius="50dp"
         app:layout_constraintEnd_toEndOf="@+id/chatImageViewButton"
-        app:layout_constraintTop_toTopOf="@+id/chatImageViewButton" >
+        app:layout_constraintTop_toTopOf="@+id/chatImageViewButton">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -187,13 +186,12 @@
 
             <TextView
                 android:id="@+id/chatCounter"
-                android:layout_width="22dp"
-                android:layout_height="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
                 android:textColor="@color/white"
                 android:textSize="15dp"
-                android:text="1"
                 android:textStyle="bold"
-                android:layout_marginStart="13dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

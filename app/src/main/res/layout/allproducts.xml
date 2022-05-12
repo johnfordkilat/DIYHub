@@ -5,33 +5,34 @@
     android:id="@+id/relativeLayout2"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/gray"
-    android:layout_marginTop="0dp">
+    android:layout_marginTop="0dp"
+    android:background="@color/gray">
 
     <TextView
         android:id="@+id/productNameSeller"
-        android:layout_width="wrap_content"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
-        android:gravity="start"
+        android:background="@drawable/textview_border_rectangle"
         android:text="Product Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/productNameLabel"
+        app:layout_constraintHorizontal_bias="0.016"
+        app:layout_constraintStart_toEndOf="@+id/productImageSeller"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.232" />
+        app:layout_constraintVertical_bias="0.313" />
 
     <TextView
         android:id="@+id/purchaseCountSeller"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/textview_border_rectangle"
         android:text="Products"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.476"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.016"
+        app:layout_constraintStart_toEndOf="@+id/productImageSeller"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.506" />
+        app:layout_constraintVertical_bias="0.534" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/productImageSeller"
@@ -51,85 +52,30 @@
 
     <TextView
         android:id="@+id/stocksCountSeller"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/textview_border_rectangle"
         android:text="Stocks"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.429"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.011"
+        app:layout_constraintStart_toEndOf="@+id/productImageSeller"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.846" />
-
-    <TextView
-        android:id="@+id/productNameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Product Name: "
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.378"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.23" />
-
-    <TextView
-        android:id="@+id/purchasesLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Purchases: "
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.352"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.506" />
-
-    <TextView
-        android:id="@+id/stocksLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:layout_marginBottom="10dp"
-        android:text="Stocks: "
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.329"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.727" />
+        app:layout_constraintVertical_bias="0.813" />
 
     <ImageView
         android:id="@+id/updateProduct"
         android:layout_width="34dp"
         android:layout_height="27dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="38dp"
-        app:layout_constraintEnd_toStartOf="@+id/pauseButton"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/productTypeProductsPage"
+        app:layout_constraintEnd_toEndOf="@+id/productNameSeller"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/purchaseCountSeller"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productNameSeller"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/edit" />
-
-    <ImageView
-        android:id="@+id/pauseButton"
-        android:layout_width="34dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="38dp"
-        app:layout_constraintEnd_toStartOf="@+id/deleteProduct"
-        app:layout_constraintStart_toEndOf="@+id/updateProduct"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/pause_button" />
-
-    <ImageView
-        android:id="@+id/deleteProduct"
-        android:layout_width="34dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="38dp"
-        android:layout_marginEnd="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/pauseButton"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/delete" />
 
     <TextView
         android:id="@+id/productTypeProductsPage"
@@ -145,5 +91,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/deleteProduct"
+        android:layout_width="34dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pauseButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/delete" />
+
+    <ImageView
+        android:id="@+id/pauseButton"
+        android:layout_width="34dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintEnd_toStartOf="@+id/deleteProduct"
+        app:layout_constraintStart_toEndOf="@+id/updateProduct"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/pause_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

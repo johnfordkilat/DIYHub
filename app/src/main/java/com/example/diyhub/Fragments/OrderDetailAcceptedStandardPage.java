@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class OrderDetailAcceptedStandardPage extends AppCompatActivity {
 
@@ -292,6 +293,11 @@ public class OrderDetailAcceptedStandardPage extends AppCompatActivity {
 
 
                 reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap);
+
+                DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
+                Map<String, Object> map = new HashMap<>();
+                map.put("IsSeen","true");
+                reference1.child("Notifications").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map);
 
                 Toast.makeText(OrderDetailAcceptedStandardPage.this, "Order is MOVED TO ONGOING", Toast.LENGTH_SHORT).show();
                 finish();

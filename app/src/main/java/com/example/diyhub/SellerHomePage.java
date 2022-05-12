@@ -313,34 +313,6 @@ public class SellerHomePage extends AppCompatActivity {
                     tabselected = 2;
                     if(tabselected == 2)
                     {
-                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Notifications").child(user.getUid());
-
-                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                                for(DataSnapshot snapshot : dataSnapshot.getChildren())
-                                {
-                                    NotificationPromoList notif = snapshot.getValue(NotificationPromoList.class);
-                                    if(notif.getIsSeen().equalsIgnoreCase("false") &&
-                                            (notif.getNotifHeader().equalsIgnoreCase("Order Request") ||
-                                             notif.getNotifHeader().equalsIgnoreCase("Accepted") ||
-                                             notif.getNotifHeader().equalsIgnoreCase("Ongoing")))
-                                    {
-                                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
-                                        Map<String, Object> map = new HashMap<>();
-                                        map.put("IsSeen", "true");
-                                        reference1.child("Notifications").child(user.getUid()).child(notif.getNotifID()).updateChildren(map);
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
                         tabselected = 0;
                     }
 
@@ -469,10 +441,7 @@ public class SellerHomePage extends AppCompatActivity {
                 for(DataSnapshot snapshot : dataSnapshot.getChildren())
                 {
                     NotificationPromoList notif = snapshot.getValue(NotificationPromoList.class);
-                    if(notif.getIsSeen().equalsIgnoreCase("false") &&
-                            !(notif.getNotifHeader().equalsIgnoreCase("Order Request") ||
-                             notif.getNotifHeader().equalsIgnoreCase("Accepted") ||
-                             notif.getNotifHeader().equalsIgnoreCase("Ongoing")))
+                    if(notif.getIsSeen().equalsIgnoreCase("false"))
                     {
                         counterNotif++;
                     }

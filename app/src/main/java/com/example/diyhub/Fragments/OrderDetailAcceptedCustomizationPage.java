@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class OrderDetailAcceptedCustomizationPage extends AppCompatActivity {
 
@@ -57,17 +58,17 @@ public class OrderDetailAcceptedCustomizationPage extends AppCompatActivity {
         bookingAddressSpinner = findViewById(R.id.bookingAddressSpinnerCustomAccepted);
         customerRequestSpinner = findViewById(R.id.customerRequestSpinnerCustomAccepted);
         orderTrackerSpinner = findViewById(R.id.orderTrackerSpinnerCustomAccepted);
-        itemCode = findViewById(R.id.itemCodeTxtCustomAccepted);
+        itemCode = findViewById(R.id.itemCodeTxtCustomAccepted1);
         itemName = findViewById(R.id.itemNameTxtCustomAccepted);
-        quantity = findViewById(R.id.quantityTxtCustomAccepted);
-        orderType = findViewById(R.id.orderTypeTxtCustomAccepted);
+        quantity = findViewById(R.id.quantityTxtCustomAccepted1);
+        orderType = findViewById(R.id.orderTypeTxtCustomAccepted1);
         buyerName = findViewById(R.id.buyerNameTxtCustomAccepted);
-        paymentStatus = findViewById(R.id.paymentStatusTxtCustomAccepted);
-        orderDate = findViewById(R.id.orderDateTxtCustomAccepted);
-        buyerImage = findViewById(R.id.buyerImageCustomAccepted);
-        contactBuyer = findViewById(R.id.contactBuyerButtonCustomAccepted);
+        paymentStatus = findViewById(R.id.paymentStatusTxtCustomAccepted1);
+        orderDate = findViewById(R.id.orderDateTxtCustomAccepted1);
+        buyerImage = findViewById(R.id.buyerImageCustomAccepted1);
+        contactBuyer = findViewById(R.id.contactBuyerButtonCustomAccepted1);
         backButton = findViewById(R.id.backButtonCustomPageAccepted);
-        copyButton = findViewById(R.id.copyButtonCustomPageAccepted);
+        copyButton = findViewById(R.id.copyButtonCustomPageAccepted1);
         movetoAccepted = findViewById(R.id.moveToOngoingCustom);
 
 
@@ -136,6 +137,11 @@ public class OrderDetailAcceptedCustomizationPage extends AppCompatActivity {
 
 
                 reference1.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap1);
+
+                DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference();
+                Map<String, Object> map = new HashMap<>();
+                map.put("IsSeen","true");
+                reference2.child("Notifications").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map);
 
 
 

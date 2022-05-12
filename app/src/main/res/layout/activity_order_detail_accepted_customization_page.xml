@@ -38,7 +38,7 @@
         app:srcCompat="@drawable/arrowright" />
 
     <ImageButton
-        android:id="@+id/copyButtonCustomPageAccepted"
+        android:id="@+id/copyButtonCustomPageAccepted1"
         android:layout_width="38dp"
         android:layout_height="33dp"
         android:background="@android:color/transparent"
@@ -80,7 +80,7 @@
     </androidx.cardview.widget.CardView>
 
     <EditText
-        android:id="@+id/itemCodeTxtStandard2C"
+        android:id="@+id/itemCodeTxtStandard2C1"
         android:layout_width="139dp"
         android:layout_height="32dp"
         android:background="@android:color/transparent"
@@ -98,7 +98,7 @@
         app:layout_constraintVertical_bias="0.547" />
 
     <ImageView
-        android:id="@+id/contactBuyerButtonCustomAccepted"
+        android:id="@+id/contactBuyerButtonCustomAccepted1"
         android:layout_width="87dp"
         android:layout_height="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -110,7 +110,7 @@
         app:srcCompat="@drawable/img_25" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/buyerImageCustomAccepted"
+        android:id="@+id/buyerImageCustomAccepted1"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:background="@drawable/diy"
@@ -122,7 +122,7 @@
         app:layout_constraintVertical_bias="0.503" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/paymentStatusTxtCustomAccepted"
+        android:id="@+id/paymentStatusTxtCustomAccepted1"
         android:layout_width="62dp"
         android:layout_height="36dp"
         android:layout_marginBottom="2dp"
@@ -136,11 +136,10 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <EditText
-        android:id="@+id/itemCodeTxtCustomAccepted"
+        android:id="@+id/itemCodeTxtCustomAccepted1"
         android:layout_width="139dp"
         android:layout_height="32dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="2dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:enabled="false"
@@ -148,37 +147,16 @@
         android:text="Item Code:"
         android:textColor="@color/black"
         android:textSize="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/itemNameTxtCustomAccepted"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName01C1"
         app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName9C"
         app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName8C"
-        app:layout_constraintTop_toBottomOf="@+id/CustomPageImageAccepted" />
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName8C" />
 
     <EditText
-        android:id="@+id/orderDateTxtCustomAccepted"
+        android:id="@+id/orderDateTxtCustomAccepted1"
         android:layout_width="71dp"
         android:layout_height="33dp"
-        android:layout_marginTop="206dp"
         android:layout_marginEnd="44dp"
-        android:layout_marginBottom="178dp"
-        android:background="@android:color/transparent"
-        android:ems="10"
-        android:enabled="false"
-        android:focusable="false"
-        android:text="Item Code:"
-        android:textColor="@color/black"
-        android:textSize="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView38C"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName9C"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/orderTypeTxtCustomAccepted"
-        android:layout_width="139dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="11dp"
-        android:layout_marginEnd="243dp"
-        android:layout_marginBottom="4dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:enabled="false"
@@ -189,7 +167,29 @@
         app:layout_constraintBottom_toTopOf="@+id/buyerNameTxtCustomAccepted"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName6C" />
+        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName9C"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName9C"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/orderTypeTxtCustomAccepted1"
+        android:layout_width="139dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginBottom="4dp"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:enabled="false"
+        android:focusable="false"
+        android:text="Item Code:"
+        android:textColor="@color/black"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName6C"
+        app:layout_constraintEnd_toStartOf="@+id/orderDateTxtCustomAccepted1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName6C"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName6C"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/editTextTextPersonName8C"
@@ -225,7 +225,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.081"
-        app:layout_constraintStart_toEndOf="@+id/buyerImageCustomAccepted"
+        app:layout_constraintStart_toEndOf="@+id/buyerImageCustomAccepted1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.499" />
 
@@ -235,7 +235,6 @@
         android:layout_height="33dp"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="66dp"
-        android:layout_marginBottom="4dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:enabled="false"
@@ -243,16 +242,16 @@
         android:text="Item Code:"
         android:textColor="@color/black"
         android:textSize="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/quantityTxtCustomAccepted"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName01C1"
         app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName9C"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName01C" />
+        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName01C1"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName01C1" />
 
     <EditText
-        android:id="@+id/quantityTxtCustomAccepted"
+        android:id="@+id/quantityTxtCustomAccepted1"
         android:layout_width="139dp"
         android:layout_height="33dp"
-        android:layout_marginEnd="252dp"
         android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
         android:ems="10"
@@ -261,10 +260,12 @@
         android:text="Item Code:"
         android:textColor="@color/black"
         android:textSize="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/orderTypeTxtCustomAccepted"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName4C"
+        app:layout_constraintEnd_toStartOf="@+id/orderDateTxtCustomAccepted1"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName4C" />
+        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName4C"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName4C"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/editTextTextPersonName9C"
@@ -304,7 +305,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5C"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5C1"
         tools:layout_constraintHorizontal_bias="0.05" />
 
     <EditText
@@ -322,14 +323,14 @@
         android:text="Order Type:"
         android:textColor="@color/black"
         android:textSize="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName5C"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName5C1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4C" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName5C"
+        android:id="@+id/editTextTextPersonName5C1"
         android:layout_width="71dp"
         android:layout_height="33dp"
         android:layout_marginStart="16dp"
@@ -366,7 +367,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName01C" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName01C1" />
 
     <TextView
         android:id="@+id/textView38C"
@@ -485,7 +486,7 @@
         app:srcCompat="@drawable/arrowright" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName01C"
+        android:id="@+id/editTextTextPersonName01C1"
         android:layout_width="71dp"
         android:layout_height="33dp"
         android:layout_marginStart="16dp"

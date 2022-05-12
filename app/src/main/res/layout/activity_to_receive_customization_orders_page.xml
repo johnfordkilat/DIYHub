@@ -140,7 +140,6 @@
         android:layout_width="139dp"
         android:layout_height="32dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="2dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:enabled="false"
@@ -148,37 +147,16 @@
         android:text="Item Code:"
         android:textColor="@color/black"
         android:textSize="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/itemNameTxtCustomToReceive"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName8OC"
         app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName9OC"
         app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName8OC"
-        app:layout_constraintTop_toBottomOf="@+id/CustomPageImageToReceive" />
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName8OC" />
 
     <EditText
         android:id="@+id/orderDateTxtCustomToReceive"
         android:layout_width="71dp"
         android:layout_height="33dp"
-        android:layout_marginTop="206dp"
         android:layout_marginEnd="44dp"
-        android:layout_marginBottom="178dp"
-        android:background="@android:color/transparent"
-        android:ems="10"
-        android:enabled="false"
-        android:focusable="false"
-        android:text="Item Code:"
-        android:textColor="@color/black"
-        android:textSize="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView38C"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName9OC"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/orderTypeTxtCustomToReceive"
-        android:layout_width="139dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="11dp"
-        android:layout_marginEnd="243dp"
-        android:layout_marginBottom="4dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:enabled="false"
@@ -188,8 +166,29 @@
         android:textSize="12dp"
         app:layout_constraintBottom_toTopOf="@+id/buyerNameTxtCustomToReceive"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName9OC"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName9OC"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/orderTypeTxtCustomToReceive"
+        android:layout_width="139dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginBottom="4dp"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:enabled="false"
+        android:focusable="false"
+        android:text="Item Code:"
+        android:textColor="@color/black"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName6OC"
+        app:layout_constraintEnd_toStartOf="@+id/orderDateTxtCustomToReceive"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName6OC" />
+        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName6OC"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName6OC" />
 
     <EditText
         android:id="@+id/editTextTextPersonName8OC"
@@ -234,8 +233,6 @@
         android:layout_width="139dp"
         android:layout_height="33dp"
         android:layout_marginStart="1dp"
-        android:layout_marginEnd="66dp"
-        android:layout_marginBottom="4dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:enabled="false"
@@ -243,16 +240,16 @@
         android:text="Item Code:"
         android:textColor="@color/black"
         android:textSize="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/quantityTxtCustomToReceive"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName9OC"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName01OC"
+        app:layout_constraintEnd_toStartOf="@+id/orderDateTxtCustomToReceive"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName01OC" />
+        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName01OC"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName8OC" />
 
     <EditText
         android:id="@+id/quantityTxtCustomToReceive"
         android:layout_width="139dp"
         android:layout_height="33dp"
-        android:layout_marginEnd="252dp"
         android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
         android:ems="10"
@@ -261,10 +258,12 @@
         android:text="Item Code:"
         android:textColor="@color/black"
         android:textSize="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/orderTypeTxtCustomToReceive"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName4OC"
+        app:layout_constraintEnd_toStartOf="@+id/orderDateTxtCustomToReceive"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName4OC" />
+        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName4OC"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName4OC"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/editTextTextPersonName9OC"
@@ -409,14 +408,14 @@
         android:id="@+id/tagOrderAsSpinnerCustomPage"
         android:layout_width="242dp"
         android:layout_height="36dp"
-        android:layout_marginTop="652dp"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toBottomOf="@+id/textView31"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintRight_toLeftOf="@+id/textView31"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/textView31" />
 
     <Spinner
         android:id="@+id/customerRequestSpinnerCustomToReceive"

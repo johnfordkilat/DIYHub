@@ -53,8 +53,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/completedOrderRecyclerPastTransac"
-        android:layout_width="390dp"
-        android:layout_height="445dp"
+        android:layout_width="409dp"
+        android:layout_height="474dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="198dp"
         android:layout_marginEnd="3dp"
@@ -68,8 +68,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cancelledOrderRecyclerPastTransac"
-        android:layout_width="390dp"
-        android:layout_height="452dp"
+        android:layout_width="406dp"
+        android:layout_height="471dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="198dp"
         android:layout_marginEnd="3dp"
@@ -83,8 +83,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/returnRefundOrderRecyclerPastTransac"
-        android:layout_width="393dp"
-        android:layout_height="451dp"
+        android:layout_width="407dp"
+        android:layout_height="467dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="198dp"
         android:layout_marginEnd="3dp"
@@ -111,8 +111,8 @@
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPagePastTransac"
-        android:layout_width="400dp"
-        android:layout_height="456dp"
+        android:layout_width="410dp"
+        android:layout_height="471dp"
         android:layout_marginBottom="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

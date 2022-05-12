@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class OrderDetailCustomizationPage extends AppCompatActivity {
 
@@ -137,6 +138,11 @@ public class OrderDetailCustomizationPage extends AppCompatActivity {
 
 
                 reference1.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap1);
+
+                DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference();
+                Map<String, Object> map = new HashMap<>();
+                map.put("IsSeen","true");
+                reference2.child("Notifications").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map);
 
 
 

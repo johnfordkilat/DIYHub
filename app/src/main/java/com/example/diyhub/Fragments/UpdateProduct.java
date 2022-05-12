@@ -43,7 +43,7 @@ public class UpdateProduct extends AppCompatActivity {
     String description,material;
     double price,sold;
 
-    double prodStocks,prodQuant;
+    int prodStocks,prodQuant;
 
     EditText descriptionTxt,materialTxt,priceTxt,soldTxt;
 
@@ -68,8 +68,8 @@ public class UpdateProduct extends AppCompatActivity {
         if(extra != null)
         {
             prodName = extra.getString("ProductName");
-            prodQuant = extra.getDouble("ProductQuantity");
-            prodStocks = extra.getDouble("ProductStocks");
+            prodQuant = extra.getInt("ProductQuantity");
+            prodStocks = extra.getInt("ProductStocks");
             prodID = extra.getString("ProductID");
             prodImage = extra.getString("ProductImage");
             description = extra.getString("ProductDescription");
@@ -137,8 +137,8 @@ public class UpdateProduct extends AppCompatActivity {
                 else {
                     String id = prodID;
                     String name1 = name.getText().toString().trim();
-                    double quan = Double.parseDouble(quantity.getText().toString().trim());
-                    double sto = Double.parseDouble(stocks.getText().toString().trim());
+                    int quan = Integer.parseInt(quantity.getText().toString().trim());
+                    int sto = Integer.parseInt(stocks.getText().toString().trim());
                     String desc = descriptionTxt.getText().toString().trim();
                     String materials = materialTxt.getText().toString().trim();
                     double price1 = Double.parseDouble(priceTxt.getText().toString().trim());
@@ -154,7 +154,7 @@ public class UpdateProduct extends AppCompatActivity {
 
     }
 
-    private void updateData(String id1, String name1, double quan1, double stocks1, String description, String material, double price, double sold)
+    private void updateData(String id1, String name1, int quan1, int stocks1, String description, String material, double price, double sold)
     {
 
         if(quan1 > stocks1)

@@ -109,7 +109,6 @@
         android:id="@+id/itemCodeTxtStandardOngoing"
         android:layout_width="139dp"
         android:layout_height="32dp"
-        android:layout_marginEnd="1dp"
         android:layout_marginBottom="2dp"
         android:background="@android:color/transparent"
         android:ems="10"
@@ -118,37 +117,16 @@
         android:text="Item Code:"
         android:textColor="@color/black"
         android:textSize="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/itemNameTxtStandardOngoing"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName8O"
         app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName9O"
         app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName8O"
-        app:layout_constraintTop_toBottomOf="@+id/standardPageImageOngoing" />
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName8O" />
 
     <EditText
         android:id="@+id/orderDateTxtStandardOngoing"
         android:layout_width="71dp"
         android:layout_height="33dp"
-        android:layout_marginTop="206dp"
         android:layout_marginEnd="44dp"
-        android:layout_marginBottom="178dp"
-        android:background="@android:color/transparent"
-        android:ems="10"
-        android:enabled="false"
-        android:focusable="false"
-        android:text="Item Code:"
-        android:textColor="@color/black"
-        android:textSize="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView38"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName9O"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/orderTypeTxtStandardOngoing"
-        android:layout_width="139dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="11dp"
-        android:layout_marginEnd="243dp"
-        android:layout_marginBottom="4dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:enabled="false"
@@ -159,7 +137,28 @@
         app:layout_constraintBottom_toTopOf="@+id/buyerNameTxtStandardOngoing"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName6O" />
+        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName9O"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName9O"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/orderTypeTxtStandardOngoing"
+        android:layout_width="139dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginBottom="4dp"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:enabled="false"
+        android:focusable="false"
+        android:text="Item Code:"
+        android:textColor="@color/black"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName6O"
+        app:layout_constraintEnd_toStartOf="@+id/orderDateTxtStandardOngoing"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName6O"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName6O" />
 
     <EditText
         android:id="@+id/editTextTextPersonName8O"
@@ -204,8 +203,6 @@
         android:layout_width="139dp"
         android:layout_height="33dp"
         android:layout_marginStart="1dp"
-        android:layout_marginEnd="66dp"
-        android:layout_marginBottom="4dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:enabled="false"
@@ -213,16 +210,16 @@
         android:text="Item Code:"
         android:textColor="@color/black"
         android:textSize="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/quantityTxtStandardOngoing"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName9O"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName4O"
+        app:layout_constraintEnd_toStartOf="@+id/orderDateTxtStandardOngoing"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName01O" />
+        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName01O"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName01O" />
 
     <EditText
         android:id="@+id/quantityTxtStandardOngoing"
         android:layout_width="139dp"
         android:layout_height="33dp"
-        android:layout_marginEnd="252dp"
         android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
         android:ems="10"
@@ -231,10 +228,12 @@
         android:text="Item Code:"
         android:textColor="@color/black"
         android:textSize="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/orderTypeTxtStandardOngoing"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName4O"
+        app:layout_constraintEnd_toStartOf="@+id/orderDateTxtStandardOngoing"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName4O" />
+        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName4O"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName4O"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/editTextTextPersonName9O"
@@ -447,8 +446,7 @@
         android:layout_width="90dp"
         android:layout_height="50dp"
         android:layout_marginTop="67dp"
-        android:layout_marginBottom="76dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/moveToTextviewOngoingStandard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.922"
         app:layout_constraintStart_toStartOf="parent"

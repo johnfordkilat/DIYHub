@@ -66,8 +66,8 @@ public class RestockProductsAdapter extends RecyclerView.Adapter<RestockProducts
     int pStocks;
     String type;
 
-    String playImageStatus = "https://firebasestorage.googleapis.com/v0/b/diy-hub-847fb.appspot.com/o/PRODUCTSTATUS%2Fillust58-7479-01-removebg-preview.png?alt=media&token=63a829e1-660e-47e6-9b26-dc66d8eaac48";
-    String pauseImageStatus = "https://firebasestorage.googleapis.com/v0/b/diy-hub-847fb.appspot.com/o/PRODUCTSTATUS%2Fpause__video__stop-removebg-preview.png?alt=media&token=dc125631-d226-41e1-91ac-6abf0b97c18d";
+    String playImageStatus = "https://firebasestorage.googleapis.com/v0/b/diy-hub-847fb.appspot.com/o/johnfordtapales8%40gmail.com%2Fillust58-7479-01-removebg-preview.png?alt=media&token=a322e775-e3fd-4fb3-8d77-3767a348120d";
+    String pauseImageStatus = "https://firebasestorage.googleapis.com/v0/b/diy-hub-847fb.appspot.com/o/johnfordtapales8%40gmail.com%2Fpause__video__stop-removebg-preview.png?alt=media&token=ec3433a8-9579-4aca-8faa-6fe1c58d8474";
 
     ArrayList<RestockProductsList> list;
     APIService apiService = apiService = CLient.getClient("https://fcm.googleapis.com/").create(APIService.class);
@@ -114,9 +114,9 @@ public class RestockProductsAdapter extends RecyclerView.Adapter<RestockProducts
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         RestockProductsList productsList = list.get(position);
 
-        holder.prodName.setText(productsList.getProductName());
-        holder.prodQuan.setText(productsList.getProductQuantity());
-        holder.prodStocks.setText(productsList.getProductStocks());
+        holder.prodName.setText("Product Name: "+productsList.getProductName());
+        holder.prodQuan.setText("Purchases: "+String.valueOf(productsList.getProductQuantity()));
+        holder.prodStocks.setText("Stocks: "+String.valueOf(productsList.getProductStocks()));
         Glide.with(context).load(list.get(position).getProductImage()).into(holder.prodImage);
 
         pQuan = productsList.getProductQuantity();
@@ -128,9 +128,9 @@ public class RestockProductsAdapter extends RecyclerView.Adapter<RestockProducts
             {
                 color[position]="RED";
             }
+
+            holder.prodQuan.setTextColor(Color.RED);
             holder.prodStocks.setTextColor(Color.RED);
-            holder.stocksLabel.setTextColor(Color.RED);
-            type = "restock";
 
         }
         Glide.with(context).load(list.get(position).getProductStatusImage()).into(holder.pauseButton);
@@ -453,11 +453,8 @@ public class RestockProductsAdapter extends RecyclerView.Adapter<RestockProducts
             prodImage = itemView.findViewById(R.id.productImageSeller);
             deleteProd = itemView.findViewById(R.id.deleteProduct);
             updateProd = itemView.findViewById(R.id.updateProduct);
-            stocksLabel = itemView.findViewById(R.id.stocksLabel);
             restockTab = itemView.findViewById(R.id.restockTab);
             holdTab = itemView.findViewById(R.id.holdTab);
-            productNameLabel = itemView.findViewById(R.id.productNameLabel);
-            purchasesLabel = itemView.findViewById(R.id.purchasesLabel);
             pauseButton = itemView.findViewById(R.id.pauseButton);
         }
     }

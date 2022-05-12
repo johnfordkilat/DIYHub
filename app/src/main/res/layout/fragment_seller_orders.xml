@@ -8,6 +8,102 @@
     tools:context=".Fragments.SellerOrdersFragment">
 
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ordersNotificationNumberContainerOngoing"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:visibility="invisible"
+        app:cardBackgroundColor="@color/red"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintStart_toEndOf="@+id/ordersNotificationNumberContainerAccepted"
+        app:layout_constraintTop_toTopOf="@+id/ordersNotificationNumberContainerAccepted"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/ordersNotifCounterOngoing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ordersNotificationNumberContainerAccepted"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:visibility="invisible"
+        app:cardBackgroundColor="@color/red"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ordersRecyclerSeller"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/ordersNotifCounterAccepted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginEnd="8dp"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="3dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ordersNotificationNumberContainerOrderRequest"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:visibility="invisible"
+        app:cardBackgroundColor="@color/red"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ordersNotificationNumberContainerAccepted"
+        app:layout_constraintHorizontal_bias="0.28"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ordersNotificationNumberContainerAccepted"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/ordersNotifCounterOrderRequest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ordersRecyclerSeller"
         android:layout_width="406dp"
@@ -31,6 +127,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.788" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ordersCompletedRecyclerSeller"
         android:layout_width="406dp"
@@ -42,6 +139,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.788" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ordersCancelledRecyclerSeller"
         android:layout_width="406dp"
@@ -53,6 +151,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.788" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ordersReturnOrRefundRecyclerSeller"
         android:layout_width="406dp"
@@ -102,13 +201,13 @@
         android:layout_height="28dp"
         android:layout_marginTop="162dp"
         android:background="@drawable/gradient"
-        app:tabMode="scrollable"
         app:layout_constraintBottom_toTopOf="@+id/ordersRecyclerSeller"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
+        app:tabMode="scrollable"
         app:tabSelectedTextColor="@color/yellow">
 
         <com.google.android.material.tabs.TabItem
@@ -125,14 +224,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="To Receive" />
+
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Completed" />
+
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancelled" />
+
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -155,10 +257,10 @@
         android:id="@+id/toBookRecyclerSeller"
         android:layout_width="406dp"
         android:layout_height="490dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.788" />
@@ -169,8 +271,8 @@
         android:layout_height="49dp"
         android:layout_marginTop="7dp"
         android:background="@color/gray"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent"
@@ -195,9 +297,9 @@
         android:id="@+id/ordersAcceptedRecyclerSeller"
         android:layout_width="406dp"
         android:layout_height="490dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="invisible"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -209,8 +311,8 @@
         android:layout_height="49dp"
         android:layout_marginTop="7dp"
         android:background="@color/gray"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent"

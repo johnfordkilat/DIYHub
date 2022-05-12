@@ -7,40 +7,90 @@
     android:background="@drawable/gradient_one">
 
 
+    <Spinner
+        android:id="@+id/spinnerAddSecondVariationsStandard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="156dp"
+        app:layout_constraintBottom_toTopOf="@+id/addProductButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/secondVarTxtStandard" />
+
     <TextView
-        android:id="@+id/removeVariationButtonStandard"
+        android:id="@+id/addSecondVariationButtonStandard"
+        android:layout_width="101dp"
+        android:layout_height="34dp"
+        android:layout_marginBottom="28dp"
+        android:background="@color/blue"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Add Size"
+        android:textSize="18dp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/addProductButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.948"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerAddSecondVariationsStandard"
+        app:layout_constraintVertical_bias="0.925" />
+
+    <TextView
+        android:id="@+id/removeSecondVariationButtonStandard"
+        android:layout_width="116dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="163dp"
+        android:layout_marginTop="89dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="35dp"
+        android:background="@color/red"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Remove Size"
+        android:textSize="18dp"
+        android:textStyle="bold|italic"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/addProductButton"
+        app:layout_constraintEnd_toStartOf="@+id/addSecondVariationButtonStandard"
+        app:layout_constraintHorizontal_bias="0.915"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerAddSecondVariationsStandard"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/removeFirstVariationButtonStandard"
         android:layout_width="116dp"
         android:layout_height="34dp"
         android:layout_marginTop="49dp"
         android:layout_marginBottom="10dp"
-        android:background="@color/blue"
+        android:background="@color/red"
         android:gravity="center_horizontal|center_vertical"
         android:text="Remove Color"
         android:textSize="18dp"
         android:textStyle="bold|italic"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/shopMottoTxt3"
-        app:layout_constraintEnd_toStartOf="@+id/addVariationButtonStandard"
+        app:layout_constraintBottom_toTopOf="@+id/secondVarTxtStandard"
+        app:layout_constraintEnd_toStartOf="@+id/addFirstVariationButtonStandard"
         app:layout_constraintHorizontal_bias="0.915"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerAddVariationsStandard"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerAddFirstVariationsStandard"
         app:layout_constraintVertical_bias="1.0" />
 
     <Spinner
-        android:id="@+id/spinnerAddVariationsStandard"
+        android:id="@+id/spinnerAddFirstVariationsStandard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/shopMottoTxt3"
+        app:layout_constraintBottom_toTopOf="@+id/secondVarTxtStandard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shopMottoTxt2"
+        app:layout_constraintTop_toBottomOf="@+id/firstVarTxtStandard"
         app:layout_constraintVertical_bias="0.081" />
 
     <EditText
-        android:id="@+id/shopMottoTxt2"
+        android:id="@+id/firstVarTxtStandard"
         android:layout_width="411dp"
         android:layout_height="34dp"
         android:background="@drawable/edit_text_border"
@@ -58,23 +108,23 @@
         app:layout_constraintVertical_bias="0.408" />
 
     <TextView
-        android:id="@+id/addVariationButtonStandard"
+        android:id="@+id/addFirstVariationButtonStandard"
         android:layout_width="101dp"
         android:layout_height="34dp"
         android:layout_marginStart="330dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/blue"
         android:layout_marginTop="49dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="10dp"
+        android:background="@color/blue"
         android:gravity="center_horizontal|center_vertical"
         android:text="Add Color"
         android:textSize="18dp"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/shopMottoTxt3"
+        app:layout_constraintBottom_toTopOf="@+id/secondVarTxtStandard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerAddVariationsStandard"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerAddFirstVariationsStandard"
         app:layout_constraintVertical_bias="1.0" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -111,7 +161,7 @@
         app:layout_constraintVertical_bias="0.976" />
 
     <EditText
-        android:id="@+id/shopMottoTxt3"
+        android:id="@+id/secondVarTxtStandard"
         android:layout_width="411dp"
         android:layout_height="34dp"
         android:background="@drawable/edit_text_border"
@@ -128,30 +178,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.634" />
 
-    <ImageView
-        android:id="@+id/editShopNameButton3"
-        android:layout_width="42dp"
-        android:layout_height="36dp"
-        android:src="@drawable/edit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.956"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.634" />
-
-    <ImageView
-        android:id="@+id/editShopNameButton2"
-        android:layout_width="42dp"
-        android:layout_height="36dp"
-        android:src="@drawable/edit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.956"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.635" />
-
     <TextView
         android:id="@+id/textView86"
         android:layout_width="415dp"
@@ -167,18 +193,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/editShopNameButton4"
-        android:layout_width="42dp"
-        android:layout_height="36dp"
-        android:src="@drawable/edit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.956"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.41" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/uploadProductImagesStandardPage"
         android:layout_width="409dp"
@@ -186,7 +200,7 @@
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/shopMottoTxt2"
+        app:layout_constraintBottom_toTopOf="@+id/firstVarTxtStandard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addProductImageButton" />

@@ -79,12 +79,8 @@ public class NotificationPromo extends AppCompatActivity {
                 for(DataSnapshot snapshot : dataSnapshot.getChildren())
                 {
                     NotificationPromoList notiflist = snapshot.getValue(NotificationPromoList.class);
-                    if(!(notiflist.getNotifHeader().equalsIgnoreCase("Order Request") ||
-                        notiflist.getNotifHeader().equalsIgnoreCase("Accepted") ||
-                        notiflist.getNotifHeader().equalsIgnoreCase("Ongoing")))
-                    {
-                        list.add(notiflist);
-                    }
+                    list.add(notiflist);
+
                 }
 
                 notificationPromoAdapter = new NotificationPromoAdapter(getApplicationContext(), list);
@@ -102,6 +98,7 @@ public class NotificationPromo extends AppCompatActivity {
 
 
 
+
         /*
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         Map<String, Object> map = new HashMap<>();
@@ -114,6 +111,8 @@ public class NotificationPromo extends AppCompatActivity {
         reference.child("Notifications").child(user.getUid()).child(cutid).setValue(map);
 
          */
+
+
 
 
 

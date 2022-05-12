@@ -55,8 +55,6 @@ public class ChatPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_page);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         tabLayout = findViewById(R.id.tabLayoutChatPage);
         viewPager = findViewById(R.id.viewPageChatPage);

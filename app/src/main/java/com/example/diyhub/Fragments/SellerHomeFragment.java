@@ -66,6 +66,7 @@ import com.stripe.android.paymentsheet.PaymentSheetResult;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -355,10 +356,12 @@ public class SellerHomeFragment extends Fragment {
                             upgraded = false;
                             cancelSubs.dismiss();
                             Toast.makeText(getContext(), "Cancelled Successfully!", Toast.LENGTH_SHORT).show();
-                            upgradeToPremium.setText("Upgrade To Premium");
-                            upgradeToPremium.setBackgroundResource(R.drawable.custom_green);
-                            subscription.setText("NO SUBSCRIPTION");
-                            subscription.setBackgroundResource(R.drawable.edittext_border_red);
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                            Map<String,Object> map = new HashMap<>();
+                            map.put("SubscriptionStatus", "Regular");
+                            reference.child("Subscription").child(user.getUid()).updateChildren(map);
+                            getSubscriptionStatus();
                         }
                     }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
@@ -594,7 +597,7 @@ public class SellerHomeFragment extends Fragment {
     {
         subsList = new ArrayList<>();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Payments").child(user.getUid());
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Subscription");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -612,6 +615,13 @@ public class SellerHomeFragment extends Fragment {
                         upgradeToPremium.setBackgroundResource(R.drawable.edittext_border_red);
                         upgraded = true;
                         subsList.add(subscriptionList);
+                    }
+                    else
+                    {
+                        upgradeToPremium.setText("Upgrade To Premium");
+                        upgradeToPremium.setBackgroundResource(R.drawable.custom_green);
+                        subscription.setText("NO SUBSCRIPTION");
+                        subscription.setBackgroundResource(R.drawable.edittext_border_red);
                     }
                 }
             }
@@ -971,20 +981,28 @@ public class SellerHomeFragment extends Fragment {
         if (paymentSheetResult instanceof PaymentSheetResult.Canceled) {
             Toast.makeText(getContext(), "Payment Cancelled", Toast.LENGTH_SHORT).show();
         } else if (paymentSheetResult instanceof PaymentSheetResult.Failed) {
-            Log.e("App", "Got error: ", ((PaymentSheetResult.Failed) paymentSheetResult).getError());
-            Toast.makeText(getContext(), String.valueOf(((PaymentSheetResult.Failed) paymentSheetResult).getError()), Toast.LENGTH_SHORT).show();
             Toast.makeText(getContext(), "Error Upgrading Account", Toast.LENGTH_SHORT).show();
             upgraded = false;
         } else if (paymentSheetResult instanceof PaymentSheetResult.Completed) {
             PaymentSheetResult.Completed data = (PaymentSheetResult.Completed) paymentSheetResult;
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
+            DateFormat dateFormat2 = new SimpleDateFormat("MM/dd/yyyy hh.mm aa");
+            String currentDateAndTime = dateFormat2.format(new Date()).toString();
             Toast.makeText(getContext(), "Upgraded To Premium", Toast.LENGTH_SHORT).show();
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
             Map<String, Object> map = new HashMap<>();
-            map.put("PaymentID",data.toString());
             map.put("SubscriptionStatus","Premium");
+            map.put("PaymentReference", user.getUid()+"-"+cutid);
+            map.put("DateAndTime", currentDateAndTime);
             reference.child("Payments").child(user.getUid()).child(user.getUid()+"-"+cutid).setValue(map);
+
+            DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
+            Map<String,Object> map1 = new HashMap<>();
+            map1.put("PaymentReference", user.getUid()+"-"+cutid);
+            map1.put("DateAndTime", currentDateAndTime);
+            map1.put("SubscriptionStatus", "Premium");
+            reference1.child("Subscription").child(user.getUid()).updateChildren(map1);
+            upgraded = true;
 
         }
     }
@@ -1022,6 +1040,7 @@ public class SellerHomeFragment extends Fragment {
                     Log.e("Error", e.getMessage());
                 } finally {
                     dialogPayment.dismiss();
+                    customDialog.dismiss();
                 }
             }
 
@@ -1029,6 +1048,7 @@ public class SellerHomeFragment extends Fragment {
             public void failure(@NonNull FuelError fuelError) {
                 Log.e("Error", fuelError.getMessage());
                 dialogPayment.dismiss();
+                customDialog.dismiss();
             }
         });
     }

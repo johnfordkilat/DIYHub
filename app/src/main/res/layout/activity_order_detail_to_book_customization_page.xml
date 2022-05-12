@@ -139,8 +139,6 @@
         android:id="@+id/itemCodeTxtCustomToBook"
         android:layout_width="139dp"
         android:layout_height="32dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="2dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:enabled="false"
@@ -148,37 +146,16 @@
         android:text="Item Code:"
         android:textColor="@color/black"
         android:textSize="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/itemNameTxtCustomToBook"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName8OC"
         app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName9OC"
         app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName8OC"
-        app:layout_constraintTop_toBottomOf="@+id/CustomPageImageToBook" />
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName8OC" />
 
     <EditText
         android:id="@+id/orderDateTxtCustomToBook"
         android:layout_width="71dp"
         android:layout_height="33dp"
-        android:layout_marginTop="206dp"
         android:layout_marginEnd="44dp"
-        android:layout_marginBottom="178dp"
-        android:background="@android:color/transparent"
-        android:ems="10"
-        android:enabled="false"
-        android:focusable="false"
-        android:text="Item Code:"
-        android:textColor="@color/black"
-        android:textSize="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView38C"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName9OC"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/orderTypeTxtCustomToBook"
-        android:layout_width="139dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="11dp"
-        android:layout_marginEnd="243dp"
-        android:layout_marginBottom="4dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:enabled="false"
@@ -189,7 +166,28 @@
         app:layout_constraintBottom_toTopOf="@+id/buyerNameTxtCustomToBook"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName6OC" />
+        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName9OC"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName9OC"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/orderTypeTxtCustomToBook"
+        android:layout_width="139dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginBottom="4dp"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:enabled="false"
+        android:focusable="false"
+        android:text="Item Code:"
+        android:textColor="@color/black"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName6OC"
+        app:layout_constraintEnd_toStartOf="@+id/orderDateTxtCustomToBook"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName6OC"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName6OC" />
 
     <EditText
         android:id="@+id/editTextTextPersonName8OC"
@@ -234,8 +232,6 @@
         android:layout_width="139dp"
         android:layout_height="33dp"
         android:layout_marginStart="1dp"
-        android:layout_marginEnd="66dp"
-        android:layout_marginBottom="4dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:enabled="false"
@@ -243,16 +239,16 @@
         android:text="Item Code:"
         android:textColor="@color/black"
         android:textSize="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/quantityTxtCustomToBook"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName9OC"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName4OC"
+        app:layout_constraintEnd_toStartOf="@+id/orderDateTxtCustomToBook"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName01OC" />
+        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName01OC"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName01OC" />
 
     <EditText
         android:id="@+id/quantityTxtCustomToBook"
         android:layout_width="139dp"
         android:layout_height="33dp"
-        android:layout_marginEnd="252dp"
         android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
         android:ems="10"
@@ -261,10 +257,12 @@
         android:text="Item Code:"
         android:textColor="@color/black"
         android:textSize="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/orderTypeTxtCustomToBook"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName4OC"
+        app:layout_constraintEnd_toStartOf="@+id/orderDateTxtCustomToBook"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName4OC" />
+        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName4OC"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName4OC"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/editTextTextPersonName9OC"
