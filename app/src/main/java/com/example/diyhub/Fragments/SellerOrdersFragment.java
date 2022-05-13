@@ -19,7 +19,14 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.diyhub.Notifications.APIService;
+import com.example.diyhub.Notifications.CLient;
+import com.example.diyhub.Notifications.Data;
+import com.example.diyhub.Notifications.MyResponse;
 import com.example.diyhub.Notifications.NotificationPromoList;
+import com.example.diyhub.Notifications.Sender;
+import com.example.diyhub.Notifications.Token;
+import com.example.diyhub.Notifications.UserNotif;
 import com.example.diyhub.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,6 +35,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.StorageReference;
@@ -40,6 +48,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class SellerOrdersFragment extends Fragment {
@@ -84,7 +96,6 @@ public class SellerOrdersFragment extends Fragment {
     RecyclerView recyclerViewToBook, recyclerViewToReceive;
     TabLayout tabLayout;
     TabLayout tabLayoutOngoing;
-    TabLayout tabLayoutToBook;
     TabLayout tabLayoutToReceive;
     RecyclerView recyclerOrdersAccepted,recyclerOredersOngoing;
 
@@ -141,6 +152,9 @@ public class SellerOrdersFragment extends Fragment {
 
     List<String> listorder;
     List<Integer> indexorder;
+
+    APIService apiService = apiService = CLient.getClient("https://fcm.googleapis.com/").create(APIService.class);
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -151,7 +165,6 @@ public class SellerOrdersFragment extends Fragment {
 
         tabLayout = view.findViewById(R.id.tabLayoutSellerOrdersPage);
         tabLayoutOngoing = view.findViewById(R.id.tabLayoutOngoingAcceptedOrderRequest);
-        tabLayoutToBook = view.findViewById(R.id.tabLayoutToBook);
         tabLayoutToReceive = view.findViewById(R.id.tabLayoutToReceive);
 
 
@@ -249,7 +262,6 @@ public class SellerOrdersFragment extends Fragment {
         recyclerViewToBook.setVisibility(View.INVISIBLE);
         recyclerViewToReceive.setVisibility(View.INVISIBLE);
         tabLayoutOngoing.setVisibility(View.VISIBLE);
-        tabLayoutToBook.setVisibility(View.INVISIBLE);
         tabLayoutToReceive.setVisibility(View.INVISIBLE);
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -265,7 +277,6 @@ public class SellerOrdersFragment extends Fragment {
                     recyclerViewCancelled.setVisibility(View.INVISIBLE);
                     recyclerViewReturnOrRefund.setVisibility(View.INVISIBLE);
                     tabLayoutOngoing.setVisibility(View.VISIBLE);
-                    tabLayoutToBook.setVisibility(View.INVISIBLE);
                     tabLayoutToReceive.setVisibility(View.INVISIBLE);
                     updateOrdersNotificationsCountOrderRequest();
                     updateOrdersNotificationsCountAccepted();
@@ -310,7 +321,6 @@ public class SellerOrdersFragment extends Fragment {
                     recyclerViewCancelled.setVisibility(View.INVISIBLE);
                     recyclerViewReturnOrRefund.setVisibility(View.INVISIBLE);
                     tabLayoutOngoing.setVisibility(View.INVISIBLE);
-                    tabLayoutToBook.setVisibility(View.VISIBLE);
                     tabLayoutToReceive.setVisibility(View.INVISIBLE);
                     ordersnotifCardviewOrderRequest.setVisibility(View.INVISIBLE);
                     ordersnotifCardviewAccepted.setVisibility(View.INVISIBLE);
@@ -340,7 +350,6 @@ public class SellerOrdersFragment extends Fragment {
                     recyclerViewCancelled.setVisibility(View.INVISIBLE);
                     recyclerViewReturnOrRefund.setVisibility(View.INVISIBLE);
                     tabLayoutOngoing.setVisibility(View.INVISIBLE);
-                    tabLayoutToBook.setVisibility(View.INVISIBLE);
                     tabLayoutToReceive.setVisibility(View.VISIBLE);
                     ordersnotifCardviewOrderRequest.setVisibility(View.INVISIBLE);
                     ordersnotifCardviewAccepted.setVisibility(View.INVISIBLE);
@@ -357,97 +366,6 @@ public class SellerOrdersFragment extends Fragment {
                     }
 
                     showData();
-
-
-                }
-
-                if(tab.getPosition() == 3)
-                {
-                    recyclerViewToPay.setVisibility(View.INVISIBLE);
-                    recyclerViewToBook.setVisibility(View.INVISIBLE);
-                    recyclerViewToReceive.setVisibility(View.INVISIBLE);
-                    recyclerViewCompleted.setVisibility(View.VISIBLE);
-                    recyclerViewCancelled.setVisibility(View.INVISIBLE);
-                    recyclerViewReturnOrRefund.setVisibility(View.INVISIBLE);
-                    tabLayoutOngoing.setVisibility(View.INVISIBLE);
-                    tabLayoutToBook.setVisibility(View.INVISIBLE);
-                    tabLayoutToReceive.setVisibility(View.VISIBLE);
-                    ordersnotifCardviewOrderRequest.setVisibility(View.INVISIBLE);
-                    ordersnotifCardviewAccepted.setVisibility(View.INVISIBLE);
-                    ordersnotifCardviewOngoing.setVisibility(View.INVISIBLE);
-
-                    if(acceptedTab == true)
-                    {
-                        recyclerOrdersAccepted.setVisibility(View.INVISIBLE);
-                    }
-
-                    if(ongoingTab == true)
-                    {
-                        recyclerOredersOngoing.setVisibility(View.INVISIBLE);
-                    }
-
-                    showData();
-
-
-                }
-
-                if(tab.getPosition() == 4)
-                {
-                    recyclerViewToPay.setVisibility(View.INVISIBLE);
-                    recyclerViewToBook.setVisibility(View.INVISIBLE);
-                    recyclerViewToReceive.setVisibility(View.INVISIBLE);
-                    recyclerViewCompleted.setVisibility(View.INVISIBLE);
-                    recyclerViewCancelled.setVisibility(View.VISIBLE);
-                    recyclerViewReturnOrRefund.setVisibility(View.INVISIBLE);
-                    tabLayoutOngoing.setVisibility(View.INVISIBLE);
-                    tabLayoutToBook.setVisibility(View.INVISIBLE);
-                    tabLayoutToReceive.setVisibility(View.VISIBLE);
-                    ordersnotifCardviewOrderRequest.setVisibility(View.INVISIBLE);
-                    ordersnotifCardviewAccepted.setVisibility(View.INVISIBLE);
-                    ordersnotifCardviewOngoing.setVisibility(View.INVISIBLE);
-
-                    if(acceptedTab == true)
-                    {
-                        recyclerOrdersAccepted.setVisibility(View.INVISIBLE);
-                    }
-
-                    if(ongoingTab == true)
-                    {
-                        recyclerOredersOngoing.setVisibility(View.INVISIBLE);
-                    }
-
-                    showData();
-
-
-                }
-
-                if(tab.getPosition() == 5)
-                {
-                    recyclerViewToPay.setVisibility(View.INVISIBLE);
-                    recyclerViewToBook.setVisibility(View.INVISIBLE);
-                    recyclerViewToReceive.setVisibility(View.INVISIBLE);
-                    recyclerViewCompleted.setVisibility(View.INVISIBLE);
-                    recyclerViewCancelled.setVisibility(View.INVISIBLE);
-                    recyclerViewReturnOrRefund.setVisibility(View.VISIBLE);
-                    tabLayoutOngoing.setVisibility(View.INVISIBLE);
-                    tabLayoutToBook.setVisibility(View.INVISIBLE);
-                    tabLayoutToReceive.setVisibility(View.VISIBLE);
-                    ordersnotifCardviewOrderRequest.setVisibility(View.INVISIBLE);
-                    ordersnotifCardviewAccepted.setVisibility(View.INVISIBLE);
-                    ordersnotifCardviewOngoing.setVisibility(View.INVISIBLE);
-
-                    if(acceptedTab == true)
-                    {
-                        recyclerOrdersAccepted.setVisibility(View.INVISIBLE);
-                    }
-
-                    if(ongoingTab == true)
-                    {
-                        recyclerOredersOngoing.setVisibility(View.INVISIBLE);
-                    }
-
-                    showData();
-
 
                 }
 
@@ -686,6 +604,7 @@ public class SellerOrdersFragment extends Fragment {
                         map.put("NotifID",ordersList1.getOrderID());
                         map.put("NotifImage",ordersList1.getOrderProductImage());
                         reference.child("Notifications").child(user.getUid()).child(ordersList1.getOrderID()).setValue(map);
+                        //sendNotification(user.getUid(),ordersList1.getBuyerName() + " made an Order of the Product "+ ordersList1.getOrderProductName(),ordersList1.getOrderStatus());
                     }
                     else if(ordersList1.getOrderStatus().equalsIgnoreCase("Accepted"))
                     {
@@ -699,6 +618,8 @@ public class SellerOrdersFragment extends Fragment {
                         map.put("NotifID",ordersList1.getOrderID());
                         map.put("NotifImage",ordersList1.getOrderProductImage());
                         reference.child("Notifications").child(user.getUid()).child(ordersList1.getOrderID()).setValue(map);
+                        //sendNotification(user.getUid(),ordersList1.getBuyerName() + " made an Order of the Product "+ ordersList1.getOrderProductName(),ordersList1.getOrderStatus());
+
                     }
                     else if(ordersList1.getOrderStatus().equalsIgnoreCase("Ongoing"))
                     {
@@ -712,6 +633,8 @@ public class SellerOrdersFragment extends Fragment {
                         map.put("NotifID",ordersList1.getOrderID());
                         map.put("NotifImage",ordersList1.getOrderProductImage());
                         reference.child("Notifications").child(user.getUid()).child(ordersList1.getOrderID()).setValue(map);
+                        //sendNotification(user.getUid(),ordersList1.getBuyerName() + " made an Order of the Product "+ ordersList1.getOrderProductName(),ordersList1.getOrderStatus());
+
                     }
                     else if(ordersList1.getOrderStatus().equalsIgnoreCase("To Book"))
                     {
@@ -767,6 +690,48 @@ public class SellerOrdersFragment extends Fragment {
         });
 
     }
+
+    private void sendNotification(String receiver, String msg, String orderType) {
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference tokens = FirebaseDatabase.getInstance().getReference("Tokens");
+        Query query = tokens.orderByKey().equalTo(receiver);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    Token token = snapshot.getValue(Token.class);
+                    Data data = new Data(user.getUid(), R.drawable.diy, msg, orderType, receiver);
+                    Sender sender = new Sender(data, token.getToken());
+
+                    apiService.sendNotification(sender)
+                            .enqueue(new Callback<MyResponse>() {
+                                @Override
+                                public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                                    if(response.code() == 200)
+                                    {
+                                        if(response.body().success != 1){
+                                            Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<MyResponse> call, Throwable t) {
+
+                                }
+                            });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 
     @Override
     public void onResume() {

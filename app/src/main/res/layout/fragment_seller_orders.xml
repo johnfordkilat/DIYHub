@@ -207,7 +207,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:tabMode="scrollable"
         app:tabSelectedTextColor="@color/yellow">
 
         <com.google.android.material.tabs.TabItem
@@ -224,21 +223,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="To Receive" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Completed" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cancelled" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Return/Refund" />
 
     </com.google.android.material.tabs.TabLayout>
 
@@ -265,33 +249,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.788" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayoutToBook"
-        android:layout_width="422dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="7dp"
-        android:background="@color/gray"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toReceiveRecyclerSeller"
-        app:layout_constraintVertical_bias="1.0"
-        app:tabSelectedTextColor="@color/black">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="All" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pickup" />
-
-
-    </com.google.android.material.tabs.TabLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ordersAcceptedRecyclerSeller"

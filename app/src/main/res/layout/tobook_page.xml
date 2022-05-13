@@ -4,7 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/gray"
     android:layout_marginTop="-5dp">
+
+    <TextView
+        android:id="@+id/orderIDToBook"
+        android:layout_width="110dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="1dp"
+        android:text="Delivery Type:"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/orderTypeToBook"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itemImageToBook" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bookButtonToBook"
@@ -65,8 +79,8 @@
         android:text="CUSTOM"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/itemImageToBook"
         app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintLeft_toRightOf="@id/itemImageToBook"
         app:layout_constraintStart_toEndOf="@+id/itemImageToBook" />
 
 
@@ -88,8 +102,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/itemImageToBook"
-        android:layout_width="108dp"
-        android:layout_height="93dp"
+        android:layout_width="105dp"
+        android:layout_height="78dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp"
         android:scaleType="centerCrop"
@@ -99,7 +113,7 @@
         app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.0"
         tools:layout_marginTop="5dp" />
 
     <androidx.appcompat.widget.AppCompatButton

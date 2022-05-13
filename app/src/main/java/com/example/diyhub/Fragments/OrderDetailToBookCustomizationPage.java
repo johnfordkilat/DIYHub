@@ -54,6 +54,10 @@ public class OrderDetailToBookCustomizationPage extends AppCompatActivity {
     ImageView moveToToReceive;
     CardView notif;
 
+
+    EditText riderName, plateNumber;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +80,8 @@ public class OrderDetailToBookCustomizationPage extends AppCompatActivity {
         copyButton = findViewById(R.id.copyButtonCustomPageToBook);
         moveToToReceive = findViewById(R.id.moveToToReceiveCustom);
         notif = findViewById(R.id.notificationNumberContainerToBookCustom);
+        riderName = findViewById(R.id.riderNameTxtCustom);
+        plateNumber = findViewById(R.id.plateNumberTxtCustom);
 
 
         Bundle extras = getIntent().getExtras();
@@ -282,16 +288,32 @@ public class OrderDetailToBookCustomizationPage extends AppCompatActivity {
                 String ItemCode, BuyerName, PaymentStatus, OrderDate;
                 String BuyerImage;
 
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-                HashMap<String, Object> hashMap = new HashMap<>();
-                hashMap.put("OrderStatus", "To Receive");
+                if(riderName.getText().toString().trim().isEmpty())
+                {
+                    riderName.setError("Required");
+                    riderName.requestFocus();
+                    return;
+                }
+                else if(plateNumber.getText().toString().trim().isEmpty())
+                {
+                    plateNumber.setError("Required");
+                    riderName.requestFocus();
+                    return;
+                }
+                else {
+
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                    HashMap<String, Object> hashMap = new HashMap<>();
+                    hashMap.put("OrderStatus", "To Receive");
+                    hashMap.put("RiderName", riderName.getText().toString().trim());
+                    hashMap.put("PlateNumber", plateNumber.getText().toString().trim());
 
 
+                    reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap);
 
-                reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap);
-
-                Toast.makeText(OrderDetailToBookCustomizationPage.this, "Order is moved to TO RECEIVE", Toast.LENGTH_SHORT).show();
-                finish();
+                    Toast.makeText(OrderDetailToBookCustomizationPage.this, "Order is moved to TO RECEIVE", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             }
         });
     }

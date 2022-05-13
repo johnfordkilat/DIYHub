@@ -19,13 +19,22 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.diyhub.MESSAGES.Chat;
 import com.example.diyhub.MESSAGES.ChatPage;
 import com.example.diyhub.Notifications.NotificationPromo;
 import com.example.diyhub.Notifications.NotificationPromoDisplay;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -70,6 +79,8 @@ public class BuyerAccountHomePage extends AppCompatActivity {
     private ArrayList<String> mNames2 = new ArrayList<>();
     private ArrayList<String> mImageUrls2 = new ArrayList<>();
     String value1,value2,value3,value4,value5,value6,value7,value8,value9,value10,value11,value12,usernameBuyer,emailBuyer;
+    TextView chatCounter;
+    CardView chatCardView;
 
 
     @Override
@@ -84,6 +95,8 @@ public class BuyerAccountHomePage extends AppCompatActivity {
         person = findViewById(R.id.searchForProducts);
         notif = findViewById(R.id.notificationButton);
         chat = findViewById(R.id.chatImageView);
+        chatCounter = findViewById(R.id.chatCounterBuyer);
+        chatCardView = findViewById(R.id.chatNumberContainerBuyer);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -156,6 +169,7 @@ public class BuyerAccountHomePage extends AppCompatActivity {
         });
 
         createNotificationChannel();
+        updateMessageCount();
 
     }
 
@@ -360,5 +374,40 @@ public class BuyerAccountHomePage extends AppCompatActivity {
         Intent intent = new Intent(BuyerAccountHomePage.this, CustomizedProductPage.class);
         intent.putExtra("docName",data);
         startActivity(intent);
+    }
+
+    private void updateMessageCount() {
+        Query reference = FirebaseDatabase.getInstance().getReference("Chats").orderByChild("MessageDateTime");
+        String myID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                int counter = 0;
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    Chat chat = snapshot.getValue(Chat.class);
+                    if(chat.getReceiver().equals(myID) && !chat.isIsseen())
+                    {
+                        counter++;
+                    }
+
+                    chatCounter.setText(String.valueOf(counter));
+                    chatCardView.setVisibility(counter == 0 ? View.INVISIBLE : View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateMessageCount();
     }
 }

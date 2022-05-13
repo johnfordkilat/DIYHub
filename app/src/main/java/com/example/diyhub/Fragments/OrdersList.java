@@ -13,6 +13,7 @@ public class OrdersList implements Parcelable {
     String OrderStatus;
     String ShopName;
     String DeliveryType;
+    String RiderName,PlateNumber;
 
     public OrdersList(){
 
@@ -20,7 +21,7 @@ public class OrdersList implements Parcelable {
 
     public OrdersList(String productName, String productQuantity, String prodImage, String prodID, String orderType, String paymentOption, String itemCode,
                        String buyerName, String paymentStatus, String orderDate, String buyerImage, String bookingAddress, String orderStatus, String shopName,
-                      String deliveryType) {
+                      String deliveryType, String riderName, String plateNumber) {
         OrderProductName = productName;
         OrderQuantity = productQuantity;
         OrderProductImage = prodImage;
@@ -36,7 +37,25 @@ public class OrdersList implements Parcelable {
         OrderStatus = orderStatus;
         ShopName = shopName;
         DeliveryType = deliveryType;
+        RiderName = riderName;
+        PlateNumber = plateNumber;
 
+    }
+
+    public String getRiderName() {
+        return RiderName;
+    }
+
+    public void setRiderName(String riderName) {
+        RiderName = riderName;
+    }
+
+    public String getPlateNumber() {
+        return PlateNumber;
+    }
+
+    public void setPlateNumber(String plateNumber) {
+        PlateNumber = plateNumber;
     }
 
     public String getDeliveryType() {
@@ -147,6 +166,8 @@ public class OrdersList implements Parcelable {
         dest.writeString(OrderStatus);
         dest.writeString(ShopName);
         dest.writeString(DeliveryType);
+        dest.writeString(RiderName);
+        dest.writeString(PlateNumber);
 
     }
 
@@ -166,6 +187,8 @@ public class OrdersList implements Parcelable {
         OrderStatus = in.readString();
         ShopName = in.readString();
         DeliveryType = in.readString();
+        RiderName = in.readString();
+        PlateNumber = in.readString();
     }
 
     public static final Parcelable.Creator<OrdersList> CREATOR = new Parcelable.Creator<OrdersList>() {

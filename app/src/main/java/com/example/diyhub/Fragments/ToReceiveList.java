@@ -9,13 +9,14 @@ public class ToReceiveList implements Parcelable {
     String OrderProductImage,OrderID,OrderType,PaymentOption;
     String ItemCode, BuyerName, PaymentStatus, OrderDate;
     String BuyerImage;
+    String RiderName,PlateNumber;
 
     public ToReceiveList(){
 
     }
 
     public ToReceiveList(String productName, String productQuantity, String prodImage, String prodID, String orderType, String paymentOption, String itemCode,
-                      String buyerName, String paymentStatus, String orderDate, String buyerImage ) {
+                      String buyerName, String paymentStatus, String orderDate, String buyerImage, String riderName, String plateNumber ) {
         OrderProductName = productName;
         OrderQuantity = productQuantity;
         OrderProductImage = prodImage;
@@ -27,9 +28,26 @@ public class ToReceiveList implements Parcelable {
         PaymentStatus = paymentStatus;
         OrderDate = orderDate;
         BuyerImage = buyerImage;
+        RiderName = riderName;
+        PlateNumber = plateNumber;
 
     }
 
+    public String getRiderName() {
+        return RiderName;
+    }
+
+    public void setRiderName(String riderName) {
+        RiderName = riderName;
+    }
+
+    public String getPlateNumber() {
+        return PlateNumber;
+    }
+
+    public void setPlateNumber(String plateNumber) {
+        PlateNumber = plateNumber;
+    }
 
     public String getOrderProductName() {
         return OrderProductName;
@@ -103,6 +121,8 @@ public class ToReceiveList implements Parcelable {
         dest.writeString(PaymentStatus);
         dest.writeString(OrderDate);
         dest.writeString(BuyerImage);
+        dest.writeString(PlateNumber);
+        dest.writeString(RiderName);
 
     }
 
@@ -118,6 +138,8 @@ public class ToReceiveList implements Parcelable {
         PaymentStatus = in.readString();
         OrderDate = in.readString();
         BuyerImage = in.readString();
+        RiderName = in.readString();
+        PlateNumber = in.readString();
     }
 
     public static final Parcelable.Creator<ToReceiveList> CREATOR = new Parcelable.Creator<ToReceiveList>() {

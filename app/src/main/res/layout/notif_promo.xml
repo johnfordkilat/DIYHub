@@ -10,7 +10,7 @@
         android:id="@+id/notifCardViewNotifList"
         android:layout_width="match_parent"
         android:layout_height="122dp"
-        app:cardBackgroundColor="@color/gray"
+        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="4dp"
         app:cardElevation="1dp"
         app:cardMaxElevation="2dp"

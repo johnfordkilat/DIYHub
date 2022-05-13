@@ -27,6 +27,9 @@
         android:theme="@style/Theme.DIYHub"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Fragments.OrderDetailCustomPagePreview"
+            android:exported="false" />
+        <activity
             android:name=".Fragments.StandardProductDetailsPageSeller"
             android:exported="false" />
         <activity
@@ -41,7 +44,7 @@
         <activity
             android:name=".Fragments.AddVariationsCustomizePage"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Fragments.AddVariationsStandardPage"
             android:exported="false"

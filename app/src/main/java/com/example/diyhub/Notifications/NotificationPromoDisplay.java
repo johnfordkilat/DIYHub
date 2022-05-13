@@ -18,10 +18,18 @@ public class NotificationPromoDisplay extends BroadcastReceiver{
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
+
+            String buyerName = intent.getExtras().getString("BuyerName");
+            String orderid = intent.getExtras().getString("OrderID");
+            String location = intent.getExtras().getString("Location");
+            String riderName = intent.getExtras().getString("RiderName");
+            String plateNumber = intent.getExtras().getString("PlateNumber");
+
             Notification  notification = new NotificationCompat.Builder(context, "diyhub")
                     .setSmallIcon(R.drawable.img_12)
-                    .setContentTitle("DIY Hub Notifications Promo")
-                    .setContentText(String.valueOf("Hello"))
+                    .setContentTitle("DIYHub Notifications")
+                    .setContentText("Order "+orderid+ " is Completed")
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .build();
 

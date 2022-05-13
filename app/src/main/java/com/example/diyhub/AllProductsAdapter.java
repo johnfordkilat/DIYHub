@@ -122,6 +122,7 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
         holder.prodName.setText("Product Name: "+productsList.getProductName());
         holder.prodQuan.setText("Purchases: "+String.valueOf(productsList.getProductQuantity()));
         holder.prodStocks.setText("Stocks: "+String.valueOf(productsList.getProductStocks()));
+        holder.priceTxt.setText("Price: ₱"+String.valueOf(productsList.getProductPrice()));
         Glide.with(context).load(list.get(position).getProductImage()).into(holder.prodImage);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -496,6 +497,7 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
         ImageView prodImage,deleteProd,updateProd,pauseButton;
         Button toOrderPage;
         TextView prodTypeLabel;
+        TextView priceTxt;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -509,6 +511,7 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
             holdTab = itemView.findViewById(R.id.holdTab);
             pauseButton = itemView.findViewById(R.id.pauseButton);
             prodTypeLabel = itemView.findViewById(R.id.productTypeProductsPage);
+            priceTxt = itemView.findViewById(R.id.priceTxtSeller);
 
         }
     }

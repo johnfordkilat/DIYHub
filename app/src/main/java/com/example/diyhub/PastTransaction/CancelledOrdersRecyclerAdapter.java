@@ -76,9 +76,10 @@ public class CancelledOrdersRecyclerAdapter extends RecyclerView.Adapter<Cancell
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         OrdersList completedOrderList = list.get(position);
-        holder.prodName.setText(completedOrderList.getOrderProductName());
+        holder.prodName.setText("x"+completedOrderList.getOrderQuantity()+" "+completedOrderList.getOrderProductName());
         holder.date.setText(completedOrderList.getOrderDate());
         holder.shopName.setText(completedOrderList.getShopName());
+        holder.orderID.setText("Order ID: " + completedOrderList.getOrderID());
         Glide.with(context).load(list.get(position).getOrderProductImage()).into(holder.prodImage);
 
     }
@@ -118,6 +119,8 @@ public class CancelledOrdersRecyclerAdapter extends RecyclerView.Adapter<Cancell
 
         TextView date,prodName,shopName;
         ImageView prodImage;
+        TextView orderID;
+
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -125,6 +128,7 @@ public class CancelledOrdersRecyclerAdapter extends RecyclerView.Adapter<Cancell
             date = itemView.findViewById(R.id.datePastTransac);
             shopName = itemView.findViewById(R.id.shopNamePastTransac);
             prodImage = itemView.findViewById(R.id.productImageSellerPast);
+            orderID = itemView.findViewById(R.id.orderIDPastTrasancTxt);
 
         }
     }

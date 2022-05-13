@@ -86,7 +86,7 @@ public class SellerHomePage extends AppCompatActivity {
     TextView txt11;
     float[] shRatings = {};
     TextView changeP;
-    ImageButton notifButton;
+    ImageView notifButton;
 
     private static final String TAG = "MainActivity";
 
@@ -174,6 +174,7 @@ public class SellerHomePage extends AppCompatActivity {
 
     int tabselected;
 
+    ImageView image40;
 
 
     @Override
@@ -196,6 +197,7 @@ public class SellerHomePage extends AppCompatActivity {
 
         ordersnotifCardview = findViewById(R.id.ordersNotificationNumberContainer);
         ordersnotifCounter = findViewById(R.id.ordersNotifCounter);
+
 
 
 

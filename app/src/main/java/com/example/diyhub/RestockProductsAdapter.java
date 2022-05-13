@@ -117,6 +117,8 @@ public class RestockProductsAdapter extends RecyclerView.Adapter<RestockProducts
         holder.prodName.setText("Product Name: "+productsList.getProductName());
         holder.prodQuan.setText("Purchases: "+String.valueOf(productsList.getProductQuantity()));
         holder.prodStocks.setText("Stocks: "+String.valueOf(productsList.getProductStocks()));
+        holder.priceTxt.setText("Price: ₱"+String.valueOf(productsList.getProductPrice()));
+
         Glide.with(context).load(list.get(position).getProductImage()).into(holder.prodImage);
 
         pQuan = productsList.getProductQuantity();
@@ -444,6 +446,7 @@ public class RestockProductsAdapter extends RecyclerView.Adapter<RestockProducts
 
         TextView prodName,prodQuan,prodStocks,stocksLabel,restockTab,holdTab,productNameLabel,purchasesLabel;
         ImageView prodImage,deleteProd,updateProd,pauseButton;
+        TextView priceTxt;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -456,6 +459,7 @@ public class RestockProductsAdapter extends RecyclerView.Adapter<RestockProducts
             restockTab = itemView.findViewById(R.id.restockTab);
             holdTab = itemView.findViewById(R.id.holdTab);
             pauseButton = itemView.findViewById(R.id.pauseButton);
+            priceTxt = itemView.findViewById(R.id.priceTxtSeller);
         }
     }
 }

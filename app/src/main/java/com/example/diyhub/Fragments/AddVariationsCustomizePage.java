@@ -139,6 +139,24 @@ public class AddVariationsCustomizePage extends AppCompatActivity {
 
     List<String> fileNameListVar;
 
+    Spinner secondVarSpinner;
+    TextView removeSecondVarButton;
+    TextView addSecondVarButton;
+
+    DatabaseReference referenceSecondVar;
+
+    ArrayList<StandardProductSecondVariationList> listSecondVar;
+
+    StandardProductSecondVariationAdapter secondVariationAdapter;
+
+    String todeleteSecond;
+
+    Button submitSecondVar;
+    EditText optionTxtSecondVar;
+
+    Dialog secondVarDialog;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,6 +169,10 @@ public class AddVariationsCustomizePage extends AppCompatActivity {
         addProduct = findViewById(R.id.addProductImageButtonCustom);
         deleteVarButton = findViewById(R.id.removeVariationButtonCustom);
         productImagesRecycler = findViewById(R.id.uploadProductImagesCustomPage);
+
+        secondVarSpinner = findViewById(R.id.spinnerAddSecondVariationsCustom);
+        removeSecondVarButton = findViewById(R.id.removeSecondVariationButtonCustom);
+        addSecondVarButton = findViewById(R.id.addSecondVariationButtonCustom);
 
         mStorage = FirebaseStorage.getInstance().getReference();
 
@@ -167,6 +189,7 @@ public class AddVariationsCustomizePage extends AppCompatActivity {
 
         fileNameListVar = new ArrayList<>();
 
+        listSecondVar = new ArrayList<>();
 
 
 
@@ -189,7 +212,9 @@ public class AddVariationsCustomizePage extends AppCompatActivity {
         list = new ArrayList<>();
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(itemid).child("Variations-Customized");
+        referenceSecondVar = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(itemid).child("Variations-Custom");
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(itemid).child("Variations-Custom").child("Color");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -211,11 +236,44 @@ public class AddVariationsCustomizePage extends AppCompatActivity {
             }
         });
 
+        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(itemid).child("Variations-Custom").child("Size");
+        reference1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listSecondVar.clear();
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    StandardProductSecondVariationList standardProductVariationList = snapshot.getValue(StandardProductSecondVariationList.class);
+                    listSecondVar.add(standardProductVariationList);
+                }
+
+                secondVariationAdapter = new StandardProductSecondVariationAdapter(AddVariationsCustomizePage.this, listSecondVar);
+                secondVarSpinner.setAdapter(secondVariationAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         varSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 todelete = list.get(position).getVariationName();
                 Toast.makeText(AddVariationsCustomizePage.this, todelete, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        secondVarSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                todeleteSecond = listSecondVar.get(position).getVarSize();
             }
 
             @Override
@@ -235,7 +293,36 @@ public class AddVariationsCustomizePage extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(itemid).child("Variations-Customized").child(todelete);
+                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(itemid).child("Variations-Custom").child("Color").child(todelete);
+                        reference1.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(AddVariationsCustomizePage.this, "Variation Deleted successfully", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+                removeVar.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                removeVar.create().show();
+            }
+        });
+
+        removeSecondVarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder removeVar = new AlertDialog.Builder(AddVariationsCustomizePage.this);
+                removeVar.setTitle("Delete Confirmation");
+                removeVar.setMessage("Are you sure you want to delete Size - "+ todeleteSecond+" ?");
+                removeVar.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(itemid).child("Variations-Custom").child("Size").child(todeleteSecond);
                         reference1.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
@@ -308,7 +395,7 @@ public class AddVariationsCustomizePage extends AppCompatActivity {
                                 else
                                 {
                                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(itemid).child("Variations-Customized");
+                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(itemid).child("Variations-Custom").child("Color");
                                     reference.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -347,6 +434,78 @@ public class AddVariationsCustomizePage extends AppCompatActivity {
                 });
                 varDialog = builderBooking.create();
                 varDialog.show();
+            }
+        });
+
+        addSecondVarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builderBooking = new AlertDialog.Builder(AddVariationsCustomizePage.this);
+                builderBooking.setTitle("Add Variation");
+
+
+                View view1 = getLayoutInflater().inflate(R.layout.layout_dialog_editable, null);
+                optionTxtSecondVar = view1.findViewById(R.id.setPaymentOptionTxt2);
+                submitSecondVar = view1.findViewById(R.id.submitOption2);
+                builderBooking.setView(view1);
+
+
+                submitSecondVar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        String data = optionTxtSecondVar.getText().toString().trim();
+                        if(data.isEmpty())
+                        {
+                            optionTxtSecondVar.setError("Cannot be Empty");
+                            optionTxtSecondVar.requestFocus();
+                        }
+                        else
+                        {
+                            if(listSecondVar.size() == 0)
+                            {
+                                uploadSecondVariation(data.toUpperCase());
+                                secondVarDialog.dismiss();
+                                removeSecondVarButton.setVisibility(View.VISIBLE);
+                            }
+                            else
+                            {
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(itemid).child("Variations-Custom").child("Size");
+                                reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        listSecondVar.clear();
+                                        for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                                        {
+                                            StandardProductSecondVariationList dbList = snapshot.getValue(StandardProductSecondVariationList.class);
+                                            listSecondVar.add(dbList);
+                                            if(data.equalsIgnoreCase(dbList.getVarSize()))
+                                            {
+                                                Toast.makeText(getApplicationContext(), "Variation Already Exist!", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            else
+                                            {
+                                                uploadSecondVariation(data.toUpperCase());
+                                                secondVarDialog.dismiss();
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                            }
+                        }
+
+
+                    }
+                });
+                secondVarDialog = builderBooking.create();
+                secondVarDialog.show();
             }
         });
 
@@ -397,6 +556,17 @@ public class AddVariationsCustomizePage extends AppCompatActivity {
         });
 
 
+    }
+
+    private void uploadSecondVariation(String varNameLabel) {
+        Log.d("UPLOADINGERROR", "IMAGEERROR");
+
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        Map<String, Object> map = new HashMap<>();
+        map.put("VarSize", varNameLabel);
+        reference.child("SellerProducts").child(user.getUid()).child(itemid).child("Variations-Custom").child("Size").child(varNameLabel).updateChildren(map);
     }
 
 
@@ -675,7 +845,7 @@ public class AddVariationsCustomizePage extends AppCompatActivity {
         StorageReference ImageFolder =  firebaseStorage.child(user.getEmail());
         for (uploadsVariation=0; uploadsVariation < ImageListVariation.size(); uploadsVariation++) {
             Uri Image  = ImageListVariation.get(uploadsVariation);
-            StorageReference imagename = ImageFolder.child("Seller-Products").child("Variations-Customized").child(fileNameListVar.get(uploadsVariation)+".jpeg");
+            StorageReference imagename = ImageFolder.child("Seller-Products").child("Variations-Custom").child("Color").child(fileNameListVar.get(uploadsVariation)+".jpeg");
 
             imagename.putFile(Image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -692,7 +862,7 @@ public class AddVariationsCustomizePage extends AppCompatActivity {
                             Map<String, Object> map = new HashMap<>();
                             map.put("variationImage", url);
                             map.put("variationName", varNameLabel);
-                            reference.child("SellerProducts").child(user.getUid()).child(itemid).child("Variations-Customized").child(varNameLabel).updateChildren(map);
+                            reference.child("SellerProducts").child(user.getUid()).child(itemid).child("Variations-Custom").child("Color").child(varNameLabel).updateChildren(map);
                             ImageListVariation.clear();
                             //reference.child("Products").child(varNameLabel).setValue(map);
 

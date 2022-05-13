@@ -68,7 +68,7 @@ public class ToBookAdapter extends RecyclerView.Adapter<ToBookAdapter.MyViewHold
         holder.location.setText("Location: "+productsList.getBookingAddress());
         holder.orderType.setText(productsList.getOrderType());
         holder.paymentOption.setText(productsList.getPaymentOption());
-        //holder.orderid.setText("Order ID: "+productsList.getOrderID());
+        holder.orderid.setText("Order ID: "+productsList.getOrderID());
 
 
         Glide.with(context).load(productsList.getOrderProductImage()).into(holder.itemImage);
@@ -198,7 +198,8 @@ public class ToBookAdapter extends RecyclerView.Adapter<ToBookAdapter.MyViewHold
         TextView itemName,buyerName,location;
         ImageView itemImage;
         Button orderType,paymentOption;
-        //TextView orderid;
+        TextView orderid;
+        TextView deliveryType;
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -213,7 +214,7 @@ public class ToBookAdapter extends RecyclerView.Adapter<ToBookAdapter.MyViewHold
             itemImage = itemView.findViewById(R.id.itemImageToBook);
             orderType = itemView.findViewById(R.id.orderTypeToBook);
             paymentOption = itemView.findViewById(R.id.paymentOptionToBook);
-            //orderid = itemView.findViewById(R.id.orderIDOrdersPage);
+            orderid = itemView.findViewById(R.id.orderIDToBook);
 
         }
     }

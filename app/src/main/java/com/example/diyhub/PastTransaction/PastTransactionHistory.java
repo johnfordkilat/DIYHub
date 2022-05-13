@@ -21,6 +21,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -164,6 +165,12 @@ public class PastTransactionHistory extends AppCompatActivity implements DatePic
         recyclerViewReturnOrRefund = findViewById(R.id.returnRefundOrderRecyclerPastTransac);
         recyclerViewReturnOrRefund.setHasFixedSize(true);
         recyclerViewReturnOrRefund.setLayoutManager(new LinearLayoutManager(this));
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recycler_divider));
+        recyclerViewCompleted.addItemDecoration(dividerItemDecoration);
+        recyclerViewCancelled.addItemDecoration(dividerItemDecoration);
+        recyclerViewReturnOrRefund.addItemDecoration(dividerItemDecoration);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -357,7 +364,8 @@ public class PastTransactionHistory extends AppCompatActivity implements DatePic
             post.toString().toLowerCase();
             if(post.getOrderDate().toLowerCase().contains(text.toLowerCase()) ||
                     post.getOrderProductName().toLowerCase().contains(text.toLowerCase()) ||
-                    post.getShopName().toLowerCase().contains(text.toLowerCase()))
+                    post.getShopName().toLowerCase().contains(text.toLowerCase()) ||
+                    post.getOrderID().toLowerCase().contains(text.toLowerCase()))
             {
                 filterList.add(post);
             }
@@ -372,7 +380,8 @@ public class PastTransactionHistory extends AppCompatActivity implements DatePic
             post.toString().toLowerCase();
             if(post.getOrderDate().toLowerCase().contains(text.toLowerCase()) ||
                     post.getOrderProductName().toLowerCase().contains(text.toLowerCase()) ||
-                    post.getShopName().toLowerCase().contains(text.toLowerCase()))
+                    post.getShopName().toLowerCase().contains(text.toLowerCase()) ||
+                    post.getOrderID().toLowerCase().contains(text.toLowerCase()))
             {
                 filterListCancelled.add(post);
             }
@@ -387,7 +396,8 @@ public class PastTransactionHistory extends AppCompatActivity implements DatePic
             post.toString().toLowerCase();
             if(post.getOrderDate().toLowerCase().contains(text.toLowerCase()) ||
                     post.getOrderProductName().toLowerCase().contains(text.toLowerCase()) ||
-                    post.getShopName().toLowerCase().contains(text.toLowerCase()))
+                    post.getShopName().toLowerCase().contains(text.toLowerCase()) ||
+                    post.getOrderID().toLowerCase().contains(text.toLowerCase()))
             {
                 filterListReturnRefund.add(post);
             }

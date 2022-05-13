@@ -52,6 +52,7 @@ public class OrderDetailToBookStandardPage extends AppCompatActivity {
 
     ImageView moveToToReceive;
     CardView notif;
+    EditText riderName, plateNumber;
 
 
     @Override
@@ -76,6 +77,8 @@ public class OrderDetailToBookStandardPage extends AppCompatActivity {
         copyButton = findViewById(R.id.copyButtonStandardPageToBook);
         moveToToReceive = findViewById(R.id.moveToToReceiveStandard);
         notif = findViewById(R.id.notificationNumberContainerToBook);
+        riderName = findViewById(R.id.riderNameTxtStandard);
+        plateNumber = findViewById(R.id.plateNumberTxtStandard);
 
 
         Bundle extras = getIntent().getExtras();
@@ -282,16 +285,35 @@ public class OrderDetailToBookStandardPage extends AppCompatActivity {
                 String ItemCode, BuyerName, PaymentStatus, OrderDate;
                 String BuyerImage;
 
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-                HashMap<String, Object> hashMap = new HashMap<>();
-                hashMap.put("OrderStatus", "To Receive");
+                if(riderName.getText().toString().trim().isEmpty())
+                {
+                    riderName.setError("Required");
+                    riderName.requestFocus();
+                    return;
+                }
+                else if(plateNumber.getText().toString().trim().isEmpty())
+                {
+                    plateNumber.setError("Required");
+                    riderName.requestFocus();
+                    return;
+                }
+                else
+                {
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                    HashMap<String, Object> hashMap = new HashMap<>();
+                    hashMap.put("OrderStatus", "To Receive");
+                    hashMap.put("RiderName", riderName.getText().toString().trim());
+                    hashMap.put("PlateNumber", plateNumber.getText().toString().trim());
 
 
 
-                reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap);
+                    reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap);
 
-                Toast.makeText(OrderDetailToBookStandardPage.this, "Order is moved to TO RECEIVE", Toast.LENGTH_SHORT).show();
-                finish();
+                    Toast.makeText(OrderDetailToBookStandardPage.this, "Order is moved to TO RECEIVE", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+
+
             }
         });
     }

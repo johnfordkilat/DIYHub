@@ -81,28 +81,12 @@ public class NotificationPromoAdapter extends RecyclerView.Adapter<NotificationP
             @Override
             public void onClick(View v) {
                 holder.notifCardview.setCardBackgroundColor(Color.WHITE);
-
-                if(promoList.getNotifHeader().equalsIgnoreCase("Order Request"))
-                {
-                    Intent intent = new Intent(mContext, SellerOrdersFragment.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    mContext.startActivity(intent);
-                }
-                else
-                {
-                    Intent intent = new Intent(mContext, NotificationDisplayPage.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("notifid", promoList.getNotifID());
-                    mContext.startActivity(intent);
-                }
-
-
             }
         });
 
         if(promoList.getIsSeen().equalsIgnoreCase("true"))
         {
-            holder.notifCardview.setCardBackgroundColor(Color.WHITE);
+            holder.notifCardview.setCardBackgroundColor(Color.LTGRAY);
         }
 
 

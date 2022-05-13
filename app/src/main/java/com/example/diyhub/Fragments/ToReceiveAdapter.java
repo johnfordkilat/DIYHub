@@ -1,6 +1,11 @@
 package com.example.diyhub.Fragments;
 
+import static android.app.PendingIntent.FLAG_IMMUTABLE;
+import static android.content.Context.ALARM_SERVICE;
+
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,11 +16,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.diyhub.Notifications.NotificationPromoDisplay;
 import com.example.diyhub.OrdersPage;
 import com.example.diyhub.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,7 +54,7 @@ public class ToReceiveAdapter extends RecyclerView.Adapter<ToReceiveAdapter.MyVi
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.orders_page,parent,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.to_receive_standard,parent,false);
         return new MyViewHolder(v);
     }
 
@@ -55,17 +62,64 @@ public class ToReceiveAdapter extends RecyclerView.Adapter<ToReceiveAdapter.MyVi
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         OrdersList productsList = list.get(position);
-        holder.prodName.setText(productsList.getOrderProductName());
-        holder.prodQuan.setText(productsList.getOrderQuantity());
-        holder.orderType.setText(productsList.getOrderType());
-        holder.paymentOption.setText(productsList.getPaymentOption());
-        Glide.with(context).load(list.get(position).getOrderProductImage()).into(holder.prodImage);
+        holder.buyerTxt.setText("Buyer: "+productsList.getBuyerName());
+        holder.locationTxt.setText("Location: "+productsList.getBookingAddress());
+        holder.riderAndPlateTxt.setText("Rider: "+productsList.getRiderName() + "    Plate: "+productsList.getPlateNumber());
         holder.orderid.setText("Order ID: "+productsList.getOrderID());
-        holder.delOption.setText(productsList.getDeliveryType());
+
+        if(productsList.getOrderType().equalsIgnoreCase("Standard"))
+        {
+            holder.prodType.setText("Standard");
+        }
+        else
+        {
+            holder.prodType.setText("Customized");
+        }
+        
+        Glide.with(context).load(list.get(position).getOrderProductImage()).into(holder.prodImage);
+
+        holder.chatBuyer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Chat with Buyer", Toast.LENGTH_SHORT).show();
+            }
+        });
+        
+        holder.addToNotif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Added to Notifications", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(context, NotificationPromoDisplay.class);
+                intent.putExtra("BuyerName", productsList.getBuyerName());
+                intent.putExtra("OrderID",productsList.getOrderID());
+                intent.putExtra("Location", productsList.getBookingAddress());
+                intent.putExtra("RiderName", productsList.getRiderName());
+                intent.putExtra("PlateNumber", productsList.getPlateNumber());
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, FLAG_IMMUTABLE);
+
+                AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+
+                long timeAtButtonClick = System.currentTimeMillis();
+
+                long tenSeconds = 500 * 10;
+
+                alarmManager.set(AlarmManager.RTC_WAKEUP, timeAtButtonClick + tenSeconds, pendingIntent);
+
+                //Log.d("SELLERERROR", "error");
+            }
+        });
+        
+        holder.locationTracker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Order Tracking", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
 
-        holder.nextButton.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -106,24 +160,31 @@ public class ToReceiveAdapter extends RecyclerView.Adapter<ToReceiveAdapter.MyVi
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView prodName,prodQuan,prodStocks;
-        ImageView prodImage,deleteProd,updateProd,nextButton;
-        Button orderType,paymentOption;
+        TextView buyerTxt,locationTxt,riderAndPlateTxt;
+        ImageView prodImage,addToNotif,locationTracker;
+        Button paymentStatus,bookingOption;
+        ImageView chatBuyer;
+
+        TextView prodType;
         TextView orderid;
-        TextView delOption;
+
 
 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            prodName = itemView.findViewById(R.id.orderProductName);
-            prodQuan = itemView.findViewById(R.id.orderQuantityTxt);
-            prodImage = itemView.findViewById(R.id.orderProductImage);
-            orderType = itemView.findViewById(R.id.orderType);
-            paymentOption = itemView.findViewById(R.id.paymentOption);
-            nextButton = itemView.findViewById(R.id.nextButtonOrdersPage);
-            orderid = itemView.findViewById(R.id.orderIDOrdersPage);
-            delOption = itemView.findViewById(R.id.deliveryTypeOrdersPage);
+
+            prodImage = itemView.findViewById(R.id.orderProductImage2);
+            buyerTxt = itemView.findViewById(R.id.buyerToReceiveTxtStandard);
+            locationTxt = itemView.findViewById(R.id.locationToReceiveTxtStandard);
+            riderAndPlateTxt = itemView.findViewById(R.id.riderAndPlateToReceiveTxtStandard);
+            addToNotif = itemView.findViewById(R.id.addToNotificationToReceiveStandard);
+            locationTracker = itemView.findViewById(R.id.locationTrackerToReceiveStandard);
+            paymentStatus = itemView.findViewById(R.id.paymentStatusTxtToReceiveStandard);
+            bookingOption = itemView.findViewById(R.id.bookingTypeToReceiveStandard);
+            chatBuyer = itemView.findViewById(R.id.chatBuyerToReceiveStandard);
+            prodType = itemView.findViewById(R.id.productTypeToReceivePage);
+            orderid  = itemView.findViewById(R.id.orderIDToReceive);
 
 
         }

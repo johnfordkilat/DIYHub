@@ -7,6 +7,37 @@
     android:background="@drawable/gradient_one"
     tools:context=".Fragments.OrderDetailToBookCustomizationPage">
 
+    <EditText
+        android:id="@+id/plateNumberTxtCustom"
+        android:layout_width="376dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/edit_text_border"
+        android:ems="10"
+        android:hint="Enter Plate Number"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.514"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/riderNameTxtCustom"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/riderNameTxtCustom"
+        android:layout_width="376dp"
+        android:layout_height="30dp"
+        android:background="@drawable/edit_text_border"
+        android:ems="10"
+        android:hint="Enter Rider Name"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.77" />
+
     <TextView
         android:id="@+id/logoutTxtview5"
         android:layout_width="410dp"
