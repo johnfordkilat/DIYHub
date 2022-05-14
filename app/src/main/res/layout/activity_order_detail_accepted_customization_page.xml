@@ -7,6 +7,48 @@
     android:background="@drawable/gradient_one"
     tools:context=".Fragments.OrderDetailAcceptedCustomizationPage">
 
+    <Button
+        android:id="@+id/viewPriceLiquidationAcceptedCustom"
+        android:layout_width="156dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="18dp"
+        android:text="View Price Liquidation"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/itemCodeTxtStandard2C1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/orderTypeTxtCustomAccepted1"
+        app:layout_constraintTop_toBottomOf="@+id/orderDateTxtCustomAccepted1" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/notificationNumberContainerAcceptedCustomCustomerRequest"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:visibility="invisible"
+        app:cardBackgroundColor="@color/red"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/orderTrackerSpinnerCustomAccepted"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bookingAddressSpinnerCustomAccepted"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/notifCounterAcceptedtCustomCustomerRequest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
     <TextView
         android:id="@+id/logoutTxtview4"
         android:layout_width="410dp"
@@ -54,20 +96,21 @@
         android:id="@+id/notificationNumberContainerAcceptedCustom"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="200dp"
         android:visibility="invisible"
         app:cardBackgroundColor="@color/red"
         app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/bookingAddressSpinnerCustomAccepted"
         app:layout_constraintEnd_toEndOf="@+id/bookingAddressSpinnerCustomAccepted"
-        app:layout_constraintTop_toTopOf="@+id/bookingAddressSpinnerCustomAccepted">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bookingAddressSpinnerCustomAccepted"
+        app:layout_constraintVertical_bias="0.100000024">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/notifCounterOrderRequestCustom"
+                android:id="@+id/notifCounterAcceptedtCustom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1"

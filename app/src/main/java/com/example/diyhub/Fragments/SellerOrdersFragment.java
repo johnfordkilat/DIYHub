@@ -28,6 +28,8 @@ import com.example.diyhub.Notifications.Sender;
 import com.example.diyhub.Notifications.Token;
 import com.example.diyhub.Notifications.UserNotif;
 import com.example.diyhub.R;
+import com.example.diyhub.RestockProductsAdapter;
+import com.example.diyhub.RestockProductsList;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -263,6 +265,9 @@ public class SellerOrdersFragment extends Fragment {
         recyclerViewToReceive.setVisibility(View.INVISIBLE);
         tabLayoutOngoing.setVisibility(View.VISIBLE);
         tabLayoutToReceive.setVisibility(View.INVISIBLE);
+        ordersnotifCardviewOrderRequest.setVisibility(View.INVISIBLE);
+        ordersnotifCardviewAccepted.setVisibility(View.INVISIBLE);
+        ordersnotifCardviewOngoing.setVisibility(View.INVISIBLE);
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -329,11 +334,17 @@ public class SellerOrdersFragment extends Fragment {
                     if(acceptedTab == true)
                     {
                         recyclerOrdersAccepted.setVisibility(View.INVISIBLE);
+                        ordersnotifCardviewOrderRequest.setVisibility(View.INVISIBLE);
+                        ordersnotifCardviewAccepted.setVisibility(View.INVISIBLE);
+                        ordersnotifCardviewOngoing.setVisibility(View.INVISIBLE);
                     }
 
                     if(ongoingTab == true)
                     {
                         recyclerOredersOngoing.setVisibility(View.INVISIBLE);
+                        ordersnotifCardviewOrderRequest.setVisibility(View.INVISIBLE);
+                        ordersnotifCardviewAccepted.setVisibility(View.INVISIBLE);
+                        ordersnotifCardviewOngoing.setVisibility(View.INVISIBLE);
                     }
 
                     showData();
@@ -358,11 +369,17 @@ public class SellerOrdersFragment extends Fragment {
                     if(acceptedTab == true)
                     {
                         recyclerOrdersAccepted.setVisibility(View.INVISIBLE);
+                        ordersnotifCardviewOrderRequest.setVisibility(View.INVISIBLE);
+                        ordersnotifCardviewAccepted.setVisibility(View.INVISIBLE);
+                        ordersnotifCardviewOngoing.setVisibility(View.INVISIBLE);
                     }
 
                     if(ongoingTab == true)
                     {
                         recyclerOredersOngoing.setVisibility(View.INVISIBLE);
+                        ordersnotifCardviewOrderRequest.setVisibility(View.INVISIBLE);
+                        ordersnotifCardviewAccepted.setVisibility(View.INVISIBLE);
+                        ordersnotifCardviewOngoing.setVisibility(View.INVISIBLE);
                     }
 
                     showData();
@@ -438,9 +455,47 @@ public class SellerOrdersFragment extends Fragment {
             }
         });
 
-        updateOrdersNotificationsCountOrderRequest();
-        updateOrdersNotificationsCountAccepted();
-        updateOrdersNotificationsCountOngoing();
+        tabLayoutToReceive.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if(tab.getPosition() == 0)
+                {
+                    showData();
+                }
+                if(tab.getPosition() == 1)
+                {
+                    ArrayList<OrdersList> filterListRestock = new ArrayList<>();
+                    for(OrdersList list : ordersListsToReceive)
+                    {
+                        if(list.getBookingOption().toLowerCase().contains("pickup"))
+                        {
+                            filterListRestock.add(list);
+                        }
+                    }
+                    ToReceiveAdapter adapterRestock = new ToReceiveAdapter(getContext(),filterListRestock);
+                    recyclerViewToReceive.setAdapter(adapterRestock);
+                }
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        if(tabLayout.getTabAt(0).isSelected())
+        {
+            updateOrdersNotificationsCountOrderRequest();
+            updateOrdersNotificationsCountAccepted();
+            updateOrdersNotificationsCountOngoing();
+        }
+
 
         return view;
 
@@ -737,9 +792,21 @@ public class SellerOrdersFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        updateOrdersNotificationsCountOrderRequest();
-        updateOrdersNotificationsCountAccepted();
-        updateOrdersNotificationsCountOngoing();
+        if(tabLayout.getTabAt(0).isSelected())
+        {
+            updateOrdersNotificationsCountOrderRequest();
+            updateOrdersNotificationsCountAccepted();
+            updateOrdersNotificationsCountOngoing();
+        }
+        else
+        {
+            ordersnotifCardviewOrderRequest.setVisibility(View.INVISIBLE);
+            ordersnotifCardviewAccepted.setVisibility(View.INVISIBLE);
+            ordersnotifCardviewOngoing.setVisibility(View.INVISIBLE);
+        }
+
+
 
     }
+
 }

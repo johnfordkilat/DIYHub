@@ -2,6 +2,7 @@ package com.example.diyhub.Fragments;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +21,7 @@ import androidx.cardview.widget.CardView;
 
 import com.bumptech.glide.Glide;
 import com.example.diyhub.R;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -55,6 +58,7 @@ public class OrderDetailOngoingStandardPage extends AppCompatActivity {
     CardView notif;
 
     TextView movetoLabel;
+    Button viewPriceLiquidationButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +83,8 @@ public class OrderDetailOngoingStandardPage extends AppCompatActivity {
         moveToOngoing = findViewById(R.id.moveToToBookStandard);
         notif = findViewById(R.id.notificationNumberContainerOngoing);
         movetoLabel = findViewById(R.id.moveToTextviewOngoingStandard);
+        viewPriceLiquidationButton = findViewById(R.id.viewPriceLiquidationOrderRequestStandard);
+
 
 
         Bundle extras = getIntent().getExtras();
@@ -88,6 +94,28 @@ public class OrderDetailOngoingStandardPage extends AppCompatActivity {
         }
 
         int pos = Integer.parseInt(position);
+
+        viewPriceLiquidationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
+                        OrderDetailOngoingStandardPage.this, R.style.BottomSheetDialogTheme
+                );
+                View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_bottom_sheet, (LinearLayout)findViewById(R.id.bottomSheetContainer));
+                TextView merchTotal = (TextView) bottomSheetView.findViewById(R.id.merchSubtotalTxt);
+                TextView shippingTotal = (TextView) bottomSheetView.findViewById(R.id.shippingSubTotalTxt);
+                TextView addfees = (TextView) bottomSheetView.findViewById(R.id.additionalFeesTxt);
+                TextView quantity = (TextView) bottomSheetView.findViewById(R.id.totalNumOfItemsTxt);
+                TextView totalpayment = (TextView) bottomSheetView.findViewById(R.id.totalPaymentTxt);
+                merchTotal.setText("₱"+String.valueOf(list.get(pos).getOrderProductPrice()));
+                shippingTotal.setText("₱"+String.valueOf(list.get(pos).getOrderShippingFee()));
+                addfees.setText("₱"+String.valueOf(list.get(pos).getOrderAdditionalFee()));
+                quantity.setText("x"+String.valueOf(list.get(pos).getOrderQuantity()));
+                totalpayment.setText("₱"+String.valueOf(list.get(pos).getOrderTotalPayment()));
+                bottomSheetDialog.setContentView(bottomSheetView);
+                bottomSheetDialog.show();
+            }
+        });
 
 
 

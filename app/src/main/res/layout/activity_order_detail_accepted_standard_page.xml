@@ -7,6 +7,18 @@
     android:background="@drawable/gradient_one"
     tools:context=".Fragments.OrderDetailAcceptedStandardPage">
 
+    <Button
+        android:id="@+id/viewPriceLiquidationOrderAcceptedStandard"
+        android:layout_width="156dp"
+        android:layout_height="56dp"
+        android:text="View Price Liquidation"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/itemCodeTxtStandard2A"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/orderTypeTxtStandardAccepted"
+        app:layout_constraintTop_toBottomOf="@+id/orderDateTxtStandardAccepted" />
+
     <ImageButton
         android:id="@+id/copyButtonStandardPageAccepted"
         android:layout_width="38dp"
@@ -24,13 +36,14 @@
         android:id="@+id/notificationNumberContainerAccepted"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="200dp"
+        android:visibility="invisible"
         app:cardBackgroundColor="@color/red"
         app:cardCornerRadius="50dp"
-        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/bookingAddressSpinnerStandardAccepted"
         app:layout_constraintEnd_toEndOf="@+id/bookingAddressSpinnerStandardAccepted"
-        app:layout_constraintTop_toTopOf="@+id/bookingAddressSpinnerStandardAccepted" >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bookingAddressSpinnerStandardAccepted"
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

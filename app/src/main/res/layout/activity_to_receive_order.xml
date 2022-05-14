@@ -9,6 +9,18 @@
 
 
     <Button
+        android:id="@+id/viewPriceLiquidationToReceiveStandard"
+        android:layout_width="156dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="18dp"
+        android:text="View Price Liquidation"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/itemCodeTxtStandard2B"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/orderTypeTxtStandardToReceive"
+        app:layout_constraintTop_toBottomOf="@+id/orderDateTxtStandardToReceive" />
+
+    <Button
         android:id="@+id/confirmedButtonStandard"
         android:layout_width="115dp"
         android:layout_height="39dp"
@@ -68,11 +80,15 @@
         android:layout_height="25dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="200dp"
+        android:visibility="invisible"
         app:cardBackgroundColor="@color/red"
         app:cardCornerRadius="50dp"
-        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/customerRequestSpinnerStandardToReceive"
         app:layout_constraintEnd_toEndOf="@+id/bookingAddressSpinnerStandardToReceive"
-        app:layout_constraintTop_toTopOf="@+id/bookingAddressSpinnerStandardToReceive" >
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bookingAddressSpinnerStandardToReceive"
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

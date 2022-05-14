@@ -8,31 +8,46 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="370dp"
-        android:layout_height="407dp"
-        app:cardCornerRadius="20dp"
+        android:layout_height="450dp"
         android:background="@android:color/transparent"
+        app:cardCornerRadius="20dp"
         tools:layout_editor_absoluteX="24dp"
         tools:layout_editor_absoluteY="97dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="369dp"
-            android:layout_height="405dp"
+            android:layout_height="450dp"
             android:layout_marginTop="0dp"
-            android:background="@android:color/transparent"
-            android:layout_marginBottom="50dp">
+            android:layout_marginBottom="50dp"
+            android:background="@android:color/transparent">
+
+            <ImageView
+                android:id="@+id/imageView50"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginBottom="54dp"
+                android:src="@drawable/ic_baseline_check_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textView74"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView27" />
 
             <ImageView
                 android:id="@+id/imageView5"
                 android:layout_width="136dp"
                 android:layout_height="93dp"
                 android:layout_marginStart="146dp"
-                android:layout_marginTop="74dp"
                 android:layout_marginEnd="129dp"
                 android:layout_marginBottom="46dp"
-                app:layout_constraintBottom_toTopOf="@+id/textView39"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.714"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@drawable/diy" />
 
             <TextView
@@ -40,88 +55,86 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="UPGRADE TO PREMIUM"
+                android:textSize="30dp"
+                android:textStyle="bold|italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.369" />
+                app:layout_constraintVertical_bias="0.24" />
 
             <TextView
                 android:id="@+id/textView43"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
-                android:text="No Ads"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="298dp"
+                android:layout_height="43dp"
+                android:background="@drawable/textview_border_rectangle_gray"
+                android:gravity="center"
+                android:text="Unlimited Number of Product Uploads"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView24"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.259"
+                app:layout_constraintHorizontal_bias="0.921"
+                app:layout_constraintStart_toEndOf="@+id/imageView24"
+                app:layout_constraintTop_toTopOf="@+id/imageView24"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/textView93"
+                android:layout_width="120dp"
+                android:layout_height="43dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="11dp"
+                android:text="₱199.99"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:textStyle="bold|italic"
+                app:layout_constraintBottom_toTopOf="@+id/imageView24"
+                app:layout_constraintEnd_toStartOf="@+id/textView94"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView39"
-                app:layout_constraintVertical_bias="0.208" />
+                app:layout_constraintTop_toBottomOf="@+id/textView39" />
+
+            <TextView
+                android:id="@+id/textView94"
+                android:layout_width="230dp"
+                android:layout_height="43dp"
+                android:layout_marginEnd="3dp"
+                android:gravity="center|center_horizontal"
+                android:text="Per Month, billed monthly. Cancel anytime"
+                android:textColor="@color/black"
+                android:textSize="12dp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="@+id/textView93"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView93"
+                app:layout_constraintTop_toTopOf="@+id/textView93" />
 
             <TextView
                 android:id="@+id/textView74"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="149dp"
-                android:text="Super Fast Speed"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="298dp"
+                android:layout_height="43dp"
+                android:background="@drawable/textview_border_rectangle_gray"
+                android:gravity="center"
+                android:text="Boost Shop To Reach More Customers"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView50"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/imageView27"
-                app:layout_constraintTop_toBottomOf="@+id/textView39"
-                app:layout_constraintVertical_bias="0.591" />
+                app:layout_constraintStart_toEndOf="@+id/imageView50"
+                app:layout_constraintTop_toTopOf="@+id/imageView50"
+                app:layout_constraintVertical_bias="0.725" />
 
             <TextView
                 android:id="@+id/textView76"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Special Support"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="298dp"
+                android:layout_height="43dp"
+                android:background="@drawable/textview_border_rectangle_gray"
+                android:gravity="center"
+                android:text="Unlimited Number of Product Customizations"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView27"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.868"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.538" />
-
-            <ImageView
-                android:id="@+id/imageView24"
-                android:layout_width="37dp"
-                android:layout_height="70dp"
-                android:layout_marginBottom="14dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.131"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.579"
-                app:srcCompat="@drawable/noads" />
-
-            <ImageView
-                android:id="@+id/imageView27"
-                android:layout_width="66dp"
-                android:layout_height="92dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.098"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.817"
-                app:srcCompat="@drawable/fast" />
-
-            <ImageView
-                android:id="@+id/imageView50"
-                android:layout_width="46dp"
-                android:layout_height="67dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.616"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.55"
-                app:srcCompat="@drawable/special" />
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/imageView27"
+                app:layout_constraintTop_toTopOf="@+id/imageView27"
+                app:layout_constraintVertical_bias="1.0" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/upgradeButton"
@@ -131,18 +144,19 @@
                 android:layout_marginEnd="148dp"
                 android:layout_marginBottom="4dp"
                 android:background="@drawable/custom_green"
-                android:text="UPGRADE"
+                android:text="UPGRADE NOW"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.833"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView39"
                 app:layout_constraintVertical_bias="1.0" />
 
             <ImageView
                 android:id="@+id/imageViewClose"
-                android:layout_width="56dp"
-                android:layout_height="45dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginEnd="-50dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -150,6 +164,35 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@drawable/ic_baseline_close_24" />
+
+            <ImageView
+                android:id="@+id/imageView24"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="-40dp"
+                android:src="@drawable/ic_baseline_check_24"
+                app:layout_constraintBottom_toTopOf="@+id/imageView27"
+                app:layout_constraintEnd_toStartOf="@+id/textView43"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView39"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <ImageView
+                android:id="@+id/imageView27"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="-20dp"
+                android:src="@drawable/ic_baseline_check_24"
+                app:layout_constraintBottom_toTopOf="@+id/imageView50"
+                app:layout_constraintEnd_toStartOf="@+id/textView76"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView24" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

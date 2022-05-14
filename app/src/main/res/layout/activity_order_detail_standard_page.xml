@@ -24,13 +24,15 @@
         android:id="@+id/notificationNumberContainerOrderRequest"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="200dp"
+        android:layout_marginBottom="4dp"
         android:visibility="invisible"
         app:cardBackgroundColor="@color/red"
         app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/bookingAddressSpinnerStandard"
         app:layout_constraintEnd_toEndOf="@+id/bookingAddressSpinnerStandard"
-        app:layout_constraintTop_toTopOf="@+id/bookingAddressSpinnerStandard" >
+        app:layout_constraintStart_toStartOf="@+id/bookingAddressSpinnerStandard"
+        app:layout_constraintTop_toTopOf="@+id/bookingAddressSpinnerStandard"
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -488,5 +490,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.078"
         app:srcCompat="@drawable/standard4" />
+
+    <Button
+        android:id="@+id/viewPriceLiquidationOrderRequestStandard"
+        android:layout_width="156dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="51dp"
+        android:layout_marginBottom="2dp"
+        android:text="View Price Liquidation"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/buyerNameTxtStandard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/orderTypeTxtStandard"
+        app:layout_constraintTop_toBottomOf="@+id/orderDateTxtStandard" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

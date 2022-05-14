@@ -25,9 +25,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine2"
-        android:layout_width="387dp"
-        android:layout_height="194dp"
+        android:id="@+id/customSpecsTxt"
+        android:layout_width="399dp"
+        android:layout_height="58dp"
         android:layout_marginStart="11dp"
         android:layout_marginTop="47dp"
         android:layout_marginEnd="8dp"
@@ -40,10 +40,10 @@
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.285"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView87"
-        app:layout_constraintVertical_bias="0.438"
+        app:layout_constraintVertical_bias="0.0"
         tools:gravity="center" />
 
     <HorizontalScrollView
@@ -143,33 +143,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2"
-        app:layout_constraintVertical_bias="0.378" />
+        app:layout_constraintTop_toBottomOf="@+id/customspecsSpinner"
+        app:layout_constraintVertical_bias="0.42" />
 
     <ImageView
         android:id="@+id/image1ImageVIew"
         android:layout_width="138dp"
         android:layout_height="131dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
         android:src="@drawable/image1"
         app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintEnd_toStartOf="@+id/image2Imageview"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/customspecsSpinner"
+        app:layout_constraintVertical_bias="0.173" />
 
     <ImageView
         android:id="@+id/image2Imageview"
         android:layout_width="139dp"
         android:layout_height="133dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="82dp"
         android:src="@drawable/image2"
-        app:layout_constraintBottom_toTopOf="@+id/textView89"
+        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image1ImageVIew"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/customspecsSpinner"
+        app:layout_constraintVertical_bias="0.177" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addImage1FloatingButton"
@@ -196,6 +197,31 @@
         app:layout_constraintTop_toTopOf="@+id/image2Imageview"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/ic_baseline_add_a_photo_24" />
+
+    <Spinner
+        android:id="@+id/customspecsSpinner"
+        android:layout_width="380dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="1dp"
+        android:background="@android:drawable/btn_dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customSpecsTxt" />
+
+    <Button
+        android:id="@+id/addCustomSpecsToSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="152dp"
+        android:layout_marginEnd="171dp"
+        android:layout_marginBottom="4dp"
+        android:text="Add"
+        app:layout_constraintBottom_toTopOf="@+id/image1ImageVIew"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customspecsSpinner" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

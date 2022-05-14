@@ -40,6 +40,7 @@ public class ToBookAdapter extends RecyclerView.Adapter<ToBookAdapter.MyViewHold
     String[] allList = {"Lalamove","Maxim"};
     AlertDialog dialog;
     AlertDialog errordialog;
+    boolean clicked = false;
     public ToBookAdapter(Context context, ArrayList<OrdersList> list)
     {
         this.context = context;
@@ -218,4 +219,6 @@ public class ToBookAdapter extends RecyclerView.Adapter<ToBookAdapter.MyViewHold
 
         }
     }
+
+
 }

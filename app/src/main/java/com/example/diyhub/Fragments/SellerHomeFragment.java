@@ -141,7 +141,7 @@ public class SellerHomeFragment extends Fragment {
     }
 
     EditText subscription;
-    Dialog customDialog;
+    AlertDialog customDialog;
     Spinner accountsVerSpinner, paymentAccountsSpinner;
     ArrayList<String> listAccVer;
 
@@ -156,7 +156,7 @@ public class SellerHomeFragment extends Fragment {
     ArrayAdapter<String> adapterBooking;
     boolean upgraded = false;
     AlertDialog cancelSubs;
-    Dialog bookingDialog;
+    AlertDialog bookingDialog;
 
     EditText optionTxtBooking;
     Button submitBooking;
@@ -180,6 +180,9 @@ public class SellerHomeFragment extends Fragment {
 
     List<SubscriptionList> subsList;
 
+    Button removeBooking;
+    AlertDialog removeDialogBooking;
+    String toDeleteBooking="";
 
 
 
@@ -238,7 +241,8 @@ public class SellerHomeFragment extends Fragment {
         editShopName = view.findViewById(R.id.editShopNameButton);
         bookingSpinner = view.findViewById(R.id.bookingOptionSpinner);
         addBooking = view.findViewById(R.id.addBookingOption);
-        customDialog = new Dialog(getContext());
+        removeBooking = view.findViewById(R.id.removeBookingOption);
+
 
         paymentBackendUrl  = getResources().getString(R.string.paymentBackendUrl);
         paymentSheet = new PaymentSheet(this, this::onPaymentResult);
@@ -293,7 +297,6 @@ public class SellerHomeFragment extends Fragment {
                         {
                             bookingDialog.dismiss();
                             insertDataBookingOptions(data);
-                            Toast.makeText(getContext(), "Added: " + data, Toast.LENGTH_SHORT).show();
                         }
 
 
@@ -563,6 +566,23 @@ public class SellerHomeFragment extends Fragment {
         removeDialog = builderRemove.create();
 
 
+        AlertDialog.Builder builderRemoveBooking = new AlertDialog.Builder(getContext());
+        builderRemoveBooking.setTitle("Remove Booking Option");
+        builderRemoveBooking.setMessage("Are you sure you want to delete " + toDeleteBooking + "?");
+        builderRemoveBooking.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                removeDataBooking(toDeleteBooking);
+            }
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        removeDialogBooking = builderRemoveBooking.create();
+
         removePayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -572,6 +592,18 @@ public class SellerHomeFragment extends Fragment {
                 }
                 else
                 removeDialog.show();
+            }
+        });
+
+        removeBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(toDeleteBooking.equals(""))
+                {
+                    Toast.makeText(getContext(), "Please choose item to DELETE", Toast.LENGTH_SHORT).show();
+                }
+                else
+                    removeDialogBooking.show();
             }
         });
         
@@ -732,6 +764,7 @@ public class SellerHomeFragment extends Fragment {
                 {
                     String item = parent.getItemAtPosition(position).toString();
                     Toast.makeText(getContext(), "Selected: "+item, Toast.LENGTH_SHORT).show();
+                    toDeleteBooking = item;
                 }
 
 
@@ -834,6 +867,35 @@ public class SellerHomeFragment extends Fragment {
                         list.add(0, "Choose Payment Method");
                         adapter.notifyDataSetChanged();
                         fetchData();
+                        Toast.makeText(getContext(), "Deleted: "+word, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    private void removeDataBooking(String word) {
+
+        Query query = referenceBooking.child("id"+word);
+        Log.d("Queryremove", query.toString());
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dataSnapshot.getRef().removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        listBooking.clear();
+                        listBooking.add(0, "Choose Booking Option");
+                        adapterBooking.notifyDataSetChanged();
+                        fetchDataBooking();
                         Toast.makeText(getContext(), "Deleted: "+word, Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -991,7 +1053,6 @@ public class SellerHomeFragment extends Fragment {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
             Map<String, Object> map = new HashMap<>();
-            map.put("SubscriptionStatus","Premium");
             map.put("PaymentReference", user.getUid()+"-"+cutid);
             map.put("DateAndTime", currentDateAndTime);
             reference.child("Payments").child(user.getUid()).child(user.getUid()+"-"+cutid).setValue(map);

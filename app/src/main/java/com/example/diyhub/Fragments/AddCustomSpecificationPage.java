@@ -9,14 +9,20 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.diyhub.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AddCustomSpecificationPage extends AppCompatActivity {
@@ -34,7 +40,12 @@ public class AddCustomSpecificationPage extends AppCompatActivity {
     List<Uri> ImageListVariation;
     Uri imageCustom1;
     Uri imageCustom2;
+    Spinner customSpecsSpinner;
+    Button addToSpinner;
+    List<String> listSecond;
+    ArrayAdapter<String> adapter;
 
+    EditText customTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +56,39 @@ public class AddCustomSpecificationPage extends AppCompatActivity {
         addImage2 = findViewById(R.id.addImage2FloatingButton);
         image1 = findViewById(R.id.image1ImageVIew);
         image2 = findViewById(R.id.image2Imageview);
+        customSpecsSpinner = findViewById(R.id.customspecsSpinner);
+        addToSpinner = findViewById(R.id.addCustomSpecsToSpinner);
+        customTxt = findViewById(R.id.customSpecsTxt);
+
+        String[] allData = {};
+
+        List<String> list = new ArrayList<>(Arrays.asList(allData));
+
+        listSecond = new ArrayList<>();
+        adapter = new ArrayAdapter<String>(AddCustomSpecificationPage.this, android.R.layout.simple_spinner_dropdown_item, list);
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        customSpecsSpinner.setAdapter(adapter);
+
 
         ImageListVariation = new ArrayList<>();
+
+        addToSpinner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String data = customTxt.getText().toString().trim();
+                if(data.isEmpty())
+                {
+                    Toast.makeText(AddCustomSpecificationPage.this, "Please input Data", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(AddCustomSpecificationPage.this, "Added: "+data, Toast.LENGTH_SHORT).show();
+                    list.add(data);
+                    adapter.notifyDataSetChanged();
+                }
+
+            }
+        });
 
 
         addImage1.setOnClickListener(new View.OnClickListener() {

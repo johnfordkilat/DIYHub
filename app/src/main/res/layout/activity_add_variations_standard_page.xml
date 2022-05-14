@@ -13,11 +13,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
         android:layout_marginBottom="156dp"
+        android:background="@android:drawable/btn_dropdown"
         app:layout_constraintBottom_toTopOf="@+id/addProductButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/secondVarTxtStandard" />
+        app:layout_constraintTop_toBottomOf="@+id/secondVarTxtStandard"
+        app:layout_constraintVertical_bias="0.081" />
 
     <TextView
         android:id="@+id/addSecondVariationButtonStandard"
@@ -82,6 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
+        android:background="@android:drawable/btn_dropdown"
         app:layout_constraintBottom_toTopOf="@+id/secondVarTxtStandard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

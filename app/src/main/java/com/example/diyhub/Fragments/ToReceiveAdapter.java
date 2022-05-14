@@ -66,6 +66,8 @@ public class ToReceiveAdapter extends RecyclerView.Adapter<ToReceiveAdapter.MyVi
         holder.locationTxt.setText("Location: "+productsList.getBookingAddress());
         holder.riderAndPlateTxt.setText("Rider: "+productsList.getRiderName() + "    Plate: "+productsList.getPlateNumber());
         holder.orderid.setText("Order ID: "+productsList.getOrderID());
+        holder.paymentStatus.setText(productsList.getPaymentStatus());
+        holder.bookingOption.setText(productsList.getBookingOption());
 
         if(productsList.getOrderType().equalsIgnoreCase("Standard"))
         {

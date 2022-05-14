@@ -14,6 +14,11 @@ public class OrdersList implements Parcelable {
     String ShopName;
     String DeliveryType;
     String RiderName,PlateNumber;
+    String BookingOption;
+    double OrderProductPrice;
+    double OrderShippingFee;
+    double OrderAdditionalFee;
+    double OrderTotalPayment;
 
     public OrdersList(){
 
@@ -21,7 +26,8 @@ public class OrdersList implements Parcelable {
 
     public OrdersList(String productName, String productQuantity, String prodImage, String prodID, String orderType, String paymentOption, String itemCode,
                        String buyerName, String paymentStatus, String orderDate, String buyerImage, String bookingAddress, String orderStatus, String shopName,
-                      String deliveryType, String riderName, String plateNumber) {
+                      String deliveryType, String riderName, String plateNumber, String bookingOption, double orderProductPrice, double orderShippingFee, double orderAdditionalFee,
+                        double orderTotalPayment) {
         OrderProductName = productName;
         OrderQuantity = productQuantity;
         OrderProductImage = prodImage;
@@ -39,7 +45,53 @@ public class OrdersList implements Parcelable {
         DeliveryType = deliveryType;
         RiderName = riderName;
         PlateNumber = plateNumber;
+        BookingOption = bookingOption;
+        OrderProductPrice = orderProductPrice;
+        OrderShippingFee = orderShippingFee;
+        OrderAdditionalFee = orderAdditionalFee;
+        OrderTotalPayment = orderTotalPayment;
 
+
+    }
+
+    public double getOrderProductPrice() {
+        return OrderProductPrice;
+    }
+
+    public void setOrderProductPrice(double orderProductPrice) {
+        OrderProductPrice = orderProductPrice;
+    }
+
+    public double getOrderShippingFee() {
+        return OrderShippingFee;
+    }
+
+    public void setOrderShippingFee(double orderShippingFee) {
+        OrderShippingFee = orderShippingFee;
+    }
+
+    public double getOrderAdditionalFee() {
+        return OrderAdditionalFee;
+    }
+
+    public void setOrderAdditionalFee(double orderAdditionalFee) {
+        OrderAdditionalFee = orderAdditionalFee;
+    }
+
+    public double getOrderTotalPayment() {
+        return OrderTotalPayment;
+    }
+
+    public void setOrderTotalPayment(double orderTotalPayment) {
+        OrderTotalPayment = orderTotalPayment;
+    }
+
+    public String getBookingOption() {
+        return BookingOption;
+    }
+
+    public void setBookingOption(String bookingOption) {
+        BookingOption = bookingOption;
     }
 
     public String getRiderName() {
@@ -168,6 +220,11 @@ public class OrdersList implements Parcelable {
         dest.writeString(DeliveryType);
         dest.writeString(RiderName);
         dest.writeString(PlateNumber);
+        dest.writeString(BookingOption);
+        dest.writeDouble(OrderProductPrice);
+        dest.writeDouble(OrderAdditionalFee);
+        dest.writeDouble(OrderShippingFee);
+        dest.writeDouble(OrderTotalPayment);
 
     }
 
@@ -189,6 +246,11 @@ public class OrdersList implements Parcelable {
         DeliveryType = in.readString();
         RiderName = in.readString();
         PlateNumber = in.readString();
+        BookingOption = in.readString();
+        OrderProductPrice = in.readDouble();
+        OrderAdditionalFee = in.readDouble();
+        OrderShippingFee = in.readDouble();
+        OrderTotalPayment = in.readDouble();
     }
 
     public static final Parcelable.Creator<OrdersList> CREATOR = new Parcelable.Creator<OrdersList>() {
