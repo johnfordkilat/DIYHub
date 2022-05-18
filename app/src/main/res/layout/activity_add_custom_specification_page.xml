@@ -7,6 +7,21 @@
     android:background="@drawable/gradient_one"
     tools:context=".Fragments.AddCustomSpecificationPage">
 
+    <Button
+        android:id="@+id/addCustomSpecsToSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="152dp"
+        android:layout_marginEnd="171dp"
+        android:layout_marginBottom="4dp"
+        android:text="Add"
+        app:layout_constraintBottom_toTopOf="@+id/image1ImageVIew"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customspecsSpinner"
+        app:layout_constraintVertical_bias="1.0" />
+
     <TextView
         android:id="@+id/textView87"
         android:layout_width="406dp"
@@ -115,7 +130,7 @@
     </HorizontalScrollView>
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/confirmSelectionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="98dp"
@@ -153,7 +168,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="20dp"
         android:src="@drawable/image1"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintBottom_toTopOf="@+id/confirmSelectionButton"
         app:layout_constraintEnd_toStartOf="@+id/image2Imageview"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/customspecsSpinner"
@@ -166,7 +181,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="82dp"
         android:src="@drawable/image2"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintBottom_toTopOf="@+id/confirmSelectionButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image1ImageVIew"
         app:layout_constraintTop_toBottomOf="@+id/customspecsSpinner"
@@ -211,17 +226,16 @@
         app:layout_constraintTop_toBottomOf="@+id/customSpecsTxt" />
 
     <Button
-        android:id="@+id/addCustomSpecsToSpinner"
+        android:id="@+id/removeCustomSpecsToSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="152dp"
-        android:layout_marginEnd="171dp"
-        android:layout_marginBottom="4dp"
-        android:text="Add"
-        app:layout_constraintBottom_toTopOf="@+id/image1ImageVIew"
+        android:layout_marginStart="11dp"
+        android:layout_marginEnd="72dp"
+        android:text="REMOVE"
+        app:layout_constraintBottom_toBottomOf="@+id/addCustomSpecsToSpinner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customspecsSpinner" />
+        app:layout_constraintStart_toEndOf="@+id/addCustomSpecsToSpinner"
+        app:layout_constraintTop_toTopOf="@+id/addCustomSpecsToSpinner" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

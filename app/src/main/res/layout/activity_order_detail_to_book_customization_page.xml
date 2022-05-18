@@ -7,6 +7,18 @@
     android:background="@drawable/gradient_one"
     tools:context=".Fragments.OrderDetailToBookCustomizationPage">
 
+    <ImageView
+        android:id="@+id/backButtonToBookCustom"
+        android:layout_width="43dp"
+        android:layout_height="37dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.047"
+        app:srcCompat="@drawable/ic_back_svgrepo_com" />
+
     <Button
         android:id="@+id/viewPriceLiquidationToBookCustom"
         android:layout_width="156dp"
@@ -455,36 +467,8 @@
         app:layout_constraintVertical_bias="0.588" />
 
     <Spinner
-        android:id="@+id/bookingAddressSpinnerCustomToBook"
-        android:layout_width="416dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="448dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toBottomOf="@+id/logoutTxtview3OC"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Spinner
-        android:id="@+id/orderTrackerSpinnerCustomToBook"
-        android:layout_width="416dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="536dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toBottomOf="@+id/logoutTxtview3OC"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.028" />
-
-    <Spinner
         android:id="@+id/customerRequestSpinnerCustomToBook"
-        android:layout_width="416dp"
+        android:layout_width="410dp"
         android:layout_height="46dp"
         android:layout_marginTop="492dp"
         android:background="@android:drawable/btn_dropdown"
@@ -494,7 +478,21 @@
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.152" />
+
+    <Spinner
+        android:id="@+id/bookingAddressSpinnerCustomToBook"
+        android:layout_width="410dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="448dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toBottomOf="@+id/logoutTxtview3OC"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.122" />
 
     <TextView
         android:id="@+id/logoutTxtview3OC"
@@ -513,22 +511,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.976" />
-
-    <ImageButton
-        android:id="@+id/backButtonCustomPageToBook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="333dp"
-        android:layout_marginBottom="661dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
 
     <ImageView
         android:id="@+id/CustomPageImageToBook"
@@ -581,12 +563,12 @@
         android:id="@+id/imageView57OC"
         android:layout_width="329dp"
         android:layout_height="107dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="7dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toTopOf="@+id/CustomPageImageToBook"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/backButtonCustomPageToBook"
+        app:layout_constraintStart_toEndOf="@+id/backButtonToBookCustom"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.078"
         app:srcCompat="@drawable/custom1" />

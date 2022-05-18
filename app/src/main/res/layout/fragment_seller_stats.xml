@@ -3,4 +3,179 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.SellerStatsFragment"/>
+    android:background="@drawable/gradient_one"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp"
+    android:orientation="vertical"
+    tools:context=".Fragments.SellerStatsFragment">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ordersCardView"
+        android:layout_width="100dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="150dp"
+        android:layout_height="100dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="100dp"
+                android:background="@color/white"
+                android:layout_height="34dp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:textStyle="bold|italic"
+                android:text="Orders"/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="34dp"
+                android:id="@+id/totalOrdersTxt"
+                android:textColor="@color/black"
+                android:background="@color/white"
+                android:layout_marginStart="-100dp"
+                android:layout_marginTop="27dp"
+                android:text="0"/>
+            <TextView
+                android:id="@+id/avgTotalOrders"
+                android:layout_width="100dp"
+                android:layout_height="34dp"
+                android:background="@color/white"
+                android:layout_marginTop="60dp"
+                android:layout_marginStart="-100dp"
+                android:textColor="@color/black"
+                android:text="0"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/salesCardView"
+        android:layout_width="100dp"
+        android:layout_marginTop="-100dp"
+        android:layout_marginStart="140dp"
+        android:layout_height="100dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="34dp"
+                android:textColor="@color/black"
+                android:background="@color/white"
+                android:gravity="center"
+                android:textStyle="bold|italic"
+                android:text="Sales"/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="34dp"
+                android:id="@+id/totalSalesTxt"
+                android:background="@color/white"
+                android:textColor="@color/black"
+                android:layout_marginStart="-100dp"
+                android:layout_marginTop="27dp"
+                android:text="0"/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="60dp"
+                android:background="@color/white"
+                android:id="@+id/avgTotalSales"
+                android:layout_marginStart="-100dp"
+                android:textColor="@color/black"
+                android:text="0"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/shopViewsCardView"
+        android:layout_width="100dp"
+        android:layout_marginTop="-100dp"
+        android:layout_marginStart="260dp"
+        android:layout_height="100dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="34dp"
+                android:textColor="@color/black"
+                android:background="@color/white"
+                android:gravity="center"
+                android:textStyle="bold|italic"
+                android:text="Shop VIews"/>
+            <TextView
+                android:id="@+id/totalShopViews"
+                android:layout_width="100dp"
+                android:layout_height="34dp"
+                android:textColor="@color/black"
+                android:background="@color/white"
+                android:layout_marginStart="-100dp"
+                android:layout_marginTop="27dp"
+                android:text="0"/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="34dp"
+                android:background="@color/white"
+                android:layout_marginTop="60dp"
+                android:id="@+id/avgTotalShopViews"
+                android:layout_marginStart="-100dp"
+                android:textColor="@color/black"
+                android:text="0"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/alertMessageCardView"
+        android:layout_marginTop="20dp"
+        android:layout_width="380dp"
+        android:layout_height="100dp">
+
+        <TextView
+            android:background="@drawable/textview_border_rectangle_gray"
+            android:layout_margin="5dp"
+            android:layout_width="370dp"
+            android:layout_height="90dp"
+            android:textStyle="bold|italic"
+            android:textColor="@color/red"
+            android:gravity="center"
+            android:text="PLEASE UPGRADE TO PREMIUM ACCOUNT TO OPEN THIS FEATURE AND BOOST YOUR SHOP"/>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"
+        android:id="@+id/bar_chartOrders"/>
+    <com.github.mikephil.charting.charts.BarChart
+        android:layout_width="match_parent"
+        android:layout_marginTop="-310dp"
+        android:layout_height="300dp"
+        android:visibility="invisible"
+        android:layout_weight="1"
+        android:id="@+id/bar_chartSales"
+        android:layout_marginBottom="8dp"/>
+    <com.github.mikephil.charting.charts.BarChart
+        android:layout_width="match_parent"
+        android:layout_marginTop="-310dp"
+        android:visibility="invisible"
+        android:layout_height="300dp"
+        android:layout_weight="1"
+        android:id="@+id/bar_chartShopViews"/>
+
+
+</LinearLayout>

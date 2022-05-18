@@ -8,6 +8,21 @@
     tools:context=".Fragments.AddVariationsCustomizePage">
 
 
+    <Button
+        android:id="@+id/addSpecificationCustom"
+        android:layout_width="253dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginBottom="16dp"
+        android:text="Add Specifications"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addSecondVariationButtonCustom"
+        app:layout_constraintVertical_bias="0.0" />
+
     <TextView
         android:id="@+id/addSecondVariationButtonCustom"
         android:layout_width="101dp"
@@ -50,7 +65,7 @@
         app:layout_constraintBottom_toTopOf="@+id/addProductButtonCustom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shopMottoTxt5"
+        app:layout_constraintTop_toBottomOf="@+id/editSecondVarTxtCustom"
         app:layout_constraintVertical_bias="0.059" />
 
     <TextView
@@ -68,7 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.945"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shopMottoTxt4"
+        app:layout_constraintTop_toBottomOf="@+id/editFirstVarTxtCustom"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -84,25 +99,26 @@
         android:textSize="18dp"
         android:textStyle="bold|italic"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/shopMottoTxt5"
+        app:layout_constraintBottom_toTopOf="@+id/editSecondVarTxtCustom"
         app:layout_constraintEnd_toStartOf="@+id/addVariationButtonCustom"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shopMottoTxt4"
+        app:layout_constraintTop_toBottomOf="@+id/editFirstVarTxtCustom"
         app:layout_constraintVertical_bias="0.986" />
 
     <Spinner
         android:id="@+id/spinnerAddVariationsCustom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="88dp"
         android:background="@android:drawable/btn_dropdown"
-        app:layout_constraintBottom_toTopOf="@+id/shopMottoTxt5"
+        app:layout_constraintBottom_toTopOf="@+id/editSecondVarTxtCustom"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editFirstVarButtonCustom"
-        app:layout_constraintVertical_bias="0.059" />
+        app:layout_constraintTop_toBottomOf="@+id/editFirstVarTxtCustom"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/uploadProductImagesCustomPage"
@@ -110,7 +126,7 @@
         android:layout_height="157dp"
         android:layout_marginEnd="2dp"
         android:layout_marginBottom="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/shopMottoTxt4"
+        app:layout_constraintBottom_toTopOf="@+id/editFirstVarTxtCustom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addProductImageButtonCustom" />
@@ -148,17 +164,17 @@
         android:id="@+id/addProductButtonCustom"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginStart="158dp"
-        android:layout_marginEnd="158dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="22dp"
         android:background="@drawable/custom_green"
         android:text="UPLOAD PRODUCT"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintEnd_toStartOf="@+id/addSpecificationCustom"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
+        app:layout_constraintVertical_bias="0.98" />
 
     <TextView
         android:id="@+id/textView92"
@@ -176,7 +192,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/shopMottoTxt4"
+        android:id="@+id/editFirstVarTxtCustom"
         android:layout_width="411dp"
         android:layout_height="34dp"
         android:background="@drawable/edit_text_border"
@@ -194,7 +210,7 @@
         app:layout_constraintVertical_bias="0.408" />
 
     <EditText
-        android:id="@+id/shopMottoTxt5"
+        android:id="@+id/editSecondVarTxtCustom"
         android:layout_width="411dp"
         android:layout_height="34dp"
         android:background="@drawable/edit_text_border"
@@ -210,29 +226,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.634" />
-
-    <ImageView
-        android:id="@+id/editFirstVarButtonCustom"
-        android:layout_width="42dp"
-        android:layout_height="36dp"
-        android:src="@drawable/edit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.956"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.41" />
-
-    <ImageView
-        android:id="@+id/editSecondVarButtonCustom"
-        android:layout_width="42dp"
-        android:layout_height="36dp"
-        android:src="@drawable/edit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.956"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.635" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

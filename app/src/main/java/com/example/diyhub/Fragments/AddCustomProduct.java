@@ -49,7 +49,6 @@ public class AddCustomProduct extends AppCompatActivity {
         prodMaterialTxt = findViewById(R.id.productMaterialsUsedAddCustom);
         prodPriceTxt = findViewById(R.id.productPriceAddCustom);
         prodSoldTxt = findViewById(R.id.productSoldAddCustom);
-        addCustomSpecs = findViewById(R.id.addSpecificationCustom);
 
 
 
@@ -181,13 +180,6 @@ public class AddCustomProduct extends AppCompatActivity {
             }
         });
 
-        addCustomSpecs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AddCustomProduct.this, AddCustomSpecificationPage.class);
-                startActivity(intent);
-            }
-        });
 
 
 

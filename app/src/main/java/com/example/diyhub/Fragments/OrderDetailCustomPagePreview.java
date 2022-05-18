@@ -57,6 +57,9 @@ public class OrderDetailCustomPagePreview extends AppCompatActivity {
     List<String> allItemSpecsList;
 
     ImageView backButton;
+    String prodImage;
+
+    ImageView productImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +68,7 @@ public class OrderDetailCustomPagePreview extends AppCompatActivity {
 
         firstSpinner = findViewById(R.id.firstSpinnerCustomPreview);
         secondSpinner = findViewById(R.id.secondSpinnerCustomPreview);
-        viewPager = findViewById(R.id.customPreviewViewPager);
+        productImage = findViewById(R.id.customPreviewProductImage);
         customPrevFirstTxt = findViewById(R.id.customPreviewFirstTxt);
         customPrevFirstImage = findViewById(R.id.customPreviewFirstImage);
         customPrevSecondImage = findViewById(R.id.customPrevSecondImage);
@@ -90,7 +93,9 @@ public class OrderDetailCustomPagePreview extends AppCompatActivity {
         if(extras != null)
         {
             prodID = extras.getString("ProductID");
+            prodImage = extras.getString("ProductImage");
         }
+
 
         list = new ArrayList<>();
         list.add(0, "Glass Style: Customer Upload");
@@ -103,29 +108,9 @@ public class OrderDetailCustomPagePreview extends AppCompatActivity {
         firstSpinner.setAdapter(adapter);
 
 
+        Glide.with(this).load(prodImage).into(productImage);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child("2716501e-59").child("ProductImages");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                prodImagesList.clear();
-                for(DataSnapshot snapshot : dataSnapshot.getChildren())
-                {
-                    ProductDetailsImagesList allList = snapshot.getValue(ProductDetailsImagesList.class);
-                    prodImagesList.add(allList);
-
-                }
-                OrderDetailCustomPreviewAdapter viewPageAdapterProductDetailsStandard = new OrderDetailCustomPreviewAdapter(OrderDetailCustomPagePreview.this, prodImagesList);
-
-                viewPager.setAdapter(viewPageAdapterProductDetailsStandard);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
         DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Orders").child(user.getUid()).child(prodID).child("OrderCustomizationsSpecs");
         reference1.addValueEventListener(new ValueEventListener() {
@@ -198,6 +183,7 @@ public class OrderDetailCustomPagePreview extends AppCompatActivity {
 
             }
         });
+
 
 
     }

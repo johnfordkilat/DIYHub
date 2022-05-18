@@ -68,8 +68,17 @@ public class ToBookAdapter extends RecyclerView.Adapter<ToBookAdapter.MyViewHold
         holder.buyerName.setText("Buyer: "+productsList.getBuyerName());
         holder.location.setText("Location: "+productsList.getBookingAddress());
         holder.orderType.setText(productsList.getOrderType());
-        holder.paymentOption.setText(productsList.getPaymentOption());
+        holder.paymentOption.setText(productsList.getBookingOption());
         holder.orderid.setText("Order ID: "+productsList.getOrderID());
+
+        if(productsList.getBookingOption().equalsIgnoreCase("Lalamove"))
+        {
+            holder.paymentOption.setBackgroundResource(R.drawable.gradient_lalamove);
+        }
+        else
+        {
+            holder.paymentOption.setBackgroundResource(R.drawable.gradient_maxim);
+        }
 
 
         Glide.with(context).load(productsList.getOrderProductImage()).into(holder.itemImage);
@@ -214,7 +223,7 @@ public class ToBookAdapter extends RecyclerView.Adapter<ToBookAdapter.MyViewHold
             location = itemView.findViewById(R.id.locationTxtToBook);
             itemImage = itemView.findViewById(R.id.itemImageToBook);
             orderType = itemView.findViewById(R.id.orderTypeToBook);
-            paymentOption = itemView.findViewById(R.id.paymentOptionToBook);
+            paymentOption = itemView.findViewById(R.id.bookingOptionToBook);
             orderid = itemView.findViewById(R.id.orderIDToBook);
 
         }

@@ -1,14 +1,18 @@
 package com.example.diyhub.Fragments;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.collection.ArraySet;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,11 +23,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.diyhub.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class AddCustomSpecificationPage extends AppCompatActivity {
 
@@ -47,6 +63,12 @@ public class AddCustomSpecificationPage extends AppCompatActivity {
 
     EditText customTxt;
 
+    Button removeSpecs;
+    String prodID;
+    String todeleteSecond;
+    Button confirmSelect;
+    List<CustomProductSpecsList> specsLists;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,17 +81,24 @@ public class AddCustomSpecificationPage extends AppCompatActivity {
         customSpecsSpinner = findViewById(R.id.customspecsSpinner);
         addToSpinner = findViewById(R.id.addCustomSpecsToSpinner);
         customTxt = findViewById(R.id.customSpecsTxt);
+        removeSpecs = findViewById(R.id.removeCustomSpecsToSpinner);
+        confirmSelect = findViewById(R.id.confirmSelectionButton);
 
         String[] allData = {};
 
         List<String> list = new ArrayList<>(Arrays.asList(allData));
 
+        Bundle extras = getIntent().getExtras();
+        if(extras != null)
+        {
+            prodID = extras.getString("ProductID");
+        }
+
         listSecond = new ArrayList<>();
-        adapter = new ArrayAdapter<String>(AddCustomSpecificationPage.this, android.R.layout.simple_spinner_dropdown_item, list);
-        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        customSpecsSpinner.setAdapter(adapter);
+        specsLists = new ArrayList<>();
 
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         ImageListVariation = new ArrayList<>();
 
         addToSpinner.setOnClickListener(new View.OnClickListener() {
@@ -82,13 +111,124 @@ public class AddCustomSpecificationPage extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(AddCustomSpecificationPage.this, "Added: "+data, Toast.LENGTH_SHORT).show();
-                    list.add(data);
-                    adapter.notifyDataSetChanged();
+                    if(list.contains(data.toUpperCase(Locale.ROOT)))
+                    {
+                        Toast.makeText(AddCustomSpecificationPage.this, "Already Exist!", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(AddCustomSpecificationPage.this, "Added: "+data, Toast.LENGTH_SHORT).show();
+                        list.add(data.toUpperCase(Locale.ROOT));
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("SpecsName", data.toUpperCase(Locale.ROOT));
+                        reference.child("SellerProducts").child(user.getUid()).child(prodID).child("CustomSpecifications").push().updateChildren(map);
+                        adapter.notifyDataSetChanged();
+                        customTxt.setText("");
+                    }
                 }
 
             }
         });
+
+        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(prodID).child("CustomSpecifications");
+        reference1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                specsLists.clear();
+                list.clear();
+                int i = 0;
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    CustomProductSpecsList standardProductVariationList = snapshot.getValue(CustomProductSpecsList.class);
+                    specsLists.add(standardProductVariationList);
+                    list.add(standardProductVariationList.getSpecsName());
+                }
+
+                adapter = new ArrayAdapter<String>(AddCustomSpecificationPage.this, android.R.layout.simple_spinner_dropdown_item, list);
+                adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                customSpecsSpinner.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        customSpecsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                todeleteSecond = list.get(position).toUpperCase(Locale.ROOT).trim();
+                Toast.makeText(AddCustomSpecificationPage.this, todeleteSecond, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        confirmSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int size = ImageListVariation.size() == 0 ? 0 : ImageListVariation.size();
+                if(ImageListVariation.size() == 0)
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(AddCustomSpecificationPage.this);
+                    builder.setTitle("Confirmation");
+                    builder.setMessage("No Images Added. Want to Proceed?");
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(AddCustomSpecificationPage.this, "Specifications Added Successfully", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    builder.create().show();
+                }
+
+            }
+        });
+
+        removeSpecs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder removeVar = new AlertDialog.Builder(AddCustomSpecificationPage.this);
+                removeVar.setTitle("Delete Confirmation");
+                removeVar.setMessage("Are you sure you want to delete "+ todeleteSecond+" ?");
+                removeVar.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(prodID).child("CustomSpecifications").child(todeleteSecond);
+                        reference1.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                list.remove(todeleteSecond);
+                                adapter.notifyDataSetChanged();
+                                Toast.makeText(AddCustomSpecificationPage.this, "Variation Deleted successfully", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+                removeVar.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                removeVar.create().show();
+            }
+        });
+
+
 
 
         addImage1.setOnClickListener(new View.OnClickListener() {

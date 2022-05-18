@@ -489,12 +489,10 @@ public class SellerOrdersFragment extends Fragment {
             }
         });
 
-        if(tabLayout.getTabAt(0).isSelected())
-        {
             updateOrdersNotificationsCountOrderRequest();
             updateOrdersNotificationsCountAccepted();
             updateOrdersNotificationsCountOngoing();
-        }
+
 
 
         return view;
@@ -503,7 +501,6 @@ public class SellerOrdersFragment extends Fragment {
     }
 
     private void updateOrdersNotificationsCountOrderRequest() {
-        // TODO: larona, add your logic here
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Notifications").child(user.getUid());
@@ -534,7 +531,6 @@ public class SellerOrdersFragment extends Fragment {
         });
     }
     private void updateOrdersNotificationsCountAccepted() {
-        // TODO: larona, add your logic here
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Notifications").child(user.getUid());
@@ -566,7 +562,6 @@ public class SellerOrdersFragment extends Fragment {
     }
 
     private void updateOrdersNotificationsCountOngoing() {
-        // TODO: larona, add your logic here
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Notifications").child(user.getUid());
@@ -792,18 +787,9 @@ public class SellerOrdersFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        if(tabLayout.getTabAt(0).isSelected())
-        {
-            updateOrdersNotificationsCountOrderRequest();
-            updateOrdersNotificationsCountAccepted();
-            updateOrdersNotificationsCountOngoing();
-        }
-        else
-        {
-            ordersnotifCardviewOrderRequest.setVisibility(View.INVISIBLE);
-            ordersnotifCardviewAccepted.setVisibility(View.INVISIBLE);
-            ordersnotifCardviewOngoing.setVisibility(View.INVISIBLE);
-        }
+        updateOrdersNotificationsCountOrderRequest();
+        updateOrdersNotificationsCountAccepted();
+        updateOrdersNotificationsCountOngoing();
 
 
 

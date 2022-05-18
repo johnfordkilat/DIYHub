@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_one"
+    tools:context=".Fragments.OrderDetailStandardPageActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_back_svgrepo_com"/>
+
+        <ImageView
+            android:layout_width="329dp"
+            android:layout_height="107dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="-15dp"
+            android:src="@drawable/standard4"/>
+
+        <ImageView
+            android:layout_marginTop="80dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="-300dp"
+            android:src="@drawable/sample6"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:layout_marginTop="300dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="400dp"
+            app:cardCornerRadius="20dp"
+            android:layout_height="165dp">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Item Code: " />
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="110dp"
+                android:gravity="left"
+                android:layout_marginTop="10dp"
+                android:text="Item Code: "/>
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="220dp"
+                android:gravity="left"
+                android:layout_marginTop="10dp"
+                android:text="Order Date: "/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="300dp"
+                android:gravity="left"
+                android:layout_marginTop="10dp"
+                android:text="Item Code: "/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="35dp"
+                android:gravity="center"
+                android:text="Item Name: "/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="110dp"
+                android:layout_marginTop="35dp"
+                android:gravity="left"
+                android:text="Item Code: "/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="60dp"
+                android:gravity="center"
+                android:text="Quantity: "/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="110dp"
+                android:layout_marginTop="60dp"
+                android:gravity="left"
+                android:text="Item Code: "/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:gravity="center"
+                android:layout_marginTop="85dp"
+                android:text="Order Type: "/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="110dp"
+                android:gravity="left"
+                android:layout_marginTop="85dp"
+                android:text="Item Code: "/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="110dp"
+                android:gravity="center"
+                android:text="Buyer Name: "/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="110dp"
+                android:layout_marginTop="110dp"
+                android:gravity="left"
+                android:text="Item Code: "/>
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="135dp"
+                android:gravity="center"
+                android:text="Payment Status: "/>
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="120dp"
+                android:layout_marginTop="135dp"
+                android:gravity="left"
+                android:text="Item Code: "/>
+
+
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

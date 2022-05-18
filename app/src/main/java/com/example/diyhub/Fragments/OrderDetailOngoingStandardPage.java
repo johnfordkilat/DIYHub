@@ -1,5 +1,6 @@
 package com.example.diyhub.Fragments;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.bumptech.glide.Glide;
+import com.example.diyhub.MESSAGES.ChatPage;
 import com.example.diyhub.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,7 +53,7 @@ public class OrderDetailOngoingStandardPage extends AppCompatActivity {
     ImageView buyerImage;
     ImageView contactBuyer;
 
-    ImageButton backButton;
+    ImageView backButton;
     ImageButton copyButton;
 
     ImageView moveToOngoing;
@@ -68,7 +70,6 @@ public class OrderDetailOngoingStandardPage extends AppCompatActivity {
         standardPageImage = findViewById(R.id.standardPageImageOngoing);
         bookingAddressSpinner = findViewById(R.id.bookingAddressSpinnerStandardOngoing);
         customerRequestSpinner = findViewById(R.id.customerRequestSpinnerStandardOngoing);
-        orderTrackerSpinner = findViewById(R.id.orderTrackerSpinnerStandardOngoing);
         itemCode = findViewById(R.id.itemCodeTxtStandardOngoing);
         itemName = findViewById(R.id.itemNameTxtStandardOngoing);
         quantity = findViewById(R.id.quantityTxtStandardOngoing);
@@ -78,12 +79,12 @@ public class OrderDetailOngoingStandardPage extends AppCompatActivity {
         orderDate = findViewById(R.id.orderDateTxtStandardOngoing);
         buyerImage = findViewById(R.id.buyerImageStandardOngoing);
         contactBuyer = findViewById(R.id.contactBuyerButtonStandardOngoing);
-        backButton = findViewById(R.id.backButtonStandardPageOngoing);
+        backButton = findViewById(R.id.backButtonOngoingStandard);
         copyButton = findViewById(R.id.copyButtonStandardPageOngoing);
         moveToOngoing = findViewById(R.id.moveToToBookStandard);
         notif = findViewById(R.id.notificationNumberContainerOngoing);
         movetoLabel = findViewById(R.id.moveToTextviewOngoingStandard);
-        viewPriceLiquidationButton = findViewById(R.id.viewPriceLiquidationOrderRequestStandard);
+        viewPriceLiquidationButton = findViewById(R.id.viewPriceLiquidationOngoingStandard);
 
 
 
@@ -103,6 +104,12 @@ public class OrderDetailOngoingStandardPage extends AppCompatActivity {
                 );
                 View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_bottom_sheet, (LinearLayout)findViewById(R.id.bottomSheetContainer));
                 TextView merchTotal = (TextView) bottomSheetView.findViewById(R.id.merchSubtotalTxt);
+                bottomSheetView.findViewById(R.id.confirmButtonPriceLiquidation).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        bottomSheetDialog.dismiss();
+                    }
+                });
                 TextView shippingTotal = (TextView) bottomSheetView.findViewById(R.id.shippingSubTotalTxt);
                 TextView addfees = (TextView) bottomSheetView.findViewById(R.id.additionalFeesTxt);
                 TextView quantity = (TextView) bottomSheetView.findViewById(R.id.totalNumOfItemsTxt);
@@ -149,8 +156,8 @@ public class OrderDetailOngoingStandardPage extends AppCompatActivity {
         contactBuyer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(OrderDetailOngoingStandardPage.this, "Contact Buyer!", Toast.LENGTH_SHORT).show();
-            }
+                Intent intent = new Intent(getApplicationContext(), ChatPage.class);
+                startActivity(intent);            }
         });
 
         if(list.get(pos).getPaymentOption().equalsIgnoreCase("COD"))
@@ -172,12 +179,10 @@ public class OrderDetailOngoingStandardPage extends AppCompatActivity {
 
         bookingAddressList = new ArrayList<>();
         customerRequestList = new ArrayList<>();
-        orderTrackerList = new ArrayList<>();
 
         bookingAddressList.add(0, "Booking Address");
         bookingAddressList.add(1, list.get(pos).getBookingAddress());
         customerRequestList.add(0, "Customer Request");
-        orderTrackerList.add(0, "Order Tracker");
 
         if(bookingAddressList.size() > 1)
         {
@@ -267,38 +272,7 @@ public class OrderDetailOngoingStandardPage extends AppCompatActivity {
         };
         customerRequestSpinner.setAdapter(customerAdapter);
 
-        //Order Tracker Spinner
-        orderAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, orderTrackerList)
-        {
-            @Override
-            public boolean isEnabled(int position){
-                if(position == 0)
-                {
-                    // Disable the first item from Spinner
-                    // First item will be use for hint
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            @Override
-            public View getDropDownView(int position, View convertView,
-                                        ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-                TextView tv = (TextView) view;
-                if(position == 0){
-                    // Set the hint text color gray
-                    tv.setTextColor(Color.GRAY);
-                }
-                else {
-                    tv.setTextColor(Color.BLACK);
-                }
-                return view;
-            }
-        };
-        orderTrackerSpinner.setAdapter(orderAdapter);
+
 
 
 

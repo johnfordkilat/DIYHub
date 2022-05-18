@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.diyhub.MESSAGES.ChatPage;
 import com.example.diyhub.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,6 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OrderDetailToBookCustomizationPage extends AppCompatActivity {
 
@@ -57,7 +59,7 @@ public class OrderDetailToBookCustomizationPage extends AppCompatActivity {
     ImageView buyerImage;
     ImageView contactBuyer;
 
-    ImageButton backButton;
+    ImageView backButton;
     ImageButton copyButton;
 
     ImageView moveToToReceive;
@@ -83,7 +85,6 @@ public class OrderDetailToBookCustomizationPage extends AppCompatActivity {
         standardPageImage = findViewById(R.id.CustomPageImageToBook);
         bookingAddressSpinner = findViewById(R.id.bookingAddressSpinnerCustomToBook);
         customerRequestSpinner = findViewById(R.id.customerRequestSpinnerCustomToBook);
-        orderTrackerSpinner = findViewById(R.id.orderTrackerSpinnerCustomToBook);
         itemCode = findViewById(R.id.itemCodeTxtCustomToBook);
         itemName = findViewById(R.id.itemNameTxtCustomToBook);
         quantity = findViewById(R.id.quantityTxtCustomToBook);
@@ -93,7 +94,7 @@ public class OrderDetailToBookCustomizationPage extends AppCompatActivity {
         orderDate = findViewById(R.id.orderDateTxtCustomToBook);
         buyerImage = findViewById(R.id.buyerImageCustomToBook);
         contactBuyer = findViewById(R.id.contactBuyerButtonCustomToBook);
-        backButton = findViewById(R.id.backButtonCustomPageToBook);
+        backButton = findViewById(R.id.backButtonToBookCustom);
         copyButton = findViewById(R.id.copyButtonCustomPageToBook);
         moveToToReceive = findViewById(R.id.moveToToReceiveCustom);
         notif = findViewById(R.id.notificationNumberContainerToBookCustom);
@@ -101,7 +102,7 @@ public class OrderDetailToBookCustomizationPage extends AppCompatActivity {
         plateNumber = findViewById(R.id.plateNumberTxtCustom);
         moveToCustom = findViewById(R.id.moveToCustomizationButtonToBook);
         customerReqNotif = findViewById(R.id.notificationNumberContainerToBookCustomCustomerRequest);
-        viewPriceLiquidationButton = findViewById(R.id.viewPriceLiquidationOrderRequestStandard);
+        viewPriceLiquidationButton = findViewById(R.id.viewPriceLiquidationToBookCustom);
 
 
 
@@ -122,6 +123,12 @@ public class OrderDetailToBookCustomizationPage extends AppCompatActivity {
                         OrderDetailToBookCustomizationPage.this, R.style.BottomSheetDialogTheme
                 );
                 View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_bottom_sheet, (LinearLayout)findViewById(R.id.bottomSheetContainer));
+                bottomSheetView.findViewById(R.id.confirmButtonPriceLiquidation).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        bottomSheetDialog.dismiss();
+                    }
+                });
                 TextView merchTotal = (TextView) bottomSheetView.findViewById(R.id.merchSubtotalTxt);
                 TextView shippingTotal = (TextView) bottomSheetView.findViewById(R.id.shippingSubTotalTxt);
                 TextView addfees = (TextView) bottomSheetView.findViewById(R.id.additionalFeesTxt);
@@ -142,6 +149,7 @@ public class OrderDetailToBookCustomizationPage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(OrderDetailToBookCustomizationPage.this, OrderDetailCustomPagePreview.class);
                 intent.putExtra("ProductID", list.get(pos).getProductID());
+                intent.putExtra("ProductImage", list.get(pos).getOrderProductImage());
                 startActivity(intent);
             }
         });
@@ -177,8 +185,8 @@ public class OrderDetailToBookCustomizationPage extends AppCompatActivity {
         contactBuyer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(OrderDetailToBookCustomizationPage.this, "Contact Buyer!", Toast.LENGTH_SHORT).show();
-            }
+                Intent intent = new Intent(getApplicationContext(), ChatPage.class);
+                startActivity(intent);            }
         });
 
         if(list.get(pos).getPaymentOption().equalsIgnoreCase("COD"))
@@ -200,13 +208,11 @@ public class OrderDetailToBookCustomizationPage extends AppCompatActivity {
 
         bookingAddressList = new ArrayList<>();
         customerRequestList = new ArrayList<>();
-        orderTrackerList = new ArrayList<>();
         specsList = new ArrayList<>();
 
         bookingAddressList.add(0, "Booking Address");
         bookingAddressList.add(1, list.get(pos).getBookingAddress());
         customerRequestList.add(0, "Customer Request");
-        orderTrackerList.add(0, "Order Tracker");
 
         if(bookingAddressList.size() > 1)
         {
@@ -340,38 +346,7 @@ public class OrderDetailToBookCustomizationPage extends AppCompatActivity {
             }
         });
 
-        //Order Tracker Spinner
-        orderAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, orderTrackerList)
-        {
-            @Override
-            public boolean isEnabled(int position){
-                if(position == 0)
-                {
-                    // Disable the first item from Spinner
-                    // First item will be use for hint
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            @Override
-            public View getDropDownView(int position, View convertView,
-                                        ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-                TextView tv = (TextView) view;
-                if(position == 0){
-                    // Set the hint text color gray
-                    tv.setTextColor(Color.GRAY);
-                }
-                else {
-                    tv.setTextColor(Color.BLACK);
-                }
-                return view;
-            }
-        };
-        orderTrackerSpinner.setAdapter(orderAdapter);
+
 
 
 
@@ -408,6 +383,12 @@ public class OrderDetailToBookCustomizationPage extends AppCompatActivity {
 
 
                     reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap);
+
+                    DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("IsSeen","true");
+                    map.put("NotifHeader","To Receive");
+                    reference1.child("Notifications").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map);
 
                     Toast.makeText(OrderDetailToBookCustomizationPage.this, "Order is moved to TO RECEIVE", Toast.LENGTH_SHORT).show();
                     finish();

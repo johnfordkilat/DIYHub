@@ -7,6 +7,18 @@
     android:background="@drawable/gradient_one"
     tools:context=".Fragments.OrderDetailStandardPage">
 
+    <ImageView
+        android:id="@+id/backButtonOrderRequestStandard"
+        android:layout_width="43dp"
+        android:layout_height="37dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.047"
+        app:srcCompat="@drawable/ic_back_svgrepo_com" />
+
     <ImageButton
         android:id="@+id/copyButtonStandardPage"
         android:layout_width="38dp"
@@ -19,37 +31,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.286"
         app:srcCompat="@drawable/ic_baseline_content_copy_24" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/notificationNumberContainerOrderRequest"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginBottom="4dp"
-        android:visibility="invisible"
-        app:cardBackgroundColor="@color/red"
-        app:cardCornerRadius="50dp"
-        app:layout_constraintBottom_toBottomOf="@+id/bookingAddressSpinnerStandard"
-        app:layout_constraintEnd_toEndOf="@+id/bookingAddressSpinnerStandard"
-        app:layout_constraintStart_toStartOf="@+id/bookingAddressSpinnerStandard"
-        app:layout_constraintTop_toTopOf="@+id/bookingAddressSpinnerStandard"
-        app:layout_constraintVertical_bias="0.0">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/notifCounterOrderRequest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1"
-                android:textColor="@color/white"
-                android:textSize="12dp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
 
     <EditText
         android:id="@+id/itemCodeTxtStandard2"
@@ -341,6 +322,67 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName01" />
 
+    <Spinner
+        android:id="@+id/bookingAddressSpinnerStandard"
+        android:layout_width="410dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="-7dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toTopOf="@+id/customerRequestSpinnerStandard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contactBuyerButtonStandard"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/notificationNumberContainerOrderRequest"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="4dp"
+        android:visibility="invisible"
+        app:cardBackgroundColor="@color/red"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/bookingAddressSpinnerStandard"
+        app:layout_constraintEnd_toEndOf="@+id/bookingAddressSpinnerStandard"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="@+id/bookingAddressSpinnerStandard"
+        app:layout_constraintTop_toTopOf="@+id/bookingAddressSpinnerStandard"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/notifCounterOrderRequest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <Spinner
+        android:id="@+id/customerRequestSpinnerStandard"
+        android:layout_width="410dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="-6dp"
+        android:layout_marginTop="492dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toTopOf="@+id/logoutTxtview3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.297" />
+
     <TextView
         android:id="@+id/textView38"
         android:layout_width="347dp"
@@ -349,52 +391,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintHorizontal_bias="0.468"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.588" />
-
-    <Spinner
-        android:id="@+id/bookingAddressSpinnerStandard"
-        android:layout_width="416dp"
-        android:layout_height="46dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toTopOf="@+id/customerRequestSpinnerStandard"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="-3dp"
-        app:layout_constraintTop_toBottomOf="@+id/contactBuyerButtonStandard"
-        app:layout_constraintVertical_bias="0.526" />
-
-    <Spinner
-        android:id="@+id/orderTrackerSpinnerStandard"
-        android:layout_width="416dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="536dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toTopOf="@+id/logoutTxtview3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.649" />
-
-    <Spinner
-        android:id="@+id/customerRequestSpinnerStandard"
-        android:layout_width="416dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="492dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toTopOf="@+id/orderTrackerSpinnerStandard"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.628" />
+        app:layout_constraintVertical_bias="0.61" />
 
     <TextView
         android:id="@+id/logoutTxtview3"
@@ -422,25 +422,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.919"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orderTrackerSpinnerStandard"
-        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/arrowright" />
-
-    <ImageButton
-        android:id="@+id/backButtonStandardPage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="333dp"
-        android:layout_marginBottom="661dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
 
     <ImageView
         android:id="@+id/standardPageImage"
@@ -481,12 +463,12 @@
         android:id="@+id/imageView57"
         android:layout_width="329dp"
         android:layout_height="107dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="7dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toTopOf="@+id/standardPageImage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/backButtonStandardPage"
+        app:layout_constraintStart_toEndOf="@+id/backButtonOrderRequestStandard"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.078"
         app:srcCompat="@drawable/standard4" />
@@ -503,5 +485,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/orderTypeTxtStandard"
         app:layout_constraintTop_toBottomOf="@+id/orderDateTxtStandard" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/declineOrderButtonStandard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="274dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="9dp"
+        android:background="@drawable/custom_red"
+        android:text="Decline Order"
+        app:layout_constraintBottom_toTopOf="@+id/moveToAcceptedStandard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customerRequestSpinnerStandard" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

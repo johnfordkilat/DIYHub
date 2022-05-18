@@ -56,13 +56,7 @@ public class CustomProductDetails extends AppCompatActivity {
 
         viewCustomDetails = findViewById(R.id.viewProductCustomDetails);
 
-        viewCustomDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CustomProductDetails.this, AddCustomSpecificationPage.class);
-                startActivity(intent);
-            }
-        });
+
 
 
         viewPager = (ViewPager) findViewById(R.id.viewPagerCustomProductDetails);
@@ -92,6 +86,15 @@ public class CustomProductDetails extends AppCompatActivity {
             prodStock = extras.getInt("ProductStock");
         }
         Toast.makeText(this, "Product ID: "+ prodID, Toast.LENGTH_SHORT).show();
+
+        viewCustomDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CustomProductDetails.this, AddCustomSpecificationPage.class);
+                intent.putExtra("ProductID",prodID);
+                startActivity(intent);
+            }
+        });
 
         prodNameTxt.setText("Product Name: "+ prodName);
         prodPriceTxt.setText("Product Price: ₱"+ String.valueOf(prodPrice));

@@ -13,14 +13,13 @@
         android:layout_width="409dp"
         android:layout_height="100dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="25dp"
         android:layout_marginEnd="1dp"
         app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customPreviewViewPager"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/cardView6"
+        app:layout_constraintVertical_bias="0.07999998">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -104,7 +103,7 @@
                 android:background="@android:drawable/btn_dropdown"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView62"
+                app:layout_constraintStart_toEndOf="@+id/customPrevSecondImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -152,7 +151,7 @@
                 android:background="@android:drawable/btn_dropdown"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView60"
+                app:layout_constraintStart_toEndOf="@+id/customPrevThirdImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -160,15 +159,37 @@
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/customPreviewViewPager"
-        android:layout_width="405dp"
-        android:layout_height="220dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView6"
+        android:layout_width="350dp"
+        android:layout_height="250dp"
+        android:layout_marginBottom="300dp"
+        app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.19" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/customPreviewProductImage"
+                android:layout_width="305dp"
+                android:layout_height="220dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.19" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

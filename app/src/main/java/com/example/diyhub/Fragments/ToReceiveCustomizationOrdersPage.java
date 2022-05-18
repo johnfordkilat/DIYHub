@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.diyhub.MESSAGES.ChatPage;
 import com.example.diyhub.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
@@ -62,7 +64,7 @@ public class ToReceiveCustomizationOrdersPage extends AppCompatActivity {
     ImageView buyerImage;
     ImageView contactBuyer;
 
-    ImageButton backButton;
+    ImageView backButton;
     ImageButton copyButton;
 
     ImageView moveToToReceive;
@@ -76,6 +78,8 @@ public class ToReceiveCustomizationOrdersPage extends AppCompatActivity {
 
     Button viewPriceLiquidationButton;
 
+
+    ImageView moveToCustom;
 
 
 
@@ -91,7 +95,6 @@ public class ToReceiveCustomizationOrdersPage extends AppCompatActivity {
         standardPageImage = findViewById(R.id.CustomPageImageToReceive);
         bookingAddressSpinner = findViewById(R.id.bookingAddressSpinnerCustomToReceive);
         customerRequestSpinner = findViewById(R.id.customerRequestSpinnerCustomToReceive);
-        orderTrackerSpinner = findViewById(R.id.orderTrackerSpinnerCustomToReceive);
         itemCode = findViewById(R.id.itemCodeTxtCustomToReceive);
         itemName = findViewById(R.id.itemNameTxtCustomToReceive);
         quantity = findViewById(R.id.quantityTxtCustomToReceive);
@@ -101,12 +104,14 @@ public class ToReceiveCustomizationOrdersPage extends AppCompatActivity {
         orderDate = findViewById(R.id.orderDateTxtCustomToReceive);
         buyerImage = findViewById(R.id.buyerImageCustomToReceive);
         contactBuyer = findViewById(R.id.contactBuyerButtonCustomToReceive);
-        backButton = findViewById(R.id.backButtonCustomPageToReceive);
+        backButton = findViewById(R.id.backButtonToReceiveCustom);
         copyButton = findViewById(R.id.copyButtonCustomPageToReceive);
         moveToToReceive = findViewById(R.id.moveToToReceiveCustom);
         notif = findViewById(R.id.notificationNumberContainerToReceiveCustom);
         customerReqNotif = findViewById(R.id.notificationNumberContainerToReceiveCustomCustomerRequest);
-        viewPriceLiquidationButton = findViewById(R.id.viewPriceLiquidationOrderRequestStandard);
+        viewPriceLiquidationButton = findViewById(R.id.viewPriceLiquidationToReceiveCustom);
+        moveToCustom = findViewById(R.id.moveToCustomizationButtonToReceive);
+
 
 
 
@@ -120,6 +125,16 @@ public class ToReceiveCustomizationOrdersPage extends AppCompatActivity {
 
         pos = Integer.parseInt(position);
 
+        moveToCustom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ToReceiveCustomizationOrdersPage.this, OrderDetailCustomPagePreview.class);
+                intent.putExtra("ProductID", list.get(pos).getProductID());
+                intent.putExtra("ProductImage", list.get(pos).getOrderProductImage());
+                startActivity(intent);
+            }
+        });
+
         viewPriceLiquidationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,6 +142,12 @@ public class ToReceiveCustomizationOrdersPage extends AppCompatActivity {
                         ToReceiveCustomizationOrdersPage.this, R.style.BottomSheetDialogTheme
                 );
                 View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_bottom_sheet, (LinearLayout)findViewById(R.id.bottomSheetContainer));
+                bottomSheetView.findViewById(R.id.confirmButtonPriceLiquidation).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        bottomSheetDialog.dismiss();
+                    }
+                });
                 TextView merchTotal = (TextView) bottomSheetView.findViewById(R.id.merchSubtotalTxt);
                 TextView shippingTotal = (TextView) bottomSheetView.findViewById(R.id.shippingSubTotalTxt);
                 TextView addfees = (TextView) bottomSheetView.findViewById(R.id.additionalFeesTxt);
@@ -173,8 +194,8 @@ public class ToReceiveCustomizationOrdersPage extends AppCompatActivity {
         contactBuyer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ToReceiveCustomizationOrdersPage.this, "Contact Buyer!", Toast.LENGTH_SHORT).show();
-            }
+                Intent intent = new Intent(getApplicationContext(), ChatPage.class);
+                startActivity(intent);            }
         });
 
         if(list.get(pos).getPaymentOption().equalsIgnoreCase("COD"))
@@ -196,12 +217,11 @@ public class ToReceiveCustomizationOrdersPage extends AppCompatActivity {
 
         bookingAddressList = new ArrayList<>();
         customerRequestList = new ArrayList<>();
-        orderTrackerList = new ArrayList<>();
+        specsList = new ArrayList<>();
 
         bookingAddressList.add(0, "Booking Address");
         bookingAddressList.add(1, list.get(pos).getBookingAddress());
         customerRequestList.add(0, "Customer Request");
-        orderTrackerList.add(0, "Order Tracker");
 
         if(bookingAddressList.size() > 1)
         {
@@ -335,38 +355,7 @@ public class ToReceiveCustomizationOrdersPage extends AppCompatActivity {
             }
         });
 
-        //Order Tracker Spinner
-        orderAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, orderTrackerList)
-        {
-            @Override
-            public boolean isEnabled(int position){
-                if(position == 0)
-                {
-                    // Disable the first item from Spinner
-                    // First item will be use for hint
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            @Override
-            public View getDropDownView(int position, View convertView,
-                                        ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-                TextView tv = (TextView) view;
-                if(position == 0){
-                    // Set the hint text color gray
-                    tv.setTextColor(Color.GRAY);
-                }
-                else {
-                    tv.setTextColor(Color.BLACK);
-                }
-                return view;
-            }
-        };
-        orderTrackerSpinner.setAdapter(orderAdapter);
+
 
 
 

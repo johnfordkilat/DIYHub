@@ -1,5 +1,6 @@
 package com.example.diyhub.Fragments;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.bumptech.glide.Glide;
+import com.example.diyhub.MESSAGES.ChatPage;
 import com.example.diyhub.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class OrderDetailToBookStandardPage extends AppCompatActivity {
 
@@ -50,7 +53,7 @@ public class OrderDetailToBookStandardPage extends AppCompatActivity {
     ImageView buyerImage;
     ImageView contactBuyer;
 
-    ImageButton backButton;
+    ImageView backButton;
     ImageButton copyButton;
 
     ImageView moveToToReceive;
@@ -67,7 +70,6 @@ public class OrderDetailToBookStandardPage extends AppCompatActivity {
         standardPageImage = findViewById(R.id.standardPageImageToBook);
         bookingAddressSpinner = findViewById(R.id.bookingAddressSpinnerStandardToBook);
         customerRequestSpinner = findViewById(R.id.customerRequestSpinnerStandardToBook);
-        orderTrackerSpinner = findViewById(R.id.orderTrackerSpinnerStandardToBook);
         itemCode = findViewById(R.id.itemCodeTxtStandardToBook);
         itemName = findViewById(R.id.itemNameTxtStandardToBook);
         quantity = findViewById(R.id.quantityTxtStandardToBook);
@@ -77,13 +79,13 @@ public class OrderDetailToBookStandardPage extends AppCompatActivity {
         orderDate = findViewById(R.id.orderDateTxtStandardToBook);
         buyerImage = findViewById(R.id.buyerImageStandardToBook);
         contactBuyer = findViewById(R.id.contactBuyerButtonStandardToBook);
-        backButton = findViewById(R.id.backButtonStandardPageToBook);
+        backButton = findViewById(R.id.backButtonToBookStandard);
         copyButton = findViewById(R.id.copyButtonStandardPageToBook);
         moveToToReceive = findViewById(R.id.moveToToReceiveStandard);
         notif = findViewById(R.id.notificationNumberContainerToBook);
         riderName = findViewById(R.id.riderNameTxtStandard);
         plateNumber = findViewById(R.id.plateNumberTxtStandard);
-        viewPriceLiquidationButton = findViewById(R.id.viewPriceLiquidationOrderRequestStandard);
+        viewPriceLiquidationButton = findViewById(R.id.viewPriceLiquidationToBookStandard);
 
 
 
@@ -103,6 +105,12 @@ public class OrderDetailToBookStandardPage extends AppCompatActivity {
                 );
                 View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_bottom_sheet, (LinearLayout)findViewById(R.id.bottomSheetContainer));
                 TextView merchTotal = (TextView) bottomSheetView.findViewById(R.id.merchSubtotalTxt);
+                bottomSheetView.findViewById(R.id.confirmButtonPriceLiquidation).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        bottomSheetDialog.dismiss();
+                    }
+                });
                 TextView shippingTotal = (TextView) bottomSheetView.findViewById(R.id.shippingSubTotalTxt);
                 TextView addfees = (TextView) bottomSheetView.findViewById(R.id.additionalFeesTxt);
                 TextView quantity = (TextView) bottomSheetView.findViewById(R.id.totalNumOfItemsTxt);
@@ -149,8 +157,8 @@ public class OrderDetailToBookStandardPage extends AppCompatActivity {
         contactBuyer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(OrderDetailToBookStandardPage.this, "Contact Buyer!", Toast.LENGTH_SHORT).show();
-            }
+                Intent intent = new Intent(getApplicationContext(), ChatPage.class);
+                startActivity(intent);            }
         });
 
         if(list.get(pos).getPaymentOption().equalsIgnoreCase("COD"))
@@ -172,12 +180,10 @@ public class OrderDetailToBookStandardPage extends AppCompatActivity {
 
         bookingAddressList = new ArrayList<>();
         customerRequestList = new ArrayList<>();
-        orderTrackerList = new ArrayList<>();
 
         bookingAddressList.add(0, "Booking Address");
         bookingAddressList.add(1, list.get(pos).getBookingAddress());
         customerRequestList.add(0, "Customer Request");
-        orderTrackerList.add(0, "Order Tracker");
 
         if(bookingAddressList.size() > 1)
         {
@@ -266,38 +272,7 @@ public class OrderDetailToBookStandardPage extends AppCompatActivity {
         };
         customerRequestSpinner.setAdapter(customerAdapter);
 
-        //Order Tracker Spinner
-        orderAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, orderTrackerList)
-        {
-            @Override
-            public boolean isEnabled(int position){
-                if(position == 0)
-                {
-                    // Disable the first item from Spinner
-                    // First item will be use for hint
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            @Override
-            public View getDropDownView(int position, View convertView,
-                                        ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-                TextView tv = (TextView) view;
-                if(position == 0){
-                    // Set the hint text color gray
-                    tv.setTextColor(Color.GRAY);
-                }
-                else {
-                    tv.setTextColor(Color.BLACK);
-                }
-                return view;
-            }
-        };
-        orderTrackerSpinner.setAdapter(orderAdapter);
+
 
 
 
@@ -336,6 +311,12 @@ public class OrderDetailToBookStandardPage extends AppCompatActivity {
 
 
                     reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap);
+
+                    DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("IsSeen","true");
+                    map.put("NotifHeader","To Receive");
+                    reference1.child("Notifications").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map);
 
                     Toast.makeText(OrderDetailToBookStandardPage.this, "Order is moved to TO RECEIVE", Toast.LENGTH_SHORT).show();
                     finish();

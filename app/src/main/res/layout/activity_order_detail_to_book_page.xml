@@ -7,6 +7,18 @@
     android:background="@drawable/gradient_one"
     tools:context=".Fragments.OrderDetailToBookStandardPage">
 
+    <ImageView
+        android:id="@+id/backButtonToBookStandard"
+        android:layout_width="43dp"
+        android:layout_height="37dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.047"
+        app:srcCompat="@drawable/ic_back_svgrepo_com" />
+
     <Button
         android:id="@+id/viewPriceLiquidationToBookStandard"
         android:layout_width="156dp"
@@ -31,38 +43,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.286"
         app:srcCompat="@drawable/ic_baseline_content_copy_24" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/notificationNumberContainerToBook"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginEnd="200dp"
-        android:visibility="invisible"
-        app:cardBackgroundColor="@color/red"
-        app:cardCornerRadius="50dp"
-        app:layout_constraintBottom_toBottomOf="@+id/bookingAddressSpinnerStandardToBook"
-        app:layout_constraintEnd_toEndOf="@+id/bookingAddressSpinnerStandardToBook"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/bookingAddressSpinnerStandardToBook"
-        app:layout_constraintVertical_bias="0.0">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/notifCounterToBook"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1"
-                android:textColor="@color/white"
-                android:textSize="12dp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
 
     <EditText
         android:id="@+id/itemCodeTxtStandard2B"
@@ -367,24 +347,10 @@
         app:layout_constraintVertical_bias="0.588" />
 
     <Spinner
-        android:id="@+id/bookingAddressSpinnerStandardToBook"
-        android:layout_width="416dp"
+        android:id="@+id/customerRequestSpinnerStandardToBook"
+        android:layout_width="410dp"
         android:layout_height="46dp"
-        android:layout_marginTop="448dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toBottomOf="@+id/logoutTxtview3B"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Spinner
-        android:id="@+id/orderTrackerSpinnerStandardToBook"
-        android:layout_width="416dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="536dp"
+        android:layout_marginTop="492dp"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="@+id/logoutTxtview3B"
@@ -392,21 +358,53 @@
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.028" />
+        app:layout_constraintVertical_bias="0.135" />
 
     <Spinner
-        android:id="@+id/customerRequestSpinnerStandardToBook"
-        android:layout_width="416dp"
+        android:id="@+id/bookingAddressSpinnerStandardToBook"
+        android:layout_width="410dp"
         android:layout_height="46dp"
-        android:layout_marginTop="492dp"
+        android:layout_marginTop="448dp"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="@+id/logoutTxtview3B"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.108" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/notificationNumberContainerToBook"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="200dp"
+        android:visibility="invisible"
+        app:cardBackgroundColor="@color/red"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/bookingAddressSpinnerStandardToBook"
+        app:layout_constraintEnd_toEndOf="@+id/bookingAddressSpinnerStandardToBook"
+        app:layout_constraintHorizontal_bias="0.989"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bookingAddressSpinnerStandardToBook"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/notifCounterToBook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/logoutTxtview3B"
@@ -434,25 +432,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orderTrackerSpinnerStandardToBook"
-        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/arrowright" />
-
-    <ImageButton
-        android:id="@+id/backButtonStandardPageToBook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="333dp"
-        android:layout_marginBottom="661dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
 
     <ImageView
         android:id="@+id/standardPageImageToBook"
@@ -493,12 +473,12 @@
         android:id="@+id/imageView57B"
         android:layout_width="329dp"
         android:layout_height="107dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="7dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toTopOf="@+id/standardPageImageToBook"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/backButtonStandardPageToBook"
+        app:layout_constraintStart_toEndOf="@+id/backButtonToBookStandard"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.078"
         app:srcCompat="@drawable/standard4" />

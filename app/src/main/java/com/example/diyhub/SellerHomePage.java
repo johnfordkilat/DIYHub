@@ -30,6 +30,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.diyhub.Fragments.SellerStatsPage;
 import com.example.diyhub.MESSAGES.Chat;
 import com.example.diyhub.MESSAGES.ChatPage;
 import com.example.diyhub.MESSAGES.MessageActivity;
@@ -198,6 +199,7 @@ public class SellerHomePage extends AppCompatActivity {
         ordersnotifCardview = findViewById(R.id.ordersNotificationNumberContainer);
         ordersnotifCounter = findViewById(R.id.ordersNotifCounter);
 
+        image40  = findViewById(R.id.imageView40);
 
 
 
@@ -230,6 +232,13 @@ public class SellerHomePage extends AppCompatActivity {
             orderRequestTab = extras.getInt("TablayoutTab");
         }
 
+        image40.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SellerHomePage.this, SellerStatsPage.class);
+                startActivity(intent);
+            }
+        });
 
 
 

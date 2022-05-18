@@ -32,7 +32,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/paymentOptionToBook"
+        app:layout_constraintStart_toEndOf="@+id/bookingOptionToBook"
         app:layout_constraintTop_toBottomOf="@+id/copyButtonToBook"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -45,7 +45,7 @@
         android:background="@drawable/textview_border_rectangle"
         android:text="Product Name"
         android:textAlignment="textStart"
-        app:layout_constraintBottom_toTopOf="@+id/paymentOptionToBook"
+        app:layout_constraintBottom_toTopOf="@+id/bookingOptionToBook"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/itemImageToBook"
@@ -117,7 +117,7 @@
         tools:layout_marginTop="5dp" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/paymentOptionToBook"
+        android:id="@+id/bookingOptionToBook"
         android:layout_width="93dp"
         android:layout_height="36dp"
         android:background="@drawable/custom_white"

@@ -1,5 +1,9 @@
 package com.example.diyhub.Fragments;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,16 +20,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.bumptech.glide.Glide;
+import com.example.diyhub.MESSAGES.ChatPage;
 import com.example.diyhub.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,14 +61,20 @@ public class OrderDetailStandardPage extends AppCompatActivity {
     ImageView buyerImage;
     ImageView contactBuyer;
 
-    ImageButton backButton;
+    ImageView backButton;
     ImageButton copyButton;
 
     ImageView moveToAccepted;
     CardView notif;
 
     Button viewPriceLiquidationButton;
-    
+
+    Button declineOrder;
+
+    Dialog varDialog;
+    EditText optionTxtBooking;
+    Button submitBooking;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +83,6 @@ public class OrderDetailStandardPage extends AppCompatActivity {
         standardPageImage = findViewById(R.id.standardPageImage);
         bookingAddressSpinner = findViewById(R.id.bookingAddressSpinnerStandard);
         customerRequestSpinner = findViewById(R.id.customerRequestSpinnerStandard);
-        orderTrackerSpinner = findViewById(R.id.orderTrackerSpinnerStandard);
         itemCode = findViewById(R.id.itemCodeTxtStandard);
         itemName = findViewById(R.id.itemNameTxtStandard);
         quantity = findViewById(R.id.quantityTxtStandard);
@@ -78,11 +92,12 @@ public class OrderDetailStandardPage extends AppCompatActivity {
         orderDate = findViewById(R.id.orderDateTxtStandard);
         buyerImage = findViewById(R.id.buyerImageStandard);
         contactBuyer = findViewById(R.id.contactBuyerButtonStandard);
-        backButton = findViewById(R.id.backButtonStandardPage);
+        backButton = findViewById(R.id.backButtonOrderRequestStandard);
         copyButton = findViewById(R.id.copyButtonStandardPage);
         moveToAccepted = findViewById(R.id.moveToAcceptedStandard);
         notif = findViewById(R.id.notificationNumberContainerOrderRequest);
         viewPriceLiquidationButton = findViewById(R.id.viewPriceLiquidationOrderRequestStandard);
+        declineOrder = findViewById(R.id.declineOrderButtonStandard);
         
         
 
@@ -96,6 +111,105 @@ public class OrderDetailStandardPage extends AppCompatActivity {
 
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        declineOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builderBooking = new AlertDialog.Builder(OrderDetailStandardPage.this);
+                builderBooking.setTitle("Decline Reason Confirmation");
+
+                View view1 = getLayoutInflater().inflate(R.layout.layout_dialog_decline_order, null);
+                optionTxtBooking = view1.findViewById(R.id.setPaymentOptionTxtDeclineOrder);
+                submitBooking = view1.findViewById(R.id.submitButtonDeclineOrder);
+                builderBooking.setView(view1);
+
+
+                submitBooking.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        String data = optionTxtBooking.getText().toString().trim();
+                        if(data.isEmpty())
+                        {
+                            optionTxtBooking.setError("Cannot be Empty");
+                            optionTxtBooking.requestFocus();
+                        }
+                        else
+                        {
+                            if(list.get(pos).getPaymentStatus().equalsIgnoreCase("PAID"))
+                            {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(OrderDetailStandardPage.this);
+                                builder.setTitle("Confirmation");
+                                builder.setMessage("Order will be tagged as Return/Refund Order");
+                                builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+
+                                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
+                                        Map<String, Object> map1 = new HashMap<>();
+                                        map1.put("NotifHeader","Return/Refund Order");
+                                        reference1.child("Notifications").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map1);
+
+                                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                                        Map<String, Object> map = new HashMap<>();
+                                        map.put("OrderStatus","Return/Refund Order");
+                                        map.put(("OrderDeclineReason"), data);
+                                        reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map);
+                                        Toast.makeText(OrderDetailStandardPage.this, "Order is moved to Return/Refund Order", Toast.LENGTH_SHORT).show();
+                                        varDialog.dismiss();
+                                    }
+                                });
+                                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+                                builder.create().show();
+
+                            }
+                            else
+                            {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(OrderDetailStandardPage.this);
+                                builder.setTitle("Confirmation");
+                                builder.setMessage("Order will be tagged as Cancelled Order");
+                                builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
+                                        Map<String, Object> map1 = new HashMap<>();
+                                        map1.put("NotifHeader","Cancelled Order");
+                                        reference1.child("Notifications").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map1);
+
+                                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                                        Map<String, Object> map = new HashMap<>();
+                                        map.put("OrderStatus","Cancelled Order");
+                                        map.put(("OrderDeclineReason"), data);
+                                        reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map);
+                                        Toast.makeText(OrderDetailStandardPage.this, "Order is moved to Cancelled Order", Toast.LENGTH_SHORT).show();
+                                        varDialog.dismiss();
+                                    }
+                                });
+                                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+                                builder.create().show();
+                            }
+
+                        }
+                    }
+                });
+                varDialog = builderBooking.create();
+                varDialog.show();
+
+
+            }
+        });
         
         viewPriceLiquidationButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +218,12 @@ public class OrderDetailStandardPage extends AppCompatActivity {
                         OrderDetailStandardPage.this, R.style.BottomSheetDialogTheme
                 );
                 View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_bottom_sheet, (LinearLayout)findViewById(R.id.bottomSheetContainer));
+                bottomSheetView.findViewById(R.id.confirmButtonPriceLiquidation).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        bottomSheetDialog.dismiss();
+                    }
+                });
                 TextView merchTotal = (TextView) bottomSheetView.findViewById(R.id.merchSubtotalTxt);
                 TextView shippingTotal = (TextView) bottomSheetView.findViewById(R.id.shippingSubTotalTxt);
                 TextView addfees = (TextView) bottomSheetView.findViewById(R.id.additionalFeesTxt);
@@ -150,7 +270,8 @@ public class OrderDetailStandardPage extends AppCompatActivity {
         contactBuyer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(OrderDetailStandardPage.this, "Contact Buyer!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), ChatPage.class);
+                startActivity(intent);
             }
         });
 
@@ -173,7 +294,6 @@ public class OrderDetailStandardPage extends AppCompatActivity {
 
         bookingAddressList = new ArrayList<>();
         customerRequestList = new ArrayList<>();
-        orderTrackerList = new ArrayList<>();
 
 
 
@@ -181,7 +301,6 @@ public class OrderDetailStandardPage extends AppCompatActivity {
         bookingAddressList.add(0, "Booking Address");
         bookingAddressList.add(1, list.get(pos).getBookingAddress());
         customerRequestList.add(0, "Customer Request");
-        orderTrackerList.add(0, "Order Tracker");
 
         if(bookingAddressList.size() > 1)
         {
@@ -272,38 +391,7 @@ public class OrderDetailStandardPage extends AppCompatActivity {
         };
         customerRequestSpinner.setAdapter(customerAdapter);
 
-        //Order Tracker Spinner
-        orderAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, orderTrackerList)
-        {
-            @Override
-            public boolean isEnabled(int position){
-                if(position == 0)
-                {
-                    // Disable the first item from Spinner
-                    // First item will be use for hint
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            @Override
-            public View getDropDownView(int position, View convertView,
-                                        ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-                TextView tv = (TextView) view;
-                if(position == 0){
-                    // Set the hint text color gray
-                    tv.setTextColor(Color.GRAY);
-                }
-                else {
-                    tv.setTextColor(Color.BLACK);
-                }
-                return view;
-            }
-        };
-        orderTrackerSpinner.setAdapter(orderAdapter);
+
 
 
 

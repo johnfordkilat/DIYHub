@@ -7,6 +7,18 @@
     android:background="@drawable/gradient_one"
     tools:context=".Fragments.ToReceiveCustomizationOrdersPage">
 
+    <ImageView
+        android:id="@+id/backButtonToReceiveCustom"
+        android:layout_width="43dp"
+        android:layout_height="37dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.047"
+        app:srcCompat="@drawable/ic_back_svgrepo_com" />
+
     <Button
         android:id="@+id/viewPriceLiquidationToReceiveCustom"
         android:layout_width="156dp"
@@ -18,37 +30,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/orderTypeTxtCustomToReceive"
         app:layout_constraintTop_toBottomOf="@+id/orderDateTxtCustomToReceive" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/notificationNumberContainerToReceiveCustomCustomerRequest"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:visibility="invisible"
-        app:cardBackgroundColor="@color/red"
-        app:cardCornerRadius="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/orderTrackerSpinnerCustomToReceive"
-        app:layout_constraintEnd_toEndOf="@+id/customerRequestSpinnerCustomToReceive"
-        app:layout_constraintHorizontal_bias="0.54"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bookingAddressSpinnerCustomToReceive"
-        app:layout_constraintVertical_bias="0.0">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/notifCounterToReceiveCustomCustomerRequest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1"
-                android:textColor="@color/white"
-                android:textSize="12dp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/logoutTxtview5"
@@ -69,7 +50,7 @@
         app:layout_constraintVertical_bias="0.868" />
 
     <ImageView
-        android:id="@+id/moveToCustomizationButtonToBook"
+        android:id="@+id/moveToCustomizationButtonToReceive"
         android:layout_width="90dp"
         android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="@+id/logoutTxtview5"
@@ -92,38 +73,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.286"
         app:srcCompat="@drawable/ic_baseline_content_copy_24" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/notificationNumberContainerToReceiveCustom"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginEnd="200dp"
-        android:visibility="invisible"
-        app:cardBackgroundColor="@color/red"
-        app:cardCornerRadius="50dp"
-        app:layout_constraintBottom_toBottomOf="@+id/bookingAddressSpinnerCustomToReceive"
-        app:layout_constraintEnd_toEndOf="@+id/bookingAddressSpinnerCustomToReceive"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/bookingAddressSpinnerCustomToReceive"
-        app:layout_constraintVertical_bias="0.0">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/notifCounterToReceiveCustom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1"
-                android:textColor="@color/white"
-                android:textSize="12dp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
 
     <EditText
         android:id="@+id/itemCodeTxtStandard2OC"
@@ -427,30 +376,6 @@
         app:layout_constraintVertical_bias="0.588" />
 
     <Spinner
-        android:id="@+id/bookingAddressSpinnerCustomToReceive"
-        android:layout_width="416dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="448dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
-        android:id="@+id/orderTrackerSpinnerCustomToReceive"
-        android:layout_width="416dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="536dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
         android:id="@+id/tagOrderAsSpinnerCustomPage"
         android:layout_width="242dp"
         android:layout_height="36dp"
@@ -465,31 +390,93 @@
 
     <Spinner
         android:id="@+id/customerRequestSpinnerCustomToReceive"
-        android:layout_width="416dp"
+        android:layout_width="410dp"
         android:layout_height="46dp"
-        android:layout_marginTop="492dp"
+        android:layout_marginTop="516dp"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/backButtonCustomPageToReceive"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="333dp"
-        android:layout_marginBottom="661dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/logoutTxtview5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
+        app:layout_constraintVertical_bias="0.333" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/notificationNumberContainerToReceiveCustomCustomerRequest"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:cardBackgroundColor="@color/red"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintEnd_toEndOf="@+id/customerRequestSpinnerCustomToReceive"
+        app:layout_constraintHorizontal_bias="0.537"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bookingAddressSpinnerCustomToReceive">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/notifCounterToReceiveCustomCustomerRequest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <Spinner
+        android:id="@+id/bookingAddressSpinnerCustomToReceive"
+        android:layout_width="410dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="472dp"
+        android:layout_marginBottom="8dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toTopOf="@+id/customerRequestSpinnerCustomToReceive"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/notificationNumberContainerToReceiveCustom"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="200dp"
+        android:visibility="invisible"
+        app:cardBackgroundColor="@color/red"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/bookingAddressSpinnerCustomToReceive"
+        app:layout_constraintEnd_toEndOf="@+id/bookingAddressSpinnerCustomToReceive"
+        app:layout_constraintHorizontal_bias="0.994"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bookingAddressSpinnerCustomToReceive"
+        app:layout_constraintVertical_bias="0.142">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/notifCounterToReceiveCustom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
     <ImageView
         android:id="@+id/CustomPageImageToReceive"
@@ -530,12 +517,12 @@
         android:id="@+id/imageView57OC"
         android:layout_width="329dp"
         android:layout_height="107dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="7dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toTopOf="@+id/CustomPageImageToReceive"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/backButtonCustomPageToReceive"
+        app:layout_constraintStart_toEndOf="@+id/backButtonToReceiveCustom"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.078"
         app:srcCompat="@drawable/custom1" />

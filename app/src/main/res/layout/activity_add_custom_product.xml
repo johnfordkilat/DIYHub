@@ -149,21 +149,8 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="79dp"
         android:text="Add Variations"
-        app:layout_constraintBottom_toTopOf="@+id/addSpecificationCustom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/productDescriptionTxtAddCustom" />
 
-    <Button
-        android:id="@+id/addSpecificationCustom"
-        android:layout_width="253dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginEnd="79dp"
-        android:layout_marginBottom="3dp"
-        android:text="Add Specifications"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addVariationsCustom" />
 </androidx.constraintlayout.widget.ConstraintLayout>

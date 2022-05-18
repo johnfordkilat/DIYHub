@@ -17,6 +17,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -156,6 +157,14 @@ public class AddVariationsCustomizePage extends AppCompatActivity {
 
     Dialog secondVarDialog;
 
+    ImageView editFirstVar;
+    ImageView editSecondVar;
+
+    EditText editFirstVarTxt;
+    EditText editSecondVarTxt;
+    String editable;
+    int clickedCounter;
+    Button addCustomSpecs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,6 +182,9 @@ public class AddVariationsCustomizePage extends AppCompatActivity {
         secondVarSpinner = findViewById(R.id.spinnerAddSecondVariationsCustom);
         removeSecondVarButton = findViewById(R.id.removeSecondVariationButtonCustom);
         addSecondVarButton = findViewById(R.id.addSecondVariationButtonCustom);
+        addCustomSpecs = findViewById(R.id.addSpecificationCustom);
+
+
 
         mStorage = FirebaseStorage.getInstance().getReference();
 
@@ -210,6 +222,8 @@ public class AddVariationsCustomizePage extends AppCompatActivity {
 
 
         list = new ArrayList<>();
+
+
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         referenceSecondVar = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(itemid).child("Variations-Custom");
@@ -552,6 +566,15 @@ public class AddVariationsCustomizePage extends AppCompatActivity {
                 startActivityForResult(intent,SELECT_PHOTOGOV_PRODUCT);
 
 
+            }
+        });
+
+        addCustomSpecs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddVariationsCustomizePage.this, AddCustomSpecificationPage.class);
+                intent.putExtra("ProductID", itemid);
+                startActivity(intent);
             }
         });
 

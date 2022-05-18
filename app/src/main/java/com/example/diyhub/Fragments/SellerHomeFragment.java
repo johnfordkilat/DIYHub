@@ -141,7 +141,7 @@ public class SellerHomeFragment extends Fragment {
     }
 
     EditText subscription;
-    AlertDialog customDialog;
+    Dialog customDialog;
     Spinner accountsVerSpinner, paymentAccountsSpinner;
     ArrayList<String> listAccVer;
 
@@ -242,6 +242,7 @@ public class SellerHomeFragment extends Fragment {
         bookingSpinner = view.findViewById(R.id.bookingOptionSpinner);
         addBooking = view.findViewById(R.id.addBookingOption);
         removeBooking = view.findViewById(R.id.removeBookingOption);
+        customDialog = new Dialog(getContext());
 
 
         paymentBackendUrl  = getResources().getString(R.string.paymentBackendUrl);
@@ -363,7 +364,7 @@ public class SellerHomeFragment extends Fragment {
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                             Map<String,Object> map = new HashMap<>();
                             map.put("SubscriptionStatus", "Regular");
-                            reference.child("Subscription").child(user.getUid()).updateChildren(map);
+                            reference.child("Subscription").child(user.getUid()).child(user.getUid()+"-Subscription").updateChildren(map);
                             getSubscriptionStatus();
                         }
                     }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -629,7 +630,7 @@ public class SellerHomeFragment extends Fragment {
     {
         subsList = new ArrayList<>();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Subscription");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Subscription").child(user.getUid());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -1062,7 +1063,7 @@ public class SellerHomeFragment extends Fragment {
             map1.put("PaymentReference", user.getUid()+"-"+cutid);
             map1.put("DateAndTime", currentDateAndTime);
             map1.put("SubscriptionStatus", "Premium");
-            reference1.child("Subscription").child(user.getUid()).updateChildren(map1);
+            reference1.child("Subscription").child(user.getUid()).child(user.getUid()+"-Subscription").updateChildren(map1);
             upgraded = true;
 
         }

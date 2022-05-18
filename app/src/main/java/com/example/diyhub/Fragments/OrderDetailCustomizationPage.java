@@ -1,5 +1,8 @@
 package com.example.diyhub.Fragments;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.bumptech.glide.Glide;
+import com.example.diyhub.MESSAGES.ChatPage;
 import com.example.diyhub.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
@@ -56,7 +60,7 @@ public class OrderDetailCustomizationPage extends AppCompatActivity {
     Button paymentStatus;
     ImageView buyerImage;
     ImageView contactBuyer;
-    ImageButton backButton;
+    ImageView backButton;
     ImageButton copyButton;
     ImageView movetoAccepted;
 
@@ -67,6 +71,13 @@ public class OrderDetailCustomizationPage extends AppCompatActivity {
     CardView customerReqNotif;
     Button viewPriceLiquidationButton;
 
+    Button declineOrder;
+
+    Dialog varDialog;
+    EditText optionTxtBooking;
+    Button submitBooking;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +87,6 @@ public class OrderDetailCustomizationPage extends AppCompatActivity {
         standardPageImage = findViewById(R.id.customPageImage);
         bookingAddressSpinner = findViewById(R.id.bookingAddressSpinnerCustom);
         customerRequestSpinner = findViewById(R.id.customerRequestSpinnerCustom);
-        orderTrackerSpinner = findViewById(R.id.orderTrackerSpinnerCustom);
         itemCode = findViewById(R.id.itemCodeTxtCustom);
         itemName = findViewById(R.id.itemNameTxtCustom);
         quantity = findViewById(R.id.quantityTxtCustom);
@@ -86,13 +96,14 @@ public class OrderDetailCustomizationPage extends AppCompatActivity {
         orderDate = findViewById(R.id.orderDateTxtCustom);
         buyerImage = findViewById(R.id.buyerImageCustom);
         contactBuyer = findViewById(R.id.contactBuyerButtonCustom);
-        backButton = findViewById(R.id.backButtonCustomPage);
+        backButton = findViewById(R.id.backButtonOrderRequestCustom);
         copyButton = findViewById(R.id.copyButtonCustomPage);
         movetoAccepted = findViewById(R.id.moveToAcceptedButtonCustom);
         moveToCustom = findViewById(R.id.moveToCustomizationButton);
         notif = findViewById(R.id.notificationNumberContainerOrderRequestCustom);
         customerReqNotif = findViewById(R.id.notificationNumberContainerOrderRequestCustomCustomerRequest);
         viewPriceLiquidationButton = findViewById(R.id.viewPriceLiquidationOrderRequestCustom);
+        declineOrder = findViewById(R.id.declineOrderButtonCustom);
 
 
 
@@ -105,9 +116,111 @@ public class OrderDetailCustomizationPage extends AppCompatActivity {
             list = extras.getParcelableArrayList("list");
         }
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
 
 
         int pos = Integer.parseInt(position);
+
+        declineOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builderBooking = new AlertDialog.Builder(OrderDetailCustomizationPage.this);
+                builderBooking.setTitle("Decline Reason Confirmation");
+
+                View view1 = getLayoutInflater().inflate(R.layout.layout_dialog_decline_order, null);
+                optionTxtBooking = view1.findViewById(R.id.setPaymentOptionTxtDeclineOrder);
+                submitBooking = view1.findViewById(R.id.submitButtonDeclineOrder);
+                builderBooking.setView(view1);
+
+
+                submitBooking.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        String data = optionTxtBooking.getText().toString().trim();
+                        if(data.isEmpty())
+                        {
+                            optionTxtBooking.setError("Cannot be Empty");
+                            optionTxtBooking.requestFocus();
+                        }
+                        else
+                        {
+                            if(list.get(pos).getPaymentStatus().equalsIgnoreCase("PAID"))
+                            {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(OrderDetailCustomizationPage.this);
+                                builder.setTitle("Confirmation");
+                                builder.setMessage("Order will be tagged as Return/Refund Order");
+                                builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+
+                                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
+                                        Map<String, Object> map1 = new HashMap<>();
+                                        map1.put("NotifHeader","Return/Refund Order");
+                                        reference1.child("Notifications").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map1);
+
+                                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                                        Map<String, Object> map = new HashMap<>();
+                                        map.put("OrderStatus","Return/Refund Order");
+                                        map.put(("OrderDeclineReason"), data);
+                                        reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map);
+                                        Toast.makeText(OrderDetailCustomizationPage.this, "Order is moved to Return/Refund Order", Toast.LENGTH_SHORT).show();
+                                        varDialog.dismiss();
+                                    }
+                                });
+                                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+                                builder.create().show();
+
+                            }
+                            else
+                            {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(OrderDetailCustomizationPage.this);
+                                builder.setTitle("Confirmation");
+                                builder.setMessage("Order will be tagged as Cancelled Order");
+                                builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
+                                        Map<String, Object> map1 = new HashMap<>();
+                                        map1.put("NotifHeader","Cancelled Order");
+                                        reference1.child("Notifications").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map1);
+
+                                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                                        Map<String, Object> map = new HashMap<>();
+                                        map.put("OrderStatus","Cancelled Order");
+                                        map.put(("OrderDeclineReason"), data);
+                                        reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map);
+                                        Toast.makeText(OrderDetailCustomizationPage.this, "Order is moved to Cancelled Order", Toast.LENGTH_SHORT).show();
+                                        varDialog.dismiss();
+                                    }
+                                });
+                                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+                                builder.create().show();
+                            }
+
+                        }
+                    }
+                });
+                varDialog = builderBooking.create();
+                varDialog.show();
+
+
+            }
+        });
+
 
         viewPriceLiquidationButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +229,12 @@ public class OrderDetailCustomizationPage extends AppCompatActivity {
                         OrderDetailCustomizationPage.this, R.style.BottomSheetDialogTheme
                 );
                 View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_bottom_sheet, (LinearLayout)findViewById(R.id.bottomSheetContainer));
+                bottomSheetView.findViewById(R.id.confirmButtonPriceLiquidation).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        bottomSheetDialog.dismiss();
+                    }
+                });
                 TextView merchTotal = (TextView) bottomSheetView.findViewById(R.id.merchSubtotalTxt);
                 TextView shippingTotal = (TextView) bottomSheetView.findViewById(R.id.shippingSubTotalTxt);
                 TextView addfees = (TextView) bottomSheetView.findViewById(R.id.additionalFeesTxt);
@@ -138,6 +257,7 @@ public class OrderDetailCustomizationPage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(OrderDetailCustomizationPage.this, OrderDetailCustomPagePreview.class);
                 intent.putExtra("ProductID", list.get(pos).getProductID());
+                intent.putExtra("ProductImage", list.get(pos).getOrderProductImage());
                 startActivity(intent);
             }
         });
@@ -170,8 +290,8 @@ public class OrderDetailCustomizationPage extends AppCompatActivity {
         contactBuyer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(OrderDetailCustomizationPage.this, "Contact Buyer!", Toast.LENGTH_SHORT).show();
-            }
+                Intent intent = new Intent(getApplicationContext(), ChatPage.class);
+                startActivity(intent);            }
         });
 
         if(list.get(pos).getPaymentOption().equalsIgnoreCase("COD"))
@@ -187,7 +307,6 @@ public class OrderDetailCustomizationPage extends AppCompatActivity {
         }
         orderDate.setText(list.get(pos).getOrderDate());
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         movetoAccepted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -218,12 +337,10 @@ public class OrderDetailCustomizationPage extends AppCompatActivity {
 
         bookingAddressList = new ArrayList<>();
         customerRequestList = new ArrayList<>();
-        orderTrackerList = new ArrayList<>();
 
         bookingAddressList.add(0, "Booking Address");
         bookingAddressList.add(1, list.get(pos).getBookingAddress());
         customerRequestList.add(0, "Customer Request");
-        orderTrackerList.add(0, "Order Tracker");
 
         if(bookingAddressList.size() > 1)
         {
@@ -360,38 +477,7 @@ public class OrderDetailCustomizationPage extends AppCompatActivity {
 
 
 
-        //Order Tracker Spinner
-        orderAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, orderTrackerList)
-        {
-            @Override
-            public boolean isEnabled(int position){
-                if(position == 0)
-                {
-                    // Disable the first item from Spinner
-                    // First item will be use for hint
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            @Override
-            public View getDropDownView(int position, View convertView,
-                                        ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-                TextView tv = (TextView) view;
-                if(position == 0){
-                    // Set the hint text color gray
-                    tv.setTextColor(Color.GRAY);
-                }
-                else {
-                    tv.setTextColor(Color.BLACK);
-                }
-                return view;
-            }
-        };
-        orderTrackerSpinner.setAdapter(orderAdapter);
+
 
 
     }
