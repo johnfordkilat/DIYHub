@@ -31,7 +31,8 @@
             android:exported="false" />
         <activity
             android:name=".Fragments.ShopPage"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".Fragments.SellerStatsPage"
             android:exported="false" />

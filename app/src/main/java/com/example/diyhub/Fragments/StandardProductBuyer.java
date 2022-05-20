@@ -9,7 +9,15 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.diyhub.AllProductsAdapter;
+import com.example.diyhub.AllProductsList;
+import com.example.diyhub.HoldProductsAdapter;
+import com.example.diyhub.HoldProductsList;
 import com.example.diyhub.R;
+import com.example.diyhub.RestockProductsAdapter;
+import com.example.diyhub.RestockProductsList;
+
+import java.util.ArrayList;
 
 public class StandardProductBuyer extends AppCompatActivity {
 

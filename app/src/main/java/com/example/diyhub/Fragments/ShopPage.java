@@ -2,6 +2,7 @@ package com.example.diyhub.Fragments;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,6 +36,7 @@ public class ShopPage extends AppCompatActivity {
     ArrayList<AllProductsList> allProductsLists;
     ProgressDialog progressDialog;
     String sellerID;
+    SearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +45,7 @@ public class ShopPage extends AppCompatActivity {
         allProductsRecyclerView = findViewById(R.id.sellerProductsRecycler);
         allProductsRecyclerView.setHasFixedSize(true);
         allProductsRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        searchView = findViewById(R.id.searchMessagesBuyer);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null)
@@ -87,6 +90,41 @@ public class ShopPage extends AppCompatActivity {
             }
         });
 
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(searchView != null)
+        {
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    search(newText);
+                    return true;
+                }
+            });
+        }
+    }
+
+    private void search(String text) {
+        ArrayList<AllProductsList> filterList = new ArrayList<>();
+        for(AllProductsList list : allProductsLists)
+        {
+            if(list.getProductName().toLowerCase().contains(text.toLowerCase()))
+            {
+                filterList.add(list);
+            }
+        }
+        AllProductsAdapter adapter = new AllProductsAdapter(getApplicationContext(),filterList);
+        allProductsRecyclerView.setAdapter(adapter);
 
 
     }
