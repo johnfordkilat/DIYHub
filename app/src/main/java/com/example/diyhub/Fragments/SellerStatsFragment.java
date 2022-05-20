@@ -316,7 +316,7 @@ public class SellerStatsFragment extends Fragment {
 
 
                 BarDataSet barDataSet = new BarDataSet(barEntries, "Sales");
-                barDataSet.setColor(Color.RED);
+                barDataSet.setColor(Color.GREEN);
                 BarData data = new BarData(barDataSet);
                 barchartSales.setData(data);
                 data.setBarWidth(0.50f);
@@ -412,7 +412,7 @@ public class SellerStatsFragment extends Fragment {
 
 
                 BarDataSet barDataSet = new BarDataSet(barEntries, "Shop Views");
-                barDataSet.setColor(Color.RED);
+                barDataSet.setColor(Color.BLUE);
                 BarData data = new BarData(barDataSet);
                 barchartShopViews.setData(data);
                 data.setBarWidth(0.50f);

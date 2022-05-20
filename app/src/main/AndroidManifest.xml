@@ -27,6 +27,12 @@
         android:theme="@style/Theme.DIYHub"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Fragments.StandardProductBuyer"
+            android:exported="false" />
+        <activity
+            android:name=".Fragments.ShopPage"
+            android:exported="false" />
+        <activity
             android:name=".Fragments.SellerStatsPage"
             android:exported="false" />
         <activity

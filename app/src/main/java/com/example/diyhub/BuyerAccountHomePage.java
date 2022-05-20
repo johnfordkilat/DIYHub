@@ -25,6 +25,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.diyhub.Fragments.ShopsList;
 import com.example.diyhub.MESSAGES.Chat;
 import com.example.diyhub.MESSAGES.ChatPage;
 import com.example.diyhub.Notifications.NotificationPromo;
@@ -32,6 +33,7 @@ import com.example.diyhub.Notifications.NotificationPromoDisplay;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -70,8 +72,7 @@ public class BuyerAccountHomePage extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
     //vars
-    private ArrayList<String> mNames = new ArrayList<>();
-    private ArrayList<String> mImageUrls = new ArrayList<>();
+    private ArrayList<ShopsList> mImageUrls;
 
     private ArrayList<String> mNames1 = new ArrayList<>();
     private ArrayList<String> mImageUrls1 = new ArrayList<>();
@@ -82,6 +83,7 @@ public class BuyerAccountHomePage extends AppCompatActivity {
     TextView chatCounter;
     CardView chatCardView;
 
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +99,12 @@ public class BuyerAccountHomePage extends AppCompatActivity {
         chat = findViewById(R.id.chatImageView);
         chatCounter = findViewById(R.id.chatCounterBuyer);
         chatCardView = findViewById(R.id.chatNumberContainerBuyer);
+
+        recyclerView = findViewById(R.id.recyclerView);
+        mImageUrls = new ArrayList<>();
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -145,8 +153,7 @@ public class BuyerAccountHomePage extends AppCompatActivity {
             }
         });
         getImages();
-        getImages1();
-        getImages2();
+
 
         notif.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,48 +198,33 @@ public class BuyerAccountHomePage extends AppCompatActivity {
     private void getImages(){
         Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
 
-        mImageUrls.add("https://firebasestorage.googleapis.com/v0/b/diy-hub-847fb.appspot.com/o/jfkta.pale.s12.3%40gmail.com%20Valid%20ID's%2FVALID%20ID%2Fimage%3A4690?alt=media&token=2468ce64-2e76-45d0-bcc3-4e794ce3b594");
-        mNames.add("Havasu Falls");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Shops");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mImageUrls.clear();
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    ShopsList list = snapshot.getValue(ShopsList.class);
+                    mImageUrls.add(list);
+                }
+                RecyclerViewAdapterRecom adapter = new RecyclerViewAdapterRecom(BuyerAccountHomePage.this, mImageUrls);
+                recyclerView.setAdapter(adapter);
+            }
 
-        mImageUrls.add("https://firebasestorage.googleapis.com/v0/b/diy-hub-847fb.appspot.com/o/jfkta.pale.s12.3%40gmail.com%20Valid%20ID's%2FVALID%20ID%2Fimage%3A4691?alt=media&token=762680f5-298b-425c-ab7b-609fbcae18d0");
-        mNames.add("Trondheim");
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-        mImageUrls.add("https://firebasestorage.googleapis.com/v0/b/diy-hub-847fb.appspot.com/o/jfkta.pale.s12.3%40gmail.com%20Valid%20ID's%2FVALID%20ID%2Fimage%3A4693?alt=media&token=704e2712-472f-4696-a833-0736ec5bbb10");
-        mNames.add("Portugal");
-
-        mImageUrls.add("https://www.travelingcebu.com/images/store-crystals.jpg");
-        mNames.add("Rocky Mountain National Park");
+            }
+        });
 
 
-        mImageUrls.add("https://sugbo.ph/wp-content/uploads/2020/02/1cafes-and-coffee-shops-in-cebu-city.jpg");
-        mNames.add("Mahahual");
 
-        mImageUrls.add("https://cebu247.com/wp-content/uploads/2020/01/Cebu-Souvenir-Shops-1-696x364.jpg");
-        mNames.add("Frozen Lake");
-
-
-        mImageUrls.add("https://media-cdn.tripadvisor.com/media/photo-s/16/4c/85/12/bahandi-souvenir-and.jpg");
-        mNames.add("White Sands Desert");
-
-        mImageUrls.add("https://sugbo.ph/wp-content/uploads/2019/05/Mangaholics-Reading-Lounge-Cebu-City-1-1024x576.jpg");
-        mNames.add("Austrailia");
-
-        mImageUrls.add("https://mycebu.ph/wp-content/uploads/2017/11/Miniso-Cebu-24.jpg");
-        mNames.add("Washington");
-
-        initRecyclerView();
 
     }
 
-    private void initRecyclerView(){
-        Log.d("RecomShops", "initRecyclerView: init recyclerview");
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(layoutManager);
-        RecyclerViewAdapterRecom adapter = new RecyclerViewAdapterRecom(this, mNames, mImageUrls);
-        recyclerView.setAdapter(adapter);
-    }
+    /*
     private void getImages1(){
         Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
 
@@ -321,6 +313,8 @@ public class BuyerAccountHomePage extends AppCompatActivity {
         RecyclerViewAdapterShopsNear adapter = new RecyclerViewAdapterShopsNear(this, mNames2, mImageUrls2);
         recyclerView.setAdapter(adapter);
     }
+
+     */
 
     private void openCartPage() {
         Intent intent = new Intent(BuyerAccountHomePage.this, CartPage.class);

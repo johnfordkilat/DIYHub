@@ -11,13 +11,16 @@ public class AllProductsList {
     String ProductDescription;
     int ProductQuantity;
     int ProductStocks;
+    double ProductRating;
+    String ProductBookFrom;
 
     public AllProductsList(){
 
     }
 
     public AllProductsList(String productName, int productQuantity, int productStocks, String prodImage, String prodID, String prodImgStatus, String prodStatus,
-                           String productType, double productPrice, double productSold, String productDescription, String productMaterial) {
+                           String productType, double productPrice, double productSold, String productDescription, String productMaterial, double productRating,
+                           String productBookFrom) {
         ProductName = productName;
         ProductQuantity = productQuantity;
         ProductStocks = productStocks;
@@ -30,6 +33,24 @@ public class AllProductsList {
         ProductSold = productSold;
         ProductDescription = productDescription;
         ProductMaterial = productMaterial;
+        ProductRating = productRating;
+        ProductBookFrom = productBookFrom;
+    }
+
+    public String getProductBookFrom() {
+        return ProductBookFrom;
+    }
+
+    public void setProductBookFrom(String productBookFrom) {
+        ProductBookFrom = productBookFrom;
+    }
+
+    public double getProductRating() {
+        return ProductRating;
+    }
+
+    public void setProductRating(double productRating) {
+        ProductRating = productRating;
     }
 
     public String getProductName() {

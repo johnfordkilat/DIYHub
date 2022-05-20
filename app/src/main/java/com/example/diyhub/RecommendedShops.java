@@ -20,9 +20,10 @@ public class RecommendedShops extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommended_shops);
-        getImages();
+        //getImages();
     }
 
+    /*
     private void getImages(){
         Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
 
@@ -89,4 +90,6 @@ public class RecommendedShops extends AppCompatActivity {
         RecyclerViewAdapterRecomShops adapter = new RecyclerViewAdapterRecomShops(this, mNames, mImageUrls, seq);
         recyclerView.setAdapter(adapter);
     }
+
+     */
 }

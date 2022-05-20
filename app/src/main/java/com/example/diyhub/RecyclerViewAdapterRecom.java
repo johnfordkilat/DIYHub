@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.diyhub.Fragments.ShopPage;
+import com.example.diyhub.Fragments.ShopsList;
 
 import java.util.ArrayList;
 
@@ -23,13 +25,11 @@ public class RecyclerViewAdapterRecom extends RecyclerView.Adapter<RecyclerViewA
     private static final String TAG = "RecyclerViewAdapter";
 
     //vars
-    private ArrayList<String> mNames = new ArrayList<>();
-    private ArrayList<String> mImageUrls = new ArrayList<>();
+    private ArrayList<ShopsList> mImageUrls;
     private Context mContext;
 
 
-    public RecyclerViewAdapterRecom(Context context, ArrayList<String> names, ArrayList<String> imageUrls) {
-        mNames = names;
+    public RecyclerViewAdapterRecom(Context context, ArrayList<ShopsList> imageUrls) {
         mImageUrls = imageUrls;
         mContext = context;
     }
@@ -44,20 +44,17 @@ public class RecyclerViewAdapterRecom extends RecyclerView.Adapter<RecyclerViewA
     public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 
-        Glide.with(mContext)
-                .asBitmap()
-                .load(mImageUrls.get(position))
-                .into(holder.image);
+        Glide.with(mContext).load(mImageUrls.get(position).getShopImage()).into(holder.image);
 
-        holder.name.setText(mNames.get(position));
+        holder.name.setText(mImageUrls.get(position).getShopName());
 
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "onClick: clicked on an image: " + mNames.get(position));
-                Toast.makeText(mContext, mNames.get(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, mImageUrls.get(position).getSellerID(), Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(mContext, RecommendedShops.class);
+                Intent intent = new Intent(mContext, ShopPage.class);
+                intent.putExtra("SellerID", mImageUrls.get(position).getSellerID());
                 mContext.startActivity(intent);
             }
         });
