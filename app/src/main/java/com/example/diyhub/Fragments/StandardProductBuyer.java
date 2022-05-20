@@ -1,6 +1,8 @@
 package com.example.diyhub.Fragments;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -16,8 +18,17 @@ import com.example.diyhub.HoldProductsList;
 import com.example.diyhub.R;
 import com.example.diyhub.RestockProductsAdapter;
 import com.example.diyhub.RestockProductsList;
+import com.example.diyhub.ViewPageAdapterProductDetailsStandard;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StandardProductBuyer extends AppCompatActivity {
 
@@ -38,13 +49,16 @@ public class StandardProductBuyer extends AppCompatActivity {
     TextView prodName;
     String name;
 
+    List<ProductDetailsImagesList> prodImagesList;
+    ViewPager viewPager;
+    String sellerID;
+    String prodID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_standard_product);
 
-        productImg = findViewById(R.id.imageProduct);
         productBookFrom = findViewById(R.id.bookFromProduct);
         descriptionProduct = findViewById(R.id.descriptionProduct);
         priceProduct = findViewById(R.id.priceProduct);
@@ -54,6 +68,9 @@ public class StandardProductBuyer extends AppCompatActivity {
         stockProduct = findViewById(R.id.stockProduct);
         ratingBar = findViewById(R.id.ratingBarBuyer);
         prodName = findViewById(R.id.nameProductBuyer);
+        viewPager = findViewById(R.id.viewPagerStandardBuyer);
+
+        prodImagesList = new ArrayList<>();
 
         Bundle extras = getIntent().getExtras();
         if(extras != null)
@@ -66,10 +83,11 @@ public class StandardProductBuyer extends AppCompatActivity {
             price = extras.getDouble("ProductPrice");
             description = extras.getString("ProductDescription");
             name = extras.getString("ProductName");
+            sellerID = extras.getString("SellerID");
+            prodID  = extras.getString("ProductID");
 
         }
 
-        Glide.with(this).load(prodImage).into(productImg);
         productBookFrom.setText(bookfrom);
         productRating.setText(String.valueOf(rating));
         ratingBar.setRating((float)rating);
@@ -79,6 +97,27 @@ public class StandardProductBuyer extends AppCompatActivity {
         prodName.setText(name);
 
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(sellerID).child(prodID).child("ProductImages");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                prodImagesList.clear();
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    ProductDetailsImagesList allList = snapshot.getValue(ProductDetailsImagesList.class);
+                    prodImagesList.add(allList);
+                }
+                ViewPageAdapterProductDetailsStandard viewPageAdapterProductDetailsStandard = new ViewPageAdapterProductDetailsStandard(StandardProductBuyer.this, prodImagesList);
+
+                viewPager.setAdapter(viewPageAdapterProductDetailsStandard);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
     }

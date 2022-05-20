@@ -13,6 +13,7 @@ public class AllProductsList {
     int ProductStocks;
     double ProductRating;
     String ProductBookFrom;
+    String SellerID;
 
     public AllProductsList(){
 
@@ -20,7 +21,7 @@ public class AllProductsList {
 
     public AllProductsList(String productName, int productQuantity, int productStocks, String prodImage, String prodID, String prodImgStatus, String prodStatus,
                            String productType, double productPrice, double productSold, String productDescription, String productMaterial, double productRating,
-                           String productBookFrom) {
+                           String productBookFrom, String sellerID) {
         ProductName = productName;
         ProductQuantity = productQuantity;
         ProductStocks = productStocks;
@@ -35,6 +36,15 @@ public class AllProductsList {
         ProductMaterial = productMaterial;
         ProductRating = productRating;
         ProductBookFrom = productBookFrom;
+        SellerID = sellerID;
+    }
+
+    public String getSellerID() {
+        return SellerID;
+    }
+
+    public void setSellerID(String sellerID) {
+        SellerID = sellerID;
     }
 
     public String getProductBookFrom() {

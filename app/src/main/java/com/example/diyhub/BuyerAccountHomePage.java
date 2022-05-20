@@ -198,6 +198,7 @@ public class BuyerAccountHomePage extends AppCompatActivity {
     private void getImages(){
         Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
 
+
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Shops");
         reference.addValueEventListener(new ValueEventListener() {
             @Override

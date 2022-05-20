@@ -111,6 +111,8 @@ public class AllProductsBuyerAdapter extends RecyclerView.Adapter<AllProductsBuy
                     intent.putExtra("ProductImage", productsList.getProductImage());
                     intent.putExtra("ProductDescription",productsList.getProductDescription());
                     intent.putExtra("ProductName",productsList.getProductName());
+                    intent.putExtra("SellerID",productsList.getSellerID());
+                    intent.putExtra("ProductID", productsList.getProductID());
                     context.startActivity(intent);
                 }
                 else
