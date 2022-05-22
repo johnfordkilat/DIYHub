@@ -125,15 +125,19 @@ public class CustomProductDetails extends AppCompatActivity {
             }
         });
 
-        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Shops").child(user.getUid());
+        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Shops");
         reference1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 shopsLists.clear();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren())
                 {
+
                     ShopsList listshops = snapshot.getValue(ShopsList.class);
-                    shopsLists.add(listshops);
+                    if(listshops.getSellerID().equalsIgnoreCase(user.getUid()))
+                    {
+                        shopsLists.add(listshops);
+                    }
                 }
                 shopNameTxt.setText("Shop Name: "+shopsLists.get(0).getShopName());
                 shopRatingTxt.setText("Shop Rating: "+shopsLists.get(0).getShopRating());

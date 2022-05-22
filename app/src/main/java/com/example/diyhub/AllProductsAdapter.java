@@ -131,6 +131,7 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
                 if(productsList.getProductType().equalsIgnoreCase("Standard"))
                 {
                     Intent intent = new Intent(context, StandardProductDetails.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("ProductID", productsList.getProductID());
                     intent.putExtra("ProductName", productsList.getProductName());
                     intent.putExtra("ProductPrice", productsList.getProductPrice());
@@ -143,6 +144,7 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
                 else
                 {
                     Intent intent = new Intent(context, CustomProductDetails.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("ProductID", productsList.getProductID());
                     intent.putExtra("ProductName", productsList.getProductName());
                     intent.putExtra("ProductPrice", productsList.getProductPrice());

@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -216,6 +217,12 @@ public class ProfilePage extends AppCompatActivity implements MessageDialog.Exam
                             Log.d("DownloadUrl", url);
                             progressDialog.dismiss();
                             setProfileBuyer(uri);
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                            Map<String, Object> map = new HashMap<>();
+                            map.put("imageUrl",url);
+                            reference.child("Users").child(user.getUid()).updateChildren(map);
+
                             DocumentReference documentReference = dbFirestore.collection("USERPROFILE").document(emailBuyer);
                             Map<String,Object> userBuyer = new HashMap<>();
                             userBuyer.put("UserProfileImage",url);
