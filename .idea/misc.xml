@@ -3,6 +3,27 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_add_booking_address_buyer.xml" value="0.371875" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_add_standard_product.xml" value="0.15729483282674772" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_cart_page.xml" value="0.15729483282674772" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_home_page.xml" value="0.15729483282674772" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_accepted_customization_page.xml" value="0.371875" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_customization_page.xml" value="0.5" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_products_page.xml" value="0.15729483282674772" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_profile_page.xml" value="0.15729483282674772" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_recommended_shops.xml" value="0.33" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_seller_home_page.xml" value="0.15729483282674772" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_shop_page.xml" value="0.25" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_shopping_cart_buyer.xml" value="0.25" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_standard_product.xml" value="0.25" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_standard_product_details.xml" value="0.25" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_standard_product_page.xml" value="0.22" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/DIYHub/app/src/main/res/layout/add_booking_layout.xml" value="0.371875" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/DIYHub/app/src/main/res/layout/address_popup.xml" value="0.37083333333333335" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/DIYHub/app/src/main/res/layout/allproducts.xml" value="0.2" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/DIYHub/app/src/main/res/layout/custom_homepage.xml" value="0.15729483282674772" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/DIYHub/app/src/main/res/layout/recommendedshopslayout.xml" value="0.33" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/DIYHub/app/src/main/res/layout/shoppingcart.xml" value="0.5" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/drawable/border_image.xml" value="0.2335" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/drawable/border_shadow.xml" value="0.285" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/drawable/bottom_sheet_background.xml" value="0.285" />
