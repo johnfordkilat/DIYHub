@@ -232,13 +232,6 @@ public class SellerHomePage extends AppCompatActivity {
             orderRequestTab = extras.getInt("TablayoutTab");
         }
 
-        image40.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SellerHomePage.this, SellerStatsPage.class);
-                startActivity(intent);
-            }
-        });
 
 
 
