@@ -1,5 +1,7 @@
 package com.example.diyhub;
 
+import com.example.diyhub.Fragments.ShopsList;
+
 public class AllProductsList {
 
     String ProductName;
@@ -14,6 +16,7 @@ public class AllProductsList {
     double ProductRating;
     String ProductBookFrom;
     String SellerID;
+    String ShopName;
 
     public AllProductsList(){
 
@@ -21,7 +24,7 @@ public class AllProductsList {
 
     public AllProductsList(String productName, int productQuantity, int productStocks, String prodImage, String prodID, String prodImgStatus, String prodStatus,
                            String productType, double productPrice, double productSold, String productDescription, String productMaterial, double productRating,
-                           String productBookFrom, String sellerID) {
+                           String productBookFrom, String sellerID, String shopName) {
         ProductName = productName;
         ProductQuantity = productQuantity;
         ProductStocks = productStocks;
@@ -37,10 +40,19 @@ public class AllProductsList {
         ProductRating = productRating;
         ProductBookFrom = productBookFrom;
         SellerID = sellerID;
+        ShopName = shopName;
     }
 
     public String getSellerID() {
         return SellerID;
+    }
+
+    public String getShopName() {
+        return ShopName;
+    }
+
+    public void setShopName(String shopName) {
+        ShopName = shopName;
     }
 
     public void setSellerID(String sellerID) {

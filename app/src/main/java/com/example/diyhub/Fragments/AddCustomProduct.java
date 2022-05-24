@@ -1,5 +1,6 @@
 package com.example.diyhub.Fragments;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,8 +13,11 @@ import android.widget.EditText;
 import com.example.diyhub.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +36,8 @@ public class AddCustomProduct extends AppCompatActivity {
     String cutid;
 
     Button addVariations;
+    String shopName="";
+    String shopAddress="";
 
     EditText prodDescriptionTxt,prodMaterialTxt,prodPriceTxt,prodSoldTxt;
 
@@ -55,6 +61,7 @@ public class AddCustomProduct extends AppCompatActivity {
         id = UUID.randomUUID().toString();
         cutid = id.substring(0,11);
 
+        getShopName();
 
 
         addVariations.setOnClickListener(new View.OnClickListener() {
@@ -147,6 +154,12 @@ public class AddCustomProduct extends AppCompatActivity {
                         sellerProductsfb.put("ProductMaterial", materialUsed);
                         sellerProductsfb.put("ProductPrice", price);
                         sellerProductsfb.put("ProductSold", sold);
+                        sellerProductsfb.put("SellerID",user.getUid());
+                        sellerProductsfb.put("ShopName",shopName);
+                        sellerProductsfb.put("ProductBookFrom",shopAddress);
+                        sellerProductsfb.put("ProductRating",4.5);
+
+
 
                         reference.child("SellerProducts").child(user.getUid()).child(cutid).setValue(sellerProductsfb);
                     }
@@ -166,6 +179,13 @@ public class AddCustomProduct extends AppCompatActivity {
                         sellerProductsfb.put("ProductMaterial", materialUsed);
                         sellerProductsfb.put("ProductPrice", price);
                         sellerProductsfb.put("ProductSold", sold);
+                        sellerProductsfb.put("SellerID",user.getUid());
+                        sellerProductsfb.put("ShopName",shopName);
+                        sellerProductsfb.put("ProductBookFrom",shopAddress);
+                        sellerProductsfb.put("ProductRating",4.5);
+
+
+
                         reference.child("SellerProducts").child(user.getUid()).child(cutid).setValue(sellerProductsfb);
                     }
 
@@ -184,5 +204,29 @@ public class AddCustomProduct extends AppCompatActivity {
 
 
 
+    }
+    private void getShopName()
+    {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Shops");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    ShopsList shopsList = snapshot.getValue(ShopsList.class);
+                    if(shopsList.getSellerID().equalsIgnoreCase(user.getUid()))
+                    {
+                        shopName = shopsList.getShopName();
+                        shopAddress = shopsList.getShopAddress();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

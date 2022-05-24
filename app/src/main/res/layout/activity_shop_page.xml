@@ -70,7 +70,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
         <ImageView
-            android:id="@+id/favoriteButton"
+            android:id="@+id/favoriteButtonShopPageBuyer"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="290dp"
@@ -78,15 +78,23 @@
             android:src="@drawable/heart" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/ratingTxtShopPage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="140dp"
             android:layout_marginTop="50dp"
             android:text="Rating" />
+        <RatingBar
+            android:id="@+id/ratingBarShopPage"
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:rating="5"
+            android:layout_marginStart="140dp"
+            android:layout_marginTop="70dp"
+            style="@style/Widget.AppCompat.RatingBar.Small"/>
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/shopNameTxtShopPage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="140dp"

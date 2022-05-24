@@ -4,20 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.example.diyhub.AllProductsAdapter;
-import com.example.diyhub.AllProductsList;
-import com.example.diyhub.HoldProductsAdapter;
-import com.example.diyhub.HoldProductsList;
+import com.example.diyhub.PlaceOrderPageBuyer;
 import com.example.diyhub.R;
-import com.example.diyhub.RestockProductsAdapter;
-import com.example.diyhub.RestockProductsList;
 import com.example.diyhub.ViewPageAdapterProductDetailsStandard;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,7 +28,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StandardProductBuyer extends AppCompatActivity {
 
@@ -40,6 +42,7 @@ public class StandardProductBuyer extends AppCompatActivity {
     TextView productRating;
     TextView buyNow;
     TextView stockProduct;
+    TextView addToCart;
 
     String prodImage,bookfrom;
     double rating,sold,stock,price;
@@ -53,22 +56,28 @@ public class StandardProductBuyer extends AppCompatActivity {
     ViewPager viewPager;
     String sellerID;
     String prodID;
+    Dialog closeDialog;
+    TextView shopNameTxt;
+    String shopName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_standard_product);
+        setContentView(R.layout.activity_standard_product_buyer);
 
         productBookFrom = findViewById(R.id.bookFromProduct);
         descriptionProduct = findViewById(R.id.descriptionProduct);
         priceProduct = findViewById(R.id.priceProduct);
-        soldProduct = findViewById(R.id.productSold);
+        soldProduct = findViewById(R.id.productSoldStandardProductBuyer);
         productRating = findViewById(R.id.ratingNum);
         buyNow = findViewById(R.id.buyNowBtn);
         stockProduct = findViewById(R.id.stockProduct);
         ratingBar = findViewById(R.id.ratingBarBuyer);
-        prodName = findViewById(R.id.nameProductBuyer);
+        shopNameTxt = findViewById(R.id.shopNameStandardProductBuyer);
         viewPager = findViewById(R.id.viewPagerStandardBuyer);
+        addToCart = findViewById(R.id.addToCartStandard);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
 
         prodImagesList = new ArrayList<>();
 
@@ -85,19 +94,74 @@ public class StandardProductBuyer extends AppCompatActivity {
             name = extras.getString("ProductName");
             sellerID = extras.getString("SellerID");
             prodID  = extras.getString("ProductID");
+            shopName = extras.getString("ShopName");
 
         }
 
-        productBookFrom.setText(bookfrom);
+        productBookFrom.setText("Shop Address: "+bookfrom);
         productRating.setText(String.valueOf(rating));
         ratingBar.setRating((float)rating);
-        priceProduct.setText(String.valueOf(price));
+        priceProduct.setText("₱"+String.valueOf(price));
         descriptionProduct.setText(description);
-        stockProduct.setText(String.valueOf(stock));
-        prodName.setText(name);
+        stockProduct.setText("Stock: "+String.valueOf(stock));
+        shopNameTxt.setText(name);
+        soldProduct.setText(String.valueOf(sold)+" Sold");
+
+        buyNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StandardProductBuyer.this, PlaceOrderPageBuyer.class);
+                intent.putExtra("ProductID",prodID);
+                intent.putExtra("SellerID",sellerID);
+                startActivity(intent);
+            }
+        });
+        
+        addToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getRootView().getContext());
+                builder.setTitle("Cart Confirmation");
+
+                View view = getLayoutInflater().inflate(R.layout.layout_dialog_for_all, null);
+                EditText quantity = view.findViewById(R.id.setQuantityCartPage);
+                Button submit = view.findViewById(R.id.submitButtonCartPage);
+                builder.setView(view);
+
+                submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(quantity.getText().toString().trim().isEmpty())
+                        {
+                            quantity.setError("Required");
+                            quantity.requestFocus();
+                            return;
+                        }
+                        else
+                        {
+                            int quant = Integer.parseInt(String.valueOf(quantity.getText().toString().trim()));
+                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                            Map<String, Object> map = new HashMap<>();
+                            map.put("ProductName",name);
+                            map.put("ProductID",prodID);
+                            map.put("ProductImage",prodImage);
+                            map.put("ProductQuantity",quant);
+                            map.put("ProductPrice",price);
+                            map.put("TotalPrice",0);
+                            reference.child("ShoppingCart").child(user.getUid()).child(prodID).updateChildren(map);
+                            Toast.makeText(StandardProductBuyer.this, "Product Added to Cart", Toast.LENGTH_SHORT).show();
+                            closeDialog.dismiss();
+                        }
+
+                    }
+                });
+                closeDialog = builder.create();
+                closeDialog.show();
 
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            }
+        });
+
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(sellerID).child(prodID).child("ProductImages");
         reference.addValueEventListener(new ValueEventListener() {
             @Override

@@ -689,22 +689,67 @@ public class SellerOrdersFragment extends Fragment {
                     else if(ordersList1.getOrderStatus().equalsIgnoreCase("To Book"))
                     {
                         ordersListsToBook.add(ordersList1);
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("IsSeen","false");
+                        map.put("NotifDateAndTime", currentDateAndTime);
+                        map.put("NotifDescription", ordersList1.getBuyerName() + " made an Order of the Product "+ ordersList1.getOrderProductName());
+                        map.put("NotifHeader", "To Book");
+                        map.put("NotifID",ordersList1.getOrderID());
+                        map.put("NotifImage",ordersList1.getOrderProductImage());
+                        reference.child("Notifications").child(user.getUid()).child(ordersList1.getOrderID()).setValue(map);
                     }
                     else if(ordersList1.getOrderStatus().equalsIgnoreCase("To Receive"))
                     {
                         ordersListsToReceive.add(ordersList1);
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("IsSeen","false");
+                        map.put("NotifDateAndTime", currentDateAndTime);
+                        map.put("NotifDescription", ordersList1.getBuyerName() + " made an Order of the Product "+ ordersList1.getOrderProductName());
+                        map.put("NotifHeader", "To Receive");
+                        map.put("NotifID",ordersList1.getOrderID());
+                        map.put("NotifImage",ordersList1.getOrderProductImage());
+                        reference.child("Notifications").child(user.getUid()).child(ordersList1.getOrderID()).setValue(map);
                     }
                     else if(ordersList1.getOrderStatus().equalsIgnoreCase("Completed Order"))
                     {
                         ordersListsCompleted.add(ordersList1);
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("IsSeen","false");
+                        map.put("NotifDateAndTime", currentDateAndTime);
+                        map.put("NotifDescription", ordersList1.getBuyerName() + " made an Order of the Product "+ ordersList1.getOrderProductName());
+                        map.put("NotifHeader", "Completed Order");
+                        map.put("NotifID",ordersList1.getOrderID());
+                        map.put("NotifImage",ordersList1.getOrderProductImage());
+                        reference.child("Notifications").child(user.getUid()).child(ordersList1.getOrderID()).setValue(map);
                     }
                     else if(ordersList1.getOrderStatus().equalsIgnoreCase("Cancelled Order"))
                     {
                         ordersListsCancelled.add(ordersList1);
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("IsSeen","false");
+                        map.put("NotifDateAndTime", currentDateAndTime);
+                        map.put("NotifDescription", ordersList1.getBuyerName() + " made an Order of the Product "+ ordersList1.getOrderProductName());
+                        map.put("NotifHeader", "Cancelled Order");
+                        map.put("NotifID",ordersList1.getOrderID());
+                        map.put("NotifImage",ordersList1.getOrderProductImage());
+                        reference.child("Notifications").child(user.getUid()).child(ordersList1.getOrderID()).setValue(map);
                     }
                     else if(ordersList1.getOrderStatus().equalsIgnoreCase("Return/Refund Order"))
                     {
                         ordersListsReturnOrRefund.add(ordersList1);
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("IsSeen","false");
+                        map.put("NotifDateAndTime", currentDateAndTime);
+                        map.put("NotifDescription", ordersList1.getBuyerName() + " made an Order of the Product "+ ordersList1.getOrderProductName());
+                        map.put("NotifHeader", "Return/Refund Order");
+                        map.put("NotifID",ordersList1.getOrderID());
+                        map.put("NotifImage",ordersList1.getOrderProductImage());
+                        reference.child("Notifications").child(user.getUid()).child(ordersList1.getOrderID()).setValue(map);
                     }
                 }
                 Log.d("SELLERERROR", "error");
