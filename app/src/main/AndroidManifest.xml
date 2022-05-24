@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.diyhub">
+    package="com.example.diyhub" >
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -25,14 +25,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DIYHub"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true" >
+        <activity
+            android:name=".ShoppingCartBuyer"
+            android:exported="false" />
         <activity
             android:name=".Fragments.StandardProductBuyer"
             android:exported="false" />
         <activity
             android:name=".Fragments.ShopPage"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Fragments.SellerStatsPage"
             android:exported="false" />
@@ -53,6 +56,10 @@
             android:exported="false" />
         <activity
             android:name=".Fragments.AddCustomSpecificationPage"
+            android:exported="false" />
+
+        <activity
+            android:name=".Buyer.AddBookingAddressBuyer"
             android:exported="false" />
         <activity
             android:name=".Fragments.AddVariationsCustomizePage"
@@ -236,7 +243,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -249,7 +256,7 @@
         <service
             android:name=".Notifications.MyFirebaseIdService"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
@@ -257,7 +264,7 @@
         <service
             android:name=".Notifications.MyFirebaseMessaging"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

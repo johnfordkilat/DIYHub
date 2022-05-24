@@ -1,15 +1,10 @@
 package com.example.diyhub;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -17,7 +12,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,8 +34,6 @@ public class AccountVerificationPage extends AppCompatActivity {
     private static final int SELECT_PHOTOGOV = 1;
     private static final int SELECT_PHOTOTWO = 2;
     private static final int SELECT_PHOTOPERMIT = 3;
-    private static final int SELECT_PHOTORECORDEDVIDEO = 4;
-
     ImageView back,govID,twobytwo,permit,govImg,twobytwoImg,permitImg;
     TextView govStatus,twobytwoStatus,permitStatus;
     Button signup;
@@ -51,7 +43,7 @@ public class AccountVerificationPage extends AppCompatActivity {
     String[] data;
     String value1,value2,value3,value4,value5,value6,value7,value8,value9,value10,value11,value12;
 
-    Uri imageUri1,imageUri2,imageUri3,videoUri;
+    Uri imageUri1,imageUri2,imageUri3;
     StorageReference storageReference1,storageReference2,storageReference3;
     ProgressDialog progressDialog;
     private ArrayList<Uri> ImageList = new ArrayList<Uri>();
@@ -59,9 +51,6 @@ public class AccountVerificationPage extends AppCompatActivity {
     private int uploads = 0;
     private int success = 0;
     String productSize;
-    ImageView recordVideoButton;
-    VideoView recordedVideo;
-    Dialog closeDialog;
 
 
     @Override
@@ -98,43 +87,14 @@ public class AccountVerificationPage extends AppCompatActivity {
         twobytwoImg = findViewById(R.id.twobytwoImage);
         permitImg = findViewById(R.id.permitImage);
         signup = findViewById(R.id.signupButtonVerification);
-        recordVideoButton = findViewById(R.id.recordedLiveVideoUploadButton);
-        recordedVideo = findViewById(R.id.videoViewRecorded);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(AccountVerificationPage.this, "Continue the Verification First", Toast.LENGTH_SHORT).show();
+                backPage();
             }
         });
 
-        recordVideoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(AccountVerificationPage.this);
-                builder.setTitle("Uploading Recorded Video Reminders!");
-
-                View view = getLayoutInflater().inflate(R.layout.video_reminder_layout_dialog, null);
-                Button proceed = view.findViewById(R.id.proceedVerificationButton);
-                builder.setView(view);
-                closeDialog = builder.create();
-                closeDialog.show();
-
-                proceed.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                        //intent.setType("image/*");
-                        intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT,10);
-                        startActivityForResult(intent,SELECT_PHOTORECORDEDVIDEO);
-                        closeDialog.dismiss();
-                    }
-                });
-
-
-
-            }
-        });
 
         govID.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,14 +124,7 @@ public class AccountVerificationPage extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ImageList.size() < 4)
-                {
-                    Toast.makeText(AccountVerificationPage.this, "Please upload required Images", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    uploadImage();
-                }
+                uploadImage();
             }
         });
 
@@ -214,14 +167,6 @@ public class AccountVerificationPage extends AppCompatActivity {
             imageUri3 = data.getData();
             permitImg.setImageURI(imageUri3);
             ImageList.add(imageUri3);
-
-        }
-        if(requestCode == SELECT_PHOTORECORDEDVIDEO && resultCode == RESULT_OK  && data != null && data.getData() != null)
-        {
-            videoUri = data.getData();
-            recordedVideo.setVideoURI(videoUri);
-            recordedVideo.start();
-            ImageList.add(videoUri);
 
         }
     }
@@ -301,8 +246,5 @@ public class AccountVerificationPage extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
 
-    }
 }

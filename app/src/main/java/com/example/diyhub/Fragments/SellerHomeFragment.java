@@ -183,7 +183,6 @@ public class SellerHomeFragment extends Fragment {
     Button removeBooking;
     AlertDialog removeDialogBooking;
     String toDeleteBooking="";
-    Button viewMyShop;
 
 
 
@@ -243,7 +242,6 @@ public class SellerHomeFragment extends Fragment {
         bookingSpinner = view.findViewById(R.id.bookingOptionSpinner);
         addBooking = view.findViewById(R.id.addBookingOption);
         removeBooking = view.findViewById(R.id.removeBookingOption);
-        viewMyShop = view.findViewById(R.id.viewMyShopButton);
         customDialog = new Dialog(getContext());
 
 
@@ -266,14 +264,6 @@ public class SellerHomeFragment extends Fragment {
 
         list = new ArrayList<String>();
         list.add(0, "Choose Payment Method");
-
-        viewMyShop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ShopPageSeller.class);
-                startActivity(intent);
-            }
-        });
         
         addBooking.setOnClickListener(new View.OnClickListener() {
             @Override

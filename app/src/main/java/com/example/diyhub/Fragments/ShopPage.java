@@ -125,5 +125,7 @@ public class ShopPage extends AppCompatActivity {
         }
         AllProductsAdapter adapter = new AllProductsAdapter(getApplicationContext(),filterList);
         allProductsRecyclerView.setAdapter(adapter);
+
+
     }
 }

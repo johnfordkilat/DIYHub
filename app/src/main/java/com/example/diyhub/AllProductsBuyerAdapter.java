@@ -96,15 +96,6 @@ public class AllProductsBuyerAdapter extends RecyclerView.Adapter<AllProductsBuy
         holder.priceTxt.setText("Price: ₱"+String.valueOf(productsList.getProductPrice()));
         Glide.with(context).load(list.get(position).getProductImage()).into(holder.prodImage);
 
-        if(productsList.getProductType().equalsIgnoreCase("Standard"))
-        {
-            holder.prodTypeLabel.setText("Standard Product");
-        }
-        else
-        {
-            holder.prodTypeLabel.setText("Customizable Product");
-        }
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,17 +118,6 @@ public class AllProductsBuyerAdapter extends RecyclerView.Adapter<AllProductsBuy
                 else
                 {
                     Intent intent = new Intent(context, CustomProductDetails.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("Rating",productsList.getProductRating());
-                    intent.putExtra("ProductSold",productsList.getProductSold());
-                    intent.putExtra("ProductStocks", productsList.getProductStocks());
-                    intent.putExtra("BookFrom", productsList.getProductBookFrom());
-                    intent.putExtra("ProductPrice",productsList.getProductPrice());
-                    intent.putExtra("ProductImage", productsList.getProductImage());
-                    intent.putExtra("ProductDescription",productsList.getProductDescription());
-                    intent.putExtra("ProductName",productsList.getProductName());
-                    intent.putExtra("SellerID",productsList.getSellerID());
-                    intent.putExtra("ProductID", productsList.getProductID());
                     context.startActivity(intent);
                 }
             }

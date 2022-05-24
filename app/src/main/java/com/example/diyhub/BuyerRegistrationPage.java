@@ -23,8 +23,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -337,16 +335,6 @@ public class BuyerRegistrationPage extends AppCompatActivity {
                     intent.putExtra("UserEmailBuyer", UserEmail);
                     intent.putExtra("UserUsernameBuyer", UserUsername);
                     intent.putExtra("UserPasswordBuyer", UserPassword);
-
-                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("id",UserID);
-                    map.put("imageUrl","");
-                    map.put("status","offline");
-                    map.put("username",UserFirstname+" "+UserLastname);
-                    reference.child("Users").child(UserID).setValue(map);
-
-
                     DocumentReference documentReference = dbFireStore.collection("USERPROFILE").document(UserEmail);
                     Map<String,Object> userBuyer = new HashMap<>();
                     userBuyer.put("UserID",UserID);

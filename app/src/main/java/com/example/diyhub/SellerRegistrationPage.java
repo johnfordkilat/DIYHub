@@ -349,15 +349,6 @@ public class SellerRegistrationPage extends AppCompatActivity {
                     intent.putExtra("UserEmailSeller", UserEmail);
                     intent.putExtra("UserUsernameSeller", UserUsername);
                     intent.putExtra("UserPasswordSeller", UserPassword);
-
-                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("id",UserID);
-                    map.put("imageUrl","");
-                    map.put("status","offline");
-                    map.put("username",UserFirstname+" "+UserLastname);
-                    reference.child("Users").child(UserID).setValue(map);
-
                     DocumentReference documentReference = dbFireStore.collection("USERPROFILE").document(UserEmail);
                     Map<String,Object> user = new HashMap<>();
                     user.put("UserID",UserID);
