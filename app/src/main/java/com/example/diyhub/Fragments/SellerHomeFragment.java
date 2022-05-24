@@ -1126,7 +1126,7 @@ public class SellerHomeFragment extends Fragment {
     }
 
     private void showPaymentSheet() {
-        PaymentSheet.Configuration configuration = new PaymentSheet.Configuration.Builder("Example, Inc.")
+        PaymentSheet.Configuration configuration = new PaymentSheet.Configuration.Builder("DIYHub, Inc.")
                 .customer(customerConfig)
                 // Set `allowsDelayedPaymentMethods` to true if your business can handle payment methods
                 // that complete payment after a delay, like SEPA Debit and Sofort.

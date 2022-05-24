@@ -13,12 +13,12 @@
         <item>six</item>
     </string-array>
     <string-array name="purchases">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
+        <item>199</item>
+        <item>299</item>
+        <item>399</item>
+        <item>499</item>
+        <item>599</item>
+        <item>699</item>
     </string-array>
     <string-array name="amount">
         <item>P 50.00</item>

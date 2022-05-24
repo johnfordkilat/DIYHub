@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,8 +23,11 @@ import com.example.diyhub.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -49,6 +53,8 @@ public class AddStandardProduct extends AppCompatActivity {
     Button addVariations;
 
     EditText prodDescriptionTxt,prodMaterialTxt,prodPriceTxt,prodSoldTxt;
+    String shopName = "";
+    String shopAddress = "";
 
 
     @Override
@@ -69,7 +75,7 @@ public class AddStandardProduct extends AppCompatActivity {
         id = UUID.randomUUID().toString();
         cutid = id.substring(0,11);
 
-
+        getShopName();
 
         addVariations.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,6 +153,7 @@ public class AddStandardProduct extends AppCompatActivity {
 
                     if(pQUan == pSTock)
                     {
+
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                         Map<String,Object> sellerProductsfb = new HashMap<>();
@@ -161,6 +168,13 @@ public class AddStandardProduct extends AppCompatActivity {
                         sellerProductsfb.put("ProductMaterial", materialUsed);
                         sellerProductsfb.put("ProductPrice", price);
                         sellerProductsfb.put("ProductSold", sold);
+                        sellerProductsfb.put("SellerID",user.getUid());
+                        sellerProductsfb.put("ShopName",shopName);
+                        sellerProductsfb.put("ProductBookFrom",shopAddress);
+                        sellerProductsfb.put("ProductRating",4.5);
+
+
+
 
                         reference.child("SellerProducts").child(user.getUid()).child(cutid).setValue(sellerProductsfb);
                     }
@@ -180,6 +194,13 @@ public class AddStandardProduct extends AppCompatActivity {
                         sellerProductsfb.put("ProductMaterial", materialUsed);
                         sellerProductsfb.put("ProductPrice", price);
                         sellerProductsfb.put("ProductSold", sold);
+                        sellerProductsfb.put("SellerID",user.getUid());
+                        sellerProductsfb.put("ShopName",shopName);
+                        sellerProductsfb.put("ProductBookFrom",shopAddress);
+                        sellerProductsfb.put("ProductRating",4.5);
+
+
+
                         reference.child("SellerProducts").child(user.getUid()).child(cutid).setValue(sellerProductsfb);
                     }
 
@@ -196,5 +217,30 @@ public class AddStandardProduct extends AppCompatActivity {
 
 
 
+    }
+
+    private void getShopName()
+    {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Shops");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    ShopsList shopsList = snapshot.getValue(ShopsList.class);
+                    if(shopsList.getSellerID().equalsIgnoreCase(user.getUid()))
+                    {
+                        shopName = shopsList.getShopName();
+                        shopAddress = shopsList.getShopAddress();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

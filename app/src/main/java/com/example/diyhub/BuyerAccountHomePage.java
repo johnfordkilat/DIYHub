@@ -405,4 +405,9 @@ public class BuyerAccountHomePage extends AppCompatActivity {
         super.onResume();
         updateMessageCount();
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

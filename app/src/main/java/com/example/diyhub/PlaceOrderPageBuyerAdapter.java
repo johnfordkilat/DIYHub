@@ -8,7 +8,6 @@ import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,9 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.diyhub.Fragments.CustomProductBuyer;
-import com.example.diyhub.Fragments.CustomProductDetails;
-import com.example.diyhub.Fragments.StandardProductBuyer;
 import com.example.diyhub.Notifications.APIService;
 import com.example.diyhub.Notifications.CLient;
 import com.example.diyhub.Notifications.UserNotif;
@@ -32,7 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllProductsBuyerAdapter extends RecyclerView.Adapter<AllProductsBuyerAdapter.MyViewHolder> {
+public class PlaceOrderPageBuyerAdapter extends RecyclerView.Adapter<PlaceOrderPageBuyerAdapter.MyViewHolder> {
 
     Context context;
     FirebaseFirestore dbFirestore;
@@ -51,7 +47,7 @@ public class AllProductsBuyerAdapter extends RecyclerView.Adapter<AllProductsBuy
     Intent intent;
 
 
-    public AllProductsBuyerAdapter(){
+    public PlaceOrderPageBuyerAdapter(){
 
     }
 
@@ -66,7 +62,7 @@ public class AllProductsBuyerAdapter extends RecyclerView.Adapter<AllProductsBuy
     String dbStatus;
     String imageStatus;
 
-    public AllProductsBuyerAdapter(Context context, ArrayList<AllProductsList> list)
+    public PlaceOrderPageBuyerAdapter(Context context, ArrayList<AllProductsList> list)
     {
         this.context = context;
         this.list = list;
@@ -82,7 +78,7 @@ public class AllProductsBuyerAdapter extends RecyclerView.Adapter<AllProductsBuy
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.allproducts,parent,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.proceed_with_payment_layout,parent,false);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         return new MyViewHolder(v);
@@ -92,39 +88,18 @@ public class AllProductsBuyerAdapter extends RecyclerView.Adapter<AllProductsBuy
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         AllProductsList productsList = list.get(position);
-        holder.prodName.setText("Product Name: "+productsList.getProductName());
-        holder.prodQuan.setText("Purchases: "+String.valueOf(productsList.getProductQuantity()));
-        holder.prodStocks.setText("Stocks: "+String.valueOf(productsList.getProductStocks()));
-        holder.priceTxt.setText("Price: ₱"+String.valueOf(productsList.getProductPrice()));
-        Glide.with(context).load(list.get(position).getProductImage()).into(holder.prodImage);
+        holder.prodName.setText(productsList.getProductName());
+        holder.prodQuan.setText("x"+productsList.getProductQuantity());
+        holder.shopName.setText(productsList.getShopName());
+        holder.prodPrice.setText("₱"+String.valueOf(productsList.getProductPrice()));
+        holder.prodVariation.setText(productsList.getProductName());
 
-        if(productsList.getProductType().equalsIgnoreCase("Standard"))
-        {
-            holder.prodTypeLabel.setText("Standard Product");
-        }
-        else
-        {
-            holder.prodTypeLabel.setText("Customizable Product");
-        }
+        Glide.with(context).load(list.get(position).getProductImage()).into(holder.prodImage);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(context, StandardProductBuyer.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("Rating",productsList.getProductRating());
-                intent.putExtra("ProductSold",productsList.getProductSold());
-                intent.putExtra("ProductStocks", productsList.getProductStocks());
-                intent.putExtra("BookFrom", productsList.getProductBookFrom());
-                intent.putExtra("ProductPrice",productsList.getProductPrice());
-                intent.putExtra("ProductImage", productsList.getProductImage());
-                intent.putExtra("ProductDescription",productsList.getProductDescription());
-                intent.putExtra("ProductName",productsList.getProductName());
-                intent.putExtra("SellerID",productsList.getSellerID());
-                intent.putExtra("ProductID", productsList.getProductID());
-                intent.putExtra("ShopName", productsList.getShopName());
-                context.startActivity(intent);
+                Toast.makeText(context, "Hello", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -140,25 +115,18 @@ public class AllProductsBuyerAdapter extends RecyclerView.Adapter<AllProductsBuy
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView prodName,prodQuan,prodStocks,stocksLabel,restockTab,holdTab,productNameLabel,purchasesLabel;
-        ImageView prodImage,deleteProd,updateProd,pauseButton;
-        Button toOrderPage;
-        TextView prodTypeLabel;
-        TextView priceTxt;
-
+        TextView shopName,prodName,prodVariation,prodPrice,prodQuan;
+        ImageView prodImage;
+        
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            prodName = itemView.findViewById(R.id.productNameSeller);
-            prodQuan = itemView.findViewById(R.id.purchaseCountSeller);
-            prodStocks = itemView.findViewById(R.id.stocksCountSeller);
-            prodImage = itemView.findViewById(R.id.productImageSeller);
-            deleteProd = itemView.findViewById(R.id.deleteProduct);
-            updateProd = itemView.findViewById(R.id.updateProduct);
-            restockTab = itemView.findViewById(R.id.restockTab);
-            holdTab = itemView.findViewById(R.id.holdTab);
-            pauseButton = itemView.findViewById(R.id.pauseButton);
-            prodTypeLabel = itemView.findViewById(R.id.productTypeProductsPage);
-            priceTxt = itemView.findViewById(R.id.priceTxtSeller);
+            prodName = itemView.findViewById(R.id.productNamePlaceOrder);
+            prodQuan = itemView.findViewById(R.id.productQuantityPlaceOrder);
+            shopName = itemView.findViewById(R.id.shopNameTxtPlaceOrder);
+            prodImage = itemView.findViewById(R.id.productImagePlaceOrder);
+            prodVariation = itemView.findViewById(R.id.variationPlaceOrder);
+            prodPrice = itemView.findViewById(R.id.productPricePlaceOrder);
+            
 
         }
     }

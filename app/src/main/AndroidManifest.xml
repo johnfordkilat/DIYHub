@@ -27,6 +27,15 @@
         android:theme="@style/Theme.DIYHub"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".PlaceOrderPageBuyer"
+            android:exported="false" />
+        <activity
+            android:name=".PaymentPageBuyer"
+            android:exported="false" />
+        <activity
+            android:name=".Fragments.CustomProductBuyer"
+            android:exported="false" />
+        <activity
             android:name=".Fragments.ShopPageSeller"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />

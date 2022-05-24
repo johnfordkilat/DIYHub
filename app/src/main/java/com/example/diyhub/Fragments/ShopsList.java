@@ -4,13 +4,13 @@ public class ShopsList {
     String SellerID;
     String ShopAddress;
     String ShopName;
-    String ShopRating;
+    double ShopRating;
     String ShopImage;
 
     public ShopsList() {
     }
 
-    public ShopsList(String sellerID, String shopAddress, String shopName, String shopRating, String shopImage) {
+    public ShopsList(String sellerID, String shopAddress, String shopName, double shopRating, String shopImage) {
         SellerID = sellerID;
         ShopAddress = shopAddress;
         ShopName = shopName;
@@ -42,11 +42,11 @@ public class ShopsList {
         ShopName = shopName;
     }
 
-    public String getShopRating() {
+    public double getShopRating() {
         return ShopRating;
     }
 
-    public void setShopRating(String shopRating) {
+    public void setShopRating(double shopRating) {
         ShopRating = shopRating;
     }
 

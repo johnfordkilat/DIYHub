@@ -51,10 +51,10 @@ public class RecyclerViewAdapterRecom extends RecyclerView.Adapter<RecyclerViewA
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, mImageUrls.get(position).getSellerID(), Toast.LENGTH_SHORT).show();
-
                 Intent intent = new Intent(mContext, ShopPage.class);
                 intent.putExtra("SellerID", mImageUrls.get(position).getSellerID());
+                intent.putExtra("ShopName", mImageUrls.get(position).getShopName());
+                intent.putExtra("Rating", mImageUrls.get(position).getShopRating());
                 mContext.startActivity(intent);
             }
         });
