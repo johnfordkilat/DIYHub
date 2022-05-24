@@ -20,7 +20,7 @@
             android:padding="8dp">
 
             <ImageView
-                android:id="@+id/imageView32"
+                android:id="@+id/backButtonStandardProduct"
                 android:layout_width="43dp"
                 android:layout_height="37dp"
                 android:src="@drawable/ic_back_svgrepo_com"/>

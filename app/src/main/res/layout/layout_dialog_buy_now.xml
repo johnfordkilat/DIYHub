@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/submitButtonCartPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:text="Submit" />
+
+    <EditText
+        android:id="@+id/setQuantityCartPage"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:hint="Add Quantity" />
+
+    <Spinner
+        android:id="@+id/sizeSpinnerBuyNow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:background="@android:drawable/btn_dropdown" />
+
+    <Spinner
+        android:id="@+id/colorSpinnerBuyNow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="130dp"
+        android:background="@android:drawable/btn_dropdown" />
+
+
+
+</RelativeLayout>

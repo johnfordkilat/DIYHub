@@ -52,6 +52,7 @@ public class ShopPage extends AppCompatActivity {
     RatingBar ratingBar;
     boolean followed = false;
     double shopRating;
+    ImageView backButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +66,14 @@ public class ShopPage extends AppCompatActivity {
         shopNameTxt = findViewById(R.id.shopNameTxtShopPage);
         ratingBar = findViewById(R.id.ratingBarShopPage);
         ratingTxt = findViewById(R.id.ratingTxtShopPage);
+        backButton = findViewById(R.id.backButtonShopPageBuyer);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
         Bundle extras = getIntent().getExtras();

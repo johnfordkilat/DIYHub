@@ -17,6 +17,9 @@ public class AllProductsList {
     String ProductBookFrom;
     String SellerID;
     String ShopName;
+    double ProductShippingFee;
+    double ProductAdditionalFee;
+    double ProductTotalPayment;
 
     public AllProductsList(){
 
@@ -24,7 +27,7 @@ public class AllProductsList {
 
     public AllProductsList(String productName, int productQuantity, int productStocks, String prodImage, String prodID, String prodImgStatus, String prodStatus,
                            String productType, double productPrice, double productSold, String productDescription, String productMaterial, double productRating,
-                           String productBookFrom, String sellerID, String shopName) {
+                           String productBookFrom, String sellerID, String shopName, double productShippingFee, double productAdditionalFee, double productTotalPayment) {
         ProductName = productName;
         ProductQuantity = productQuantity;
         ProductStocks = productStocks;
@@ -41,6 +44,33 @@ public class AllProductsList {
         ProductBookFrom = productBookFrom;
         SellerID = sellerID;
         ShopName = shopName;
+        ProductShippingFee = productShippingFee;
+        ProductAdditionalFee = productAdditionalFee;
+        ProductTotalPayment = productTotalPayment;
+    }
+
+    public double getProductShippingFee() {
+        return ProductShippingFee;
+    }
+
+    public void setProductShippingFee(double productShippingFee) {
+        ProductShippingFee = productShippingFee;
+    }
+
+    public double getProductAdditionalFee() {
+        return ProductAdditionalFee;
+    }
+
+    public void setProductAdditionalFee(double productAdditionalFee) {
+        ProductAdditionalFee = productAdditionalFee;
+    }
+
+    public double getProductTotalPayment() {
+        return ProductTotalPayment;
+    }
+
+    public void setProductTotalPayment(double productTotalPayment) {
+        ProductTotalPayment = productTotalPayment;
     }
 
     public String getSellerID() {

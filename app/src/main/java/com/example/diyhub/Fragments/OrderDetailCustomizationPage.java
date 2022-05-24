@@ -283,7 +283,7 @@ public class OrderDetailCustomizationPage extends AppCompatActivity {
         Glide.with(this).load(list.get(pos).getBuyerImage()).into(buyerImage);
         itemCode.setText(list.get(pos).getItemCode());
         itemName.setText(list.get(pos).getOrderProductName());
-        quantity.setText(list.get(pos).getOrderQuantity());
+        quantity.setText(""+list.get(pos).getOrderQuantity());
         orderType.setText(list.get(pos).getOrderType());
         buyerName.setText(list.get(pos).getBuyerName());
 

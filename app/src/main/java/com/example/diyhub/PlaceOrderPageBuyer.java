@@ -2,13 +2,20 @@ package com.example.diyhub;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,6 +36,28 @@ public class PlaceOrderPageBuyer extends AppCompatActivity {
     ArrayList<AllProductsList> list;
     PlaceOrderPageBuyerAdapter adapter;
     Button placeOrderButton;
+    String shopName;
+    double price;
+    int quantity;
+    ArrayList<String> stringList;
+    ArrayAdapter adapterString;
+    String prodName;
+    String variations;
+    ImageView backButton;
+    double totalPayment;
+    String productName;
+    int orderQuantity;
+    String productImage;
+    String orderType;
+    String itemCode;
+    String buyerName;
+    String paymentStatus;
+    String bookingAddress;
+    String orderStatus;
+    String shopName1;
+    double productPrice;
+    double shippingFee;
+    double additionalFee;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,22 +67,59 @@ public class PlaceOrderPageBuyer extends AppCompatActivity {
         productsReviewRecycler.setHasFixedSize(true);
         productsReviewRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         placeOrderButton = findViewById(R.id.proceedWithPaymentButton);
+        backButton = findViewById(R.id.backButtonProceedPaymentPage);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         Bundle extras = getIntent().getExtras();
         if(extras != null)
         {
             prodID = extras.getString("ProductID");
             sellerID = extras.getString("SellerID");
+            quantity = extras.getInt("ProductQuantity");
+            shopName = extras.getString("ShopName");
+            price = extras.getDouble("ProductPrice");
+            variations = extras.getString("Variations");
+
         }
         list = new ArrayList<>();
+        stringList = new ArrayList<>();
 
         placeOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(PlaceOrderPageBuyer.this, PaymentPageBuyer.class);
+                intent.putExtra("SellerID",sellerID);
+                intent.putExtra("TotalPayment", totalPayment);
+                intent.putExtra("OrderProductName", productName);
+                intent.putExtra("OrderQuantity", orderQuantity);
+                intent.putExtra("OrderProductImage", productImage);
+                intent.putExtra("OrderType", orderType);
+                intent.putExtra("ItemCode", itemCode);
+                intent.putExtra("BuyerName", buyerName);
+                intent.putExtra("PaymentStatus", paymentStatus);
+                intent.putExtra("BookingAddress", bookingAddress);
+                intent.putExtra("OrderStatus", orderStatus);
+                intent.putExtra("ShopName", shopName);
+                intent.putExtra("OrderProductPrice", productPrice);
+                intent.putExtra("OrderShippingFee", shippingFee);
+                intent.putExtra("OrderAdditionalFee", additionalFee);
                 startActivity(intent);
+
+
             }
         });
+
+        stringList.add(0,String.valueOf(quantity));
+        stringList.add(1, variations);
+
+
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(sellerID);
@@ -67,7 +133,7 @@ public class PlaceOrderPageBuyer extends AppCompatActivity {
                     if(allProductsList.getProductID().equalsIgnoreCase(prodID))
                     list.add(allProductsList);
                 }
-                adapter = new PlaceOrderPageBuyerAdapter(PlaceOrderPageBuyer.this, list);
+                adapter = new PlaceOrderPageBuyerAdapter(PlaceOrderPageBuyer.this, list, stringList);
                 productsReviewRecycler.setAdapter(adapter);
 
 
@@ -79,6 +145,35 @@ public class PlaceOrderPageBuyer extends AppCompatActivity {
             }
         });
 
+        // Register to receive messages.
+        // We are registering an observer (mMessageReceiver) to receive Intents
+        // with actions named "custom-message".
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
+                new IntentFilter("ProceedWithPaymentData"));
+
+
+
 
     }
+
+    public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            productName = intent.getStringExtra("OrderProductName");
+            orderQuantity = intent.getIntExtra("OrderQuantity",0);
+            productImage = intent.getStringExtra("OrderProductImage");
+            orderType = intent.getStringExtra("OrderType");
+            itemCode = intent.getStringExtra("ItemCode");
+            buyerName = intent.getStringExtra("BuyerName");
+            paymentStatus = intent.getStringExtra("PaymentStatus");
+            bookingAddress = intent.getStringExtra("BookingAddress");
+            orderStatus = intent.getStringExtra("OrderStatus");
+            shopName = intent.getStringExtra("ShopName");
+            productPrice = intent.getDoubleExtra("OrderProductPrice",0);
+            shippingFee = intent.getDoubleExtra("OrderShippingFee",0);
+            additionalFee = intent.getDoubleExtra("OrderAdditionalFee",0);
+            totalPayment = intent.getDoubleExtra("OrderTotalPayment",0);
+        }
+    };
 }

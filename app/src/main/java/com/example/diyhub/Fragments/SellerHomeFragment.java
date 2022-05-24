@@ -274,6 +274,30 @@ public class SellerHomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        DatabaseReference referenceShop = FirebaseDatabase.getInstance().getReference("Shops");
+        referenceShop.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    ShopsList shopsList = snapshot.getValue(ShopsList.class);
+                    if(shopsList.getSellerID().equalsIgnoreCase(user.getUid()))
+                    {
+                        viewMyShop.setText("CREATE My Shop");
+                    }
+                    else
+                    {
+                        viewMyShop.setText("VIEW My Shop");
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         
         addBooking.setOnClickListener(new View.OnClickListener() {
             @Override

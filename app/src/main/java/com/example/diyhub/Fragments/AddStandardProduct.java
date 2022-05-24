@@ -172,6 +172,8 @@ public class AddStandardProduct extends AppCompatActivity {
                         sellerProductsfb.put("ShopName",shopName);
                         sellerProductsfb.put("ProductBookFrom",shopAddress);
                         sellerProductsfb.put("ProductRating",4.5);
+                        sellerProductsfb.put("ProductShippingFee",60);
+                        sellerProductsfb.put("ProductAdditionalFee",0);
 
 
 
@@ -198,6 +200,10 @@ public class AddStandardProduct extends AppCompatActivity {
                         sellerProductsfb.put("ShopName",shopName);
                         sellerProductsfb.put("ProductBookFrom",shopAddress);
                         sellerProductsfb.put("ProductRating",4.5);
+                        sellerProductsfb.put("ProductShippingFee",60);
+                        sellerProductsfb.put("ProductAdditionalFee",0);
+
+
 
 
 

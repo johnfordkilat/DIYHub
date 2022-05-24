@@ -56,7 +56,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         OrdersList productsList = list.get(position);
         holder.prodName.setText(productsList.getOrderProductName());
-        holder.prodQuan.setText(productsList.getOrderQuantity());
+        holder.prodQuan.setText(""+productsList.getOrderQuantity());
         holder.orderType.setText(productsList.getOrderType());
         holder.paymentOption.setText(productsList.getPaymentOption());
         Glide.with(context).load(list.get(position).getOrderProductImage()).into(holder.prodImage);

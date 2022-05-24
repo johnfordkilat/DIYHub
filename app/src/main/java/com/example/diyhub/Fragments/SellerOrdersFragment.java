@@ -631,10 +631,6 @@ public class SellerOrdersFragment extends Fragment {
                 ordersListsReturnOrRefund.clear();
                 listorder.clear();
                 indexorder.clear();
-
-
-
-
                 for(DataSnapshot snapshot : dataSnapshot.getChildren())
                 {
                     DateFormat dateFormat2 = new SimpleDateFormat("MM/dd/yyyy hh.mm aa");

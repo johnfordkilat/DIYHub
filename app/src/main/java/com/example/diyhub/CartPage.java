@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.diyhub.Fragments.StandardProductBuyer;
 import com.example.diyhub.Notifications.Data;
 import com.github.kittinunf.fuel.Fuel;
 import com.github.kittinunf.fuel.core.FuelError;
@@ -62,6 +63,13 @@ public class CartPage extends AppCompatActivity {
     MyAdapterCart myAdapterCart;
 
     String prodID;
+    String sellerID;
+    int quantity;
+    String shopName;
+    double price;
+    String variations;
+    String prodName;
+    String prodImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,19 +87,35 @@ public class CartPage extends AppCompatActivity {
         s2 = getResources().getStringArray(R.array.purchases);
 
 
+        Bundle extras = getIntent().getExtras();
+        if(extras != null)
+        {
+            prodID = extras.getString("ProductID");
+            sellerID = extras.getString("SellerID");
+            quantity = extras.getInt("ProductQuantity");
+            shopName = extras.getString("ShopName");
+            price = extras.getDouble("ProductPrice");
+            variations = extras.getString("Variations");
+            prodName = extras.getString("ProductName");
+            prodImage = extras.getString("ProductImage");
+
+        }
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         back.setOnClickListener(v -> finish());
         checkoutButton.setOnClickListener(v -> {
             getTotalPayment();
-            if(totalPrice <=0)
-            {
-                Toast.makeText(this, "No Item Selected!", Toast.LENGTH_SHORT).show();
-            }
-            else
-            {
-                processCheckout();
-            }
+            Intent intent = new Intent(CartPage.this, PlaceOrderPageBuyer.class);
+            intent.putExtra("ProductIDCart",prodID);
+            intent.putExtra("SellerIDCart",sellerID);
+            intent.putExtra("ProductQuantityCart",quantity);
+            intent.putExtra("ShopNameCart",shopName);
+            intent.putExtra("VariationsCart",variations);
+            intent.putExtra("ProductPriceCart",price);
+            intent.putExtra("ProductNameCart",prodName);
+            intent.putExtra("ProductImageCart", prodImage);
+            intent.putExtra("TotalPaymentCart",totalPrice);
+            startActivity(intent);
         });
         getTotalPayment();
         showData();
@@ -176,13 +200,13 @@ public class CartPage extends AppCompatActivity {
 
     private void processCheckout() {
         dialog.setMessage("Processing...");
+        dialog.setCancelable(false);
         dialog.show();
         getTotalPayment();
         String total = new DecimalFormat("#").format(totalPrice);
         String total1 = total+"00";
         int totalPayment = Integer.parseInt(total1);
 
-        // TODO: Poy, ibutang dire ang amount
         // Note: The amount should be a whole number with the last two digits denoting the cents
         // For example:
         // If the amount is P5.99, send the value as 599
