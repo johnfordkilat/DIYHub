@@ -27,15 +27,12 @@
         android:theme="@style/Theme.DIYHub"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".Buyer.AddBookingAddressBuyer"
-            android:exported="false" />
-        <activity
             android:name=".Fragments.StandardProductBuyer"
             android:exported="false" />
         <activity
             android:name=".Fragments.ShopPage"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".Fragments.SellerStatsPage"
             android:exported="false" />

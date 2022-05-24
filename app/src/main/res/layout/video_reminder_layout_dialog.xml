@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="300dp"
+        android:layout_height="380dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="30dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:textSize="24dp"
+                android:gravity="center"
+                android:background="@drawable/textview_border_rectangle_gray"
+                android:textStyle="bold|italic"
+                android:text="VIDEO REMINDERS"/>
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_marginStart="-300dp"
+                android:layout_marginTop="60dp"
+                android:gravity="center"
+                android:background="@drawable/textview_border_rectangle"
+                android:text="Record a video of your self holding the ID you provided"
+                android:layout_height="50dp"/>
+            <TextView
+                android:layout_width="300dp"
+                android:layout_marginStart="-300dp"
+                android:layout_marginTop="130dp"
+                android:background="@drawable/textview_border_rectangle"
+                android:gravity="center"
+                android:text="Record with a good lighting. Make sure that your face and ID is visible"
+                android:layout_height="50dp"/>
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_marginStart="-300dp"
+                android:layout_marginTop="200dp"
+                android:background="@drawable/textview_border_rectangle"
+                android:gravity="center"
+                android:text="Nod your head up and down, left and right for the first 5 seconds. Then your face and ID for the next 5 seconds"
+                android:layout_height="50dp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="250dp"
+                android:id="@+id/proceedVerificationButton"
+                android:layout_marginStart="-275dp"
+                android:layout_marginTop="280dp"
+                android:background="@drawable/custom_pink"
+                android:text="Proceed with Verification"
+                android:layout_height="50dp"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.diyhub.Fragments.CustomProductDetails;
 import com.example.diyhub.Fragments.StandardProductBuyer;
+import com.example.diyhub.Fragments.StandardProductDetails;
 import com.example.diyhub.Notifications.APIService;
 import com.example.diyhub.Notifications.CLient;
 import com.example.diyhub.Notifications.UserNotif;
@@ -30,7 +31,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllProductsBuyerAdapter extends RecyclerView.Adapter<AllProductsBuyerAdapter.MyViewHolder> {
+public class AllProductsSellerAdapter extends RecyclerView.Adapter<AllProductsSellerAdapter.MyViewHolder> {
 
     Context context;
     FirebaseFirestore dbFirestore;
@@ -49,7 +50,7 @@ public class AllProductsBuyerAdapter extends RecyclerView.Adapter<AllProductsBuy
     Intent intent;
 
 
-    public AllProductsBuyerAdapter(){
+    public AllProductsSellerAdapter(){
 
     }
 
@@ -64,7 +65,7 @@ public class AllProductsBuyerAdapter extends RecyclerView.Adapter<AllProductsBuy
     String dbStatus;
     String imageStatus;
 
-    public AllProductsBuyerAdapter(Context context, ArrayList<AllProductsList> list)
+    public AllProductsSellerAdapter(Context context, ArrayList<AllProductsList> list)
     {
         this.context = context;
         this.list = list;
@@ -110,34 +111,28 @@ public class AllProductsBuyerAdapter extends RecyclerView.Adapter<AllProductsBuy
             public void onClick(View v) {
                 if(productsList.getProductType().equalsIgnoreCase("Standard"))
                 {
-                    Intent intent = new Intent(context, StandardProductBuyer.class);
+                    Intent intent = new Intent(context, StandardProductDetails.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("Rating",productsList.getProductRating());
-                    intent.putExtra("ProductSold",productsList.getProductSold());
-                    intent.putExtra("ProductStocks", productsList.getProductStocks());
-                    intent.putExtra("BookFrom", productsList.getProductBookFrom());
-                    intent.putExtra("ProductPrice",productsList.getProductPrice());
-                    intent.putExtra("ProductImage", productsList.getProductImage());
-                    intent.putExtra("ProductDescription",productsList.getProductDescription());
-                    intent.putExtra("ProductName",productsList.getProductName());
-                    intent.putExtra("SellerID",productsList.getSellerID());
                     intent.putExtra("ProductID", productsList.getProductID());
+                    intent.putExtra("ProductName", productsList.getProductName());
+                    intent.putExtra("ProductPrice", productsList.getProductPrice());
+                    intent.putExtra("ProductSold", productsList.getProductSold());
+                    intent.putExtra("ProductMaterial", productsList.getProductMaterial());
+                    intent.putExtra("ProductDescription", productsList.getProductDescription());
+                    intent.putExtra("ProductStock", productsList.getProductStocks());
                     context.startActivity(intent);
                 }
                 else
                 {
                     Intent intent = new Intent(context, CustomProductDetails.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("Rating",productsList.getProductRating());
-                    intent.putExtra("ProductSold",productsList.getProductSold());
-                    intent.putExtra("ProductStocks", productsList.getProductStocks());
-                    intent.putExtra("BookFrom", productsList.getProductBookFrom());
-                    intent.putExtra("ProductPrice",productsList.getProductPrice());
-                    intent.putExtra("ProductImage", productsList.getProductImage());
-                    intent.putExtra("ProductDescription",productsList.getProductDescription());
-                    intent.putExtra("ProductName",productsList.getProductName());
-                    intent.putExtra("SellerID",productsList.getSellerID());
                     intent.putExtra("ProductID", productsList.getProductID());
+                    intent.putExtra("ProductName", productsList.getProductName());
+                    intent.putExtra("ProductPrice", productsList.getProductPrice());
+                    intent.putExtra("ProductSold", productsList.getProductSold());
+                    intent.putExtra("ProductMaterial", productsList.getProductMaterial());
+                    intent.putExtra("ProductDescription", productsList.getProductDescription());
+                    intent.putExtra("ProductStock", productsList.getProductStocks());
                     context.startActivity(intent);
                 }
             }
