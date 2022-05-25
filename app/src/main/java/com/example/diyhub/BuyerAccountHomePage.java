@@ -85,6 +85,8 @@ public class BuyerAccountHomePage extends AppCompatActivity {
 
     RecyclerView recyclerView;
 
+    ImageView imageView7;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,6 +101,17 @@ public class BuyerAccountHomePage extends AppCompatActivity {
         chat = findViewById(R.id.chatImageView);
         chatCounter = findViewById(R.id.chatCounterBuyer);
         chatCardView = findViewById(R.id.chatNumberContainerBuyer);
+        imageView7 = findViewById(R.id.imageView7);
+
+        /*
+        imageView7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BuyerAccountHomePage.this, MapCoverage.class);
+                startActivity(intent);
+            }
+        });
+         */
 
         recyclerView = findViewById(R.id.recyclerView);
         mImageUrls = new ArrayList<>();

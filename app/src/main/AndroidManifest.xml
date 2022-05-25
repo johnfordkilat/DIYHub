@@ -27,6 +27,12 @@
         android:theme="@style/Theme.DIYHub"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".CreateMyShopPage"
+            android:exported="false" />
+        <activity
+            android:name=".PlaceOrderPageFromCartBuyer"
+            android:exported="false" />
+        <activity
             android:name=".PlaceOrderPageBuyer"
             android:exported="false" />
         <activity

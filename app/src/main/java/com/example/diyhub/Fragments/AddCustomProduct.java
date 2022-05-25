@@ -158,7 +158,8 @@ public class AddCustomProduct extends AppCompatActivity {
                         sellerProductsfb.put("ShopName",shopName);
                         sellerProductsfb.put("ProductBookFrom",shopAddress);
                         sellerProductsfb.put("ProductRating",4.5);
-
+                        sellerProductsfb.put("ProductShippingFee",60);
+                        sellerProductsfb.put("ProductAdditionalFee",80);
 
 
                         reference.child("SellerProducts").child(user.getUid()).child(cutid).setValue(sellerProductsfb);
@@ -183,6 +184,8 @@ public class AddCustomProduct extends AppCompatActivity {
                         sellerProductsfb.put("ShopName",shopName);
                         sellerProductsfb.put("ProductBookFrom",shopAddress);
                         sellerProductsfb.put("ProductRating",4.5);
+                        sellerProductsfb.put("ProductShippingFee",60);
+                        sellerProductsfb.put("ProductAdditionalFee",80);
 
 
 

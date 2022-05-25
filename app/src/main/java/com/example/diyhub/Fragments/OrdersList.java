@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class OrdersList implements Parcelable {
 
-    String OrderProductName, OrderQuantity;
+    String OrderProductName;
     String OrderProductImage,OrderID,OrderType,PaymentOption;
     String ItemCode, BuyerName, PaymentStatus, OrderDate;
     String BuyerImage;
@@ -15,21 +15,25 @@ public class OrdersList implements Parcelable {
     String DeliveryType;
     String RiderName,PlateNumber;
     String BookingOption;
+    String BuyerID;
+    String PaymentReference;
+    String OrderDeclineReason;
     double OrderProductPrice;
     double OrderShippingFee;
     double OrderAdditionalFee;
     double OrderTotalPayment;
+    int OrderQuantity;
 
     public OrdersList(){
 
     }
 
-    public OrdersList(String productName, String productQuantity, String prodImage, String prodID, String orderType, String paymentOption, String itemCode,
+    public OrdersList(String productName, int orderQuantity, String prodImage, String prodID, String orderType, String paymentOption, String itemCode,
                        String buyerName, String paymentStatus, String orderDate, String buyerImage, String bookingAddress, String orderStatus, String shopName,
                       String deliveryType, String riderName, String plateNumber, String bookingOption, double orderProductPrice, double orderShippingFee, double orderAdditionalFee,
-                        double orderTotalPayment) {
+                        double orderTotalPayment, String buyerID, String paymentReference, String orderDeclineReason) {
         OrderProductName = productName;
-        OrderQuantity = productQuantity;
+        OrderQuantity = orderQuantity;
         OrderProductImage = prodImage;
         OrderID = prodID;
         OrderType = orderType;
@@ -50,8 +54,39 @@ public class OrdersList implements Parcelable {
         OrderShippingFee = orderShippingFee;
         OrderAdditionalFee = orderAdditionalFee;
         OrderTotalPayment = orderTotalPayment;
+        BuyerID = buyerID;
+        PaymentReference = paymentReference;
+        OrderDeclineReason = orderDeclineReason;
 
 
+    }
+
+    public void setOrderQuantity(int orderQuantity) {
+        OrderQuantity = orderQuantity;
+    }
+
+    public String getOrderDeclineReason() {
+        return OrderDeclineReason;
+    }
+
+    public void setOrderDeclineReason(String orderDeclineReason) {
+        OrderDeclineReason = orderDeclineReason;
+    }
+
+    public String getPaymentReference() {
+        return PaymentReference;
+    }
+
+    public void setPaymentReference(String paymentReference) {
+        PaymentReference = paymentReference;
+    }
+
+    public String getBuyerID() {
+        return BuyerID;
+    }
+
+    public void setBuyerID(String buyerID) {
+        BuyerID = buyerID;
     }
 
     public double getOrderProductPrice() {
@@ -146,7 +181,7 @@ public class OrdersList implements Parcelable {
         return OrderProductName;
     }
 
-    public String getOrderQuantity() {
+    public int getOrderQuantity() {
         return OrderQuantity;
     }
 
@@ -204,7 +239,7 @@ public class OrdersList implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(OrderProductName);
-        dest.writeString(OrderQuantity);
+        dest.writeInt(OrderQuantity);
         dest.writeString(OrderProductImage);
         dest.writeString(OrderID);
         dest.writeString(OrderType);
@@ -225,12 +260,15 @@ public class OrdersList implements Parcelable {
         dest.writeDouble(OrderAdditionalFee);
         dest.writeDouble(OrderShippingFee);
         dest.writeDouble(OrderTotalPayment);
+        dest.writeString(BuyerID);
+        dest.writeString(PaymentReference);
+        dest.writeString(OrderDeclineReason);
 
     }
 
     public OrdersList(Parcel in){
         OrderProductName = in.readString();
-        OrderQuantity = in.readString();
+        OrderQuantity = in.readInt();
         OrderProductImage = in.readString();
         OrderID = in.readString();
         OrderType = in.readString();
@@ -251,6 +289,9 @@ public class OrdersList implements Parcelable {
         OrderAdditionalFee = in.readDouble();
         OrderShippingFee = in.readDouble();
         OrderTotalPayment = in.readDouble();
+        BuyerID = in.readString();
+        PaymentReference = in.readString();
+        OrderDeclineReason = in.readString();
     }
 
     public static final Parcelable.Creator<OrdersList> CREATOR = new Parcelable.Creator<OrdersList>() {

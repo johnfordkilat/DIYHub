@@ -4,14 +4,24 @@ public class User {
 
     public String id,username,imageUrl;
     public String status;
+    public String address;
 
     public User(){}
 
-    public User(String email, String username, String imageUrl, String status) {
+    public User(String email, String username, String imageUrl, String status, String address) {
         this.id = email;
         this.username = username;
         this.imageUrl = imageUrl;
         this.status = status;
+        this.address = address;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getId() {
