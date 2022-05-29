@@ -27,6 +27,21 @@
         android:theme="@style/Theme.DIYHub"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Buyer.AddBookingAddressBuyer"
+            android:exported="false" />
+        <activity
+            android:name=".Nearby.GMaps_LawFirm_Details"
+            android:exported="false" />
+        <activity
+            android:name=".Fragments.AddCustomSpecificationPageSeller"
+            android:exported="false" />
+        <activity
+            android:name=".PlaceOrderFromCartBuyerTwo"
+            android:exported="false" />
+        <activity
+            android:name=".Fragments.StandardProductDetailsBuyer"
+            android:exported="false" />
+        <activity
             android:name=".CreateMyShopPage"
             android:exported="false" />
         <activity
@@ -230,10 +245,6 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".DIYPage"
-            android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".CartPage"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
         <activity

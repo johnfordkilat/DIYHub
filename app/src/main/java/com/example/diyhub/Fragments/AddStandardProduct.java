@@ -2,13 +2,18 @@ package com.example.diyhub.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +40,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -56,6 +62,10 @@ public class AddStandardProduct extends AppCompatActivity {
     String shopName = "";
     String shopAddress = "";
 
+    Spinner addCategorySpinner;
+    ArrayAdapter<String> adapter;
+    List<String> list;
+    String prodCategory = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +80,64 @@ public class AddStandardProduct extends AppCompatActivity {
         prodMaterialTxt = findViewById(R.id.productMaterialsUsedAddStandard);
         prodPriceTxt = findViewById(R.id.productPriceAddStandard);
         prodSoldTxt = findViewById(R.id.productSoldAddStandard);
+        addCategorySpinner = findViewById(R.id.customProductSpinnerAddStandardProduct);
 
+        list = new ArrayList<String>();
+        list.add(0, "Choose Product Category");
+        list.add(1, "Birthdays");
+        list.add(2, "Wedding");
+        list.add(3, "Christening");
+        list.add(4, "Graduation");
+
+
+
+        //Payment Spinner
+        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, list)
+        {
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        addCategorySpinner.setAdapter(adapter);
+
+        addCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position > 0)
+                {
+                    prodCategory = list.get(position);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         id = UUID.randomUUID().toString();
         cutid = id.substring(0,11);

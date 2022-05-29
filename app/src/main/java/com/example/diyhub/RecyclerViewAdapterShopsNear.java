@@ -10,9 +10,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.diyhub.Fragments.ShopPage;
+import com.example.diyhub.Fragments.ShopsList;
+import com.example.diyhub.Nearby.DistanceList;
 
 import java.util.ArrayList;
 
@@ -23,14 +27,12 @@ public class RecyclerViewAdapterShopsNear extends RecyclerView.Adapter<RecyclerV
     private static final String TAG = "RecyclerViewAdapter";
 
     //vars
-    private ArrayList<String> mNames = new ArrayList<>();
-    private ArrayList<String> mImageUrls = new ArrayList<>();
+    private ArrayList<ShopsList> mNames = new ArrayList<>();
     private Context mContext;
 
 
-    public RecyclerViewAdapterShopsNear(Context context, ArrayList<String> names, ArrayList<String> imageUrls) {
+    public RecyclerViewAdapterShopsNear(Context context, ArrayList<ShopsList> names) {
         mNames = names;
-        mImageUrls = imageUrls;
         mContext = context;
     }
 
@@ -44,28 +46,28 @@ public class RecyclerViewAdapterShopsNear extends RecyclerView.Adapter<RecyclerV
     public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 
-        Glide.with(mContext)
-                .asBitmap()
-                .load(mImageUrls.get(position))
-                .into(holder.image);
 
-        holder.name.setText(mNames.get(position));
+        Glide.with(mContext).load(mNames.get(position).getShopImage()).into(holder.image);
+
+        holder.name.setText(mNames.get(position).getFullname());
 
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "onClick: clicked on an image: " + mNames.get(position));
-                Toast.makeText(mContext, mNames.get(position), Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(mContext, ShopsNearYou.class);
+                Intent intent = new Intent(mContext, ShopPage.class);
+                intent.putExtra("SellerID", mNames.get(position).getSellerID());
+                intent.putExtra("ShopName", mNames.get(position).getShopName());
+                intent.putExtra("Rating", mNames.get(position).getShopRating());
+                intent.putExtra("ShopImage", mNames.get(position).getShopImage());
                 mContext.startActivity(intent);
             }
         });
+
     }
 
     @Override
     public int getItemCount() {
-        return mImageUrls.size();
+        return mNames.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

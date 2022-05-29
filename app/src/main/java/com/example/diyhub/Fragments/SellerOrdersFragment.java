@@ -641,6 +641,7 @@ public class SellerOrdersFragment extends Fragment {
                     if(ordersList1.getOrderStatus().equalsIgnoreCase("Order Request"))
                     {
                         ordersListsOrderRequest.add(ordersList1);
+                        /*
                         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                         Map<String, Object> map = new HashMap<>();
                         map.put("IsSeen","false");
@@ -650,6 +651,8 @@ public class SellerOrdersFragment extends Fragment {
                         map.put("NotifID",ordersList1.getOrderID());
                         map.put("NotifImage",ordersList1.getOrderProductImage());
                         reference.child("Notifications").child(user.getUid()).child(ordersList1.getOrderID()).setValue(map);
+
+                         */
                         //sendNotification(user.getUid(),ordersList1.getBuyerName() + " made an Order of the Product "+ ordersList1.getOrderProductName(),ordersList1.getOrderStatus());
                     }
                     else if(ordersList1.getOrderStatus().equalsIgnoreCase("Accepted"))

@@ -43,6 +43,11 @@
     <string name="tab2">Products</string>
     <string name="tab3">Orders</string>
     <string name="tab4">Stats</string>
+    <string name="tab5">Location</string>
+
+    <string name="standard">Standard</string>
+    <string name="custom">Customize</string>
+
 
     <string name="pastTab1">Completed</string>
     <string name="pastTab2">Cancelled</string>
@@ -55,6 +60,11 @@
     <string name="Chats">Chats</string>
     <string name="Users">Users</string>
     <string name="BookMark">Bookmarks</string>
+    <string name="homeTab1">Home</string>
+    <string name="homeTab2">Cart</string>
+    <string name="homeTab3">Diy</string>
+    <string name="homeTab4">Profile</string>
+    <string name="homeTab5">Location</string>
 
     <string-array name="Payment_Options">
         <item>Gcash</item>

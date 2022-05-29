@@ -4,11 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.diyhub.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,13 +26,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 public class AddCustomProduct extends AppCompatActivity {
 
     Button addCustomSpecs;
+    Spinner addCategorySpinner;
 
     private ArrayList<Uri> ImageList = new ArrayList<Uri>();
     EditText productName,productQuantity,productStocks;
@@ -41,10 +50,16 @@ public class AddCustomProduct extends AppCompatActivity {
 
     EditText prodDescriptionTxt,prodMaterialTxt,prodPriceTxt,prodSoldTxt;
 
+    ArrayAdapter<String> adapter;
+    List<String> list;
+    String prodCategory = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_custom_product);
+
+        addCategorySpinner = findViewById(R.id.customProductSpinnerAddCustomProduct);
 
 
         productName = findViewById(R.id.addProdNameCustom);
@@ -57,6 +72,63 @@ public class AddCustomProduct extends AppCompatActivity {
         prodSoldTxt = findViewById(R.id.productSoldAddCustom);
 
 
+
+        list = new ArrayList<String>();
+        list.add(0, "Choose Product Category");
+        list.add(1, "Birthdays");
+        list.add(2, "Wedding");
+        list.add(3, "Christening");
+        list.add(4, "Graduation");
+
+
+
+        //Payment Spinner
+        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, list)
+        {
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        addCategorySpinner.setAdapter(adapter);
+
+        addCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position > 0)
+                {
+                    prodCategory = list.get(position);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         id = UUID.randomUUID().toString();
         cutid = id.substring(0,11);
@@ -160,6 +232,8 @@ public class AddCustomProduct extends AppCompatActivity {
                         sellerProductsfb.put("ProductRating",4.5);
                         sellerProductsfb.put("ProductShippingFee",60);
                         sellerProductsfb.put("ProductAdditionalFee",80);
+                        sellerProductsfb.put("ProductCategory",prodCategory);
+
 
 
                         reference.child("SellerProducts").child(user.getUid()).child(cutid).setValue(sellerProductsfb);
@@ -186,6 +260,8 @@ public class AddCustomProduct extends AppCompatActivity {
                         sellerProductsfb.put("ProductRating",4.5);
                         sellerProductsfb.put("ProductShippingFee",60);
                         sellerProductsfb.put("ProductAdditionalFee",80);
+                        sellerProductsfb.put("ProductCategory",prodCategory);
+
 
 
 

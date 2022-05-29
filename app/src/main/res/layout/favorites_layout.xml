@@ -22,7 +22,7 @@
 
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/favoriteImageVIew"
+                android:id="@+id/favoritePageImage"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
                 android:layout_centerHorizontal="true"
@@ -36,10 +36,10 @@
                 app:srcCompat="@drawable/heart" />
 
             <TextView
-                android:id="@+id/favItemNameTxt"
+                android:id="@+id/productNameFavoritePage"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:layout_below="@+id/favoriteImageVIew"
+                android:layout_below="@+id/favoritePageImage"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="5dp"
                 android:autoSizeMaxTextSize="15sp"
@@ -52,10 +52,10 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/favShopNameTxt"
+                android:id="@+id/shopNameFavoritePage"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:layout_below="@+id/favoriteImageVIew"
+                android:layout_below="@+id/favoritePageImage"
                 android:layout_marginTop="48dp"
                 android:layout_marginBottom="5dp"
                 android:autoSizeMaxTextSize="15sp"

@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.CustomBuyerFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/nestedScrollView2"
+        android:background="@drawable/gradient_one">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="8dp"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/viewPagerStandardBuyer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="260dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/diy"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:padding="5dp"
+                        android:gravity="center"
+                        android:background="@drawable/textview_border_rectangle_gray"
+                        android:orientation="horizontal">
+                        <RatingBar
+                            android:id="@+id/ratingBarBuyer"
+                            style="?android:attr/ratingBarStyleSmall"
+                            android:layout_width="80dp"
+                            android:rating="4.5"
+                            android:layout_height="20dp" />
+
+                        <TextView
+                            android:id="@+id/ratingNum"
+                            android:layout_width="50dp"
+                            android:layout_height="20dp"
+                            android:textSize="15dp"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:text="4.5" />
+
+                        <TextView
+                            android:id="@+id/productSoldStandardProductBuyer"
+                            android:layout_width="80dp"
+                            android:layout_height="20dp"
+                            android:textSize="15sp"
+
+                            android:text="1,000" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:padding="5dp"
+                        android:gravity="center"
+                        android:background="@drawable/textview_border_rectangle_gray"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="280dp"
+                            android:layout_height="wrap_content"
+                            android:letterSpacing="0.5"
+                            android:gravity="center"
+                            android:textStyle="bold|italic"
+                            android:textSize="15sp"
+                            android:text="Product Details" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:padding="5dp"
+                        android:background="@drawable/textview_border_rectangle_gray"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/stockProduct"
+                            android:layout_width="80dp"
+                            android:layout_height="20dp"
+                            android:textSize="15sp"
+                            android:layout_marginStart="60dp"
+                            android:text="100" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/button2"
+                            android:layout_width="112dp"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="70dp"
+                            android:text="Visit Shop" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:background="@drawable/textview_border_rectangle_gray"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:id="@+id/bookFromProduct"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:text="Caduman Mandaue " />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="@drawable/textview_border_rectangle_gray"
+                        android:padding="5dp">
+                        <TextView
+                            android:id="@+id/textView68"
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:textSize="15sp"
+                            android:text="_____________________________________"/>
+                        <TextView
+                            android:id="@+id/descriptionProduct"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:layout_marginTop="9dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:background="@drawable/textview_border_rectangle_gray"
+                            android:text="Glass Jars of great quality which comes in a variety \n of designs..."
+                            />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:id="@+id/textView70"
+                            android:layout_width="match_parent"
+                            android:layout_height="28dp"
+                            android:background="@color/white"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="REVIEWS"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+
+
+                    <Spinner
+                        android:id="@+id/customDropdown1"
+                        android:layout_width="match_parent"
+                        android:layout_height="57dp"
+                        android:background="@android:drawable/btn_dropdown"
+                        android:spinnerMode="dropdown" />
+
+                    <Spinner
+                        android:id="@+id/customDropdown2"
+                        android:layout_width="match_parent"
+                        android:layout_height="57dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@android:drawable/btn_dropdown"
+                        android:spinnerMode="dropdown" />
+                    <Spinner
+                        android:id="@+id/customDropdown3"
+                        android:layout_width="match_parent"
+                        android:layout_height="57dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@android:drawable/btn_dropdown"
+                        android:spinnerMode="dropdown" />
+
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:padding="4dp"
+                        android:orientation="vertical">
+
+                        <EditText
+                            android:id="@+id/customSpecsTxtBuyer"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@drawable/custom_gray"
+                            android:ems="10"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:hint="Please input your Product Specifications and Designs Here..."
+                            android:inputType="textMultiLine"
+                            android:textStyle="bold|italic"
+                            tools:gravity="center" />
+
+                        <Button
+                            android:id="@+id/addCustomSpecsToSpinnerBuyer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Add"
+                            android:layout_gravity="center"/>
+
+                    </LinearLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/image1ImageVIew"
+                            android:layout_width="138dp"
+                            android:layout_height="131dp"
+                            android:layout_marginStart="50dp"
+                            android:src="@drawable/image1"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/image2Imageview"
+                            android:layout_width="139dp"
+                            android:layout_height="133dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="50dp"
+                            android:src="@drawable/image2"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/image1ImageVIew"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/addImage1FloatingButtonBuyer"
+                            android:layout_width="39dp"
+                            android:layout_height="38dp"
+                            android:clickable="true"
+                            app:layout_constraintBottom_toBottomOf="@+id/image1ImageVIew"
+                            app:layout_constraintEnd_toEndOf="@+id/image1ImageVIew"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toStartOf="@+id/image1ImageVIew"
+                            app:layout_constraintTop_toTopOf="@+id/image1ImageVIew"
+                            app:layout_constraintVertical_bias="1.0"
+                            app:srcCompat="@drawable/ic_baseline_add_a_photo_24" />
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/addImage2FloatingButtonBuyer"
+                            android:layout_width="39dp"
+                            android:layout_height="38dp"
+                            android:clickable="true"
+                            app:layout_constraintBottom_toBottomOf="@+id/image2Imageview"
+                            app:layout_constraintEnd_toEndOf="@+id/image2Imageview"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toStartOf="@+id/image2Imageview"
+                            app:layout_constraintTop_toTopOf="@+id/image2Imageview"
+                            app:layout_constraintVertical_bias="1.0"
+                            app:srcCompat="@drawable/ic_baseline_add_a_photo_24" />
+
+                        <TextView
+                            android:id="@+id/textView89"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/lightgray"
+                            android:text="See Sample Product Specifications and Designs Below..."
+                            android:textSize="14dp"
+                            android:textStyle="bold|italic"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/image2Imageview"
+                            app:layout_constraintVertical_bias="0.42" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <HorizontalScrollView
+                        android:id="@+id/horizontalScrollView"
+                        android:layout_width="match_parent"
+                        android:layout_height="193dp"
+                        android:layout_marginTop="10dp"
+                        android:scrollbars="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView89"
+                        app:layout_constraintVertical_bias="0.115">
+
+                        <LinearLayout
+                            android:id="@+id/gallery"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginBottom="50dp"
+                            android:background="#EEEDE7"
+                            android:orientation="horizontal"
+                            android:padding="20dp">
+
+                            <ImageView
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="20dp"
+                                android:layout_weight="1"
+                                android:adjustViewBounds="true"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/sample1"></ImageView>
+
+
+                            <ImageView
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="20dp"
+                                android:layout_weight="1"
+                                android:adjustViewBounds="true"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/sample2"></ImageView>
+
+                            <ImageView
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="20dp"
+                                android:layout_weight="1"
+                                android:adjustViewBounds="true"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/glass"></ImageView>
+
+                            <ImageView
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="20dp"
+                                android:layout_weight="1"
+                                android:adjustViewBounds="true"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/sample6"></ImageView>
+
+
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</FrameLayout>

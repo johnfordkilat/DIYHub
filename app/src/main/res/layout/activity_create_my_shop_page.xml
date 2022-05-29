@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,7 +17,106 @@
             android:src="@drawable/diy"
             android:layout_height="100dp"/>
 
-
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.cardview.widget.CardView
+        android:layout_width="350dp"
+        android:layout_height="210dp"
+        app:cardCornerRadius="20dp"
+        android:layout_marginStart="-375dp"
+        android:layout_marginTop="170dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/shopImageCreateShop"
+            android:layout_width="150dp"
+            android:layout_gravity="center"
+            android:src="@drawable/diy"
+            android:layout_marginTop="-20dp"
+            android:layout_height="150dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/chooseShopImageButtonCreateShop"
+            android:layout_width="200dp"
+            android:layout_marginTop="160dp"
+            android:layout_marginStart="75dp"
+            android:textColor="@color/white"
+            android:text="Choose Shop Image"
+            android:background="@drawable/custom_pink"
+            android:layout_height="50dp"/>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="350dp"
+        android:layout_height="280dp"
+        app:cardCornerRadius="20dp"
+        android:layout_marginStart="-350dp"
+        android:layout_marginTop="390dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:id="@+id/shopAddressTxtCreateShop"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/textview_border"
+                android:hint="Enter Shop Address"
+                android:layout_height="50dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_marginTop="80dp"
+                android:layout_marginStart="-350dp"
+                android:id="@+id/shopNameTxtCreateShop"
+                android:hint="Enter Shop Name"
+                android:background="@drawable/textview_border"
+                android:layout_height="50dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_marginTop="150dp"
+                android:layout_marginStart="-350dp"
+                android:hint="Enter Shop Motto"
+                android:id="@+id/shopMottoTxtCreateShop"
+                android:background="@drawable/textview_border"
+                android:layout_height="50dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:id="@+id/fullNameTxtCreateShop"
+                android:layout_marginTop="220dp"
+                android:layout_marginStart="-350dp"
+                android:hint="Enter your full name"
+                android:background="@drawable/textview_border"
+                android:layout_height="50dp"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="410dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="-390dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/textview_border_rectangle_gray"
+        android:gravity="center"
+        android:text="Create your own shop"
+        android:textSize="20dp"
+        android:textStyle="bold|italic"
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="99dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/createShopNowButtonCreateShop"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="-300dp"
+        android:textColor="@color/white"
+        android:text="Create Shop Now"
+        android:layout_marginTop="675dp"
+        android:background="@drawable/custom_pink" />
+
+
+</LinearLayout>

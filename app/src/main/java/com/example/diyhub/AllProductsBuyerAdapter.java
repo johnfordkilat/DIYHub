@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.example.diyhub.Fragments.CustomProductBuyer;
 import com.example.diyhub.Fragments.CustomProductDetails;
 import com.example.diyhub.Fragments.StandardProductBuyer;
+import com.example.diyhub.Fragments.StandardProductDetailsBuyer;
 import com.example.diyhub.Notifications.APIService;
 import com.example.diyhub.Notifications.CLient;
 import com.example.diyhub.Notifications.UserNotif;
@@ -111,20 +112,47 @@ public class AllProductsBuyerAdapter extends RecyclerView.Adapter<AllProductsBuy
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(context, StandardProductBuyer.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("Rating",productsList.getProductRating());
-                intent.putExtra("ProductSold",productsList.getProductSold());
-                intent.putExtra("ProductStocks", productsList.getProductStocks());
-                intent.putExtra("BookFrom", productsList.getProductBookFrom());
-                intent.putExtra("ProductPrice",productsList.getProductPrice());
-                intent.putExtra("ProductImage", productsList.getProductImage());
-                intent.putExtra("ProductDescription",productsList.getProductDescription());
-                intent.putExtra("ProductName",productsList.getProductName());
-                intent.putExtra("SellerID",productsList.getSellerID());
-                intent.putExtra("ProductID", productsList.getProductID());
-                intent.putExtra("ShopName", productsList.getShopName());
-                context.startActivity(intent);
+                if(productsList.getProductType().equalsIgnoreCase("Standard"))
+                {
+                    Intent intent = new Intent(context, StandardProductBuyer.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("Rating",productsList.getProductRating());
+                    intent.putExtra("ProductSold",productsList.getProductSold());
+                    intent.putExtra("ProductStocks", productsList.getProductStocks());
+                    intent.putExtra("BookFrom", productsList.getProductBookFrom());
+                    intent.putExtra("ProductPrice",productsList.getProductPrice());
+                    intent.putExtra("ProductImage", productsList.getProductImage());
+                    intent.putExtra("ProductDescription",productsList.getProductDescription());
+                    intent.putExtra("ProductName",productsList.getProductName());
+                    intent.putExtra("SellerID",productsList.getSellerID());
+                    intent.putExtra("ProductID", productsList.getProductID());
+                    intent.putExtra("ShopName", productsList.getShopName());
+                    intent.putExtra("ProductShippingFee", productsList.getProductShippingFee());
+                    intent.putExtra("ProductAdditionalFee", productsList.getProductAdditionalFee());
+                    context.startActivity(intent);
+
+                }
+                else
+                {
+                    Intent intent = new Intent(context, StandardProductBuyer.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("Rating",productsList.getProductRating());
+                    intent.putExtra("ProductSold",productsList.getProductSold());
+                    intent.putExtra("ProductStocks", productsList.getProductStocks());
+                    intent.putExtra("BookFrom", productsList.getProductBookFrom());
+                    intent.putExtra("ProductPrice",productsList.getProductPrice());
+                    intent.putExtra("ProductImage", productsList.getProductImage());
+                    intent.putExtra("ProductDescription",productsList.getProductDescription());
+                    intent.putExtra("ProductName",productsList.getProductName());
+                    intent.putExtra("SellerID",productsList.getSellerID());
+                    intent.putExtra("ProductID", productsList.getProductID());
+                    intent.putExtra("ShopName", productsList.getShopName());
+                    intent.putExtra("ProductShippingFee", productsList.getProductShippingFee());
+                    intent.putExtra("ProductAdditionalFee", productsList.getProductAdditionalFee());
+                    intent.putExtra("Tab", 1);
+                    context.startActivity(intent);
+                }
+
 
             }
         });

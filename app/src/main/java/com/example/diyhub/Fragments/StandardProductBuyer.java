@@ -21,11 +21,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.diyhub.CartPage;
-import com.example.diyhub.PaymentPageBuyer;
+import com.example.diyhub.AllProductsList;
+import com.example.diyhub.CartPageList;
 import com.example.diyhub.PlaceOrderPageBuyer;
+import com.example.diyhub.PlaceOrderPageBuyerAdapter;
 import com.example.diyhub.R;
-import com.example.diyhub.ViewPageAdapterProductDetailsStandard;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -40,6 +41,7 @@ import java.util.List;
 import java.util.Map;
 
 public class StandardProductBuyer extends AppCompatActivity {
+
 
     ImageView productImg;
     TextView productBookFrom;
@@ -86,10 +88,20 @@ public class StandardProductBuyer extends AppCompatActivity {
     String selectedColor="";
     ImageView backButton;
 
+    int tab = 0;
+    ViewPager standardCustomViewPager;
+    TabLayout tabLayout;
+    List<CartPageList> listCart;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_standard_product_buyer);
+
+        standardCustomViewPager = findViewById(R.id.standardCustomViewPager);
+        tabLayout = findViewById(R.id.tabLayoutProductD1);
 
         productBookFrom = findViewById(R.id.bookFromProduct);
         descriptionProduct = findViewById(R.id.descriptionProduct);
@@ -100,18 +112,19 @@ public class StandardProductBuyer extends AppCompatActivity {
         stockProduct = findViewById(R.id.stockProduct);
         ratingBar = findViewById(R.id.ratingBarBuyer);
         shopNameTxt = findViewById(R.id.shopNameStandardProductBuyer);
-        viewPager = findViewById(R.id.viewPagerStandardBuyer);
         addToCart = findViewById(R.id.addToCartStandard);
         backButton = findViewById(R.id.backButtonStandardProduct);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 
-        prodImagesList = new ArrayList<>();
+
+
+
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                StandardProductBuyer.this.finish();
             }
         });
 
@@ -132,17 +145,22 @@ public class StandardProductBuyer extends AppCompatActivity {
 
         }
 
-        productBookFrom.setText("Shop Address: "+bookfrom);
-        productRating.setText(String.valueOf(rating));
-        ratingBar.setRating((float)rating);
-        priceProduct.setText("₱"+String.valueOf(price));
-        descriptionProduct.setText(description);
-        stockProduct.setText("Stock: "+String.valueOf(stock));
+        StandardProductBuyerAdapter adapter = new StandardProductBuyerAdapter(getApplicationContext(), getSupportFragmentManager());
+        standardCustomViewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(standardCustomViewPager);
+
+
+        if(tab == 1)
+        {
+            tabLayout.getTabAt(1).select();
+        }
+
         shopNameTxt.setText(name);
-        soldProduct.setText(String.valueOf(sold)+" Sold");
+        priceProduct.setText("₱" + String.valueOf(price));
 
         reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(sellerID).child(prodID).child("Variations-Standard").child("Color");
         referenceSize = FirebaseDatabase.getInstance().getReference("SellerProducts").child(sellerID).child(prodID).child("Variations-Standard").child("Size");
+
 
         buyNow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,14 +181,11 @@ public class StandardProductBuyer extends AppCompatActivity {
                 submit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(quantity.getText().toString().trim().isEmpty())
-                        {
+                        if (quantity.getText().toString().trim().isEmpty()) {
                             quantity.setError("Required");
                             quantity.requestFocus();
                             return;
-                        }
-                        else
-                        {
+                        } else {
                             int quant = Integer.parseInt(String.valueOf(quantity.getText().toString().trim()));
                             /*
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
@@ -187,14 +202,14 @@ public class StandardProductBuyer extends AppCompatActivity {
                              */
                             closeDialogBuyNow.dismiss();
 
-                            Intent intent = new Intent(StandardProductBuyer.this, PlaceOrderPageBuyer.class);
-                            intent.putExtra("ProductID",prodID);
-                            intent.putExtra("SellerID",sellerID);
-                            intent.putExtra("ProductQuantity",quant);
-                            intent.putExtra("ShopName",shopName);
-                            intent.putExtra("Variations",selectedColor+", "+selectedSize);
-                            intent.putExtra("ProductPrice",price);
-                            intent.putExtra("ProductName",name);
+                            Intent intent = new Intent(getApplicationContext(), PlaceOrderPageBuyer.class);
+                            intent.putExtra("ProductID", prodID);
+                            intent.putExtra("SellerID", sellerID);
+                            intent.putExtra("ProductQuantity", quant);
+                            intent.putExtra("ShopName", shopName);
+                            intent.putExtra("Variations", selectedColor + ", " + selectedSize);
+                            intent.putExtra("ProductPrice", price);
+                            intent.putExtra("ProductName", name);
                             intent.putExtra("ProductImage", prodImage);
                             startActivity(intent);
                         }
@@ -205,10 +220,13 @@ public class StandardProductBuyer extends AppCompatActivity {
                 closeDialogBuyNow.show();
 
 
-
             }
         });
-        
+
+
+
+
+
         addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -225,40 +243,57 @@ public class StandardProductBuyer extends AppCompatActivity {
                 fetchDataColor();
                 fetchDataSize();
 
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 submit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(quantity.getText().toString().trim().isEmpty())
-                        {
+                        if (quantity.getText().toString().trim().isEmpty()) {
                             quantity.setError("Required");
                             quantity.requestFocus();
                             return;
-                        }
-                        else
-                        {
+                        } else {
+
+
+                            DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("SellerProducts").child(sellerID);
+                            reference1.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    list.clear();
+                                    for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                                    {
+                                        AllProductsList allProductsList = snapshot.getValue(AllProductsList.class);
+                                        if(allProductsList.getProductID().equalsIgnoreCase(prodID))
+                                        {
+
+                                        }
+
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+
                             int quant = Integer.parseInt(String.valueOf(quantity.getText().toString().trim()));
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                             Map<String, Object> map = new HashMap<>();
-                            map.put("ProductName",name);
-                            map.put("ProductID",prodID);
-                            map.put("ProductImage",prodImage);
-                            map.put("ProductQuantity",quant);
-                            map.put("ProductPrice",price);
-                            map.put("TotalPrice",0);
+
+                            map.put("ProductName", name);
+                            map.put("ProductID", prodID);
+                            map.put("ProductImage", prodImage);
+                            map.put("ProductQuantity", quant);
+                            map.put("SellerID", sellerID);
+                            map.put("Variations", selectedColor + ","+ selectedSize);
+                            map.put("ShopName", shopName);
+
+                            map.put("TotalPrice", 0);
                             reference.child("ShoppingCart").child(user.getUid()).child(prodID).updateChildren(map);
-                            Toast.makeText(StandardProductBuyer.this, "Product Added to Cart", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Product Added to Cart", Toast.LENGTH_SHORT).show();
                             closeDialog.dismiss();
 
-                            Intent intent = new Intent(StandardProductBuyer.this, CartPage.class);
-                            intent.putExtra("ProductID",prodID);
-                            intent.putExtra("SellerID",sellerID);
-                            intent.putExtra("ProductQuantity",quant);
-                            intent.putExtra("ShopName",shopName);
-                            intent.putExtra("Variations",selectedColor+", "+selectedSize);
-                            intent.putExtra("ProductPrice",price);
-                            intent.putExtra("ProductName",name);
-                            intent.putExtra("ProductImage", prodImage);
-                            startActivity(intent);
                         }
 
                     }
@@ -270,29 +305,6 @@ public class StandardProductBuyer extends AppCompatActivity {
             }
         });
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(sellerID).child(prodID).child("ProductImages");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                prodImagesList.clear();
-                for(DataSnapshot snapshot : dataSnapshot.getChildren())
-                {
-                    ProductDetailsImagesList allList = snapshot.getValue(ProductDetailsImagesList.class);
-                    prodImagesList.add(allList);
-                }
-                ViewPageAdapterProductDetailsStandard viewPageAdapterProductDetailsStandard = new ViewPageAdapterProductDetailsStandard(StandardProductBuyer.this, prodImagesList);
-
-                viewPager.setAdapter(viewPageAdapterProductDetailsStandard);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-
 
     }
 
@@ -302,31 +314,27 @@ public class StandardProductBuyer extends AppCompatActivity {
         list.add(0, "Choose Color Variation");
 
         //Payment Spinner
-        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, list)
-        {
+        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, list) {
             @Override
-            public boolean isEnabled(int position){
-                if(position == 0)
-                {
+            public boolean isEnabled(int position) {
+                if (position == 0) {
                     // Disable the first item from Spinner
                     // First item will be use for hint
                     return false;
-                }
-                else
-                {
+                } else {
                     return true;
                 }
             }
+
             @Override
             public View getDropDownView(int position, View convertView,
                                         ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
-                if(position == 0){
+                if (position == 0) {
                     // Set the hint text color gray
                     tv.setTextColor(Color.GRAY);
-                }
-                else {
+                } else {
                     tv.setTextColor(Color.BLACK);
                 }
                 return view;
@@ -338,8 +346,7 @@ public class StandardProductBuyer extends AppCompatActivity {
         colorSpinnerBuyNow.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position > 0)
-                {
+                if (position > 0) {
                     selectedColor = list.get(position);
                 }
             }
@@ -354,8 +361,7 @@ public class StandardProductBuyer extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot : dataSnapshot.getChildren())
-                {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     StandardProductVariationList standardProductSecondVariationList = snapshot.getValue(StandardProductVariationList.class);
                     list.add(standardProductSecondVariationList.getVariationName());
                 }
@@ -374,31 +380,27 @@ public class StandardProductBuyer extends AppCompatActivity {
         listSize.add(0, "Choose Size Variation");
 
         //Payment Spinner
-        adapterSize = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, listSize)
-        {
+        adapterSize = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, listSize) {
             @Override
-            public boolean isEnabled(int position){
-                if(position == 0)
-                {
+            public boolean isEnabled(int position) {
+                if (position == 0) {
                     // Disable the first item from Spinner
                     // First item will be use for hint
                     return false;
-                }
-                else
-                {
+                } else {
                     return true;
                 }
             }
+
             @Override
             public View getDropDownView(int position, View convertView,
                                         ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
-                if(position == 0){
+                if (position == 0) {
                     // Set the hint text color gray
                     tv.setTextColor(Color.GRAY);
-                }
-                else {
+                } else {
                     tv.setTextColor(Color.BLACK);
                 }
                 return view;
@@ -410,8 +412,7 @@ public class StandardProductBuyer extends AppCompatActivity {
         sizeSpinnerBuyNow.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position > 0)
-                {
+                if (position > 0) {
                     selectedSize = listSize.get(position);
                 }
             }
@@ -426,8 +427,7 @@ public class StandardProductBuyer extends AppCompatActivity {
         referenceSize.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot : dataSnapshot.getChildren())
-                {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     StandardProductSecondVariationList standardProductSecondVariationList = snapshot.getValue(StandardProductSecondVariationList.class);
                     listSize.add(standardProductSecondVariationList.getVarSize());
                 }

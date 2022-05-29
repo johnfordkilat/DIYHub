@@ -35,17 +35,7 @@ public class MyAdapterToPay extends RecyclerView.Adapter<MyAdapterToPay.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.itemName.setText(itemName[position]);
-        holder.amount.setText(itemamount[position]);
-        holder.itemImg.setImageResource(images[position]);
-        holder.toPay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, PaymentPage.class);
-                context.startActivity(intent);
 
-            }
-        });
     }
 
     @Override
@@ -59,10 +49,7 @@ public class MyAdapterToPay extends RecyclerView.Adapter<MyAdapterToPay.MyViewHo
         ImageView itemImg,toPay;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemName = itemView.findViewById(R.id.toPayItemName);
-            amount = itemView.findViewById(R.id.toPayAmount);
-            itemImg = itemView.findViewById(R.id.toPayImage);
-            toPay = itemView.findViewById(R.id.paymentButtonToPay);
+
         }
     }
 }

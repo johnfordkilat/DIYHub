@@ -190,7 +190,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.061"
-        app:srcCompat="@drawable/img_13" />
+        android:src="@drawable/ic_back_svgrepo_com" />
 
     <TextView
         android:id="@+id/textView32"
@@ -251,23 +251,24 @@
 
     <TextView
         android:id="@+id/userFullname"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textColor="@color/black"
         android:textSize="14dp"
         android:textStyle="bold"
+        android:background="@drawable/textview_border_rectangle"
         android:windowSoftInputMode="stateVisible|adjustResize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.463"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.032"
+        app:layout_constraintStart_toEndOf="@+id/profilePicBuyer"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.244" />
 
     <TextView
         android:id="@+id/textView35"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Classic Account"
         android:textColor="@color/black"
@@ -275,8 +276,9 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.462"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/textview_border_rectangle"
+        app:layout_constraintHorizontal_bias="0.034"
+        app:layout_constraintStart_toEndOf="@+id/profilePicBuyer"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.286" />
 

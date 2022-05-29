@@ -9,6 +9,7 @@ import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.diyhub.MESSAGES.ChatPage;
 import com.example.diyhub.Notifications.NotificationPromoDisplay;
 import com.example.diyhub.OrdersPage;
 import com.example.diyhub.R;
@@ -66,8 +68,26 @@ public class ToReceiveAdapter extends RecyclerView.Adapter<ToReceiveAdapter.MyVi
         holder.locationTxt.setText("Location: "+productsList.getBookingAddress());
         holder.riderAndPlateTxt.setText("Rider: "+productsList.getRiderName() + "    Plate: "+productsList.getPlateNumber());
         holder.orderid.setText("Order ID: "+productsList.getOrderID());
+
+        if(productsList.getPaymentStatus().equalsIgnoreCase("To Pay"))
+        {
+            holder.paymentStatus.setBackgroundResource(R.drawable.custom_red);
+        }
+        else
+        {
+            holder.paymentStatus.setBackgroundResource(R.drawable.custom_green);
+        }
         holder.paymentStatus.setText(productsList.getPaymentStatus());
-        holder.bookingOption.setText(productsList.getBookingOption());
+
+        if(productsList.getBookingOption().equalsIgnoreCase("MAXIM"))
+        {
+            holder.bookingOption.setBackgroundResource(R.drawable.gradient_maxim);
+        }
+        if(productsList.getBookingOption().equalsIgnoreCase("LALAMOVE"))
+        {
+            holder.bookingOption.setBackgroundResource(R.drawable.gradient_lalamove);
+        }
+            holder.bookingOption.setText(productsList.getBookingOption());
 
         if(productsList.getOrderType().equalsIgnoreCase("Standard"))
         {
@@ -83,7 +103,8 @@ public class ToReceiveAdapter extends RecyclerView.Adapter<ToReceiveAdapter.MyVi
         holder.chatBuyer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Chat with Buyer", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, ChatPage.class);
+                context.startActivity(intent);
             }
         });
         

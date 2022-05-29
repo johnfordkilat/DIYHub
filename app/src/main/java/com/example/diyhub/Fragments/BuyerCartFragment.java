@@ -1,23 +1,38 @@
-package com.example.diyhub;
+package com.example.diyhub.Fragments;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.diyhub.Fragments.StandardProductBuyer;
-import com.example.diyhub.Notifications.Data;
+import com.example.diyhub.BuyerAccountHomePage;
+import com.example.diyhub.CartPageList;
+import com.example.diyhub.FavoritesPage;
+import com.example.diyhub.MyAdapterCart;
+import com.example.diyhub.PlaceOrderFromCartBuyerTwo;
+import com.example.diyhub.PlaceOrderPageFromCartBuyer;
+import com.example.diyhub.R;
 import com.github.kittinunf.fuel.Fuel;
 import com.github.kittinunf.fuel.core.FuelError;
 import com.github.kittinunf.fuel.core.Handler;
+import com.google.android.gms.location.LocationRequest;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,13 +50,13 @@ import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import kotlin.Pair;
 
-public class CartPage extends AppCompatActivity {
+public class BuyerCartFragment extends Fragment {
+
+    View view;
 
     String paymentBackendUrl;
 
@@ -70,24 +85,29 @@ public class CartPage extends AppCompatActivity {
     String variations;
     String prodName;
     String prodImage;
+    boolean exists=false;
+
+    private LocationRequest locationRequest;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cart_page);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_buyer_cart, container, false);
+
 
         paymentBackendUrl  = getResources().getString(R.string.paymentBackendUrl);
         paymentSheet = new PaymentSheet(this, this::onPaymentResult);
-        dialog = new ProgressDialog(this);
+        dialog = new ProgressDialog(getContext());
 
-        recyclerView = findViewById(R.id.recyclerPromos1);
-        back = findViewById(R.id.backButtonCart);
-        checkoutButton = findViewById(R.id.checkoutButtonCartPage);
+        recyclerView = view.findViewById(R.id.recyclerPromos1);
+        checkoutButton = view.findViewById(R.id.checkoutButtonCartPage);
 
         s1 = getResources().getStringArray(R.array.item_name);
         s2 = getResources().getStringArray(R.array.purchases);
 
 
-        Bundle extras = getIntent().getExtras();
+        Bundle extras = getActivity().getIntent().getExtras();
         if(extras != null)
         {
             prodID = extras.getString("ProductID");
@@ -100,26 +120,79 @@ public class CartPage extends AppCompatActivity {
             prodImage = extras.getString("ProductImage");
 
         }
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        back.setOnClickListener(v -> finish());
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         checkoutButton.setOnClickListener(v -> {
             getTotalPayment();
-            Intent intent = new Intent(CartPage.this, PlaceOrderPageBuyer.class);
-            intent.putExtra("ProductIDCart",prodID);
-            intent.putExtra("SellerIDCart",sellerID);
-            intent.putExtra("ProductQuantityCart",quantity);
-            intent.putExtra("ShopNameCart",shopName);
-            intent.putExtra("VariationsCart",variations);
-            intent.putExtra("ProductPriceCart",price);
-            intent.putExtra("ProductNameCart",prodName);
-            intent.putExtra("ProductImageCart", prodImage);
-            intent.putExtra("TotalPaymentCart",totalPrice);
-            startActivity(intent);
+            DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("ShoppingCart").child(user.getUid());
+            reference1.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists())
+                    {
+                        for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                        {
+                            CartPageList cartPageList = snapshot.getValue(CartPageList.class);
+                            if(snapshot.getChildrenCount() > 1)
+                            {
+                                Intent intent = new Intent(getContext(), PlaceOrderFromCartBuyerTwo.class);
+                                intent.putExtra("ProductIDCart",prodID);
+                                intent.putExtra("SellerIDCart",cartPageList.getSellerID());
+                                intent.putExtra("ProductQuantityCart",quantity);
+                                intent.putExtra("ShopNameCart",shopName);
+                                intent.putExtra("VariationsCart",variations);
+                                intent.putExtra("ProductPriceCart",price);
+                                intent.putExtra("ProductNameCart",prodName);
+                                intent.putExtra("ProductImageCart", prodImage);
+                                intent.putExtra("TotalPaymentCart",totalPrice);
+                                startActivity(intent);
+                            }
+                            else
+                            {
+                                Intent intent = new Intent(getContext(), PlaceOrderPageFromCartBuyer.class);
+                                intent.putExtra("ProductIDCart",prodID);
+                                intent.putExtra("SellerIDCart",cartPageList.getSellerID());
+                                intent.putExtra("ProductQuantityCart",quantity);
+                                intent.putExtra("ShopNameCart",shopName);
+                                intent.putExtra("VariationsCart",variations);
+                                intent.putExtra("ProductPriceCart",price);
+                                intent.putExtra("ProductNameCart",prodName);
+                                intent.putExtra("ProductImageCart", prodImage);
+                                intent.putExtra("TotalPaymentCart",totalPrice);
+                                startActivity(intent);
+                            }
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
         });
         getTotalPayment();
         showData();
+
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(mMessageReceiver,
+                new IntentFilter("ProceedToCartFromHomepage"));
+
+
+
+        return view;
     }
+
+    public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            sellerID = intent.getStringExtra("SellerIDCart");
+
+        }
+    };
 
     private void getTotalPayment(){
         list = new ArrayList<>();
@@ -129,13 +202,17 @@ public class CartPage extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 list.clear();
-                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                if(dataSnapshot.exists())
                 {
-                    CartPageList cartPageList = snapshot.getValue(CartPageList.class);
-                    list.add(cartPageList);
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                    {
+                        CartPageList cartPageList = snapshot.getValue(CartPageList.class);
+                        list.add(cartPageList);
+                    }
+                    checkoutButton.setText("Total P"+ String.valueOf(list.get(0).getTotalPrice()) + "\n CHECKOUT");
+                    totalPrice = list.get(0).getTotalPrice();
+                    exists = true;
                 }
-                checkoutButton.setText("Total P"+ String.valueOf(list.get(0).getTotalPrice()) + "\n CHECKOUT");
-                totalPrice = list.get(0).getTotalPrice();
             }
 
             @Override
@@ -152,14 +229,19 @@ public class CartPage extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 listCart.clear();
-                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                if(dataSnapshot.exists())
                 {
-                    CartPageList cartPageList = snapshot.getValue(CartPageList.class);
-                    listCart.add(cartPageList);
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                    {
+                        CartPageList cartPageList = snapshot.getValue(CartPageList.class);
+                        listCart.add(cartPageList);
+                    }
+                    exists = true;
+                    prodID = listCart.get(0).getProductID();
+                    myAdapterCart = new MyAdapterCart(getContext(),listCart,exists);
+                    recyclerView.setAdapter(myAdapterCart);
                 }
-                prodID = listCart.get(0).getProductID();
-                myAdapterCart = new MyAdapterCart(CartPage.this,listCart);
-                recyclerView.setAdapter(myAdapterCart);
+
             }
 
             @Override
@@ -170,15 +252,15 @@ public class CartPage extends AppCompatActivity {
     }
 
     private void backPage() {
-        Intent intent = new Intent(CartPage.this, BuyerAccountHomePage.class);
-        if (intent.resolveActivity(getPackageManager()) != null) {
+        Intent intent = new Intent(getContext(), BuyerAccountHomePage.class);
+        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
             startActivity(intent);
         }
     }
 
     private void favoritesPage() {
-        Intent intent = new Intent(CartPage.this, FavoritesPage.class);
-        if (intent.resolveActivity(getPackageManager()) != null) {
+        Intent intent = new Intent(getContext(), FavoritesPage.class);
+        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
             startActivity(intent);
         }
     }
@@ -186,13 +268,13 @@ public class CartPage extends AppCompatActivity {
     private void onPaymentResult(PaymentSheetResult paymentSheetResult) {
         if (paymentSheetResult instanceof PaymentSheetResult.Canceled) {
             // Log.d("Canceled")
-            Toast.makeText(this, "Payment Cancelled", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Payment Cancelled", Toast.LENGTH_SHORT).show();
         } else if (paymentSheetResult instanceof PaymentSheetResult.Failed) {
             // Log.e("App", "Got error: ", ((PaymentSheetResult.Failed) paymentSheetResult).getError());
-            Toast.makeText(this, String.valueOf(((PaymentSheetResult.Failed) paymentSheetResult).getError()), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), String.valueOf(((PaymentSheetResult.Failed) paymentSheetResult).getError()), Toast.LENGTH_SHORT).show();
         } else if (paymentSheetResult instanceof PaymentSheetResult.Completed) {
             PaymentSheetResult.Completed data = (PaymentSheetResult.Completed) paymentSheetResult;
-            Toast.makeText(this, "Payment Success", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Payment Success", Toast.LENGTH_SHORT).show();
 
 
         }
@@ -225,7 +307,7 @@ public class CartPage extends AppCompatActivity {
                             result.getString("ephemeralKey")
                     );
                     paymentIntentClientSecret = result.getString("paymentIntent");
-                    PaymentConfiguration.init(getApplicationContext(), result.getString("publishableKey"));
+                    PaymentConfiguration.init(getContext(), result.getString("publishableKey"));
 
                     showPaymentSheet();
                 } catch (JSONException e) {
@@ -246,7 +328,7 @@ public class CartPage extends AppCompatActivity {
     private void showPaymentSheet() {
         PaymentSheet.Configuration configuration = new PaymentSheet.Configuration.Builder("DIYHub, Inc.")
                 .customer(customerConfig)
-                // Set `allowsDelayedPaymentMethods` to true if your business can handle payment methods
+                // Set allowsDelayedPaymentMethods to true if your business can handle payment methods
                 // that complete payment after a delay, like SEPA Debit and Sofort.
                 .allowsDelayedPaymentMethods(true)
                 .build();
@@ -258,7 +340,7 @@ public class CartPage extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         getTotalPayment();
         showData();
@@ -266,14 +348,9 @@ public class CartPage extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         showData();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        Map<String, Object> map = new HashMap<>();
-        map.put("TotalPrice",0);
-        reference.child("ShoppingCart").child(user.getUid()).child(prodID).updateChildren(map);
-    }
 
+    }
 }

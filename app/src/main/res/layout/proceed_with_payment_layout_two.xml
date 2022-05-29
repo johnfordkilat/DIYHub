@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        app:cardCornerRadius="20dp"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/shopNameTxtPlaceOrder"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/textview_border_rectangle_gray"
+                android:gravity="center"
+                android:text="Shop Name"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/productNamePlaceOrder"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/productImagePlaceOrder"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@color/gray"
+                android:layout_marginStart="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.034"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.8" />
+
+            <TextView
+                android:id="@+id/productNamePlaceOrder"
+                android:layout_width="250dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="110dp"
+                android:layout_marginTop="-100dp"
+                android:background="@drawable/textview_border_rectangle_gray"
+                android:gravity="center_vertical"
+                android:text="Product Name" />
+
+            <TextView
+                android:id="@+id/variationPlaceOrder"
+                android:layout_width="250dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="110dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/textview_border_rectangle_gray"
+                android:gravity="center_vertical"
+                android:text="Variation: "/>
+
+            <TextView
+                android:id="@+id/productPricePlaceOrder"
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="11dp"
+                android:layout_marginStart="110dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/textview_border_rectangle_gray"
+                android:gravity="center_vertical"
+                android:text="180"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/productQuantityPlaceOrder"
+                app:layout_constraintStart_toEndOf="@+id/productImagePlaceOrder"
+                app:layout_constraintTop_toBottomOf="@+id/variationPlaceOrder" />
+
+            <TextView
+                android:id="@+id/productQuantityPlaceOrder"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="101dp"
+                android:layout_marginBottom="11dp"
+                android:layout_marginTop="-42dp"
+                android:layout_marginStart="230dp"
+                android:background="@drawable/textview_border_rectangle_gray"
+                android:gravity="center"
+                android:text="x1"
+                android:textSize="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/productPricePlaceOrder"
+                app:layout_constraintTop_toBottomOf="@+id/variationPlaceOrder" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.core.widget.NestedScrollView>

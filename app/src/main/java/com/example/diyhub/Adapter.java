@@ -52,9 +52,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         ImageView favImage;
         public ViewHolder(@NonNull View itemView){
             super(itemView);
-            itemName = itemView.findViewById(R.id.favItemNameTxt);
-            shopName = itemView.findViewById(R.id.favShopNameTxt);
-            favImage = itemView.findViewById(R.id.favoriteImageVIew);
+
         }
     }
 }

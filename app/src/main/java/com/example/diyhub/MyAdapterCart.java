@@ -49,10 +49,12 @@ public class MyAdapterCart extends RecyclerView.Adapter<MyAdapterCart.MyViewHold
     int count = 0;
     double[] totalPrice = new double[10];
     double[] displayPrice = new double[10];
-    public MyAdapterCart(Context ct, List<CartPageList> list)
+    boolean exists;
+    public MyAdapterCart(Context ct, List<CartPageList> list, boolean exists)
     {
         this.context = ct;
         this.list = list;
+        this.exists = exists;
     }
 
     @NonNull
@@ -72,6 +74,7 @@ public class MyAdapterCart extends RecyclerView.Adapter<MyAdapterCart.MyViewHold
         total = 0;
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+        holder.varTxt.setText(cart.getVariations());
 
 
         holder.quantity.setText(String.valueOf(cart.getProductQuantity()));
@@ -92,6 +95,7 @@ public class MyAdapterCart extends RecyclerView.Adapter<MyAdapterCart.MyViewHold
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 Toast.makeText(context, "Deleted Successfully!", Toast.LENGTH_SHORT).show();
+                                notifyDataSetChanged();
                             }
                         });
 
@@ -108,6 +112,7 @@ public class MyAdapterCart extends RecyclerView.Adapter<MyAdapterCart.MyViewHold
             }
         });
 
+        if(exists)
         updatePrice();
 
     }
@@ -141,6 +146,7 @@ public class MyAdapterCart extends RecyclerView.Adapter<MyAdapterCart.MyViewHold
         Button minus,plus;
         TextView quantity;
         ImageView delete;
+        TextView varTxt;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             itemName = itemView.findViewById(R.id.itemNameTxtCart);
@@ -148,6 +154,7 @@ public class MyAdapterCart extends RecyclerView.Adapter<MyAdapterCart.MyViewHold
             itemImg = itemView.findViewById(R.id.itemImageView1);
             quantity = itemView.findViewById(R.id.quantityTotalTxtCart);
             delete = itemView.findViewById(R.id.deleteItemCartButton);
+            varTxt = itemView.findViewById(R.id.variationsTxtCart);
         }
     }
 

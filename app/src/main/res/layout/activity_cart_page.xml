@@ -48,7 +48,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.061"
-        app:srcCompat="@drawable/img_13" />
+        android:src="@drawable/ic_back_svgrepo_com" />
 
     <TextView
         android:id="@+id/textView25"

@@ -21,15 +21,24 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.diyhub.Notifications.APIService;
+import com.example.diyhub.Notifications.CLient;
+import com.example.diyhub.Notifications.Data;
+import com.example.diyhub.Notifications.MyResponse;
+import com.example.diyhub.Notifications.Sender;
+import com.example.diyhub.Notifications.Token;
 import com.github.kittinunf.fuel.Fuel;
 import com.github.kittinunf.fuel.core.FuelError;
 import com.github.kittinunf.fuel.core.Handler;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.stripe.android.PaymentConfiguration;
 import com.stripe.android.paymentsheet.PaymentSheet;
@@ -50,6 +59,9 @@ import java.util.Map;
 import java.util.UUID;
 
 import kotlin.Pair;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PaymentPageBuyer extends AppCompatActivity {
 
@@ -92,6 +104,9 @@ public class PaymentPageBuyer extends AppCompatActivity {
     String bookingOption;
     String deliveryType;
     double totalPaymentCart;
+    TextView orderLater;
+    APIService apiService = apiService = CLient.getClient("https://fcm.googleapis.com/").create(APIService.class);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,11 +149,14 @@ public class PaymentPageBuyer extends AppCompatActivity {
                     }
                     else
                     {
-                        Toast.makeText(PaymentPageBuyer.this, "COD", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PaymentPageBuyer.this, "Your order has been placed", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(PaymentPageBuyer.this, ToPayPage.class);
+                        startActivity(intent);
                     }
                 }
             }
         });
+
 
         Bundle extras = getIntent().getExtras();
         if(extras != null)
@@ -159,9 +177,8 @@ public class PaymentPageBuyer extends AppCompatActivity {
             additionalFee = extras.getDouble("OrderAdditionalFee",0);
             totalPaymentCart = extras.getDouble("TotalPaymentCart",0);
         }
-        Toast.makeText(this, "Total Cart: "+totalPaymentCart, Toast.LENGTH_SHORT).show();
 
-        Toast.makeText(this, productName, Toast.LENGTH_SHORT).show();
+
         finalAmount.setText("Final amount to be paid ₱"+totalPayment);
         //Payment List
         list = new ArrayList<String>();
@@ -327,7 +344,7 @@ public class PaymentPageBuyer extends AppCompatActivity {
             Toast.makeText(this, "Payment Cancelled", Toast.LENGTH_SHORT).show();
         } else if (paymentSheetResult instanceof PaymentSheetResult.Failed) {
             // Log.e("App", "Got error: ", ((PaymentSheetResult.Failed) paymentSheetResult).getError());
-            Toast.makeText(this, "Payment Failed"+String.valueOf(((PaymentSheetResult.Failed) paymentSheetResult).getError()), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Payment Failed", Toast.LENGTH_SHORT).show();
         } else if (paymentSheetResult instanceof PaymentSheetResult.Completed) {
             PaymentSheetResult.Completed data = (PaymentSheetResult.Completed) paymentSheetResult;
             Toast.makeText(this, "Payment Success", Toast.LENGTH_SHORT).show();
@@ -361,6 +378,7 @@ public class PaymentPageBuyer extends AppCompatActivity {
             String BookingOption;
             String BuyerID;
 
+            //Seller Database
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
             Map<String, Object> map = new HashMap<>();
@@ -391,14 +409,109 @@ public class PaymentPageBuyer extends AppCompatActivity {
             map.put("OrderDeclineReason", "");
             reference.child("Orders").child(sellerID).child(OrderID).setValue(map);
 
+            //Buyer Database
+            DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference();
+            Map<String, Object> map2 = new HashMap<>();
+            map2.put("OrderProductName",productName);
+            map2.put("OrderQuantity",orderQuantity);
+            map2.put("OrderProductImage",productImage);
+            map2.put("OrderType",orderType);
+            map2.put("ItemCode",itemCode);
+            map2.put("BuyerName",buyerName);
+            map2.put("PaymentStatus",paymentStatus);
+            map2.put("OrderDate",currentDateAndTime);
+            map2.put("BuyerImage",String.valueOf(user.getPhotoUrl()));
+            map2.put("BookingAddress",bookingAddress);
+            map2.put("OrderStatus","To Pay");
+            map2.put("ShopName",shopName1);
+            map2.put("OrderProductPrice",productPrice);
+            map2.put("OrderShippingFee",shippingFee);
+            map2.put("OrderAdditionalFee",additionalFee);
+            map2.put("OrderTotalPayment",totalPayment);
+            map2.put("PaymentReference",OrderID);
+            map2.put("OrderID",OrderID);
+            map2.put("PaymentOption", paymentOption);
+            map2.put("DeliveryType",deliveryType);
+            map2.put("RiderName","");
+            map2.put("PlateNumber","");
+            map2.put("BookingOption",bookingOption);
+            map2.put("BuyerID",user.getUid());
+            map2.put("OrderDeclineReason", "");
+            reference2.child("BuyerPurchase").child(user.getUid()).child(OrderID).setValue(map2);
+
+
+
             DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
             Map<String, Object> map1 = new HashMap<>();
             map1.put("PaymentReference", user.getUid()+"-"+OrderID);
             map1.put("DateAndTime", currentDateAndTime);
             reference1.child("Payments").child(user.getUid()).child(user.getUid()+"-"+OrderID).setValue(map1);
 
+            DatabaseReference reference3 = FirebaseDatabase.getInstance().getReference();
+            Map<String, Object> map3 = new HashMap<>();
+            map3.put("IsSeen","false");
+            map3.put("NotifDateAndTime", currentDateAndTime);
+            map3.put("NotifDescription", buyerName + " made an Order of the Product "+ productName);
+            map3.put("NotifHeader", "Order Request");
+            map3.put("NotifID",OrderID);
+            map3.put("NotifImage",productImage);
+            reference3.child("Notifications").child(sellerID).child(OrderID).setValue(map3);
+            sendNotification(sellerID,buyerName + " made an Order of the Product "+ productName,"Order Request");
+
+
+
+            DatabaseReference reference4 = FirebaseDatabase.getInstance().getReference("ShoppingCart").child(user.getUid());
+            reference4.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Toast.makeText(PaymentPageBuyer.this, "Your order is now placed", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
 
         }
+    }
+
+    private void sendNotification(String receiver, String msg, String orderType) {
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference tokens = FirebaseDatabase.getInstance().getReference("Tokens");
+        Query query = tokens.orderByKey().equalTo(receiver);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    Token token = snapshot.getValue(Token.class);
+                    Data data = new Data(user.getUid(), R.drawable.diy, msg, orderType, receiver);
+                    Sender sender = new Sender(data, token.getToken());
+
+                    apiService.sendNotification(sender)
+                            .enqueue(new Callback<MyResponse>() {
+                                @Override
+                                public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                                    if(response.code() == 200)
+                                    {
+                                        if(response.body().success != 1){
+                                            Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<MyResponse> call, Throwable t) {
+
+                                }
+                            });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void processCheckout() {

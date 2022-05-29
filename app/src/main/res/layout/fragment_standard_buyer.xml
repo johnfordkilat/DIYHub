@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_one"
+    tools:context=".Fragments.StandardBuyerFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="8dp"
+                android:orientation="vertical">
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:padding="8dp">
+
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/viewPagerStandardBuyer"
+                        android:layout_width="wrap_content"
+                        android:foregroundGravity="center"
+                        android:layout_height="260dp">
+
+
+                    </androidx.viewpager.widget.ViewPager>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:padding="5dp"
+                        android:gravity="center"
+                        android:background="@drawable/textview_border_rectangle_gray"
+                        android:orientation="horizontal">
+                        <RatingBar
+                            android:id="@+id/ratingBarBuyer"
+                            style="?android:attr/ratingBarStyleSmall"
+                            android:layout_width="80dp"
+                            android:rating="4.5"
+                            android:layout_height="20dp" />
+
+                        <TextView
+                            android:id="@+id/ratingNum"
+                            android:layout_width="50dp"
+                            android:layout_height="20dp"
+                            android:textSize="15dp"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:text="4.5" />
+
+                        <TextView
+                            android:id="@+id/productSoldStandardProductBuyer"
+                            android:layout_width="80dp"
+                            android:layout_height="20dp"
+                            android:textSize="15sp"
+
+                            android:text="1,000" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:padding="5dp"
+                        android:gravity="center"
+                        android:background="@drawable/textview_border_rectangle_gray"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="280dp"
+                            android:layout_height="wrap_content"
+                            android:letterSpacing="0.5"
+                            android:gravity="center"
+                            android:textStyle="bold|italic"
+                            android:textSize="15sp"
+                            android:text="Product Details" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:padding="5dp"
+                        android:background="@drawable/textview_border_rectangle_gray"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/stockProduct"
+                            android:layout_width="80dp"
+                            android:layout_height="20dp"
+                            android:textSize="15sp"
+                            android:layout_marginStart="60dp"
+                            android:text="100" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/button2"
+                            android:layout_width="112dp"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="70dp"
+                            android:text="Visit Shop" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:background="@drawable/textview_border_rectangle_gray"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:id="@+id/bookFromProduct"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:text="Caduman Mandaue " />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="@drawable/textview_border_rectangle_gray"
+                        android:padding="5dp">
+                        <TextView
+                            android:id="@+id/textView68"
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:textSize="15sp"
+                            android:text="_____________________________________"/>
+                        <TextView
+                            android:id="@+id/descriptionProduct"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:layout_marginTop="9dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:background="@drawable/textview_border_rectangle_gray"
+                            android:text="Glass Jars of great quality which comes in a variety \n of designs..."
+                            />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:id="@+id/textView70"
+                            android:layout_width="match_parent"
+                            android:layout_height="28dp"
+                            android:background="@color/white"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="REVIEWS"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</FrameLayout>

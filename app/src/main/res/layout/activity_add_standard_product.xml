@@ -7,27 +7,41 @@
     android:background="@drawable/gradient_one"
     tools:context=".Fragments.AddStandardProduct">
 
+    <Spinner
+        android:id="@+id/customProductSpinnerAddStandardProduct"
+        android:layout_width="380dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:background="@android:drawable/btn_dropdown"
+        app:layout_constraintBottom_toTopOf="@+id/productDescriptionTxtAddStandard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productSoldAddStandard"
+        app:layout_constraintVertical_bias="1.0" />
+
     <EditText
         android:id="@+id/productMaterialsUsedAddStandard"
         android:layout_width="382dp"
         android:layout_height="46dp"
-        android:layout_marginStart="82dp"
-        android:layout_marginEnd="120dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="81dp"
         android:background="@drawable/textview_border"
         android:ems="10"
         android:hint="Product Materials Used"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.364"
+        app:layout_constraintHorizontal_bias="0.462"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.427" />
+        app:layout_constraintVertical_bias="0.414" />
 
     <EditText
         android:id="@+id/productPriceAddStandard"
         android:layout_width="382dp"
         android:layout_height="46dp"
-        android:layout_marginStart="82dp"
+        android:layout_marginStart="80dp"
         android:layout_marginEnd="120dp"
         android:background="@drawable/textview_border"
         android:ems="10"
@@ -38,13 +52,13 @@
         app:layout_constraintHorizontal_bias="0.364"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.51" />
+        app:layout_constraintVertical_bias="0.499" />
 
     <EditText
         android:id="@+id/productSoldAddStandard"
         android:layout_width="382dp"
         android:layout_height="46dp"
-        android:layout_marginStart="82dp"
+        android:layout_marginStart="80dp"
         android:layout_marginEnd="120dp"
         android:background="@drawable/textview_border"
         android:ems="10"
@@ -52,10 +66,10 @@
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.364"
+        app:layout_constraintHorizontal_bias="0.358"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.604" />
+        app:layout_constraintVertical_bias="0.582" />
 
     <EditText
         android:id="@+id/addProdName"
@@ -74,40 +88,40 @@
         app:layout_constraintHorizontal_bias="0.462"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.106" />
+        app:layout_constraintVertical_bias="0.09" />
 
     <EditText
         android:id="@+id/addProdStocks"
         android:layout_width="382dp"
         android:layout_height="46dp"
-        android:layout_marginStart="82dp"
-        android:layout_marginEnd="120dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="81dp"
         android:background="@drawable/textview_border"
         android:ems="10"
         android:hint="Product Stocks"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.364"
+        app:layout_constraintHorizontal_bias="0.462"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.341" />
+        app:layout_constraintVertical_bias="0.328" />
 
     <EditText
         android:id="@+id/productDescriptionTxtAddStandard"
         android:layout_width="381dp"
         android:layout_height="187dp"
-        android:layout_marginStart="82dp"
+        android:layout_marginStart="80dp"
         android:layout_marginEnd="120dp"
         android:background="@drawable/textview_border"
         android:ems="10"
         android:hint="Product Description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.364"
+        app:layout_constraintHorizontal_bias="0.352"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.87" />
+        app:layout_constraintVertical_bias="0.917" />
 
     <Button
         android:id="@+id/addVariationsStandard"
@@ -115,7 +129,6 @@
         android:layout_height="45dp"
         android:layout_marginStart="80dp"
         android:layout_marginEnd="78dp"
-        android:layout_marginBottom="16dp"
         android:text="Add Variations"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -128,18 +141,18 @@
         android:id="@+id/addProdQuantity"
         android:layout_width="382dp"
         android:layout_height="46dp"
-        android:layout_marginStart="85dp"
-        android:layout_marginEnd="117dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="81dp"
         android:background="@drawable/textview_border"
         android:ems="10"
         android:hint="Product Quantity"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.381"
+        app:layout_constraintHorizontal_bias="0.462"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.261" />
+        app:layout_constraintVertical_bias="0.249" />
 
     <TextView
         android:id="@+id/textView83"

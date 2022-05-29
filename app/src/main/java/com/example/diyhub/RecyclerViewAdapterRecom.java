@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -48,6 +49,9 @@ public class RecyclerViewAdapterRecom extends RecyclerView.Adapter<RecyclerViewA
 
         holder.name.setText(mImageUrls.get(position).getShopName());
 
+        Intent intent1 = new Intent("ProceedToCartFromHomepage");
+        intent1.putExtra("SellerIDCart", mImageUrls.get(position).getSellerID());
+        LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent1);
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,6 +59,7 @@ public class RecyclerViewAdapterRecom extends RecyclerView.Adapter<RecyclerViewA
                 intent.putExtra("SellerID", mImageUrls.get(position).getSellerID());
                 intent.putExtra("ShopName", mImageUrls.get(position).getShopName());
                 intent.putExtra("Rating", mImageUrls.get(position).getShopRating());
+                intent.putExtra("ShopImage", mImageUrls.get(position).getShopImage());
                 mContext.startActivity(intent);
             }
         });

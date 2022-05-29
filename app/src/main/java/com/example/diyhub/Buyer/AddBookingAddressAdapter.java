@@ -53,8 +53,8 @@ public class AddBookingAddressAdapter extends RecyclerView.Adapter<AddBookingAdd
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-             newAddress = itemView.findViewById(R.id.newAddress_txtView);
-             newLandmark = itemView.findViewById(R.id.landMark_txtView);
+            newAddress = itemView.findViewById(R.id.newAddress_txtView);
+            newLandmark = itemView.findViewById(R.id.landMark_txtView);
         }
     }
 }

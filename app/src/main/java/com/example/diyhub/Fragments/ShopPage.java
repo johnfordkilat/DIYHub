@@ -14,6 +14,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.diyhub.AllProductsAdapter;
 import com.example.diyhub.AllProductsBuyerAdapter;
 import com.example.diyhub.AllProductsList;
@@ -24,6 +25,8 @@ import com.example.diyhub.Notifications.Data;
 import com.example.diyhub.R;
 import com.example.diyhub.RestockProductsAdapter;
 import com.example.diyhub.RestockProductsList;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +39,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ShopPage extends AppCompatActivity {
 
@@ -50,9 +55,12 @@ public class ShopPage extends AppCompatActivity {
     TextView shopNameTxt;
     TextView ratingTxt;
     RatingBar ratingBar;
-    boolean followed = false;
+    boolean followed;
     double shopRating;
     ImageView backButton;
+    String shopImage;
+    CircleImageView shopImageView;
+    List<FollowingListShopPageBuyer> list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +75,7 @@ public class ShopPage extends AppCompatActivity {
         ratingBar = findViewById(R.id.ratingBarShopPage);
         ratingTxt = findViewById(R.id.ratingTxtShopPage);
         backButton = findViewById(R.id.backButtonShopPageBuyer);
+        shopImageView = findViewById(R.id.shopPageBuyerImage);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,54 +91,76 @@ public class ShopPage extends AppCompatActivity {
             sellerID = extras.getString("SellerID");
             shopName = extras.getString("ShopName");
             shopRating = extras.getDouble("Rating");
+            shopImage = extras.getString("ShopImage");
         }
         shopNameTxt.setText(shopName);
         ratingTxt.setText(String.valueOf(shopRating));
         ratingBar.setRating(Float.parseFloat(String.valueOf(shopRating)));
         progressDialog = new ProgressDialog(ShopPage.this);
+        Glide.with(this).load(shopImage).into(shopImageView);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Following").child(user.getUid());
-        reference.addValueEventListener(new ValueEventListener() {
+        DatabaseReference reference3 = FirebaseDatabase.getInstance().getReference("Following").child(user.getUid()).child(sellerID);
+        reference3.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for(DataSnapshot snapshot : dataSnapshot.getChildren())
-                    {
-                        FollowingListShopPageBuyer listShopPageBuyer = snapshot.getValue(FollowingListShopPageBuyer.class);
-                        if(listShopPageBuyer.isFollowed() && listShopPageBuyer.getSellerID().equalsIgnoreCase(sellerID))
-                        {
-                            followed = true;
-                        }
-                    }
-            }
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    favButton.setImageResource(R.drawable.heart);
 
+                }
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
         favButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!followed)
-                {
-                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("SellerID",sellerID);
-                    map.put("ShopName", shopName);
-                    map.put("isFollowed",true);
-                    reference.child("Following").child(user.getUid()).child(sellerID).updateChildren(map);
-                    Toast.makeText(ShopPage.this, "Added to following", Toast.LENGTH_SHORT).show();
-                    followed = true;
-                }
-                else if(followed)
-                {
-                    Toast.makeText(ShopPage.this, "Already followed`", Toast.LENGTH_SHORT).show();
-                }
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Following").child(user.getUid()).child(sellerID);
+                reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists())
+                        {
+                            reference.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Toast.makeText(ShopPage.this, "Unfollowed", Toast.LENGTH_SHORT).show();
+                                    favButton.setImageResource(R.drawable.ic_followed);
+                                }
+                            });
+                        }
+                        else
+                        {
+                            DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
+                            Map<String, Object> map1 = new HashMap<>();
+                            map1.put("SellerID",sellerID);
+                            map1.put("ShopName", shopName);
+                            map1.put("isFollowed",true);
+                            map1.put("ShopImage",shopImage);
+                            reference1.child("Following").child(user.getUid()).child(sellerID).updateChildren(map1);
+                            Toast.makeText(ShopPage.this, "Added to following", Toast.LENGTH_SHORT).show();
+                            favButton.setImageResource(R.drawable.heart);
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
+
+
+
+
+
+
 
 
         allProductsLists = new ArrayList<>();
@@ -202,7 +233,6 @@ public class ShopPage extends AppCompatActivity {
         }
         AllProductsAdapter adapter = new AllProductsAdapter(getApplicationContext(),filterList);
         allProductsRecyclerView.setAdapter(adapter);
-
 
     }
 }

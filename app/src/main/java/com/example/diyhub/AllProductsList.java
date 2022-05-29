@@ -20,6 +20,7 @@ public class AllProductsList {
     double ProductShippingFee;
     double ProductAdditionalFee;
     double ProductTotalPayment;
+    String ProductCategory;
 
     public AllProductsList(){
 
@@ -27,7 +28,8 @@ public class AllProductsList {
 
     public AllProductsList(String productName, int productQuantity, int productStocks, String prodImage, String prodID, String prodImgStatus, String prodStatus,
                            String productType, double productPrice, double productSold, String productDescription, String productMaterial, double productRating,
-                           String productBookFrom, String sellerID, String shopName, double productShippingFee, double productAdditionalFee, double productTotalPayment) {
+                           String productBookFrom, String sellerID, String shopName, double productShippingFee, double productAdditionalFee, double productTotalPayment,
+                           String productCategory) {
         ProductName = productName;
         ProductQuantity = productQuantity;
         ProductStocks = productStocks;
@@ -47,6 +49,15 @@ public class AllProductsList {
         ProductShippingFee = productShippingFee;
         ProductAdditionalFee = productAdditionalFee;
         ProductTotalPayment = productTotalPayment;
+        ProductCategory = productCategory;
+    }
+
+    public String getProductCategory() {
+        return ProductCategory;
+    }
+
+    public void setProductCategory(String productCategory) {
+        ProductCategory = productCategory;
     }
 
     public double getProductShippingFee() {

@@ -30,6 +30,7 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.diyhub.AllProductsAdapter;
 import com.example.diyhub.AllProductsList;
+import com.example.diyhub.CreateMyShopPage;
 import com.example.diyhub.LoginPage;
 import com.example.diyhub.Notifications.Data;
 import com.example.diyhub.PastTransaction.PastTransactionHistory;
@@ -267,13 +268,7 @@ public class SellerHomeFragment extends Fragment {
         list = new ArrayList<String>();
         list.add(0, "Choose Payment Method");
 
-        viewMyShop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ShopPageSeller.class);
-                startActivity(intent);
-            }
-        });
+
 
         DatabaseReference referenceShop = FirebaseDatabase.getInstance().getReference("Shops");
         referenceShop.addValueEventListener(new ValueEventListener() {
@@ -285,10 +280,24 @@ public class SellerHomeFragment extends Fragment {
                     if(shopsList.getSellerID().equalsIgnoreCase(user.getUid()))
                     {
                         viewMyShop.setText("CREATE My Shop");
+                        viewMyShop.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(getContext(), CreateMyShopPage.class);
+                                startActivity(intent);
+                            }
+                        });
                     }
                     else
                     {
                         viewMyShop.setText("VIEW My Shop");
+                        viewMyShop.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(getContext(), ShopPageSeller.class);
+                                startActivity(intent);
+                            }
+                        });
                     }
                 }
             }

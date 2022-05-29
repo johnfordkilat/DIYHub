@@ -62,7 +62,7 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/placeOrderRV"
+            android:id="@+id/placeOrderRVCart"
             android:layout_width="match_parent"
             android:layout_height="565dp"
             android:layout_marginTop="10dp"
@@ -81,7 +81,7 @@
                 android:layout_height="60dp">
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/proceedWithPaymentButton"
+                    android:id="@+id/proceedWithPaymentButtonCart"
                     android:layout_width="160dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/custom_pink"

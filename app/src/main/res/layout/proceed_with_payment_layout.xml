@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
@@ -49,7 +49,7 @@
 
             <TextView
                 android:id="@+id/productNamePlaceOrder"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_marginStart="110dp"
                 android:layout_marginTop="-100dp"
@@ -59,7 +59,7 @@
 
             <TextView
                 android:id="@+id/variationPlaceOrder"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginStart="110dp"
                 android:layout_marginTop="3dp"
@@ -130,7 +130,7 @@
 
                         <TextView
                             android:id="@+id/shippingSubTotalTxt"
-                            android:layout_width="150dp"
+                            android:layout_width="match_parent"
                             android:layout_height="20dp"
                             android:gravity="right|center_vertical"
                             android:textStyle="italic"
@@ -159,7 +159,7 @@
 
                         <TextView
                             android:id="@+id/additionalFeesTxt"
-                            android:layout_width="150dp"
+                            android:layout_width="match_parent"
                             android:layout_height="20dp"
                             android:gravity="right|center_vertical"
                             android:textStyle="italic"
@@ -188,7 +188,7 @@
 
                         <TextView
                             android:id="@+id/totalNumOfItemsTxt"
-                            android:layout_width="150dp"
+                            android:layout_width="match_parent"
                             android:layout_height="20dp"
                             android:gravity="right|center_vertical"
                             android:textStyle="italic"
@@ -218,7 +218,7 @@
 
                         <TextView
                             android:id="@+id/merchSubtotalTxt"
-                            android:layout_width="150dp"
+                            android:layout_width="match_parent"
                             android:layout_height="20dp"
                             android:gravity="right|center_vertical"
                             android:textStyle="italic"
@@ -246,7 +246,7 @@
 
                         <TextView
                             android:id="@+id/totalPaymentTxt"
-                            android:layout_width="150dp"
+                            android:layout_width="match_parent"
                             android:layout_height="20dp"
                             android:gravity="right|center_vertical"
                             android:textStyle="italic"

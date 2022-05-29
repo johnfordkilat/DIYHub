@@ -98,7 +98,7 @@ public class PlaceOrderPageBuyer extends AppCompatActivity {
                 intent.putExtra("SellerID",sellerID);
                 intent.putExtra("TotalPayment", totalPayment);
                 intent.putExtra("OrderProductName", productName);
-                intent.putExtra("OrderQuantity", orderQuantity);
+                intent.putExtra("OrderQuantity", quantity);
                 intent.putExtra("OrderProductImage", productImage);
                 intent.putExtra("OrderType", orderType);
                 intent.putExtra("ItemCode", itemCode);
@@ -135,8 +135,6 @@ public class PlaceOrderPageBuyer extends AppCompatActivity {
                 }
                 adapter = new PlaceOrderPageBuyerAdapter(PlaceOrderPageBuyer.this, list, stringList);
                 productsReviewRecycler.setAdapter(adapter);
-
-
             }
 
             @Override

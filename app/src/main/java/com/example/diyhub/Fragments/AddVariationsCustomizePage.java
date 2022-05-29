@@ -362,7 +362,6 @@ public class AddVariationsCustomizePage extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder builderBooking = new AlertDialog.Builder(AddVariationsCustomizePage.this);
                 builderBooking.setTitle("Add Variation");
-
                 View view1 = getLayoutInflater().inflate(R.layout.layout_dialog_variation_standard, null);
                 optionTxtBooking = view1.findViewById(R.id.setPaymentOptionTxt);
                 submitBooking = view1.findViewById(R.id.submitOption);
@@ -572,7 +571,7 @@ public class AddVariationsCustomizePage extends AppCompatActivity {
         addCustomSpecs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddVariationsCustomizePage.this, AddCustomSpecificationPage.class);
+                Intent intent = new Intent(AddVariationsCustomizePage.this, AddCustomSpecificationPageSeller.class);
                 intent.putExtra("ProductID", itemid);
                 startActivity(intent);
             }

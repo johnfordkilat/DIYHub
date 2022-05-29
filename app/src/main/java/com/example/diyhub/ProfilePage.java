@@ -16,20 +16,22 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.example.diyhub.Buyer.AddBookingAddressBuyer;
+import com.example.diyhub.MESSAGES.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,8 +63,6 @@ public class ProfilePage extends AppCompatActivity implements MessageDialog.Exam
     TextView shopN;
     ImageView profPicBuyer;
 
-    TextView addBookingAddress;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +75,6 @@ public class ProfilePage extends AppCompatActivity implements MessageDialog.Exam
         logout = findViewById(R.id.logoutTxtview);
         changeP = findViewById(R.id.changePhoto2);
         profPicBuyer = findViewById(R.id.profilePicBuyer);
-
-        addBookingAddress = findViewById(R.id.landBookingAdd);
-
         dbFirestore = FirebaseFirestore.getInstance();
 
         changeP.setOnClickListener(new View.OnClickListener() {
@@ -112,9 +109,28 @@ public class ProfilePage extends AppCompatActivity implements MessageDialog.Exam
 
         FirebaseUser firebaseUserBuyer = FirebaseAuth.getInstance().getCurrentUser();
 
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    User users = snapshot.getValue(User.class);
+                    if(users.getId().equalsIgnoreCase(firebaseUserBuyer.getUid()))
+                    {
+                        fullname.setText(users.getUsername());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         if(firebaseUserBuyer != null)
         {
-            fullname.setText(usernameBuyer);
             if(firebaseUserBuyer.getPhotoUrl() != null)
             {
                 Glide.with(this)
@@ -146,21 +162,7 @@ public class ProfilePage extends AppCompatActivity implements MessageDialog.Exam
             }
         });
 
-        addBookingAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addBookAddress();
-            }
-        });
-
-
     }
-
-    private void addBookAddress() {
-        Intent intent = new Intent(ProfilePage.this, AddBookingAddressBuyer.class);
-            startActivity(intent);
-    }
-
 
     private void backPage() {
         Intent intent = new Intent(ProfilePage.this, BuyerAccountHomePage.class);
@@ -238,6 +240,12 @@ public class ProfilePage extends AppCompatActivity implements MessageDialog.Exam
                             Log.d("DownloadUrl", url);
                             progressDialog.dismiss();
                             setProfileBuyer(uri);
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                            Map<String, Object> map = new HashMap<>();
+                            map.put("imageUrl",url);
+                            reference.child("Users").child(user.getUid()).updateChildren(map);
+
                             DocumentReference documentReference = dbFirestore.collection("USERPROFILE").document(emailBuyer);
                             Map<String,Object> userBuyer = new HashMap<>();
                             userBuyer.put("UserProfileImage",url);

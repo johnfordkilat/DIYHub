@@ -7,6 +7,21 @@
     android:background="@drawable/gradient_one"
     tools:context=".Fragments.AddCustomProduct">
 
+    <Spinner
+        android:id="@+id/customProductSpinnerAddCustomProduct"
+        android:layout_width="380dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="232dp"
+        android:background="@android:drawable/btn_dropdown"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productSoldAddCustom"
+        app:layout_constraintVertical_bias="0.588" />
+
     <TextView
         android:id="@+id/textView91"
         android:layout_width="415dp"
@@ -66,10 +81,10 @@
         android:hint="Product Description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.348"
+        app:layout_constraintHorizontal_bias="0.343"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.819" />
+        app:layout_constraintVertical_bias="0.917" />
 
     <EditText
         android:id="@+id/productPriceAddCustom"
@@ -146,11 +161,14 @@
         android:layout_width="253dp"
         android:layout_height="45dp"
         android:layout_marginStart="80dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="79dp"
         android:text="Add Variations"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productDescriptionTxtAddCustom" />
+        app:layout_constraintTop_toBottomOf="@+id/productDescriptionTxtAddCustom"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

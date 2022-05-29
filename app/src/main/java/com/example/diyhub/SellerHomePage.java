@@ -142,7 +142,8 @@ public class SellerHomePage extends AppCompatActivity {
             R.drawable.ic_baseline_home_24,
             R.drawable.ic_products1,
             R.drawable.ic_orders1,
-            R.drawable.ic_stats1
+            R.drawable.ic_stats1,
+            R.drawable.ic_baseline_location_on_24
     };
 
     private ArrayList<String> userdata;
@@ -517,4 +518,6 @@ public class SellerHomePage extends AppCompatActivity {
     @Override
     public void onBackPressed() {
     }
+
+
 }

@@ -7,59 +7,62 @@
     android:background="@drawable/gradient_one"
     tools:context=".ToPayPage">
 
-    <TextView
-        android:id="@+id/textView70"
-        android:layout_width="120dp"
-        android:layout_height="25dp"
-        android:layout_marginEnd="3dp"
-        android:background="@color/white"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="To Book"
-        android:textColor="@color/black"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.223" />
-
-    <TextView
-        android:id="@+id/textView24"
-        android:layout_width="147dp"
-        android:layout_height="25dp"
-        android:layout_marginEnd="3dp"
-        android:background="@color/white"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="To Receive"
-        android:textColor="@color/black"
-        android:textSize="18dp"
-        android:textStyle="bold"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerToPay"
+        android:layout_width="413dp"
+        android:layout_height="536dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:background="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.224" />
+        app:layout_constraintVertical_bias="0.991" />
 
-    <TextView
-        android:id="@+id/textView23"
-        android:layout_width="146dp"
-        android:layout_height="25dp"
-        android:layout_marginEnd="3dp"
-        android:background="@color/white"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="To Pay"
-        android:textColor="@color/black"
-        android:textSize="18dp"
-        android:textStyle="bold"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerToReceive"
+        android:layout_width="413dp"
+        android:layout_height="536dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:background="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.224" />
+        app:layout_constraintVertical_bias="0.991" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayoutSellerOrdersPageFragment"
+        android:layout_width="413dp"
+        android:layout_height="28dp"
+        android:background="@drawable/gradient"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.236"
+        app:tabSelectedTextColor="@color/yellow">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="To Pay" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="To Book" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="To Receive" />
+
+    </com.google.android.material.tabs.TabLayout>
 
     <TextView
         android:id="@+id/textView20"
@@ -99,7 +102,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.061"
-        app:srcCompat="@drawable/img_13" />
+        android:src="@drawable/ic_back_svgrepo_com" />
 
     <ImageView
         android:id="@+id/imageView8"
@@ -114,9 +117,9 @@
         app:srcCompat="@drawable/img_14" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerToPay"
-        android:layout_width="403dp"
-        android:layout_height="535dp"
+        android:id="@+id/recyclerToBook"
+        android:layout_width="413dp"
+        android:layout_height="536dp"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
         android:background="@null"
