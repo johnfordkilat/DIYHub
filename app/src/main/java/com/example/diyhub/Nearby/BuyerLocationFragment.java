@@ -94,7 +94,7 @@ public class BuyerLocationFragment extends Fragment implements OnMapReadyCallbac
     Bitmap bitMapImageMarker = null, pinMarker = null;
     BitmapDrawable bitmapdraw = null;
     MarkerOptions markerOptions = new MarkerOptions();
-    MarkerOptions lawyerMarkerOption = new MarkerOptions();
+    MarkerOptions shopMarkerOption = new MarkerOptions();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -230,7 +230,7 @@ public class BuyerLocationFragment extends Fragment implements OnMapReadyCallbac
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 for(DataSnapshot dsp : snapshot.getChildren()) {
-                                    ShopsList lawFirm = dsp.getValue(ShopsList.class);
+                                    ShopsList shop = dsp.getValue(ShopsList.class);
                                     DatabaseReference userLocationDR = FirebaseDatabase.getInstance().getReference().child("UserLocation").child(mAuth.getCurrentUser().getUid());
                                     userLocationDR.addValueEventListener(new ValueEventListener() {
                                         @Override
@@ -238,45 +238,45 @@ public class BuyerLocationFragment extends Fragment implements OnMapReadyCallbac
                                             UserLocation userLocation;
                                             userLocation = snapshot.getValue(UserLocation.class);
                                             if(Double.parseDouble(userLocation.getLatitude()) != 0.0 && Double.parseDouble(userLocation.getLongitude()) != 0.0) {
-                                                end = new LatLng(Double.parseDouble(lawFirm.getLatitude()), Double.parseDouble(lawFirm.getLongitude()));
+                                                end = new LatLng(Double.parseDouble(shop.getLatitude()), Double.parseDouble(shop.getLongitude()));
                                                 String distance = showResult(start, end).toString();
                                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                                 DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
                                                 HashMap<String, Object> hashMap1 = new HashMap<>();
                                                 hashMap1.put("distance", distance);
-                                                reference1.child("Shops").child(lawFirm.getShopName()).updateChildren(hashMap1);
+                                                reference1.child("Shops").child(shop.getShopName()).updateChildren(hashMap1);
 
                                                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                                                 HashMap<String, Object> hashMap = new HashMap<>();
                                                 hashMap.put("distance", distance);
-                                                hashMap.put("name", lawFirm.getSellerID());
-                                                hashMap.put("shopImage", lawFirm.getShopImage());
-                                                reference.child("Distance").child(user.getUid()).child(lawFirm.getSellerID()).updateChildren(hashMap);
-                                                reference.child("Distance").child(user.getUid()).child(lawFirm.getSellerID()).addValueEventListener(new ValueEventListener() {
+                                                hashMap.put("name", shop.getSellerID());
+                                                hashMap.put("shopImage", shop.getShopImage());
+                                                reference.child("Distance").child(user.getUid()).child(shop.getSellerID()).updateChildren(hashMap);
+                                                reference.child("Distance").child(user.getUid()).child(shop.getSellerID()).addValueEventListener(new ValueEventListener() {
                                                     @Override
                                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                         DistanceList distanceModel = snapshot.getValue(DistanceList.class);
                                                         if(marker != null) {
                                                             marker.remove();
                                                         }
-                                                        if(lawFirm.getShopImage().equals("")) {
+                                                        if(shop.getShopImage().equals("")) {
                                                             avatarMarkers = Uri.parse(UserImageProfile.userMarkerAvatar);
                                                         }
                                                         else {
-                                                            avatarMarkers = Uri.parse(lawFirm.getShopImage());
+                                                            avatarMarkers = Uri.parse(shop.getShopImage());
                                                         }
                                                         if(getContext()!=null) {
                                                             Glide.with(getContext()).asBitmap().load(avatarMarkers).diskCacheStrategy(DiskCacheStrategy.DATA).override(64, 64).circleCrop().into(new CustomTarget<Bitmap>() {
                                                                 @Override
                                                                 public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                                                    end = new LatLng(Double.parseDouble(lawFirm.getLatitude()), Double.parseDouble(lawFirm.getLongitude()));
-                                                                    lawyerMarkerOption.position(end);
-                                                                    lawyerMarkerOption.icon(BitmapDescriptorFactory.fromBitmap(resource));
-                                                                    lawyerMarkerOption.rotation(location.getBearing());
-                                                                    lawyerMarkerOption.title(lawFirm.getShopName() + "\n" + distanceModel.getDistance() + "km");
-                                                                    lawyerMarkerOption.anchor((float) 0.5, (float) 0.5);
-                                                                    marker = mMap.addMarker(lawyerMarkerOption);
-                                                                    marker.setTag(lawFirm.getSellerID());
+                                                                    end = new LatLng(Double.parseDouble(shop.getLatitude()), Double.parseDouble(shop.getLongitude()));
+                                                                    shopMarkerOption.position(end);
+                                                                    shopMarkerOption.icon(BitmapDescriptorFactory.fromBitmap(resource));
+                                                                    shopMarkerOption.rotation(location.getBearing());
+                                                                    shopMarkerOption.title(shop.getShopName() + "\n" + distanceModel.getDistance() + "km");
+                                                                    shopMarkerOption.anchor((float) 0.5, (float) 0.5);
+                                                                    marker = mMap.addMarker(shopMarkerOption);
+                                                                    marker.setTag(shop.getSellerID());
                                                                     marker.showInfoWindow();
                                                                 }
                                                                 @Override
@@ -314,9 +314,9 @@ public class BuyerLocationFragment extends Fragment implements OnMapReadyCallbac
                             @Override
                             public boolean onMarkerClick(@NonNull Marker marker) {
                                 if(marker.getTag()!=null) {
-                                    Intent lawFirmIntent = new Intent(getContext(), Shop_Map_Details.class);
-                                    lawFirmIntent.putExtra("ShopID", marker.getTag().toString());
-                                    startActivity(lawFirmIntent);
+                                    Intent shop = new Intent(getContext(), Shop_Map_Details.class);
+                                    shop.putExtra("ShopID", marker.getTag().toString());
+                                    startActivity(shop);
                                 }
                                 return true;
                             }

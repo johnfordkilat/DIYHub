@@ -12,7 +12,6 @@ import com.example.diyhub.Fragments.SellerHomeFragment;
 import com.example.diyhub.Fragments.SellerOrdersFragment;
 import com.example.diyhub.Fragments.SellerProductsFragment;
 import com.example.diyhub.Fragments.SellerStatsFragment;
-import com.example.diyhub.Nearby.Map_Page_Fragment;
 
 import java.util.ArrayList;
 

@@ -33,9 +33,6 @@
             android:name=".Buyer.AddBookingAddressBuyer"
             android:exported="false" />
         <activity
-            android:name=".Nearby.Shop_Map_Details"
-            android:exported="false" />
-        <activity
             android:name=".Fragments.AddCustomSpecificationPageSeller"
             android:exported="false" />
         <activity
