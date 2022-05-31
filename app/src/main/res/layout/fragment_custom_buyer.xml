@@ -33,8 +33,33 @@
                     android:layout_gravity="center"
                     android:padding="8dp">
 
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/alertMessageCardViewCustomBuyer"
+                        android:layout_width="380dp"
+                        android:layout_height="100dp"
+                        android:layout_marginStart="8dp"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="@+id/viewPagerStandardBuyerCustom"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.523">
+
+                        <TextView
+                            android:layout_width="370dp"
+                            android:layout_height="90dp"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/textview_border_rectangle_gray"
+                            android:gravity="center"
+                            android:text="NO CUSTOMIZATION HERE - PLEASE CHOOSE CUSTOMIZABLE PRODUCTS"
+                            android:textColor="@color/red"
+                            android:textStyle="bold|italic" />
+
+                    </androidx.cardview.widget.CardView>
+
                     <ImageView
-                        android:id="@+id/viewPagerStandardBuyer"
+                        android:id="@+id/viewPagerStandardBuyerCustom"
                         android:layout_width="wrap_content"
                         android:layout_height="260dp"
                         android:layout_gravity="center"
@@ -61,14 +86,14 @@
                         android:background="@drawable/textview_border_rectangle_gray"
                         android:orientation="horizontal">
                         <RatingBar
-                            android:id="@+id/ratingBarBuyer"
+                            android:id="@+id/ratingBarBuyerCustom"
                             style="?android:attr/ratingBarStyleSmall"
                             android:layout_width="80dp"
                             android:rating="4.5"
                             android:layout_height="20dp" />
 
                         <TextView
-                            android:id="@+id/ratingNum"
+                            android:id="@+id/ratingNumCustom"
                             android:layout_width="50dp"
                             android:layout_height="20dp"
                             android:textSize="15dp"
@@ -77,7 +102,7 @@
                             android:text="4.5" />
 
                         <TextView
-                            android:id="@+id/productSoldStandardProductBuyer"
+                            android:id="@+id/productSoldStandardProductBuyerCustom"
                             android:layout_width="80dp"
                             android:layout_height="20dp"
                             android:textSize="15sp"
@@ -112,7 +137,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/stockProduct"
+                            android:id="@+id/stockProductCustom"
                             android:layout_width="80dp"
                             android:layout_height="20dp"
                             android:textSize="15sp"
@@ -121,6 +146,7 @@
 
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/button2"
+                            android:visibility="invisible"
                             android:layout_width="112dp"
                             android:layout_height="40dp"
                             android:layout_marginLeft="70dp"
@@ -136,7 +162,7 @@
                         android:padding="5dp">
 
                         <TextView
-                            android:id="@+id/bookFromProduct"
+                            android:id="@+id/bookFromProductCustom"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="15sp"
@@ -158,7 +184,7 @@
                             android:textSize="15sp"
                             android:text="_____________________________________"/>
                         <TextView
-                            android:id="@+id/descriptionProduct"
+                            android:id="@+id/descriptionProductCustom"
                             android:layout_width="match_parent"
                             android:layout_height="80dp"
                             android:layout_marginTop="9dp"
@@ -176,7 +202,7 @@
                         android:padding="5dp">
 
                         <TextView
-                            android:id="@+id/textView70"
+                            android:id="@+id/reviewsCustom"
                             android:layout_width="match_parent"
                             android:layout_height="28dp"
                             android:background="@color/white"
@@ -237,7 +263,7 @@
                         android:orientation="vertical">
 
                         <EditText
-                            android:id="@+id/customSpecsTxtBuyer"
+                            android:id="@+id/customSpecsTxtBuyerCustom"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:background="@drawable/custom_gray"
@@ -248,13 +274,6 @@
                             android:textStyle="bold|italic"
                             tools:gravity="center" />
 
-                        <Button
-                            android:id="@+id/addCustomSpecsToSpinnerBuyer"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Add"
-                            android:layout_gravity="center"/>
-
                     </LinearLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -262,17 +281,18 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
-                            android:id="@+id/image1ImageVIew"
+                            android:id="@+id/image1ImageVIewCustom"
                             android:layout_width="138dp"
                             android:layout_height="131dp"
-                            android:layout_marginStart="50dp"
+                            android:layout_marginStart="48dp"
                             android:src="@drawable/image1"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.475" />
 
                         <ImageView
-                            android:id="@+id/image2Imageview"
+                            android:id="@+id/image2ImageviewCustom"
                             android:layout_width="139dp"
                             android:layout_height="133dp"
                             android:layout_marginStart="20dp"
@@ -280,32 +300,32 @@
                             android:src="@drawable/image2"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/image1ImageVIew"
+                            app:layout_constraintStart_toEndOf="@+id/image1ImageVIewCustom"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/addImage1FloatingButtonBuyer"
+                            android:id="@+id/addImage1FloatingButtonBuyerCustom"
                             android:layout_width="39dp"
                             android:layout_height="38dp"
                             android:clickable="true"
-                            app:layout_constraintBottom_toBottomOf="@+id/image1ImageVIew"
-                            app:layout_constraintEnd_toEndOf="@+id/image1ImageVIew"
+                            app:layout_constraintBottom_toBottomOf="@+id/image1ImageVIewCustom"
+                            app:layout_constraintEnd_toEndOf="@+id/image1ImageVIewCustom"
                             app:layout_constraintHorizontal_bias="1.0"
-                            app:layout_constraintStart_toStartOf="@+id/image1ImageVIew"
-                            app:layout_constraintTop_toTopOf="@+id/image1ImageVIew"
+                            app:layout_constraintStart_toStartOf="@+id/image1ImageVIewCustom"
+                            app:layout_constraintTop_toTopOf="@+id/image1ImageVIewCustom"
                             app:layout_constraintVertical_bias="1.0"
                             app:srcCompat="@drawable/ic_baseline_add_a_photo_24" />
 
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/addImage2FloatingButtonBuyer"
+                            android:id="@+id/addImage2FloatingButtonBuyerCustom"
                             android:layout_width="39dp"
                             android:layout_height="38dp"
                             android:clickable="true"
-                            app:layout_constraintBottom_toBottomOf="@+id/image2Imageview"
-                            app:layout_constraintEnd_toEndOf="@+id/image2Imageview"
+                            app:layout_constraintBottom_toBottomOf="@+id/image2ImageviewCustom"
+                            app:layout_constraintEnd_toEndOf="@+id/image2ImageviewCustom"
                             app:layout_constraintHorizontal_bias="1.0"
-                            app:layout_constraintStart_toStartOf="@+id/image2Imageview"
-                            app:layout_constraintTop_toTopOf="@+id/image2Imageview"
+                            app:layout_constraintStart_toStartOf="@+id/image2ImageviewCustom"
+                            app:layout_constraintTop_toTopOf="@+id/image2ImageviewCustom"
                             app:layout_constraintVertical_bias="1.0"
                             app:srcCompat="@drawable/ic_baseline_add_a_photo_24" />
 
@@ -324,7 +344,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/image2Imageview"
+                            app:layout_constraintTop_toBottomOf="@+id/image2ImageviewCustom"
                             app:layout_constraintVertical_bias="0.42" />
 
 

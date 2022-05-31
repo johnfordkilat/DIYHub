@@ -304,7 +304,7 @@ public class Map_Page_Fragment extends Fragment implements OnMapReadyCallback {
                             @Override
                             public boolean onMarkerClick(@NonNull Marker marker) {
                                 if(marker.getTag()!=null) {
-                                    Intent lawFirmIntent = new Intent(getContext(), GMaps_LawFirm_Details.class);
+                                    Intent lawFirmIntent = new Intent(getContext(), Shop_Map_Details.class);
                                     lawFirmIntent.putExtra("LAWFIRM_ID", marker.getTag().toString());
                                     startActivity(lawFirmIntent);
                                 }

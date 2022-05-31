@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.diyhub.Buyer.AddBookingAddressBuyer;
+import com.example.diyhub.BuyerOrdersPage;
 import com.example.diyhub.LoginPage;
 import com.example.diyhub.MESSAGES.User;
 import com.example.diyhub.MessageDialog;
@@ -191,6 +192,7 @@ public class BuyerProfileFragment extends Fragment {
                                 logout();
                             }
                         });
+                builder.show();
             }
         });
 
@@ -200,7 +202,7 @@ public class BuyerProfileFragment extends Fragment {
 
 
     private void openToPayPage() {
-        Intent intent = new Intent(getContext(), OrdersPage.class);
+        Intent intent = new Intent(getContext(), BuyerOrdersPage.class);
         startActivity(intent);
     }
 

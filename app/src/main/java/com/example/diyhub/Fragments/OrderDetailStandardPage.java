@@ -146,6 +146,7 @@ public class OrderDetailStandardPage extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
 
 
+                                        //Seller
                                         DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
                                         Map<String, Object> map1 = new HashMap<>();
                                         map1.put("NotifHeader","Return/Refund Order");
@@ -156,6 +157,19 @@ public class OrderDetailStandardPage extends AppCompatActivity {
                                         map.put("OrderStatus","Return/Refund Order");
                                         map.put(("OrderDeclineReason"), data);
                                         reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map);
+
+                                        //Buyer
+                                        DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference();
+                                        Map<String, Object> map2 = new HashMap<>();
+                                        map2.put("NotifHeader","Return/Refund Order");
+                                        reference2.child("Notifications").child(list.get(pos).getBuyerID()).child(list.get(pos).getOrderID()).updateChildren(map2);
+
+                                        DatabaseReference reference3 = FirebaseDatabase.getInstance().getReference();
+                                        Map<String, Object> map3 = new HashMap<>();
+                                        map3.put("OrderStatus","Return/Refund Order");
+                                        map3.put(("OrderDeclineReason"), data);
+                                        reference3.child("BuyerPurchase").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map3);
+
                                         Toast.makeText(OrderDetailStandardPage.this, "Order is moved to Return/Refund Order", Toast.LENGTH_SHORT).show();
                                         varDialog.dismiss();
                                     }
@@ -178,6 +192,7 @@ public class OrderDetailStandardPage extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
 
+                                        //Seller
                                         DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
                                         Map<String, Object> map1 = new HashMap<>();
                                         map1.put("NotifHeader","Cancelled Order");
@@ -188,6 +203,19 @@ public class OrderDetailStandardPage extends AppCompatActivity {
                                         map.put("OrderStatus","Cancelled Order");
                                         map.put(("OrderDeclineReason"), data);
                                         reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map);
+
+                                        //Buyer
+                                        DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference();
+                                        Map<String, Object> map2 = new HashMap<>();
+                                        map2.put("NotifHeader","Cancelled Order");
+                                        reference2.child("Notifications").child(list.get(pos).getBuyerID()).child(list.get(pos).getOrderID()).updateChildren(map2);
+
+                                        DatabaseReference reference3 = FirebaseDatabase.getInstance().getReference();
+                                        Map<String, Object> map3 = new HashMap<>();
+                                        map3.put("OrderStatus","Cancelled Order");
+                                        map3.put(("OrderDeclineReason"), data);
+                                        reference3.child("BuyerPurchase").child(list.get(pos).getBuyerID()).child(list.get(pos).getOrderID()).updateChildren(map3);
+
                                         Toast.makeText(OrderDetailStandardPage.this, "Order is moved to Cancelled Order", Toast.LENGTH_SHORT).show();
                                         varDialog.dismiss();
                                     }
@@ -404,6 +432,7 @@ public class OrderDetailStandardPage extends AppCompatActivity {
                 String ItemCode, BuyerName, PaymentStatus, OrderDate;
                 String BuyerImage;
 
+                //Seller
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                 HashMap<String, Object> hashMap = new HashMap<>();
                 hashMap.put("OrderStatus", "Accepted");
@@ -413,6 +442,17 @@ public class OrderDetailStandardPage extends AppCompatActivity {
                 Map<String, Object> map = new HashMap<>();
                 map.put("IsSeen","true");
                 reference1.child("Notifications").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map);
+
+                //Buyer
+                DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference();
+                HashMap<String, Object> hashMap1 = new HashMap<>();
+                hashMap1.put("OrderStatus", "Accepted");
+                reference2.child("BuyerPurchase").child(list.get(pos).getBuyerID()).child(list.get(pos).getOrderID()).updateChildren(hashMap1);
+
+                DatabaseReference reference3 = FirebaseDatabase.getInstance().getReference();
+                Map<String, Object> map3 = new HashMap<>();
+                map3.put("IsSeen","true");
+                reference3.child("Notifications").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map3);
 
                 Toast.makeText(OrderDetailStandardPage.this, "Order is MOVED TO ACCEPTED", Toast.LENGTH_SHORT).show();
                 finish();

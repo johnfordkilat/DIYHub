@@ -129,6 +129,9 @@ public class AllProductsBuyerAdapter extends RecyclerView.Adapter<AllProductsBuy
                     intent.putExtra("ShopName", productsList.getShopName());
                     intent.putExtra("ProductShippingFee", productsList.getProductShippingFee());
                     intent.putExtra("ProductAdditionalFee", productsList.getProductAdditionalFee());
+                    intent.putExtra("ProductType", productsList.getProductType());
+                    intent.putExtra("Tab", 0);
+
                     context.startActivity(intent);
 
                 }
@@ -149,6 +152,7 @@ public class AllProductsBuyerAdapter extends RecyclerView.Adapter<AllProductsBuy
                     intent.putExtra("ShopName", productsList.getShopName());
                     intent.putExtra("ProductShippingFee", productsList.getProductShippingFee());
                     intent.putExtra("ProductAdditionalFee", productsList.getProductAdditionalFee());
+                    intent.putExtra("ProductType", productsList.getProductType());
                     intent.putExtra("Tab", 1);
                     context.startActivity(intent);
                 }

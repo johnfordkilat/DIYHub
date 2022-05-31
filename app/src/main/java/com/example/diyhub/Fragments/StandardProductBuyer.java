@@ -2,6 +2,7 @@ package com.example.diyhub.Fragments;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.AlertDialog;
@@ -92,6 +93,15 @@ public class StandardProductBuyer extends AppCompatActivity {
     ViewPager standardCustomViewPager;
     TabLayout tabLayout;
     List<CartPageList> listCart;
+    List<AllProductsList> allList;
+
+    double shipFee;
+    double addFee;
+
+    String prodType;
+
+    CardView hideCustom;
+
 
 
 
@@ -114,9 +124,11 @@ public class StandardProductBuyer extends AppCompatActivity {
         shopNameTxt = findViewById(R.id.shopNameStandardProductBuyer);
         addToCart = findViewById(R.id.addToCartStandard);
         backButton = findViewById(R.id.backButtonStandardProduct);
+        hideCustom = findViewById(R.id.alertMessageCardViewCustomBuyer);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 
+        allList = new ArrayList<>();
 
 
 
@@ -142,6 +154,10 @@ public class StandardProductBuyer extends AppCompatActivity {
             sellerID = extras.getString("SellerID");
             prodID  = extras.getString("ProductID");
             shopName = extras.getString("ShopName");
+            tab = extras.getInt("Tab");
+            shipFee = extras.getDouble("ProductShippingFee");
+            addFee = extras.getDouble("ProductAdditionalFee");
+            prodType = extras.getString("ProductType");
 
         }
 
@@ -154,6 +170,7 @@ public class StandardProductBuyer extends AppCompatActivity {
         {
             tabLayout.getTabAt(1).select();
         }
+
 
         shopNameTxt.setText(name);
         priceProduct.setText("₱" + String.valueOf(price));
@@ -254,33 +271,9 @@ public class StandardProductBuyer extends AppCompatActivity {
                         } else {
 
 
-                            DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("SellerProducts").child(sellerID);
-                            reference1.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    list.clear();
-                                    for(DataSnapshot snapshot : dataSnapshot.getChildren())
-                                    {
-                                        AllProductsList allProductsList = snapshot.getValue(AllProductsList.class);
-                                        if(allProductsList.getProductID().equalsIgnoreCase(prodID))
-                                        {
-
-                                        }
-
-                                    }
-
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            });
-
                             int quant = Integer.parseInt(String.valueOf(quantity.getText().toString().trim()));
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                             Map<String, Object> map = new HashMap<>();
-
                             map.put("ProductName", name);
                             map.put("ProductID", prodID);
                             map.put("ProductImage", prodImage);
@@ -288,7 +281,10 @@ public class StandardProductBuyer extends AppCompatActivity {
                             map.put("SellerID", sellerID);
                             map.put("Variations", selectedColor + ","+ selectedSize);
                             map.put("ShopName", shopName);
-
+                            map.put("ProductShippingFee", shipFee);
+                            map.put("ProductAdditionalFee", addFee);
+                            map.put("ProductType", prodType);
+                            map.put("ProductPrice", price);
                             map.put("TotalPrice", 0);
                             reference.child("ShoppingCart").child(user.getUid()).child(prodID).updateChildren(map);
                             Toast.makeText(getApplicationContext(), "Product Added to Cart", Toast.LENGTH_SHORT).show();

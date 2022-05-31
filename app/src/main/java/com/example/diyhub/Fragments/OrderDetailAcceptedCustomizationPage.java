@@ -193,12 +193,10 @@ public class OrderDetailAcceptedCustomizationPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //Seller
                 DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
                 HashMap<String, Object> hashMap1 = new HashMap<>();
                 hashMap1.put("OrderStatus", "Ongoing");
-
-
-
                 reference1.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap1);
 
                 DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference();
@@ -206,6 +204,16 @@ public class OrderDetailAcceptedCustomizationPage extends AppCompatActivity {
                 map.put("IsSeen","true");
                 reference2.child("Notifications").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map);
 
+                //Buyer
+                DatabaseReference reference3 = FirebaseDatabase.getInstance().getReference();
+                HashMap<String, Object> hashMap3 = new HashMap<>();
+                hashMap3.put("OrderStatus", "Ongoing");
+                reference3.child("BuyerPurchase").child(list.get(pos).getBuyerID()).child(list.get(pos).getOrderID()).updateChildren(hashMap3);
+
+                DatabaseReference reference4 = FirebaseDatabase.getInstance().getReference();
+                Map<String, Object> map4 = new HashMap<>();
+                map4.put("IsSeen","true");
+                reference2.child("Notifications").child(list.get(pos).getBuyerID()).child(list.get(pos).getOrderID()).updateChildren(map4);
 
 
                 Toast.makeText(OrderDetailAcceptedCustomizationPage.this, "Order is MOVED TO ONGOING", Toast.LENGTH_SHORT).show();
@@ -283,6 +291,7 @@ public class OrderDetailAcceptedCustomizationPage extends AppCompatActivity {
 
 
 
+        /*
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).child("OrderCustomizationsSpecs");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -356,6 +365,8 @@ public class OrderDetailAcceptedCustomizationPage extends AppCompatActivity {
 
             }
         });
+
+         */
 
 
 

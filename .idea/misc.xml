@@ -4,17 +4,40 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/activity_add_booking_address_buyer.xml" value="0.34782608695652173" />
+        <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/activity_buyer_orders_page.xml" value="0.3491847826086957" />
         <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/activity_cart_page.xml" value="0.34782608695652173" />
+        <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/activity_gmaps_lawyer_details.xml" value="0.3491847826086957" />
         <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/activity_home_page.xml" value="0.34782608695652173" />
+        <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/activity_order_detail_accepted_customization_page.xml" value="0.3491847826086957" />
+        <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/activity_payment_page_buyer.xml" value="0.3491847826086957" />
         <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/activity_seller_home_page.xml" value="0.34782608695652173" />
+        <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/activity_seller_stats_page.xml" value="0.3491847826086957" />
         <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/activity_shop_page.xml" value="0.34782608695652173" />
+        <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/activity_standard_product_buyer.xml" value="0.3491847826086957" />
         <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/add_booking_layout.xml" value="0.34782608695652173" />
         <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/address_popup.xml" value="0.34782608695652173" />
+        <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/custom_specs_layout.xml" value="0.3491847826086957" />
+        <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/diy_layout.xml" value="0.3491847826086957" />
+        <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/filter_layout.xml" value="0.3491847826086957" />
+        <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/fragment_buyer_cart.xml" value="0.3491847826086957" />
+        <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/fragment_buyer_diy.xml" value="0.3491847826086957" />
         <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/fragment_buyer_home.xml" value="0.34782608695652173" />
         <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/fragment_buyer_location.xml" value="0.34782608695652173" />
         <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/fragment_buyer_profile.xml" value="0.33" />
+        <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/fragment_custom_buyer.xml" value="0.3491847826086957" />
         <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/fragment_seller_home.xml" value="0.34782608695652173" />
+        <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/fragment_seller_orders.xml" value="0.19166666666666668" />
+        <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/fragment_seller_stats.xml" value="0.3491847826086957" />
+        <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/fragment_standard_buyer.xml" value="0.3491847826086957" />
         <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/layout_listitem.xml" value="0.34782608695652173" />
+        <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/product_details_images_standard.xml" value="0.3491847826086957" />
+        <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/product_second_variation_standard.xml" value="0.3491847826086957" />
+        <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/product_variations_standard.xml" value="0.3491847826086957" />
+        <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/shoppingcart.xml" value="0.3491847826086957" />
+        <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/tobooklayout.xml" value="0.3491847826086957" />
+        <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/topaylayout.xml" value="0.3491847826086957" />
+        <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/toreceivelayout.xml" value="0.3491847826086957" />
+        <entry key="..\:/Users/jfkta/OneDrive/Documents/2nd sem/DIYHub/DIYHub/app/src/main/res/layout/upgrade_layout_dialog.xml" value="0.3491847826086957" />
       </map>
     </option>
   </component>

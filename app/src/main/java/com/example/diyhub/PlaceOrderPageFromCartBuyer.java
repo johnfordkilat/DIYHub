@@ -98,7 +98,6 @@ public class PlaceOrderPageFromCartBuyer extends AppCompatActivity {
         list = new ArrayList<>();
         stringList = new ArrayList<>();
 
-        Toast.makeText(this, "SellerID"+sellerID, Toast.LENGTH_SHORT).show();
         placeOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

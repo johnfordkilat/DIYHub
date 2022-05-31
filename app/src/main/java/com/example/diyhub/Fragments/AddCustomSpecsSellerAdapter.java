@@ -43,11 +43,9 @@ public class AddCustomSpecsSellerAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        View rootView = LayoutInflater.from(context).inflate(R.layout.product_variations_standard, parent, false);
-        TextView txtLabel = rootView.findViewById(R.id.variationLabelStandard);
+        View rootView = LayoutInflater.from(context).inflate(R.layout.custom_specs_layout, parent, false);
         ImageView bigImage = rootView.findViewById(R.id.imageVariationStandard);
 
-        txtLabel.setText(varList.get(position).getSpecsLabel());
         Glide.with(context).load(varList.get(position).getBigImage()).into(bigImage);
 
         return rootView;

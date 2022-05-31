@@ -255,17 +255,8 @@ public class AddCustomSpecificationPageSeller extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                 for(DataSnapshot snapshot : dataSnapshot.getChildren())
                                                 {
-                                                    AddCustomSpecsSellerList dbList = snapshot.getValue(AddCustomSpecsSellerList.class);
-                                                    if(dataCat1.toUpperCase(Locale.ROOT).equalsIgnoreCase(dbList.getSpecsLabel().toUpperCase(Locale.ROOT)))
-                                                    {
-                                                        Toast.makeText(getApplicationContext(), "Specification Already Exist!", Toast.LENGTH_SHORT).show();
-                                                        return;
-                                                    }
-                                                    else
-                                                    {
-                                                        uploadImageVariationCat1(dataCat1.toUpperCase());
-                                                        varDialogCat1.dismiss();
-                                                    }
+                                                    uploadImageVariationCat1(dataCat1.toUpperCase());
+                                                    varDialogCat1.dismiss();
                                                 }
 
                                             }
@@ -355,17 +346,8 @@ public class AddCustomSpecificationPageSeller extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                 for(DataSnapshot snapshot : dataSnapshot.getChildren())
                                                 {
-                                                    AddCustomSpecsSellerList dbList = snapshot.getValue(AddCustomSpecsSellerList.class);
-                                                    if(dataCat2.toUpperCase(Locale.ROOT).equalsIgnoreCase(dbList.getSpecsLabel().toUpperCase(Locale.ROOT)))
-                                                    {
-                                                        Toast.makeText(getApplicationContext(), "Specification Already Exist!", Toast.LENGTH_SHORT).show();
-                                                        return;
-                                                    }
-                                                    else
-                                                    {
-                                                        uploadImageVariationCat2(dataCat2.toUpperCase());
-                                                        varDialogCat2.dismiss();
-                                                    }
+                                                    uploadImageVariationCat2(dataCat2.toUpperCase());
+                                                    varDialogCat2.dismiss();
                                                 }
 
                                             }
@@ -455,17 +437,8 @@ public class AddCustomSpecificationPageSeller extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                 for(DataSnapshot snapshot : dataSnapshot.getChildren())
                                                 {
-                                                    AddCustomSpecsSellerList dbList = snapshot.getValue(AddCustomSpecsSellerList.class);
-                                                    if(dataCat3.toUpperCase(Locale.ROOT).equalsIgnoreCase(dbList.getSpecsLabel().toUpperCase(Locale.ROOT)))
-                                                    {
-                                                        Toast.makeText(getApplicationContext(), "Specification Already Exist!", Toast.LENGTH_SHORT).show();
-                                                        return;
-                                                    }
-                                                    else
-                                                    {
-                                                        uploadImageVariationCat3(dataCat3.toUpperCase());
-                                                        varDialogCat3.dismiss();
-                                                    }
+                                                    uploadImageVariationCat3(dataCat3.toUpperCase());
+                                                    varDialogCat3.dismiss();
                                                 }
 
                                             }
@@ -671,7 +644,6 @@ public class AddCustomSpecificationPageSeller extends AppCompatActivity {
 
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                             Map<String, Object> map = new HashMap<>();
-                            map.put("specsLabel", varNameLabel);
                             map.put("bigImage", url);
                             reference.child("SellerProducts").child(user.getUid()).child(prodID).child("CustomSpecifications").child("Category-1").child(varNameLabel).updateChildren(map);
                             ImageListVariation.clear();
@@ -711,7 +683,6 @@ public class AddCustomSpecificationPageSeller extends AppCompatActivity {
 
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                             Map<String, Object> map = new HashMap<>();
-                            map.put("specsLabel", varNameLabel);
                             map.put("bigImage", url);
                             reference.child("SellerProducts").child(user.getUid()).child(prodID).child("CustomSpecifications").child("Category-2").child(varNameLabel).updateChildren(map);
                             ImageListVariation.clear();
@@ -751,7 +722,6 @@ public class AddCustomSpecificationPageSeller extends AppCompatActivity {
 
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                             Map<String, Object> map = new HashMap<>();
-                            map.put("specsLabel", varNameLabel);
                             map.put("bigImage", url);
                             reference.child("SellerProducts").child(user.getUid()).child(prodID).child("CustomSpecifications").child("Category-3").child(varNameLabel).updateChildren(map);
                             ImageListVariation.clear();

@@ -126,7 +126,7 @@ public class BuyerCartFragment extends Fragment {
         checkoutButton.setOnClickListener(v -> {
             getTotalPayment();
             DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("ShoppingCart").child(user.getUid());
-            reference1.addValueEventListener(new ValueEventListener() {
+            reference1.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if(dataSnapshot.exists())

@@ -243,8 +243,6 @@ public class AddStandardProduct extends AppCompatActivity {
                         sellerProductsfb.put("ProductAdditionalFee",0);
 
 
-
-
                         reference.child("SellerProducts").child(user.getUid()).child(cutid).setValue(sellerProductsfb);
                     }
                     else

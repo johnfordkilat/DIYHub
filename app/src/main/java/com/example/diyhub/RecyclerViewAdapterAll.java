@@ -31,17 +31,17 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class RecyclerViewAdapterRecom extends RecyclerView.Adapter<RecyclerViewAdapterRecom.ViewHolder> {
+public class RecyclerViewAdapterAll extends RecyclerView.Adapter<RecyclerViewAdapterAll.ViewHolder> {
 
     private static final String TAG = "RecyclerViewAdapter";
 
     //vars
-    private ArrayList<RecommendedShopsList> mImageUrls;
+    private ArrayList<ShopsList> mImageUrls;
     private Context mContext;
     int counter;
     String id;
 
-    public RecyclerViewAdapterRecom(Context context, ArrayList<RecommendedShopsList> imageUrls) {
+    public RecyclerViewAdapterAll(Context context, ArrayList<ShopsList> imageUrls) {
         mImageUrls = imageUrls;
         mContext = context;
     }

@@ -308,18 +308,21 @@ public class BuyerLocationFragment extends Fragment implements OnMapReadyCallbac
 
                             }
                         });
+                        /*
                         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                             @SuppressLint("PotentialBehaviorOverride")
                             @Override
                             public boolean onMarkerClick(@NonNull Marker marker) {
                                 if(marker.getTag()!=null) {
-                                    Intent lawFirmIntent = new Intent(getContext(), GMaps_LawFirm_Details.class);
-                                    lawFirmIntent.putExtra("LAWFIRM_ID", marker.getTag().toString());
+                                    Intent lawFirmIntent = new Intent(getContext(), Shop_Map_Details.class);
+                                    lawFirmIntent.putExtra("ShopID", marker.getTag().toString());
                                     startActivity(lawFirmIntent);
                                 }
                                 return true;
                             }
                         });
+
+                         */
                         mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
                             @Override

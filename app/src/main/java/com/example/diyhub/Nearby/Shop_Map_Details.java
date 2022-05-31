@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.ListPopupWindow;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
-public class GMaps_LawFirm_Details extends AppCompatActivity {
+public class Shop_Map_Details extends AppCompatActivity {
     //Variables
     private String selectedUID;
     private CircularImageView gmapsDialogLawyerProfileImage;
@@ -34,35 +35,40 @@ public class GMaps_LawFirm_Details extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gmaps_lawyer_details);
-        selectedUID = getIntent().getStringExtra("LAWFIRM_ID");
+        selectedUID = getIntent().getStringExtra("ShopID");
         initialize();
         //Profile information
         //User Information
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Shops").child(selectedUID);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Shops");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ShopsList lawFirm = snapshot.getValue(ShopsList.class);
+                ShopsList list = snapshot.getValue(ShopsList.class);
 
-                DisplayMetrics dm = new DisplayMetrics();
-                getWindowManager().getDefaultDisplay().getMetrics(dm);
+                if(list.getSellerID().equalsIgnoreCase(selectedUID))
+                {
+                    DisplayMetrics dm = new DisplayMetrics();
+                    getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-                int width = dm.widthPixels;
-                int height = dm.heightPixels;
+                    int width = dm.widthPixels;
+                    int height = dm.heightPixels;
 
-                getWindow().setLayout((int) (width*.8),(int) (ListPopupWindow.WRAP_CONTENT));
+                    getWindow().setLayout((int) (width*.8),(int) (ListPopupWindow.WRAP_CONTENT));
 
-                id_txtview_Lawyer_Name.setText(lawFirm.getShopName());
-                id_txtview_Lawyer_Address.setText(lawFirm.getShopAddress());
-                GmapsRatingBar.setRating(Float.parseFloat(String.valueOf(lawFirm.getShopRating())));
-                if(lawFirm.getShopImage().equals("")) {
-                    gmapsDialogLawyerProfileImage.setBackgroundResource(R.drawable.diy);
-                }
-                else {
-                    if (getApplicationContext() != null) {
-                        Glide.with(getApplicationContext()).load(lawFirm.getShopImage()).diskCacheStrategy(DiskCacheStrategy.DATA).skipMemoryCache(true).circleCrop().into(gmapsDialogLawyerProfileImage);
+                    id_txtview_Lawyer_Name.setText(list.getShopName());
+                    Toast.makeText(Shop_Map_Details.this, list.getShopName(), Toast.LENGTH_SHORT).show();
+                    id_txtview_Lawyer_Address.setText(list.getShopAddress());
+                    GmapsRatingBar.setRating(Float.parseFloat(String.valueOf(list.getShopRating())));
+                    if(list.getShopImage().equals("")) {
+                        gmapsDialogLawyerProfileImage.setBackgroundResource(R.drawable.diy);
+                    }
+                    else {
+                        if (getApplicationContext() != null) {
+                            Glide.with(getApplicationContext()).load(list.getShopImage()).diskCacheStrategy(DiskCacheStrategy.DATA).skipMemoryCache(true).circleCrop().into(gmapsDialogLawyerProfileImage);
+                        }
                     }
                 }
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

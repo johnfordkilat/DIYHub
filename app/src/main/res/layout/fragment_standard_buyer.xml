@@ -121,6 +121,7 @@
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/button2"
                             android:layout_width="112dp"
+                            android:visibility="invisible"
                             android:layout_height="40dp"
                             android:layout_marginLeft="70dp"
                             android:text="Visit Shop" />

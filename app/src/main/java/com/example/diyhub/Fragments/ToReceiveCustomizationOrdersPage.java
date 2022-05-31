@@ -279,6 +279,7 @@ public class ToReceiveCustomizationOrdersPage extends AppCompatActivity {
 
 
 
+        /*
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).child("OrderCustomizationsSpecs");
         reference.addValueEventListener(new ValueEventListener() {
@@ -355,6 +356,8 @@ public class ToReceiveCustomizationOrdersPage extends AppCompatActivity {
             }
         });
 
+         */
+
 
 
 
@@ -418,11 +421,9 @@ public class ToReceiveCustomizationOrdersPage extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             Toast.makeText(ToReceiveCustomizationOrdersPage.this, "Order Tagged As: "+ item, Toast.LENGTH_SHORT).show();
-                            String OrderProductName, OrderQuantity;
-                            String OrderProductImage,OrderID,OrderType,PaymentOption;
-                            String ItemCode, BuyerName, PaymentStatus, OrderDate;
-                            String BuyerImage;
 
+
+                            //Seller
                             DatabaseReference referenceHistory = FirebaseDatabase.getInstance().getReference();
                             HashMap<String, Object> hashMapHistory = new HashMap<>();
                             hashMapHistory.put("BookingAddress", list.get(pos).getBookingAddress());
@@ -447,6 +448,32 @@ public class ToReceiveCustomizationOrdersPage extends AppCompatActivity {
                             hashMap.put("OrderStatus", item);
 
                             reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap);
+
+                            //Buyer
+                            DatabaseReference referenceHistory1 = FirebaseDatabase.getInstance().getReference();
+                            HashMap<String, Object> hashMapHistory1 = new HashMap<>();
+                            hashMapHistory1.put("BookingAddress", list.get(pos).getBookingAddress());
+                            hashMapHistory1.put("BuyerImage", list.get(pos).getBuyerImage());
+                            hashMapHistory1.put("BuyerName", list.get(pos).getBuyerName());
+                            hashMapHistory1.put("ItemCode", list.get(pos).getItemCode());
+                            hashMapHistory1.put("OrderDate", list.get(pos).getOrderDate());
+                            hashMapHistory1.put("OrderID", list.get(pos).getOrderID());
+                            hashMapHistory1.put("OrderProductImage", list.get(pos).getOrderProductImage());
+                            hashMapHistory1.put("OrderProductName", list.get(pos).getOrderProductName());
+                            hashMapHistory1.put("OrderQuantity", list.get(pos).getOrderQuantity());
+                            hashMapHistory1.put("OrderType", list.get(pos).getOrderType());
+                            hashMapHistory1.put("PaymentOption", list.get(pos).getPaymentOption());
+                            hashMapHistory1.put("PaymentStatus", list.get(pos).getPaymentStatus());
+                            hashMapHistory1.put("ShopName", list.get(pos).getShopName());
+                            hashMapHistory1.put("OrderStatus", item);
+                            referenceHistory1.child("TransactionHistory").child(list.get(pos).getBuyerID()).child(list.get(pos).getOrderID()).updateChildren(hashMapHistory1);
+
+
+                            DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
+                            HashMap<String, Object> hashMap1 = new HashMap<>();
+                            hashMap1.put("OrderStatus", item);
+
+                            reference1.child("BuyerPurchase").child(list.get(pos).getBuyerID()).child(list.get(pos).getOrderID()).updateChildren(hashMap1);
 
                             Toast.makeText(ToReceiveCustomizationOrdersPage.this, "Order is moved to " + item, Toast.LENGTH_SHORT).show();
                             finish();

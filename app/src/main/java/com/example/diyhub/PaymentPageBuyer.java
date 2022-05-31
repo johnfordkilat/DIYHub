@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
@@ -16,11 +18,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.diyhub.MESSAGES.ChatPage;
 import com.example.diyhub.Notifications.APIService;
 import com.example.diyhub.Notifications.CLient;
 import com.example.diyhub.Notifications.Data;
@@ -107,6 +111,9 @@ public class PaymentPageBuyer extends AppCompatActivity {
     TextView orderLater;
     APIService apiService = apiService = CLient.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
+    Button requestPickupButton;
+    Button talkToSellerButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,6 +123,8 @@ public class PaymentPageBuyer extends AppCompatActivity {
         bookingSpinner = findViewById(R.id.courierOption_btn);
         backButton = findViewById(R.id.backButtonPaymentPage);
         finalAmount = findViewById(R.id.finalAmountPaymentPage);
+        requestPickupButton = findViewById(R.id.requestPickupButtonPaymentPageBuyer);
+        talkToSellerButton = findViewById(R.id.talkToSellerButtonPaymentPageBuyer);
 
         paymentBackendUrl  = getResources().getString(R.string.paymentBackendUrl);
         paymentSheet = new PaymentSheet(this, this::onPaymentResult);
@@ -128,31 +137,314 @@ public class PaymentPageBuyer extends AppCompatActivity {
             }
         });
 
+        talkToSellerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PaymentPageBuyer.this, ChatPage.class);
+                startActivity(intent);
+            }
+        });
+
+        requestPickupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(PaymentPageBuyer.this);
+                builder.setTitle("Request Pickup Confirmation");
+                builder.setMessage("Are you sure you want to have a Pick up option?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(PaymentPageBuyer.this, "Requested Pickup Successfully", Toast.LENGTH_SHORT).show();
+                        bookingSpinner.setEnabled(false);
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.show();
+            }
+        });
+
 
         payButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-               if(paymentSpinner.getSelectedItem().equals(list.get(0)))
+
+                if(paymentSpinner.getSelectedItem().equals("ONLINE(VISA DEBIT CARD)") && !bookingSpinner.isEnabled())
+                {
+                    processCheckout();
+                }
+                else if(paymentSpinner.getSelectedItem().equals(list.get(0)) && !bookingSpinner.isEnabled())
+                {
+                    Toast.makeText(PaymentPageBuyer.this, "Please choose Payment Option", Toast.LENGTH_SHORT).show();
+                }
+               else if(paymentSpinner.getSelectedItem().equals(list.get(0)) && bookingSpinner.isEnabled())
                {
                    Toast.makeText(PaymentPageBuyer.this, "Please choose Payment Option", Toast.LENGTH_SHORT).show();
                }
-                else if(bookingSpinner.getSelectedItem().equals(listBooking.get(0)))
+                else if(bookingSpinner.getSelectedItem().equals(listBooking.get(0)) && bookingSpinner.isEnabled())
                 {
                     Toast.makeText(PaymentPageBuyer.this, "Please choose Booking Option", Toast.LENGTH_SHORT).show();
                 }
-                else
+                else if(paymentSpinner.getSelectedItem().equals("ONLINE(VISA DEBIT CARD)") && bookingSpinner.isEnabled())
                 {
-                    if(paymentSpinner.getSelectedItem().equals("ONLINE(VISA DEBIT CARD)"))
+                    processCheckout();
+                }
+                else if(paymentSpinner.getSelectedItem().equals("CASH ON DELIVERY") && bookingSpinner.isEnabled())
+                {
+                    DateFormat dateFormat2 = new SimpleDateFormat("MM/dd/yyyy hh.mm aa");
+                    String currentDateAndTime = dateFormat2.format(new Date()).toString();
+                    String randomID = UUID.randomUUID().toString();
+                    String OrderID = randomID.substring(0,11);
+
+
+                    if(paymentOption.equalsIgnoreCase("ONLINE(VISA DEBIT CARD)"))
                     {
-                        processCheckout();
+                        paymentOption = "ONLINE(VISA DEBIT CARD)";
+                        paymentStatus = "PAID";
                     }
                     else
                     {
-                        Toast.makeText(PaymentPageBuyer.this, "Your order has been placed", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(PaymentPageBuyer.this, ToPayPage.class);
-                        startActivity(intent);
+                        paymentOption = "CASH ON DELIVERY";
+                        paymentStatus = "TO PAY";
                     }
+                    if(bookingOption.equalsIgnoreCase("LALAMOVE") || bookingOption.equalsIgnoreCase("MAXIM"))
+                    {
+                        deliveryType = "For Delivery";
+                    }
+                    else
+                    {
+                        deliveryType = "For Pickup";
+                    }
+
+                    String RiderName,PlateNumber;
+                    String BookingOption;
+                    String BuyerID;
+
+                    //Seller Database
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("OrderProductName",productName);
+                    map.put("OrderQuantity",orderQuantity);
+                    map.put("OrderProductImage",productImage);
+                    map.put("OrderType",orderType);
+                    map.put("ItemCode",itemCode);
+                    map.put("BuyerName",buyerName);
+                    map.put("PaymentStatus",paymentStatus);
+                    map.put("OrderDate",currentDateAndTime);
+                    map.put("BuyerImage",String.valueOf(user.getPhotoUrl()));
+                    map.put("BookingAddress",bookingAddress);
+                    map.put("OrderStatus","Order Request");
+                    map.put("ShopName",shopName1);
+                    map.put("OrderProductPrice",productPrice);
+                    map.put("OrderShippingFee",shippingFee);
+                    map.put("OrderAdditionalFee",additionalFee);
+                    map.put("OrderTotalPayment",totalPayment);
+                    map.put("PaymentReference",OrderID);
+                    map.put("OrderID",OrderID);
+                    map.put("PaymentOption", paymentOption);
+                    map.put("DeliveryType",deliveryType);
+                    map.put("RiderName","");
+                    map.put("PlateNumber","");
+                    map.put("BookingOption",bookingOption);
+                    map.put("BuyerID",user.getUid());
+                    map.put("OrderDeclineReason", "");
+                    reference.child("Orders").child(sellerID).child(OrderID).setValue(map);
+
+                    //Buyer Database
+                    DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference();
+                    Map<String, Object> map2 = new HashMap<>();
+                    map2.put("OrderProductName",productName);
+                    map2.put("OrderQuantity",orderQuantity);
+                    map2.put("OrderProductImage",productImage);
+                    map2.put("OrderType",orderType);
+                    map2.put("ItemCode",itemCode);
+                    map2.put("BuyerName",buyerName);
+                    map2.put("PaymentStatus",paymentStatus);
+                    map2.put("OrderDate",currentDateAndTime);
+                    map2.put("BuyerImage",String.valueOf(user.getPhotoUrl()));
+                    map2.put("BookingAddress",bookingAddress);
+                    map2.put("OrderStatus","To Pay");
+                    map2.put("ShopName",shopName1);
+                    map2.put("OrderProductPrice",productPrice);
+                    map2.put("OrderShippingFee",shippingFee);
+                    map2.put("OrderAdditionalFee",additionalFee);
+                    map2.put("OrderTotalPayment",totalPayment);
+                    map2.put("PaymentReference",OrderID);
+                    map2.put("OrderID",OrderID);
+                    map2.put("PaymentOption", paymentOption);
+                    map2.put("DeliveryType",deliveryType);
+                    map2.put("RiderName","");
+                    map2.put("PlateNumber","");
+                    map2.put("BookingOption",bookingOption);
+                    map2.put("BuyerID",user.getUid());
+                    map2.put("OrderDeclineReason", "");
+                    reference2.child("BuyerPurchase").child(user.getUid()).child(OrderID).setValue(map2);
+
+
+
+                    DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
+                    Map<String, Object> map1 = new HashMap<>();
+                    map1.put("PaymentReference", user.getUid()+"-"+OrderID);
+                    map1.put("DateAndTime", currentDateAndTime);
+                    reference1.child("Payments").child(user.getUid()).child(user.getUid()+"-"+OrderID).setValue(map1);
+
+                    DatabaseReference reference3 = FirebaseDatabase.getInstance().getReference();
+                    Map<String, Object> map3 = new HashMap<>();
+                    map3.put("IsSeen","false");
+                    map3.put("NotifDateAndTime", currentDateAndTime);
+                    map3.put("NotifDescription", buyerName + " made an Order of the Product "+ productName);
+                    map3.put("NotifHeader", "Order Request");
+                    map3.put("NotifID",OrderID);
+                    map3.put("NotifImage",productImage);
+                    reference3.child("Notifications").child(sellerID).child(OrderID).setValue(map3);
+                    sendNotification(sellerID,buyerName + " made an Order of the Product "+ productName,"Order Request");
+
+
+
+                    DatabaseReference reference4 = FirebaseDatabase.getInstance().getReference("ShoppingCart").child(user.getUid());
+                    reference4.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(PaymentPageBuyer.this, "Your order is now placed", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(PaymentPageBuyer.this, ToPayPage.class);
+                            startActivity(intent);
+
+                        }
+                    });
+                    Toast.makeText(PaymentPageBuyer.this, "Your order has been placed", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(PaymentPageBuyer.this, ToPayPage.class);
+                    startActivity(intent);
+                }
+                else if(paymentSpinner.getSelectedItem().equals("CASH ON DELIVERY") && !bookingSpinner.isEnabled())
+                {
+                    DateFormat dateFormat2 = new SimpleDateFormat("MM/dd/yyyy hh.mm aa");
+                    String currentDateAndTime = dateFormat2.format(new Date()).toString();
+                    String randomID = UUID.randomUUID().toString();
+                    String OrderID = randomID.substring(0,11);
+
+
+                    if(paymentOption.equalsIgnoreCase("ONLINE(VISA DEBIT CARD)"))
+                    {
+                        paymentOption = "ONLINE(VISA DEBIT CARD)";
+                        paymentStatus = "PAID";
+                    }
+                    else
+                    {
+                        paymentOption = "CASH ON DELIVERY";
+                        paymentStatus = "TO PAY";
+                    }
+                    if(bookingOption.equalsIgnoreCase("LALAMOVE") || bookingOption.equalsIgnoreCase("MAXIM"))
+                    {
+                        deliveryType = "For Delivery";
+                    }
+                    else
+                    {
+                        deliveryType = "For Pickup";
+                    }
+
+                    String RiderName,PlateNumber;
+                    String BookingOption;
+                    String BuyerID;
+
+                    //Seller Database
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("OrderProductName",productName);
+                    map.put("OrderQuantity",orderQuantity);
+                    map.put("OrderProductImage",productImage);
+                    map.put("OrderType",orderType);
+                    map.put("ItemCode",itemCode);
+                    map.put("BuyerName",buyerName);
+                    map.put("PaymentStatus",paymentStatus);
+                    map.put("OrderDate",currentDateAndTime);
+                    map.put("BuyerImage",String.valueOf(user.getPhotoUrl()));
+                    map.put("BookingAddress",bookingAddress);
+                    map.put("OrderStatus","Order Request");
+                    map.put("ShopName",shopName1);
+                    map.put("OrderProductPrice",productPrice);
+                    map.put("OrderShippingFee",shippingFee);
+                    map.put("OrderAdditionalFee",additionalFee);
+                    map.put("OrderTotalPayment",totalPayment);
+                    map.put("PaymentReference",OrderID);
+                    map.put("OrderID",OrderID);
+                    map.put("PaymentOption", paymentOption);
+                    map.put("DeliveryType",deliveryType);
+                    map.put("RiderName","");
+                    map.put("PlateNumber","");
+                    map.put("BookingOption",bookingOption);
+                    map.put("BuyerID",user.getUid());
+                    map.put("OrderDeclineReason", "");
+                    reference.child("Orders").child(sellerID).child(OrderID).setValue(map);
+
+                    //Buyer Database
+                    DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference();
+                    Map<String, Object> map2 = new HashMap<>();
+                    map2.put("OrderProductName",productName);
+                    map2.put("OrderQuantity",orderQuantity);
+                    map2.put("OrderProductImage",productImage);
+                    map2.put("OrderType",orderType);
+                    map2.put("ItemCode",itemCode);
+                    map2.put("BuyerName",buyerName);
+                    map2.put("PaymentStatus",paymentStatus);
+                    map2.put("OrderDate",currentDateAndTime);
+                    map2.put("BuyerImage",String.valueOf(user.getPhotoUrl()));
+                    map2.put("BookingAddress",bookingAddress);
+                    map2.put("OrderStatus","To Pay");
+                    map2.put("ShopName",shopName1);
+                    map2.put("OrderProductPrice",productPrice);
+                    map2.put("OrderShippingFee",shippingFee);
+                    map2.put("OrderAdditionalFee",additionalFee);
+                    map2.put("OrderTotalPayment",totalPayment);
+                    map2.put("PaymentReference",OrderID);
+                    map2.put("OrderID",OrderID);
+                    map2.put("PaymentOption", paymentOption);
+                    map2.put("DeliveryType",deliveryType);
+                    map2.put("RiderName","");
+                    map2.put("PlateNumber","");
+                    map2.put("BookingOption",bookingOption);
+                    map2.put("BuyerID",user.getUid());
+                    map2.put("OrderDeclineReason", "");
+                    reference2.child("BuyerPurchase").child(user.getUid()).child(OrderID).setValue(map2);
+
+
+
+                    DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
+                    Map<String, Object> map1 = new HashMap<>();
+                    map1.put("PaymentReference", user.getUid()+"-"+OrderID);
+                    map1.put("DateAndTime", currentDateAndTime);
+                    reference1.child("Payments").child(user.getUid()).child(user.getUid()+"-"+OrderID).setValue(map1);
+
+                    DatabaseReference reference3 = FirebaseDatabase.getInstance().getReference();
+                    Map<String, Object> map3 = new HashMap<>();
+                    map3.put("IsSeen","false");
+                    map3.put("NotifDateAndTime", currentDateAndTime);
+                    map3.put("NotifDescription", buyerName + " made an Order of the Product "+ productName);
+                    map3.put("NotifHeader", "Order Request");
+                    map3.put("NotifID",OrderID);
+                    map3.put("NotifImage",productImage);
+                    reference3.child("Notifications").child(sellerID).child(OrderID).setValue(map3);
+                    sendNotification(sellerID,buyerName + " made an Order of the Product "+ productName,"Order Request");
+
+
+
+                    DatabaseReference reference4 = FirebaseDatabase.getInstance().getReference("ShoppingCart").child(user.getUid());
+                    reference4.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(PaymentPageBuyer.this, "Your order is now placed", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(PaymentPageBuyer.this, ToPayPage.class);
+                            startActivity(intent);
+
+                        }
+                    });
+                    Toast.makeText(PaymentPageBuyer.this, "Your order has been placed", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(PaymentPageBuyer.this, ToPayPage.class);
+                    startActivity(intent);
                 }
             }
         });
@@ -465,6 +757,8 @@ public class PaymentPageBuyer extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     Toast.makeText(PaymentPageBuyer.this, "Your order is now placed", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(PaymentPageBuyer.this, ToPayPage.class);
+                    startActivity(intent);
 
                 }
             });

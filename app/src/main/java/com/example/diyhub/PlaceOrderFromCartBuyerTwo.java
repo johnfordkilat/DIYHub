@@ -87,7 +87,8 @@ public class PlaceOrderFromCartBuyerTwo extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(PlaceOrderFromCartBuyerTwo.this, BuyerAccountHomePage.class);
+                startActivity(intent);
             }
         });
 
@@ -104,7 +105,6 @@ public class PlaceOrderFromCartBuyerTwo extends AppCompatActivity {
         }
         list = new ArrayList<>();
         stringList = new ArrayList<>();
-        Toast.makeText(this, "SellerID"+sellerID, Toast.LENGTH_SHORT).show();
 
         placeOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,4 +219,9 @@ public class PlaceOrderFromCartBuyerTwo extends AppCompatActivity {
             totalPayment = intent.getDoubleExtra("OrderTotalPayment",0);
         }
     };
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

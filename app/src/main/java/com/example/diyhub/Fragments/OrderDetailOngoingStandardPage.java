@@ -289,15 +289,11 @@ public class OrderDetailOngoingStandardPage extends AppCompatActivity {
                     String ItemCode, BuyerName, PaymentStatus, OrderDate;
                     String BuyerImage;
 
+                    //Seller
                     DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                     HashMap<String, Object> hashMap = new HashMap<>();
                     hashMap.put("OrderProductImage",list.get(pos).getOrderProductImage());
                     hashMap.put("OrderStatus", "To Receive");
-
-
-
-
-
                     reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap);
 
                     DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
@@ -305,6 +301,19 @@ public class OrderDetailOngoingStandardPage extends AppCompatActivity {
                     map.put("IsSeen","true");
                     map.put("NotifHeader","To Receive");
                     reference1.child("Notifications").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map);
+
+                    //Buyer
+                    DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference();
+                    HashMap<String, Object> hashMap2 = new HashMap<>();
+                    hashMap2.put("OrderProductImage",list.get(pos).getOrderProductImage());
+                    hashMap2.put("OrderStatus", "To Receive");
+                    reference2.child("BuyerPurchase").child(list.get(pos).getBuyerID()).child(list.get(pos).getOrderID()).updateChildren(hashMap2);
+
+                    DatabaseReference reference3 = FirebaseDatabase.getInstance().getReference();
+                    Map<String, Object> map3 = new HashMap<>();
+                    map3.put("IsSeen","true");
+                    map3.put("NotifHeader","To Receive");
+                    reference3.child("Notifications").child(list.get(pos).getBuyerID()).child(list.get(pos).getOrderID()).updateChildren(map3);
 
                     Toast.makeText(OrderDetailOngoingStandardPage.this, "Order is moved to TO RECEIVE", Toast.LENGTH_SHORT).show();
                     finish();
@@ -323,11 +332,11 @@ public class OrderDetailOngoingStandardPage extends AppCompatActivity {
                     String ItemCode, BuyerName, PaymentStatus, OrderDate;
                     String BuyerImage;
 
+                    //Seller
                     DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                     HashMap<String, Object> hashMap = new HashMap<>();
                     hashMap.put("OrderProductImage",list.get(pos).getOrderProductImage());
                     hashMap.put("OrderStatus", "To Book");
-
                     reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap);
 
                     DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
@@ -335,6 +344,19 @@ public class OrderDetailOngoingStandardPage extends AppCompatActivity {
                     map.put("IsSeen","true");
                     map.put("NotifHeader","To Book");
                     reference1.child("Notifications").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map);
+
+                    //Buyer
+                    DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference();
+                    HashMap<String, Object> hashMap2 = new HashMap<>();
+                    hashMap2.put("OrderProductImage",list.get(pos).getOrderProductImage());
+                    hashMap2.put("OrderStatus", "To Book");
+                    reference2.child("Orders").child(list.get(pos).getBuyerID()).child(list.get(pos).getOrderID()).updateChildren(hashMap2);
+
+                    DatabaseReference reference3 = FirebaseDatabase.getInstance().getReference();
+                    Map<String, Object> map3 = new HashMap<>();
+                    map3.put("IsSeen","true");
+                    map3.put("NotifHeader","To Book");
+                    reference3.child("Notifications").child(list.get(pos).getBuyerID()).child(list.get(pos).getOrderID()).updateChildren(map3);
 
                     Toast.makeText(OrderDetailOngoingStandardPage.this, "Order is moved to TO BOOK", Toast.LENGTH_SHORT).show();
                     finish();

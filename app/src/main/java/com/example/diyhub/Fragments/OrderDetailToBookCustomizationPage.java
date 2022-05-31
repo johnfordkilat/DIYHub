@@ -270,7 +270,9 @@ public class OrderDetailToBookCustomizationPage extends AppCompatActivity {
 
 
 
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        /*
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).child("OrderCustomizationsSpecs");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -346,6 +348,8 @@ public class OrderDetailToBookCustomizationPage extends AppCompatActivity {
             }
         });
 
+         */
+
 
 
 
@@ -375,13 +379,12 @@ public class OrderDetailToBookCustomizationPage extends AppCompatActivity {
                 }
                 else {
 
+                    //Seller
                     DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                     HashMap<String, Object> hashMap = new HashMap<>();
                     hashMap.put("OrderStatus", "To Receive");
                     hashMap.put("RiderName", riderName.getText().toString().trim());
                     hashMap.put("PlateNumber", plateNumber.getText().toString().trim());
-
-
                     reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap);
 
                     DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
@@ -389,6 +392,20 @@ public class OrderDetailToBookCustomizationPage extends AppCompatActivity {
                     map.put("IsSeen","true");
                     map.put("NotifHeader","To Receive");
                     reference1.child("Notifications").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map);
+
+                    //Buyer
+                    DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference();
+                    HashMap<String, Object> hashMap2 = new HashMap<>();
+                    hashMap2.put("OrderStatus", "To Receive");
+                    hashMap2.put("RiderName", riderName.getText().toString().trim());
+                    hashMap2.put("PlateNumber", plateNumber.getText().toString().trim());
+                    reference2.child("BuyerPurchase").child(list.get(pos).getBuyerID()).child(list.get(pos).getOrderID()).updateChildren(hashMap2);
+
+                    DatabaseReference reference3 = FirebaseDatabase.getInstance().getReference();
+                    Map<String, Object> map3 = new HashMap<>();
+                    map3.put("IsSeen","true");
+                    map3.put("NotifHeader","To Receive");
+                    reference3.child("Notifications").child(list.get(pos).getBuyerID()).child(list.get(pos).getOrderID()).updateChildren(map3);
 
                     Toast.makeText(OrderDetailToBookCustomizationPage.this, "Order is moved to TO RECEIVE", Toast.LENGTH_SHORT).show();
                     finish();

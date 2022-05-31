@@ -16,7 +16,6 @@
             android:id="@+id/logoutTxtview"
             android:layout_width="match_parent"
             android:layout_height="47dp"
-
             android:background="@color/white"
             android:gravity="center_vertical|center_horizontal"
             android:text="Logout"

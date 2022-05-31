@@ -286,12 +286,10 @@ public class OrderDetailAcceptedStandardPage extends AppCompatActivity {
                 String ItemCode, BuyerName, PaymentStatus, OrderDate;
                 String BuyerImage;
 
+                //Seller
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                 HashMap<String, Object> hashMap = new HashMap<>();
                 hashMap.put("OrderStatus", "Ongoing");
-
-
-
 
                 reference.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap);
 
@@ -299,6 +297,17 @@ public class OrderDetailAcceptedStandardPage extends AppCompatActivity {
                 Map<String, Object> map = new HashMap<>();
                 map.put("IsSeen","true");
                 reference1.child("Notifications").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map);
+
+                //Buyer
+                DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference();
+                HashMap<String, Object> hashMap2 = new HashMap<>();
+                hashMap2.put("OrderStatus", "Ongoing");
+                reference2.child("BuyerPurchase").child(list.get(pos).getBuyerID()).child(list.get(pos).getOrderID()).updateChildren(hashMap2);
+
+                DatabaseReference reference3 = FirebaseDatabase.getInstance().getReference();
+                Map<String, Object> map3 = new HashMap<>();
+                map3.put("IsSeen","true");
+                reference3.child("Notifications").child(list.get(pos).getBuyerID()).child(list.get(pos).getOrderID()).updateChildren(map3);
 
                 Toast.makeText(OrderDetailAcceptedStandardPage.this, "Order is MOVED TO ONGOING", Toast.LENGTH_SHORT).show();
                 finish();

@@ -130,6 +130,7 @@ public class MyAdapterCart extends RecyclerView.Adapter<MyAdapterCart.MyViewHold
         {
             sum = sum+(list.get(i).getProductPrice()*list.get(i).getProductQuantity());
         }
+        sum = sum + list.get(0).getProductAdditionalFee() + list.get(0).getProductShippingFee();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         Map<String, Object> map = new HashMap<>();

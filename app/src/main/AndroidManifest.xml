@@ -27,10 +27,13 @@
         android:theme="@style/Theme.DIYHub"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".BuyerOrdersPage"
+            android:exported="false" />
+        <activity
             android:name=".Buyer.AddBookingAddressBuyer"
             android:exported="false" />
         <activity
-            android:name=".Nearby.GMaps_LawFirm_Details"
+            android:name=".Nearby.Shop_Map_Details"
             android:exported="false" />
         <activity
             android:name=".Fragments.AddCustomSpecificationPageSeller"

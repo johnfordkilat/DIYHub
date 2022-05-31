@@ -2,6 +2,7 @@ package com.example.diyhub.Fragments;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,6 +10,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -42,6 +45,7 @@ import com.example.diyhub.BuyerAccountHomePage;
 import com.example.diyhub.MainActivity;
 import com.example.diyhub.Nearby.DistanceList;
 import com.example.diyhub.R;
+import com.example.diyhub.RecyclerViewAdapterAll;
 import com.example.diyhub.RecyclerViewAdapterRecom;
 import com.example.diyhub.RecyclerViewAdapterShopsNear;
 import com.example.diyhub.ShopNearYouList;
@@ -132,6 +136,16 @@ public class BuyerHomeFragment extends Fragment {
     RecyclerView shopsNearRecycler;
     ArrayList<ShopsList> shopsLists;
     int i=0;
+    RecyclerView recomShops;
+    String shopName;
+    String shopImage;
+    ArrayList<RecommendedShopsList> slist;
+    Button addRecom;
+    Double shopRating;
+
+    ImageView filterButton;
+    Dialog customDialog;
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -145,6 +159,8 @@ public class BuyerHomeFragment extends Fragment {
         mImageUrls = new ArrayList<>();
         getLocation = view.findViewById(R.id.getLocationButton);
         shopsNearRecycler = view.findViewById(R.id.recyclerView2);
+        recomShops = view.findViewById(R.id.recyclerView3sample);
+        filterButton = view.findViewById(R.id.filterButtonHomePage);
 
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -159,6 +175,38 @@ public class BuyerHomeFragment extends Fragment {
 
             }
         });
+        slist = new ArrayList<>();
+        customDialog = new Dialog(getContext());
+
+
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                    customDialog.setContentView(R.layout.filter_layout);
+                    customDialog.setCancelable(false);
+                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                    ImageView close = customDialog.findViewById(R.id.imageViewClose);
+
+                    Button mostViewed = customDialog.findViewById(R.id.mostViewedButtonFilter);
+                    Button purchases = customDialog.findViewById(R.id.purchasesButtonFilter);
+                    Button shopsRating = customDialog.findViewById(R.id.shopsRatingButtonFilter);
+
+
+
+                    close.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            customDialog.dismiss();
+
+                        }
+                    });
+
+                    customDialog.show();
+            }
+        });
+
 
         listShops = new ArrayList<>();
         listID = new ArrayList<>();
@@ -170,8 +218,13 @@ public class BuyerHomeFragment extends Fragment {
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         shopsNearRecycler.setLayoutManager(layoutManager1);
 
-        getImages();
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recomShops.setLayoutManager(layoutManager2);
+
+        getImagesAll();
         getImagesShopsNearYou();
+        getImagesRecomShops();
+        //getImagesTrendingItems();
 
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(mMessageReceiver,
                 new IntentFilter("ProceedToCartFromHomepage"));
@@ -191,7 +244,7 @@ public class BuyerHomeFragment extends Fragment {
         }
     };
 
-    private void getImages(){
+    private void getImagesAll(){
         Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
 
 
@@ -205,7 +258,7 @@ public class BuyerHomeFragment extends Fragment {
                     ShopsList list = snapshot.getValue(ShopsList.class);
                     mImageUrls.add(list);
                 }
-                RecyclerViewAdapterRecom adapter = new RecyclerViewAdapterRecom(getContext(), mImageUrls);
+                RecyclerViewAdapterAll adapter = new RecyclerViewAdapterAll(getContext(), mImageUrls);
                 recyclerView.setAdapter(adapter);
             }
 
@@ -243,6 +296,96 @@ public class BuyerHomeFragment extends Fragment {
             }
         });
     }
+
+    private void getImagesRecomShops(){
+        Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Shops");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            //Get number of Shops followed
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    RecommendedShopsList list = snapshot.getValue(RecommendedShopsList.class);
+                    double rating = list.getShopRating();
+                    if (rating >= 4.8) {
+                        int views = list.getShopViews();
+                        if (views > 20) {
+                            slist.add(list);
+                            sellerID = list.getSellerID();
+                            shopName = list.getShopName();
+                            shopImage = list.getShopImage();
+                            shopRating = list.getShopRating();
+
+                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                            Map<String, Object> map = new HashMap<>();
+                            map.put("SellerId", sellerID);
+                            map.put("ShopName", shopName);
+                            map.put("ShopImage", shopImage);
+                            map.put("ShopRating", shopRating);
+                            reference.child("RecommendedShops").child(sellerID).updateChildren(map);
+                        }
+                    }
+                    RecyclerViewAdapterRecom adapter = new RecyclerViewAdapterRecom(getContext(), slist);
+                    recomShops.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    /*
+    private void getImagesTrendingItems(){
+        Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Shops");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            //Get number of Shops followed
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    RecommendedShopsList list = snapshot.getValue(RecommendedShopsList.class);
+                    double rating = list.getShopRating();
+                    if (rating >= 4.8) {
+                        int views = list.getShopViews();
+                        if (views > 20) {
+                            slist.add(list);
+                            sellerID = list.getSellerID();
+                            shopName = list.getShopName();
+                            shopImage = list.getShopImage();
+                            shopRating = list.getShopRating();
+
+                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                            Map<String, Object> map = new HashMap<>();
+                            map.put("SellerId", sellerID);
+                            map.put("ShopName", shopName);
+                            map.put("ShopImage", shopImage);
+                            map.put("ShopRating", shopRating);
+                            reference.child("RecommendedShops").child(sellerID).updateChildren(map);
+                        }
+                    }
+                    RecyclerViewAdapterAll adapter = new RecyclerViewAdapterAll(getContext(), slist);
+                    recyclerTrending.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+     */
+
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

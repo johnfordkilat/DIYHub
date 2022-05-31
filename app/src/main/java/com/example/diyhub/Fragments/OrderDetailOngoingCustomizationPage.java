@@ -200,12 +200,10 @@ public class OrderDetailOngoingCustomizationPage extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
+                    //Seller
                     DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
                     HashMap<String, Object> hashMap1 = new HashMap<>();
                     hashMap1.put("OrderStatus", "To Receive");
-
-
-
                     reference1.child("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMap1);
 
                     DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference();
@@ -214,6 +212,17 @@ public class OrderDetailOngoingCustomizationPage extends AppCompatActivity {
                     map.put("NotifHeader","To Receive");
                     reference2.child("Notifications").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(map);
 
+                    //Buyer
+                    DatabaseReference reference3 = FirebaseDatabase.getInstance().getReference();
+                    HashMap<String, Object> hashMap3 = new HashMap<>();
+                    hashMap3.put("OrderStatus", "To Receive");
+                    reference3.child("BuyerPurchase").child(list.get(pos).getBuyerID()).child(list.get(pos).getOrderID()).updateChildren(hashMap3);
+
+                    DatabaseReference reference4 = FirebaseDatabase.getInstance().getReference();
+                    Map<String, Object> map4 = new HashMap<>();
+                    map4.put("IsSeen","true");
+                    map4.put("NotifHeader","To Receive");
+                    reference4.child("Notifications").child(list.get(pos).getBuyerID()).child(list.get(pos).getOrderID()).updateChildren(map4);
 
                     Toast.makeText(OrderDetailOngoingCustomizationPage.this, "Order is moved to TO RECEIVE", Toast.LENGTH_SHORT).show();
                     finish();
@@ -320,6 +329,7 @@ public class OrderDetailOngoingCustomizationPage extends AppCompatActivity {
 
 
 
+        /*
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).child("OrderCustomizationsSpecs");
         reference.addValueEventListener(new ValueEventListener() {
@@ -394,6 +404,8 @@ public class OrderDetailOngoingCustomizationPage extends AppCompatActivity {
 
             }
         });
+
+         */
 
 
 
