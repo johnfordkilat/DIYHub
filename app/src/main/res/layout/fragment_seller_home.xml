@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_one"
     tools:context=".Fragments.SellerHomeFragment"
-    tools:layout_editor_absoluteX="-3dp"
-    tools:layout_editor_absoluteY="-33dp">
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="36dp">
 
     <Spinner
         android:id="@+id/accountsVerifiedSpinner"
@@ -21,7 +21,7 @@
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.951" />
+        app:layout_constraintVertical_bias="0.959" />
 
     <Spinner
         android:id="@+id/bookingOptionSpinner"
@@ -35,7 +35,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.898" />
+        app:layout_constraintVertical_bias="0.951" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/removePaymentOption"
@@ -50,7 +50,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/PaymentOptionsSpinner"
         app:layout_constraintTop_toBottomOf="@+id/viewHistoryButton"
-        app:layout_constraintVertical_bias="0.77" />
+        app:layout_constraintVertical_bias="0.797" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/removeBookingOption"
@@ -62,14 +62,16 @@
         android:text="REMOVE"
         app:layout_constraintBottom_toTopOf="@+id/logoutTxtview2"
         app:layout_constraintEnd_toStartOf="@+id/addBookingOption"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/bookingOptionSpinner"
-        app:layout_constraintTop_toBottomOf="@+id/accountsVerifiedSpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/accountsVerifiedSpinner"
+        app:layout_constraintVertical_bias="0.4" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/addPaymentOption"
         android:layout_width="63dp"
         android:layout_height="51dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/custom_green"
         android:text="ADD"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +81,7 @@
         android:id="@+id/addBookingOption"
         android:layout_width="63dp"
         android:layout_height="42dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="4dp"
         android:background="@drawable/custom_green"
         android:text="ADD"
@@ -91,7 +93,7 @@
         android:layout_width="173dp"
         android:layout_height="21dp"
         android:layout_marginStart="6dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/custom_green"
         android:text="Upgrade to Premium"
@@ -131,7 +133,7 @@
         app:layout_constraintHorizontal_bias="0.116"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.659" />
+        app:layout_constraintVertical_bias="0.712" />
 
     <EditText
         android:id="@+id/subscriptionTxt"
@@ -147,7 +149,7 @@
         app:layout_constraintHorizontal_bias="0.949"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.645" />
+        app:layout_constraintVertical_bias="0.696" />
 
     <EditText
         android:id="@+id/shopNameTxt4"
@@ -162,7 +164,7 @@
         app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.583" />
+        app:layout_constraintVertical_bias="0.636" />
 
     <EditText
         android:id="@+id/locationSellerTxtView"
@@ -195,10 +197,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.952" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/sellerProfilePic"
@@ -213,10 +215,10 @@
         android:src="@drawable/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.98"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.208" />
+        app:layout_constraintVertical_bias="0.269" />
 
     <ImageView
         android:id="@+id/imageView55"
@@ -227,7 +229,7 @@
         app:layout_constraintHorizontal_bias="0.107"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.951"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/img_23" />
 
     <ImageView
@@ -239,7 +241,7 @@
         app:layout_constraintHorizontal_bias="0.26"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.334"
+        app:layout_constraintVertical_bias="0.385"
         app:srcCompat="@drawable/ic_baseline_verified_user_24" />
 
     <TextView
@@ -253,10 +255,10 @@
         android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.337" />
+        app:layout_constraintVertical_bias="0.387" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/viewHistoryButton"
@@ -269,7 +271,7 @@
         app:layout_constraintHorizontal_bias="0.926"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneSellerTxtView"
-        app:layout_constraintVertical_bias="0.666" />
+        app:layout_constraintVertical_bias="0.521" />
 
     <EditText
         android:id="@+id/shopMottoTxt"
@@ -285,14 +287,14 @@
         app:layout_constraintHorizontal_bias="0.979"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.297" />
+        app:layout_constraintVertical_bias="0.351" />
 
     <EditText
         android:id="@+id/phoneSellerTxtView"
         android:layout_width="400dp"
         android:layout_height="47dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="12dp"
         android:background="@drawable/edit_text_border"
         android:editable="false"
         android:ems="10"
@@ -314,7 +316,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.879" />
+        app:layout_constraintVertical_bias="0.89" />
 
     <ImageView
         android:id="@+id/premiumLogoImage"
@@ -327,7 +329,7 @@
         app:layout_constraintHorizontal_bias="0.879"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.192" />
+        app:layout_constraintVertical_bias="0.249" />
 
     <ImageView
         android:id="@+id/editShopNameButton"
@@ -339,6 +341,19 @@
         app:layout_constraintHorizontal_bias="0.983"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.212" />
+        app:layout_constraintVertical_bias="0.263" />
+
+    <Button
+        android:id="@+id/viewMyShopButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:text="View My Shop >>>"
+        app:layout_constraintBottom_toTopOf="@+id/shopNameTxt2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

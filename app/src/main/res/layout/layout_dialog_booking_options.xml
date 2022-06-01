@@ -12,9 +12,9 @@
             android:id="@+id/setPaymentOptionTxtBooking"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:enabled="false"
+            android:enabled="true"
             android:hint="Booking Option"
-            android:inputType="none" />
+            android:inputType="text" />
 
         <Button
             android:id="@+id/submitOptionBooking"

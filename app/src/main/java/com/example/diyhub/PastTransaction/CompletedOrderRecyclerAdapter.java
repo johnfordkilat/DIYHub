@@ -2,6 +2,7 @@ package com.example.diyhub.PastTransaction;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.StrictMode;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.diyhub.Fragments.OrdersList;
+import com.example.diyhub.Fragments.ViewReceiptPage;
 import com.example.diyhub.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -67,7 +70,7 @@ public class CompletedOrderRecyclerAdapter extends RecyclerView.Adapter<Complete
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.past_orders,parent,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.past_order_buyer_with_receipt,parent,false);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         return new MyViewHolder(v);
@@ -81,6 +84,14 @@ public class CompletedOrderRecyclerAdapter extends RecyclerView.Adapter<Complete
         holder.shopName.setText(completedOrderList.getShopName());
         holder.orderID.setText("Order ID: " + completedOrderList.getOrderID());
         Glide.with(context).load(list.get(position).getOrderProductImage()).into(holder.prodImage);
+        holder.viewReceipt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ViewReceiptPage.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
 
     }
 
@@ -120,6 +131,7 @@ public class CompletedOrderRecyclerAdapter extends RecyclerView.Adapter<Complete
         TextView date,prodName,shopName;
         ImageView prodImage;
         TextView orderID;
+        Button viewReceipt;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -128,6 +140,7 @@ public class CompletedOrderRecyclerAdapter extends RecyclerView.Adapter<Complete
             shopName = itemView.findViewById(R.id.shopNamePastTransac);
             prodImage = itemView.findViewById(R.id.productImageSellerPast);
             orderID = itemView.findViewById(R.id.orderIDPastTrasancTxt);
+            viewReceipt = itemView.findViewById(R.id.viewReceiptButtonBuyer);
 
 
 

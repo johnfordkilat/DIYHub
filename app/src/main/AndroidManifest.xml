@@ -27,6 +27,12 @@
         android:theme="@style/Theme.DIYHub"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Buyer.PastTransactionHistoryBuyer"
+            android:exported="false" />
+        <activity
+            android:name=".Fragments.ViewReceiptPage"
+            android:exported="false" />
+        <activity
             android:name=".BuyerOrdersPage"
             android:exported="false" />
         <activity

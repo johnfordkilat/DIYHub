@@ -257,8 +257,8 @@ public class BuyerOrdersPage extends AppCompatActivity{
                     rvAccepted.setVisibility(View.INVISIBLE);
                     rvAll.setVisibility(View.INVISIBLE);
                     rvPickUp.setVisibility(View.INVISIBLE);
-                    tabLayoutBuyerOrdersPage2.setVisibility(View.INVISIBLE);
-                    tabLayoutToReceive.setVisibility(View.VISIBLE);
+                    tabLayoutBuyerOrdersPage2.setVisibility(View.VISIBLE);
+                    tabLayoutToReceive.setVisibility(View.INVISIBLE);
                     updateOrdersNotificationsCountOrderRequest();
                     updateOrdersNotificationsCountAccepted();
                     updateOrdersNotificationsCountOngoing();
@@ -303,6 +303,7 @@ public class BuyerOrdersPage extends AppCompatActivity{
                     rvAccepted.setVisibility(View.INVISIBLE);
                     rvAll.setVisibility(View.INVISIBLE);
                     rvPickUp.setVisibility(View.INVISIBLE);
+                    tabLayoutBuyerOrdersPage2.setVisibility(View.INVISIBLE);
                     tabLayoutToReceive.setVisibility(View.INVISIBLE);
                     ordersnotifCardviewOrderRequestB.setVisibility(View.INVISIBLE);
                     ordersnotifCardviewAcceptedB.setVisibility(View.INVISIBLE);

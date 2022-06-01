@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.diyhub.Buyer.AddBookingAddressBuyer;
+import com.example.diyhub.Buyer.PastTransactionHistoryBuyer;
 import com.example.diyhub.BuyerOrdersPage;
 import com.example.diyhub.LoginPage;
 import com.example.diyhub.MESSAGES.User;
@@ -78,6 +79,7 @@ public class BuyerProfileFragment extends Fragment {
     ImageView profPicBuyer;
     View view;
     TextView openBooking;
+    TextView pastTransacButton;
 
 
     @Override
@@ -94,6 +96,7 @@ public class BuyerProfileFragment extends Fragment {
         profPicBuyer = view.findViewById(R.id.profilePicBuyer);
         dbFirestore = FirebaseFirestore.getInstance();
         openBooking = view.findViewById(R.id.landBookingAdd);
+        pastTransacButton = view.findViewById(R.id.pastTransacButtonBuyer);
 
         changeP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +104,14 @@ public class BuyerProfileFragment extends Fragment {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
                 startActivityForResult(intent,SELECT_PHOTOGOV);
+            }
+        });
+
+        pastTransacButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), PastTransactionHistoryBuyer.class);
+                startActivity(intent);
             }
         });
 

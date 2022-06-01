@@ -42,7 +42,7 @@
             android:layout_width="200dp"
             android:layout_marginStart="150dp"
             android:layout_height="wrap_content"
-            android:text="Manage Order "
+            android:text="Purchase Order "
             android:layout_marginTop="-60dp"
             android:textAlignment="center"
             android:textColor="@color/black"
