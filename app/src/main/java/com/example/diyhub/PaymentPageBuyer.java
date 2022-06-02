@@ -113,6 +113,8 @@ public class PaymentPageBuyer extends AppCompatActivity {
 
     Button requestPickupButton;
     Button talkToSellerButton;
+    String category1,category2,category3,customSpecsTxt;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,6 +170,30 @@ public class PaymentPageBuyer extends AppCompatActivity {
             }
         });
 
+        Bundle extras = getIntent().getExtras();
+        if(extras != null)
+        {
+            sellerID = extras.getString("SellerID");
+            totalPayment = extras.getDouble("TotalPayment");
+            productName = extras.getString("OrderProductName");
+            orderQuantity = extras.getInt("OrderQuantity",0);
+            productImage = extras.getString("OrderProductImage");
+            orderType = extras.getString("OrderType");
+            itemCode = extras.getString("ItemCode");
+            buyerName = extras.getString("BuyerName");
+            bookingAddress = extras.getString("BookingAddress");
+            orderStatus = extras.getString("OrderStatus");
+            shopName1 = extras.getString("ShopName");
+            productPrice = extras.getDouble("OrderProductPrice",0);
+            shippingFee = extras.getDouble("OrderShippingFee",0);
+            additionalFee = extras.getDouble("OrderAdditionalFee",0);
+            totalPaymentCart = extras.getDouble("TotalPaymentCart",0);
+            category1 = extras.getString("Category1");
+            category2 = extras.getString("Category2");
+            category3 = extras.getString("Category3");
+            customSpecsTxt = extras.getString("CustomSpecsTxt");
+        }
+
 
         payButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,7 +238,7 @@ public class PaymentPageBuyer extends AppCompatActivity {
                         paymentOption = "CASH ON DELIVERY";
                         paymentStatus = "TO PAY";
                     }
-                    if(bookingOption.equalsIgnoreCase("LALAMOVE") || bookingOption.equalsIgnoreCase("MAXIM"))
+                    if(bookingOption.equalsIgnoreCase("LALAMOVE") || bookingOption.equalsIgnoreCase("MAXIM") || !bookingOption.equalsIgnoreCase("PICKUP"))
                     {
                         deliveryType = "For Delivery";
                     }
@@ -255,6 +281,34 @@ public class PaymentPageBuyer extends AppCompatActivity {
                     map.put("OrderDeclineReason", "");
                     reference.child("Orders").child(sellerID).child(OrderID).setValue(map);
 
+                    if(!orderType.equalsIgnoreCase("Standard"))
+                    {
+                        //Category 1 Specs
+                        DatabaseReference referenceCustomSeller1 = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> mapCustomSeller1 = new HashMap<>();
+                        mapCustomSeller1.put("specsName",category1);
+                        referenceCustomSeller1.child("Orders").child(sellerID).child(OrderID).child("OrderCustomizationsSpecs").child("Category-1").push().setValue(mapCustomSeller1);
+
+                        //Category 2 Specs
+                        DatabaseReference referenceCustomSeller2 = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> mapCustomSeller2 = new HashMap<>();
+                        mapCustomSeller2.put("specsName",category2);
+                        referenceCustomSeller2.child("Orders").child(sellerID).child(OrderID).child("OrderCustomizationsSpecs").child("Category-2").push().setValue(mapCustomSeller2);
+
+                        //Category 3 Specs
+                        DatabaseReference referenceCustomSeller3 = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> mapCustomSeller3 = new HashMap<>();
+                        mapCustomSeller3.put("specsName",category3);
+                        referenceCustomSeller3.child("Orders").child(sellerID).child(OrderID).child("OrderCustomizationsSpecs").child("Category-3").push().setValue(mapCustomSeller3);
+
+                        //Custom Textbox Specs
+                        DatabaseReference referenceCustomSeller4 = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> mapCustomSeller4 = new HashMap<>();
+                        mapCustomSeller4.put("specsName",customSpecsTxt);
+                        referenceCustomSeller4.child("Orders").child(sellerID).child(OrderID).child("OrderCustomizationsSpecs").child("Category-Textbox").push().setValue(mapCustomSeller4);
+                    }
+
+
                     //Buyer Database
                     DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference();
                     Map<String, Object> map2 = new HashMap<>();
@@ -285,6 +339,33 @@ public class PaymentPageBuyer extends AppCompatActivity {
                     map2.put("OrderDeclineReason", "");
                     reference2.child("BuyerPurchase").child(user.getUid()).child(OrderID).setValue(map2);
 
+                    if(!orderType.equalsIgnoreCase("Standard"))
+                    {
+                        //Category 1 Specs
+                        DatabaseReference referenceCustomSeller1 = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> mapCustomSeller1 = new HashMap<>();
+                        mapCustomSeller1.put("specsName",category1);
+                        referenceCustomSeller1.child("BuyerPurchase").child(user.getUid()).child(OrderID).child("OrderCustomizationsSpecs").child("Category-1").push().setValue(mapCustomSeller1);
+
+                        //Category 2 Specs
+                        DatabaseReference referenceCustomSeller2 = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> mapCustomSeller2 = new HashMap<>();
+                        mapCustomSeller2.put("specsName",category2);
+                        referenceCustomSeller2.child("BuyerPurchase").child(user.getUid()).child(OrderID).child("OrderCustomizationsSpecs").child("Category-2").push().setValue(mapCustomSeller2);
+
+                        //Category 3 Specs
+                        DatabaseReference referenceCustomSeller3 = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> mapCustomSeller3 = new HashMap<>();
+                        mapCustomSeller3.put("specsName",category3);
+                        referenceCustomSeller3.child("BuyerPurchase").child(user.getUid()).child(OrderID).child("OrderCustomizationsSpecs").child("Category-3").push().setValue(mapCustomSeller3);
+
+                        //Custom Textbox Specs
+                        DatabaseReference referenceCustomSeller4 = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> mapCustomSeller4 = new HashMap<>();
+                        mapCustomSeller4.put("specsName",customSpecsTxt);
+                        referenceCustomSeller4.child("BuyerPurchase").child(user.getUid()).child(OrderID).child("OrderCustomizationsSpecs").child("Category-Textbox").push().setValue(mapCustomSeller4);
+                    }
+
 
 
                     DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
@@ -311,14 +392,11 @@ public class PaymentPageBuyer extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(PaymentPageBuyer.this, "Your order is now placed", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(PaymentPageBuyer.this, ToPayPage.class);
+                            Intent intent = new Intent(PaymentPageBuyer.this, BuyerOrdersPage.class);
                             startActivity(intent);
 
                         }
                     });
-                    Toast.makeText(PaymentPageBuyer.this, "Your order has been placed", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(PaymentPageBuyer.this, ToPayPage.class);
-                    startActivity(intent);
                 }
                 else if(paymentSpinner.getSelectedItem().equals("CASH ON DELIVERY") && !bookingSpinner.isEnabled())
                 {
@@ -381,6 +459,33 @@ public class PaymentPageBuyer extends AppCompatActivity {
                     map.put("OrderDeclineReason", "");
                     reference.child("Orders").child(sellerID).child(OrderID).setValue(map);
 
+                    if(!orderType.equalsIgnoreCase("Standard"))
+                    {
+                        //Category 1 Specs
+                        DatabaseReference referenceCustomSeller1 = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> mapCustomSeller1 = new HashMap<>();
+                        mapCustomSeller1.put("specsName",category1);
+                        referenceCustomSeller1.child("Orders").child(sellerID).child(OrderID).child("OrderCustomizationsSpecs").child("Category-1").push().setValue(mapCustomSeller1);
+
+                        //Category 2 Specs
+                        DatabaseReference referenceCustomSeller2 = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> mapCustomSeller2 = new HashMap<>();
+                        mapCustomSeller2.put("specsName",category2);
+                        referenceCustomSeller2.child("Orders").child(sellerID).child(OrderID).child("OrderCustomizationsSpecs").child("Category-2").push().setValue(mapCustomSeller2);
+
+                        //Category 3 Specs
+                        DatabaseReference referenceCustomSeller3 = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> mapCustomSeller3 = new HashMap<>();
+                        mapCustomSeller3.put("specsName",category3);
+                        referenceCustomSeller3.child("Orders").child(sellerID).child(OrderID).child("OrderCustomizationsSpecs").child("Category-3").push().setValue(mapCustomSeller3);
+
+                        //Custom Textbox Specs
+                        DatabaseReference referenceCustomSeller4 = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> mapCustomSeller4 = new HashMap<>();
+                        mapCustomSeller4.put("specsName",customSpecsTxt);
+                        referenceCustomSeller4.child("Orders").child(sellerID).child(OrderID).child("OrderCustomizationsSpecs").child("Category-Textbox").push().setValue(mapCustomSeller4);
+                    }
+
                     //Buyer Database
                     DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference();
                     Map<String, Object> map2 = new HashMap<>();
@@ -411,6 +516,33 @@ public class PaymentPageBuyer extends AppCompatActivity {
                     map2.put("OrderDeclineReason", "");
                     reference2.child("BuyerPurchase").child(user.getUid()).child(OrderID).setValue(map2);
 
+                    if(!orderType.equalsIgnoreCase("Standard"))
+                    {
+                        //Category 1 Specs
+                        DatabaseReference referenceCustomSeller1 = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> mapCustomSeller1 = new HashMap<>();
+                        mapCustomSeller1.put("specsName",category1);
+                        referenceCustomSeller1.child("BuyerPurchase").child(user.getUid()).child(OrderID).child("OrderCustomizationsSpecs").child("Category-1").push().setValue(mapCustomSeller1);
+
+                        //Category 2 Specs
+                        DatabaseReference referenceCustomSeller2 = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> mapCustomSeller2 = new HashMap<>();
+                        mapCustomSeller2.put("specsName",category2);
+                        referenceCustomSeller2.child("BuyerPurchase").child(user.getUid()).child(OrderID).child("OrderCustomizationsSpecs").child("Category-2").push().setValue(mapCustomSeller2);
+
+                        //Category 3 Specs
+                        DatabaseReference referenceCustomSeller3 = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> mapCustomSeller3 = new HashMap<>();
+                        mapCustomSeller3.put("specsName",category3);
+                        referenceCustomSeller3.child("BuyerPurchase").child(user.getUid()).child(OrderID).child("OrderCustomizationsSpecs").child("Category-3").push().setValue(mapCustomSeller3);
+
+                        //Custom Textbox Specs
+                        DatabaseReference referenceCustomSeller4 = FirebaseDatabase.getInstance().getReference();
+                        Map<String, Object> mapCustomSeller4 = new HashMap<>();
+                        mapCustomSeller4.put("specsName",customSpecsTxt);
+                        referenceCustomSeller4.child("BuyerPurchase").child(user.getUid()).child(OrderID).child("OrderCustomizationsSpecs").child("Category-Textbox").push().setValue(mapCustomSeller4);
+                    }
+
 
 
                     DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
@@ -437,38 +569,17 @@ public class PaymentPageBuyer extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(PaymentPageBuyer.this, "Your order is now placed", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(PaymentPageBuyer.this, ToPayPage.class);
+                            Intent intent = new Intent(PaymentPageBuyer.this, BuyerOrdersPage.class);
                             startActivity(intent);
 
                         }
                     });
-                    Toast.makeText(PaymentPageBuyer.this, "Your order has been placed", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(PaymentPageBuyer.this, ToPayPage.class);
-                    startActivity(intent);
                 }
             }
         });
 
 
-        Bundle extras = getIntent().getExtras();
-        if(extras != null)
-        {
-            sellerID = extras.getString("SellerID");
-            totalPayment = extras.getDouble("TotalPayment");
-            productName = extras.getString("OrderProductName");
-            orderQuantity = extras.getInt("OrderQuantity",0);
-            productImage = extras.getString("OrderProductImage");
-            orderType = extras.getString("OrderType");
-            itemCode = extras.getString("ItemCode");
-            buyerName = extras.getString("BuyerName");
-            bookingAddress = extras.getString("BookingAddress");
-            orderStatus = extras.getString("OrderStatus");
-            shopName1 = extras.getString("ShopName");
-            productPrice = extras.getDouble("OrderProductPrice",0);
-            shippingFee = extras.getDouble("OrderShippingFee",0);
-            additionalFee = extras.getDouble("OrderAdditionalFee",0);
-            totalPaymentCart = extras.getDouble("TotalPaymentCart",0);
-        }
+
 
 
         finalAmount.setText("Final amount to be paid ₱"+totalPayment);
@@ -657,7 +768,7 @@ public class PaymentPageBuyer extends AppCompatActivity {
                 paymentOption = "CASH ON DELIVERY";
                 paymentStatus = "TO PAY";
             }
-            if(bookingOption.equalsIgnoreCase("LALAMOVE") || bookingOption.equalsIgnoreCase("MAXIM"))
+            if(bookingOption.equalsIgnoreCase("LALAMOVE") || bookingOption.equalsIgnoreCase("MAXIM") || !bookingOption.equalsIgnoreCase("PICKUP"))
             {
                 deliveryType = "For Delivery";
             }
@@ -666,9 +777,6 @@ public class PaymentPageBuyer extends AppCompatActivity {
                 deliveryType = "For Pickup";
             }
 
-            String RiderName,PlateNumber;
-            String BookingOption;
-            String BuyerID;
 
             //Seller Database
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -701,6 +809,33 @@ public class PaymentPageBuyer extends AppCompatActivity {
             map.put("OrderDeclineReason", "");
             reference.child("Orders").child(sellerID).child(OrderID).setValue(map);
 
+            if(!orderType.equalsIgnoreCase("Standard"))
+            {
+                //Category 1 Specs
+                DatabaseReference referenceCustomSeller1 = FirebaseDatabase.getInstance().getReference();
+                Map<String, Object> mapCustomSeller1 = new HashMap<>();
+                mapCustomSeller1.put("specsName",category1);
+                referenceCustomSeller1.child("Orders").child(sellerID).child(OrderID).child("OrderCustomizationsSpecs").child("Category-1").push().setValue(mapCustomSeller1);
+
+                //Category 2 Specs
+                DatabaseReference referenceCustomSeller2 = FirebaseDatabase.getInstance().getReference();
+                Map<String, Object> mapCustomSeller2 = new HashMap<>();
+                mapCustomSeller2.put("specsName",category2);
+                referenceCustomSeller2.child("Orders").child(sellerID).child(OrderID).child("OrderCustomizationsSpecs").child("Category-2").push().setValue(mapCustomSeller2);
+
+                //Category 3 Specs
+                DatabaseReference referenceCustomSeller3 = FirebaseDatabase.getInstance().getReference();
+                Map<String, Object> mapCustomSeller3 = new HashMap<>();
+                mapCustomSeller3.put("specsName",category3);
+                referenceCustomSeller3.child("Orders").child(sellerID).child(OrderID).child("OrderCustomizationsSpecs").child("Category-3").push().setValue(mapCustomSeller3);
+
+                //Custom Textbox Specs
+                DatabaseReference referenceCustomSeller4 = FirebaseDatabase.getInstance().getReference();
+                Map<String, Object> mapCustomSeller4 = new HashMap<>();
+                mapCustomSeller4.put("specsName",customSpecsTxt);
+                referenceCustomSeller4.child("Orders").child(sellerID).child(OrderID).child("OrderCustomizationsSpecs").child("Category-Textbox").push().setValue(mapCustomSeller4);
+            }
+
             //Buyer Database
             DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference();
             Map<String, Object> map2 = new HashMap<>();
@@ -731,6 +866,33 @@ public class PaymentPageBuyer extends AppCompatActivity {
             map2.put("OrderDeclineReason", "");
             reference2.child("BuyerPurchase").child(user.getUid()).child(OrderID).setValue(map2);
 
+            if(!orderType.equalsIgnoreCase("Standard"))
+            {
+                //Category 1 Specs
+                DatabaseReference referenceCustomSeller1 = FirebaseDatabase.getInstance().getReference();
+                Map<String, Object> mapCustomSeller1 = new HashMap<>();
+                mapCustomSeller1.put("specsName",category1);
+                referenceCustomSeller1.child("BuyerPurchase").child(user.getUid()).child(OrderID).child("OrderCustomizationsSpecs").child("Category-1").push().setValue(mapCustomSeller1);
+
+                //Category 2 Specs
+                DatabaseReference referenceCustomSeller2 = FirebaseDatabase.getInstance().getReference();
+                Map<String, Object> mapCustomSeller2 = new HashMap<>();
+                mapCustomSeller2.put("specsName",category2);
+                referenceCustomSeller2.child("BuyerPurchase").child(user.getUid()).child(OrderID).child("OrderCustomizationsSpecs").child("Category-2").push().setValue(mapCustomSeller2);
+
+                //Category 3 Specs
+                DatabaseReference referenceCustomSeller3 = FirebaseDatabase.getInstance().getReference();
+                Map<String, Object> mapCustomSeller3 = new HashMap<>();
+                mapCustomSeller3.put("specsName",category3);
+                referenceCustomSeller3.child("BuyerPurchase").child(user.getUid()).child(OrderID).child("OrderCustomizationsSpecs").child("Category-3").push().setValue(mapCustomSeller3);
+
+                //Custom Textbox Specs
+                DatabaseReference referenceCustomSeller4 = FirebaseDatabase.getInstance().getReference();
+                Map<String, Object> mapCustomSeller4 = new HashMap<>();
+                mapCustomSeller4.put("specsName",customSpecsTxt);
+                referenceCustomSeller4.child("BuyerPurchase").child(user.getUid()).child(OrderID).child("OrderCustomizationsSpecs").child("Category-Textbox").push().setValue(mapCustomSeller4);
+            }
+
 
 
             DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
@@ -757,7 +919,7 @@ public class PaymentPageBuyer extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     Toast.makeText(PaymentPageBuyer.this, "Your order is now placed", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(PaymentPageBuyer.this, ToPayPage.class);
+                    Intent intent = new Intent(PaymentPageBuyer.this, BuyerOrdersPage.class);
                     startActivity(intent);
 
                 }

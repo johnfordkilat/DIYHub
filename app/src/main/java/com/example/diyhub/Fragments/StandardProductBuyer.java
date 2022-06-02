@@ -3,6 +3,7 @@ package com.example.diyhub.Fragments;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.AlertDialog;
@@ -23,6 +24,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.diyhub.AllProductsList;
+import com.example.diyhub.Buyer.ItemViewModelCat1;
+import com.example.diyhub.Buyer.ItemViewModelCat2;
+import com.example.diyhub.Buyer.ItemViewModelCat3;
+import com.example.diyhub.Buyer.ItemViewModelCustomSpecsText;
 import com.example.diyhub.CartPageList;
 import com.example.diyhub.PlaceOrderPageBuyer;
 import com.example.diyhub.PlaceOrderPageBuyerAdapter;
@@ -102,6 +107,13 @@ public class StandardProductBuyer extends AppCompatActivity {
 
     CardView hideCustom;
 
+    private ItemViewModelCat1 viewModelCat1;
+    private ItemViewModelCat2 viewModelCat2;
+    private ItemViewModelCat3 viewModelCat3;
+    private ItemViewModelCustomSpecsText viewModelSpecsTxt;
+
+
+
 
 
 
@@ -179,6 +191,7 @@ public class StandardProductBuyer extends AppCompatActivity {
         referenceSize = FirebaseDatabase.getInstance().getReference("SellerProducts").child(sellerID).child(prodID).child("Variations-Standard").child("Size");
 
 
+
         buyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -219,6 +232,10 @@ public class StandardProductBuyer extends AppCompatActivity {
                              */
                             closeDialogBuyNow.dismiss();
 
+
+
+
+
                             Intent intent = new Intent(getApplicationContext(), PlaceOrderPageBuyer.class);
                             intent.putExtra("ProductID", prodID);
                             intent.putExtra("SellerID", sellerID);
@@ -228,6 +245,25 @@ public class StandardProductBuyer extends AppCompatActivity {
                             intent.putExtra("ProductPrice", price);
                             intent.putExtra("ProductName", name);
                             intent.putExtra("ProductImage", prodImage);
+                            viewModelCat1 = new ViewModelProvider(StandardProductBuyer.this).get(ItemViewModelCat1.class);
+                            viewModelCat1.getSelectedItem().observe(StandardProductBuyer.this, item -> {
+                                intent.putExtra("Category1", item);
+                            });
+                            viewModelCat2 = new ViewModelProvider(StandardProductBuyer.this).get(ItemViewModelCat2.class);
+                            viewModelCat2.getSelectedItem().observe(StandardProductBuyer.this, item -> {
+                                intent.putExtra("Category2", item);
+
+                            });
+                            viewModelCat3 = new ViewModelProvider(StandardProductBuyer.this).get(ItemViewModelCat3.class);
+                            viewModelCat3.getSelectedItem().observe(StandardProductBuyer.this, item -> {
+
+                                intent.putExtra("Category3", item);
+                            });
+                            viewModelSpecsTxt = new ViewModelProvider(StandardProductBuyer.this).get(ItemViewModelCustomSpecsText.class);
+                            viewModelSpecsTxt.getSelectedItem().observe(StandardProductBuyer.this, item -> {
+
+                                intent.putExtra("CustomSpecsTxt", item);
+                            });
                             startActivity(intent);
                         }
 

@@ -895,4 +895,9 @@ public class AddVariationsCustomizePage extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
+
 }

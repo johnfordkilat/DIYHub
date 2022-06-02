@@ -2,17 +2,11 @@ package com.example.diyhub.Fragments;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -20,16 +14,9 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.diyhub.Adapter;
-import com.example.diyhub.Buyer.ItemViewModelCat1;
-import com.example.diyhub.Buyer.ItemViewModelCat2;
-import com.example.diyhub.Buyer.ItemViewModelCat3;
-import com.example.diyhub.Buyer.ItemViewModelCustomSpecsText;
 import com.example.diyhub.R;
-import com.example.diyhub.ViewPageAdapterProductDetailsStandard;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -43,7 +30,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDetailCustomPagePreview extends AppCompatActivity {
+public class OrderDetailCustomPagePreviewProducts extends AppCompatActivity {
 
     Spinner firstSpinner;
     Spinner secondSpinner;
@@ -130,16 +117,17 @@ public class OrderDetailCustomPagePreview extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_detail_custom_page_preview);
+        setContentView(R.layout.activity_order_detail_custom_page_preview_products);
 
-        firstSpinner = findViewById(R.id.firstSpinnerCustomPreview);
-        secondSpinner = findViewById(R.id.secondSpinnerCustomPreview);
-        thirdSpinner = findViewById(R.id.thirdSpinnerCustomPreview);
-        productImage = findViewById(R.id.customPreviewProductImage);
-        customPrevFirstImage = findViewById(R.id.customPreviewFirstImage);
-        customPrevSecondImage = findViewById(R.id.customPrevSecondImage);
-        customPrevThirdImage = findViewById(R.id.customPrevThirdImage);
-        backButton = findViewById(R.id.backButtonOrderDetailCustomPreview);
+
+        firstSpinner = findViewById(R.id.firstSpinnerCustomPreviewProducts);
+        secondSpinner = findViewById(R.id.secondSpinnerCustomPreviewProducts);
+        thirdSpinner = findViewById(R.id.thirdSpinnerCustomPreviewProducts);
+        productImage = findViewById(R.id.customPreviewProductImageProducts);
+        customPrevFirstImage = findViewById(R.id.customPreviewFirstImageProducts);
+        customPrevSecondImage = findViewById(R.id.customPrevSecondImageProducts);
+        customPrevThirdImage = findViewById(R.id.customPrevThirdImageProducts);
+        backButton = findViewById(R.id.backButtonOrderDetailCustomPreviewProducts);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,6 +147,43 @@ public class OrderDetailCustomPagePreview extends AppCompatActivity {
 
         Glide.with(getApplicationContext()).load(prodImage).into(productImage);
 
+        firstSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String firstImage = listCat1.get(position).getSpecsName();
+                Glide.with(getApplicationContext()).load(firstImage).into(customPrevFirstImage);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        secondSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String secondImage = listCat2.get(position).getSpecsName();
+                Glide.with(getApplicationContext()).load(secondImage).into(customPrevSecondImage);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        thirdSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String thirdImage = listCat3.get(position).getSpecsName();
+                Glide.with(getApplicationContext()).load(thirdImage).into(customPrevThirdImage);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
         listCat1 = new ArrayList<>();
         listCat2 = new ArrayList<>();
@@ -174,7 +199,7 @@ public class OrderDetailCustomPagePreview extends AppCompatActivity {
     public void showDataCat1()
     {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Orders").child(user.getUid()).child(prodID).child("OrderCustomizationsSpecs").child("Category-1");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(prodID).child("CustomSpecifications").child("Category-1");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -199,7 +224,7 @@ public class OrderDetailCustomPagePreview extends AppCompatActivity {
     public void showDataCat2()
     {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Orders").child(user.getUid()).child(prodID).child("OrderCustomizationsSpecs").child("Category-2");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(prodID).child("CustomSpecifications").child("Category-2");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -224,7 +249,7 @@ public class OrderDetailCustomPagePreview extends AppCompatActivity {
     public void showDataCat3()
     {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Orders").child(user.getUid()).child(prodID).child("OrderCustomizationsSpecs").child("Category-3");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(prodID).child("CustomSpecifications").child("Category-3");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

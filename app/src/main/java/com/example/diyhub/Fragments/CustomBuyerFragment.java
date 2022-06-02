@@ -11,12 +11,16 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.provider.OpenableColumns;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
@@ -24,6 +28,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.diyhub.Buyer.ItemViewModelCat1;
+import com.example.diyhub.Buyer.ItemViewModelCat2;
+import com.example.diyhub.Buyer.ItemViewModelCat3;
+import com.example.diyhub.Buyer.ItemViewModelCustomSpecsText;
 import com.example.diyhub.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -89,10 +97,18 @@ public class CustomBuyerFragment extends Fragment {
     TextView productSoldStandardProductBuyerCustom;
     TextView stockProductCustom;
     TextView reviewsCustom;
-    TextView customSpecsTxtBuyerCustom;
+    EditText customSpecsTxtBuyerCustom;
     TextView bookFromProductCustom;
 
     String category1Equi,category2Equi,category3Equi;
+
+    ItemViewModelCat1 viewModelCat1;
+    ItemViewModelCat2 viewModelCat2;
+    ItemViewModelCat3 viewModelCat3;
+    ItemViewModelCustomSpecsText viewModelSpecsTxt;
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -140,6 +156,10 @@ public class CustomBuyerFragment extends Fragment {
             shopName = extras.getString("ShopName");
 
         }
+
+
+
+
         bookFromProductCustom.setText("Shop Address: " + bookfrom);
         ratingNumCustom.setText(String.valueOf(rating));
         ratingBarBuyerCustom.setRating((float) rating);
@@ -174,10 +194,16 @@ public class CustomBuyerFragment extends Fragment {
         showDataCat2();
         showDataCat3();
 
+
+
+
         category1Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                category1Equi = listCat1.get(position).getBigImage();
+                category1Equi = listCat1.get(position).getSpecsName();
+                viewModelCat1 = new ViewModelProvider(requireActivity()).get(ItemViewModelCat1.class);
+                viewModelCat1.setData(category1Equi);
+
             }
 
             @Override
@@ -189,7 +215,9 @@ public class CustomBuyerFragment extends Fragment {
         category2Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                category2Equi = listCat2.get(position).getBigImage();
+                category2Equi = listCat2.get(position).getSpecsName();
+                viewModelCat2 = new ViewModelProvider(requireActivity()).get(ItemViewModelCat2.class);
+                viewModelCat2.setData(category2Equi);
             }
 
             @Override
@@ -200,7 +228,9 @@ public class CustomBuyerFragment extends Fragment {
         category3Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                category3Equi = listCat3.get(position).getBigImage();
+                category3Equi = listCat3.get(position).getSpecsName();
+                viewModelCat3 = new ViewModelProvider(requireActivity()).get(ItemViewModelCat3.class);
+                viewModelCat3.setData(category3Equi);
             }
 
             @Override
@@ -209,9 +239,29 @@ public class CustomBuyerFragment extends Fragment {
             }
         });
 
+        customSpecsTxtBuyerCustom.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String data = s.toString().trim();
+                viewModelSpecsTxt = new ViewModelProvider(requireActivity()).get(ItemViewModelCustomSpecsText.class);
+                viewModelSpecsTxt.setData(data);
+            }
+        });
+
 
         return view;
     }
+
 
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -330,10 +380,4 @@ public class CustomBuyerFragment extends Fragment {
             }
         });
     }
-
-
-
-
-
-
 }

@@ -1,17 +1,12 @@
 package com.example.diyhub.Fragments;
 
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import de.hdodenhof.circleimageview.CircleImageView;
-
-public class AddCustomSpecsSellerList {
+public class OrderCustomListSeller {
     String specsName;
 
-    public AddCustomSpecsSellerList() {
+    public OrderCustomListSeller() {
     }
 
-    public AddCustomSpecsSellerList(String specsName) {
+    public OrderCustomListSeller(String specsName) {
         this.specsName = specsName;
     }
 

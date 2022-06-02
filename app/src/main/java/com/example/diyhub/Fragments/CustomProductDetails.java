@@ -123,8 +123,9 @@ public class CustomProductDetails extends AppCompatActivity {
         viewCustomDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CustomProductDetails.this, AddCustomSpecificationPage.class);
+                Intent intent = new Intent(CustomProductDetails.this, OrderDetailCustomPagePreviewProducts.class);
                 intent.putExtra("ProductID",prodID);
+                intent.putExtra("ProductImage",prodImage);
                 startActivity(intent);
             }
         });
@@ -157,7 +158,7 @@ public class CustomProductDetails extends AppCompatActivity {
             }
         });
 
-        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Shops").child(user.getUid());
+        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Shops");
         reference1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -165,6 +166,7 @@ public class CustomProductDetails extends AppCompatActivity {
                 for(DataSnapshot snapshot : dataSnapshot.getChildren())
                 {
                     ShopsList listshops = snapshot.getValue(ShopsList.class);
+                    if(listshops.getSellerID().equalsIgnoreCase(user.getUid()))
                     shopsLists.add(listshops);
                 }
                 shopNameTxt.setText("Shop Name: "+shopsLists.get(0).getShopName());

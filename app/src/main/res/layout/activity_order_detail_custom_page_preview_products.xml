@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_one"
-    tools:context=".Fragments.OrderDetailCustomPagePreview">
-
+    tools:context=".Fragments.OrderDetailCustomPagePreviewProducts">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView4"
@@ -26,7 +25,7 @@
             android:layout_height="match_parent">
 
             <Spinner
-                android:id="@+id/firstSpinnerCustomPreview"
+                android:id="@+id/firstSpinnerCustomPreviewProducts"
                 android:layout_width="310dp"
                 android:layout_height="57dp"
                 android:layout_marginTop="32dp"
@@ -35,12 +34,12 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/customPreviewFirstImage"
+                app:layout_constraintStart_toEndOf="@+id/customPreviewFirstImageProducts"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
 
             <ImageView
-                android:id="@+id/customPreviewFirstImage"
+                android:id="@+id/customPreviewFirstImageProducts"
                 android:layout_width="90dp"
                 android:layout_height="75dp"
                 android:src="@drawable/noimage"
@@ -55,7 +54,7 @@
     </androidx.cardview.widget.CardView>
 
     <ImageView
-        android:id="@+id/backButtonOrderDetailCustomPreview"
+        android:id="@+id/backButtonOrderDetailCustomPreviewProducts"
         android:layout_width="69dp"
         android:layout_height="59dp"
         android:layout_marginStart="16dp"
@@ -83,18 +82,18 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/customPrevSecondImage"
+                android:id="@+id/customPrevSecondImageProducts"
                 android:layout_width="90dp"
                 android:layout_height="75dp"
                 android:layout_marginEnd="3dp"
                 android:src="@drawable/noimage"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/secondSpinnerCustomPreview"
+                app:layout_constraintEnd_toStartOf="@+id/secondSpinnerCustomPreviewProducts"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Spinner
-                android:id="@+id/secondSpinnerCustomPreview"
+                android:id="@+id/secondSpinnerCustomPreviewProducts"
                 android:layout_width="310dp"
                 android:layout_height="57dp"
                 android:layout_marginStart="1dp"
@@ -104,7 +103,7 @@
                 android:background="@android:drawable/btn_dropdown"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/customPrevSecondImage"
+                app:layout_constraintStart_toEndOf="@+id/customPrevSecondImageProducts"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -129,7 +128,7 @@
 
 
             <ImageView
-                android:id="@+id/customPrevThirdImage"
+                android:id="@+id/customPrevThirdImageProducts"
                 android:layout_width="90dp"
                 android:layout_height="75dp"
                 android:layout_marginStart="4dp"
@@ -137,12 +136,12 @@
                 android:layout_marginBottom="16dp"
                 android:src="@drawable/noimage"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/thirdSpinnerCustomPreview"
+                app:layout_constraintEnd_toStartOf="@+id/thirdSpinnerCustomPreviewProducts"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Spinner
-                android:id="@+id/thirdSpinnerCustomPreview"
+                android:id="@+id/thirdSpinnerCustomPreviewProducts"
                 android:layout_width="310dp"
                 android:layout_height="57dp"
                 android:layout_marginStart="1dp"
@@ -152,7 +151,7 @@
                 android:background="@android:drawable/btn_dropdown"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/customPrevThirdImage"
+                app:layout_constraintStart_toEndOf="@+id/customPrevThirdImageProducts"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -176,7 +175,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/customPreviewProductImage"
+                android:id="@+id/customPreviewProductImageProducts"
                 android:layout_width="305dp"
                 android:layout_height="220dp"
                 android:layout_marginTop="10dp"
@@ -190,7 +189,5 @@
 
 
     </androidx.cardview.widget.CardView>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

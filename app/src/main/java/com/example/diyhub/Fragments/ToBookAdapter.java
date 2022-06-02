@@ -37,7 +37,7 @@ public class ToBookAdapter extends RecyclerView.Adapter<ToBookAdapter.MyViewHold
 
     ArrayList<OrdersList> list;
     String app = "";
-    String[] allList = {"Lalamove","Maxim"};
+    String[] allList = {"Lalamove","Maxim","In-House Delivery"};
     AlertDialog dialog;
     AlertDialog errordialog;
     boolean clicked = false;
@@ -162,7 +162,7 @@ public class ToBookAdapter extends RecyclerView.Adapter<ToBookAdapter.MyViewHold
                                     Toast.makeText(context, "App is not installed!", Toast.LENGTH_SHORT).show();
                                 }
                             }
-                            else{
+                            else if(app.equalsIgnoreCase("Maxim")){
                                 Intent intent = context.getPackageManager().getLaunchIntentForPackage("com.taxsee.taxsee");
                                 if(intent != null){
                                     context.startActivity(intent);
@@ -172,6 +172,11 @@ public class ToBookAdapter extends RecyclerView.Adapter<ToBookAdapter.MyViewHold
                                 else{
                                     Toast.makeText(context, "App is not installed!", Toast.LENGTH_SHORT).show();
                                 }
+                            }
+                            else
+                            {
+                                Toast.makeText(context, "Please deliver your product to the buyer safely!", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
                             }
                             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 @Override

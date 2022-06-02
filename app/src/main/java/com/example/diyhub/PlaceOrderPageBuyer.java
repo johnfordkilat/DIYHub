@@ -58,6 +58,11 @@ public class PlaceOrderPageBuyer extends AppCompatActivity {
     double productPrice;
     double shippingFee;
     double additionalFee;
+    String category1;
+    String category2;
+    String category3;
+    String customSpecsTxt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,10 +90,17 @@ public class PlaceOrderPageBuyer extends AppCompatActivity {
             shopName = extras.getString("ShopName");
             price = extras.getDouble("ProductPrice");
             variations = extras.getString("Variations");
+            category1 = extras.getString("Category1");
+            category2 = extras.getString("Category2");
+            category3 = extras.getString("Category3");
+            customSpecsTxt = extras.getString("CustomSpecsTxt");
+
 
         }
         list = new ArrayList<>();
         stringList = new ArrayList<>();
+
+        Toast.makeText(this, "Specs: "+customSpecsTxt, Toast.LENGTH_SHORT).show();
 
         placeOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +122,10 @@ public class PlaceOrderPageBuyer extends AppCompatActivity {
                 intent.putExtra("OrderProductPrice", productPrice);
                 intent.putExtra("OrderShippingFee", shippingFee);
                 intent.putExtra("OrderAdditionalFee", additionalFee);
+                intent.putExtra("Category1", category1);
+                intent.putExtra("Category2", category2);
+                intent.putExtra("Category3", category3);
+                intent.putExtra("CustomSpecsTxt", customSpecsTxt);
                 startActivity(intent);
 
 

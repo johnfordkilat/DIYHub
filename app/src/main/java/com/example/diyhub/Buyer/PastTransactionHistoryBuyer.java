@@ -47,44 +47,14 @@ import java.util.Date;
 
 public class PastTransactionHistoryBuyer extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
-    Button searchButton;
-    EditText searchTxt;
-    String word;
+
     TabLayout tabLayout;
     ViewPager viewPager;
 
-    View view;
 
-
-    TextView all,res,hold;
-    int count=0;
-    String emailSeller;
-    FirebaseFirestore dbFirestore;
-    OrdersAdapter ordersAdapter;
-    ArrayList<OrdersList> ordersLists;
     ProgressDialog progressDialog;
-    Button uploadProduct;
 
-    Uri imageUri1,imageUri2,imageUri3;
-    StorageReference storageReference1,storageReference2,storageReference3;
-    private ArrayList<Uri> ImageList = new ArrayList<Uri>();
-    int index = 0;
-    private int uploads = 0;
-    private int success = 0;
-    ImageView profPic;
-    String usernameSeller;
     FirebaseAuth mAuth;
-    String myUri;
-    private DatabaseReference databaseReference;
-    String value1,value2,value3,value4,value5,value6,value7,value8,value9,value10,value11,value12;
-    TextView shopN,locSeller,phoneSeller;
-    String locSell,phoneSell;
-    ImageView products,orders,stats;
-    String productName,productQuantity,productStocks;
-    private static final int SELECT_PHOTOGOV = 1;
-    int dialog = 0;
-    TextView noProduct;
-    Button toOrderPage;
 
     private int[] tabIcons = {
             R.drawable.ic_baseline_home_24,
@@ -96,10 +66,7 @@ public class PastTransactionHistoryBuyer extends AppCompatActivity implements Da
     private DatePickerDialog datePickerDialog;
 
     DatabaseReference referenceOrderRequest;
-    DatabaseReference referenceAccepted;
-    DatabaseReference referenceOngoing;
-    DatabaseReference referenceToBook;
-    DatabaseReference referenceToReceive;
+
 
 
     ArrayList<OrdersList> ordersListsCompleted;

@@ -66,6 +66,7 @@ public class AddStandardProduct extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     List<String> list;
     String prodCategory = "";
+    EditText prodCatTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +82,8 @@ public class AddStandardProduct extends AppCompatActivity {
         prodPriceTxt = findViewById(R.id.productPriceAddStandard);
         prodSoldTxt = findViewById(R.id.productSoldAddStandard);
         addCategorySpinner = findViewById(R.id.customProductSpinnerAddStandardProduct);
+        prodCatTxt = findViewById(R.id.productCategoryTxtStandard);
+
 
         list = new ArrayList<String>();
         list.add(0, "Choose Product Category");
@@ -130,6 +133,7 @@ public class AddStandardProduct extends AppCompatActivity {
                 if(position > 0)
                 {
                     prodCategory = list.get(position);
+                    prodCatTxt.setText(prodCategory);
                 }
             }
 
@@ -210,6 +214,12 @@ public class AddStandardProduct extends AppCompatActivity {
                     prodSoldTxt.requestFocus();
                     return;
                 }
+                else if(prodCatTxt.getText().toString().trim().isEmpty())
+                {
+                    prodCatTxt.setError("Product Category is Required");
+                    prodCatTxt.requestFocus();
+                    return;
+                }
                 else if(pQUan > pSTock)
                 {
                     productQuantity.setError("Product Quantity should not be greater than Product Stocks");
@@ -241,6 +251,8 @@ public class AddStandardProduct extends AppCompatActivity {
                         sellerProductsfb.put("ProductRating",4.5);
                         sellerProductsfb.put("ProductShippingFee",60);
                         sellerProductsfb.put("ProductAdditionalFee",0);
+                        sellerProductsfb.put("ProductCategory",prodCatTxt.getText().toString().trim());
+
 
 
                         reference.child("SellerProducts").child(user.getUid()).child(cutid).setValue(sellerProductsfb);
@@ -267,6 +279,8 @@ public class AddStandardProduct extends AppCompatActivity {
                         sellerProductsfb.put("ProductRating",4.5);
                         sellerProductsfb.put("ProductShippingFee",60);
                         sellerProductsfb.put("ProductAdditionalFee",0);
+                        sellerProductsfb.put("ProductCategory",prodCatTxt.getText().toString().trim());
+
 
 
 
@@ -314,4 +328,5 @@ public class AddStandardProduct extends AppCompatActivity {
             }
         });
     }
+
 }

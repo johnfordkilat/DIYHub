@@ -53,6 +53,7 @@ public class AddCustomProduct extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     List<String> list;
     String prodCategory = "";
+    EditText prodCatTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,7 @@ public class AddCustomProduct extends AppCompatActivity {
         prodMaterialTxt = findViewById(R.id.productMaterialsUsedAddCustom);
         prodPriceTxt = findViewById(R.id.productPriceAddCustom);
         prodSoldTxt = findViewById(R.id.productSoldAddCustom);
+        prodCatTxt = findViewById(R.id.productCategoryTxtCustom);
 
 
 
@@ -121,6 +123,7 @@ public class AddCustomProduct extends AppCompatActivity {
                 if(position > 0)
                 {
                     prodCategory = list.get(position);
+                    prodCatTxt.setText(prodCategory);
                 }
             }
 
@@ -202,6 +205,12 @@ public class AddCustomProduct extends AppCompatActivity {
                     prodSoldTxt.requestFocus();
                     return;
                 }
+                else if(prodCatTxt.getText().toString().trim().isEmpty())
+                {
+                    prodCatTxt.setError("Product Category is Required");
+                    prodCatTxt.requestFocus();
+                    return;
+                }
                 else if(pQUan > pSTock)
                 {
                     productQuantity.setError("Product Quantity should not be greater than Product Stocks");
@@ -232,7 +241,7 @@ public class AddCustomProduct extends AppCompatActivity {
                         sellerProductsfb.put("ProductRating",4.5);
                         sellerProductsfb.put("ProductShippingFee",60);
                         sellerProductsfb.put("ProductAdditionalFee",80);
-                        sellerProductsfb.put("ProductCategory",prodCategory);
+                        sellerProductsfb.put("ProductCategory",prodCatTxt.getText().toString().trim());
 
 
 
@@ -260,7 +269,7 @@ public class AddCustomProduct extends AppCompatActivity {
                         sellerProductsfb.put("ProductRating",4.5);
                         sellerProductsfb.put("ProductShippingFee",60);
                         sellerProductsfb.put("ProductAdditionalFee",80);
-                        sellerProductsfb.put("ProductCategory",prodCategory);
+                        sellerProductsfb.put("ProductCategory",prodCatTxt.getText().toString().trim());
 
 
 
@@ -308,4 +317,6 @@ public class AddCustomProduct extends AppCompatActivity {
             }
         });
     }
+
+
 }

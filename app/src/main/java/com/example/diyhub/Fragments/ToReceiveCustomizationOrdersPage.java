@@ -276,23 +276,40 @@ public class ToReceiveCustomizationOrdersPage extends AppCompatActivity {
 
             }
         });
+        displayBookingOption();
 
+        showDataCat1();
 
+        customerRequestSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position > 0)
+                {
+                    String item = parent.getItemAtPosition(position).toString();
+                    Toast.makeText(getApplicationContext(), "Selected: "+item, Toast.LENGTH_SHORT).show();
+                    customerReqNotif.setVisibility(View.INVISIBLE);
+                }
+            }
 
-        /*
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+    }
+    public void showDataCat1()
+    {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).child("OrderCustomizationsSpecs");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Orders").child(user.getUid()).child(list.get(pos).getProductID()).child("OrderCustomizationsSpecs").child("Category-Textbox");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                specsList.clear();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren())
                 {
-                    OrderCustomizationsSpecs orderCustomizationsSpecs = snapshot.getValue(OrderCustomizationsSpecs.class);
-                    specsList.add(orderCustomizationsSpecs);
+                    OrderCustomListSeller addCustomSpecsSellerList = snapshot.getValue(OrderCustomListSeller.class);
+                    customerRequestList.add(addCustomSpecsSellerList.getSpecsName());
                 }
-                customerRequestList.add(specsList.get(0).getCustomerRequest());
-                //Customer Request Spinner
                 customerAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, customerRequestList)
                 {
                     @Override
@@ -324,13 +341,10 @@ public class ToReceiveCustomizationOrdersPage extends AppCompatActivity {
                     }
                 };
                 customerRequestSpinner.setAdapter(customerAdapter);
-
-                //Customer Request Spinner
                 if(customerRequestList.size() > 1)
                 {
                     customerReqNotif.setVisibility(View.VISIBLE);
                 }
-
             }
 
             @Override
@@ -338,34 +352,6 @@ public class ToReceiveCustomizationOrdersPage extends AppCompatActivity {
 
             }
         });
-
-        customerRequestSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position > 0)
-                {
-                    String item = parent.getItemAtPosition(position).toString();
-                    Toast.makeText(getApplicationContext(), "Selected: "+item, Toast.LENGTH_SHORT).show();
-                    customerReqNotif.setVisibility(View.INVISIBLE);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-         */
-
-
-
-
-
-
-
-        displayBookingOption();
-
     }
 
     private void displayBookingOption(){

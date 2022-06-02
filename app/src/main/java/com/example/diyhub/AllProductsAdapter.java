@@ -138,6 +138,7 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
                     intent.putExtra("ProductMaterial", productsList.getProductMaterial());
                     intent.putExtra("ProductDescription", productsList.getProductDescription());
                     intent.putExtra("ProductStock", productsList.getProductStocks());
+                    intent.putExtra("ProductImage", productsList.getProductImage());
                     context.startActivity(intent);
                 }
                 else
@@ -150,6 +151,7 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
                     intent.putExtra("ProductMaterial", productsList.getProductMaterial());
                     intent.putExtra("ProductDescription", productsList.getProductDescription());
                     intent.putExtra("ProductStock", productsList.getProductStocks());
+                    intent.putExtra("ProductImage", productsList.getProductImage());
                     context.startActivity(intent);
                 }
             }

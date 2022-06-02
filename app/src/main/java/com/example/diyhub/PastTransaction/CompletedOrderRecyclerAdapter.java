@@ -89,6 +89,7 @@ public class CompletedOrderRecyclerAdapter extends RecyclerView.Adapter<Complete
             public void onClick(View v) {
                 Intent intent = new Intent(context, ViewReceiptPage.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("ProductID", completedOrderList.getProductID());
                 context.startActivity(intent);
             }
         });

@@ -1,18 +1,29 @@
 package com.example.diyhub;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CreateMyShopPage extends AppCompatActivity {
@@ -24,6 +35,9 @@ public class CreateMyShopPage extends AppCompatActivity {
     EditText shopMotto;
     EditText fullName;
     Button createShopButton;
+    Spinner businessType;
+    ArrayAdapter adapter;
+    List<String> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +50,7 @@ public class CreateMyShopPage extends AppCompatActivity {
         shopMotto = findViewById(R.id.shopMottoTxtCreateShop);
         fullName = findViewById(R.id.fullNameTxtCreateShop);
         createShopButton = findViewById(R.id.createShopNowButtonCreateShop);
+        businessType = findViewById(R.id.createMyShopSpinnerSeller);
 
         createShopButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +98,43 @@ public class CreateMyShopPage extends AppCompatActivity {
 
             }
         });
+
+        //Payment List
+        list = new ArrayList<String>();
+        list.add(0, "Choose Business Type");
+
+        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, list)
+        {
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        businessType.setAdapter(adapter);
+
 
 
     }

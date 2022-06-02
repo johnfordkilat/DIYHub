@@ -644,7 +644,7 @@ public class AddCustomSpecificationPageSeller extends AppCompatActivity {
 
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                             Map<String, Object> map = new HashMap<>();
-                            map.put("bigImage", url);
+                            map.put("specsName", url);
                             reference.child("SellerProducts").child(user.getUid()).child(prodID).child("CustomSpecifications").child("Category-1").child(varNameLabel).updateChildren(map);
                             ImageListVariation.clear();
                             //reference.child("Products").child(varNameLabel).setValue(map);
@@ -683,7 +683,7 @@ public class AddCustomSpecificationPageSeller extends AppCompatActivity {
 
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                             Map<String, Object> map = new HashMap<>();
-                            map.put("bigImage", url);
+                            map.put("specsName", url);
                             reference.child("SellerProducts").child(user.getUid()).child(prodID).child("CustomSpecifications").child("Category-2").child(varNameLabel).updateChildren(map);
                             ImageListVariation.clear();
                             //reference.child("Products").child(varNameLabel).setValue(map);
@@ -722,7 +722,7 @@ public class AddCustomSpecificationPageSeller extends AppCompatActivity {
 
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                             Map<String, Object> map = new HashMap<>();
-                            map.put("bigImage", url);
+                            map.put("specsName", url);
                             reference.child("SellerProducts").child(user.getUid()).child(prodID).child("CustomSpecifications").child("Category-3").child(varNameLabel).updateChildren(map);
                             ImageListVariation.clear();
                             //reference.child("Products").child(varNameLabel).setValue(map);

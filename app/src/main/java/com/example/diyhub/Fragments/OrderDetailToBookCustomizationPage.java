@@ -75,6 +75,7 @@ public class OrderDetailToBookCustomizationPage extends AppCompatActivity {
     CardView customerReqNotif;
 
     Button viewPriceLiquidationButton;
+    int pos;
 
 
     @Override
@@ -114,7 +115,7 @@ public class OrderDetailToBookCustomizationPage extends AppCompatActivity {
             list = extras.getParcelableArrayList("list");
         }
 
-        int pos = Integer.parseInt(position);
+        pos = Integer.parseInt(position);
 
         viewPriceLiquidationButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -272,90 +273,6 @@ public class OrderDetailToBookCustomizationPage extends AppCompatActivity {
 
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        /*
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Orders").child(user.getUid()).child(list.get(pos).getOrderID()).child("OrderCustomizationsSpecs");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                specsList.clear();
-                for(DataSnapshot snapshot : dataSnapshot.getChildren())
-                {
-                    OrderCustomizationsSpecs orderCustomizationsSpecs = snapshot.getValue(OrderCustomizationsSpecs.class);
-                    specsList.add(orderCustomizationsSpecs);
-                }
-                customerRequestList.add(specsList.get(0).getCustomerRequest());
-                //Customer Request Spinner
-                customerAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, customerRequestList)
-                {
-                    @Override
-                    public boolean isEnabled(int position){
-                        if(position == 0)
-                        {
-                            // Disable the first item from Spinner
-                            // First item will be use for hint
-                            return false;
-                        }
-                        else
-                        {
-                            return true;
-                        }
-                    }
-                    @Override
-                    public View getDropDownView(int position, View convertView,
-                                                ViewGroup parent) {
-                        View view = super.getDropDownView(position, convertView, parent);
-                        TextView tv = (TextView) view;
-                        if(position == 0){
-                            // Set the hint text color gray
-                            tv.setTextColor(Color.GRAY);
-                        }
-                        else {
-                            tv.setTextColor(Color.BLACK);
-                        }
-                        return view;
-                    }
-                };
-                customerRequestSpinner.setAdapter(customerAdapter);
-
-                if(customerRequestList.size() > 1)
-                {
-                    customerReqNotif.setVisibility(View.VISIBLE);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-        customerRequestSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position > 0)
-                {
-                    String item = parent.getItemAtPosition(position).toString();
-                    Toast.makeText(getApplicationContext(), "Selected: "+item, Toast.LENGTH_SHORT).show();
-                    customerReqNotif.setVisibility(View.INVISIBLE);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-         */
-
-
-
-
-
-
-
         moveToToReceive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -410,6 +327,79 @@ public class OrderDetailToBookCustomizationPage extends AppCompatActivity {
                     Toast.makeText(OrderDetailToBookCustomizationPage.this, "Order is moved to TO RECEIVE", Toast.LENGTH_SHORT).show();
                     finish();
                 }
+            }
+        });
+        showDataCat1();
+
+        customerRequestSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position > 0)
+                {
+                    String item = parent.getItemAtPosition(position).toString();
+                    Toast.makeText(getApplicationContext(), "Selected: "+item, Toast.LENGTH_SHORT).show();
+                    customerReqNotif.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+    public void showDataCat1()
+    {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Orders").child(user.getUid()).child(list.get(pos).getProductID()).child("OrderCustomizationsSpecs").child("Category-Textbox");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    OrderCustomListSeller addCustomSpecsSellerList = snapshot.getValue(OrderCustomListSeller.class);
+                    customerRequestList.add(addCustomSpecsSellerList.getSpecsName());
+                }
+                customerAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, customerRequestList)
+                {
+                    @Override
+                    public boolean isEnabled(int position){
+                        if(position == 0)
+                        {
+                            // Disable the first item from Spinner
+                            // First item will be use for hint
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
+                    @Override
+                    public View getDropDownView(int position, View convertView,
+                                                ViewGroup parent) {
+                        View view = super.getDropDownView(position, convertView, parent);
+                        TextView tv = (TextView) view;
+                        if(position == 0){
+                            // Set the hint text color gray
+                            tv.setTextColor(Color.GRAY);
+                        }
+                        else {
+                            tv.setTextColor(Color.BLACK);
+                        }
+                        return view;
+                    }
+                };
+                customerRequestSpinner.setAdapter(customerAdapter);
+                if(customerRequestList.size() > 1)
+                {
+                    customerReqNotif.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

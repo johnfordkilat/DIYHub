@@ -7,9 +7,24 @@
     android:background="@drawable/gradient_one"
     tools:context=".Fragments.AddCustomProduct">
 
+    <EditText
+        android:id="@+id/productCategoryTxtCustom"
+        android:layout_width="182dp"
+        android:layout_height="46dp"
+        android:background="@drawable/textview_border"
+        android:ems="10"
+        android:hint="Product Category"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="@+id/customProductSpinnerAddCustomProduct"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.384"
+        app:layout_constraintStart_toEndOf="@+id/customProductSpinnerAddCustomProduct"
+        app:layout_constraintTop_toTopOf="@+id/customProductSpinnerAddCustomProduct"
+        app:layout_constraintVertical_bias="0.0" />
+
     <Spinner
         android:id="@+id/customProductSpinnerAddCustomProduct"
-        android:layout_width="380dp"
+        android:layout_width="180dp"
         android:layout_height="50dp"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
@@ -17,10 +32,10 @@
         android:background="@android:drawable/btn_dropdown"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.096"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/productSoldAddCustom"
-        app:layout_constraintVertical_bias="0.588" />
+        app:layout_constraintVertical_bias="0.529" />
 
     <TextView
         android:id="@+id/textView91"

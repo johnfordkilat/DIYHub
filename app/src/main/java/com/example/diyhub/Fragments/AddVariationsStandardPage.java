@@ -896,5 +896,9 @@ public class AddVariationsStandardPage extends AppCompatActivity {
         map.put("VarSize", varNameLabel);
         reference.child("SellerProducts").child(user.getUid()).child(itemid).child("Variations-Standard").child("Size").child(varNameLabel).updateChildren(map);
     }
+    @Override
+    public void onBackPressed() {
+
+    }
 
 }

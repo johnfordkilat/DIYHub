@@ -54,44 +54,75 @@
         android:layout_marginStart="-350dp"
         android:layout_marginTop="390dp" >
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <EditText
-                android:layout_width="match_parent"
                 android:id="@+id/shopAddressTxtCreateShop"
-                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:background="@drawable/textview_border"
                 android:hint="Enter Shop Address"
-                android:layout_height="50dp"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <EditText
-                android:layout_width="match_parent"
-                android:layout_marginTop="80dp"
-                android:layout_marginStart="-350dp"
                 android:id="@+id/shopNameTxtCreateShop"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/textview_border"
                 android:hint="Enter Shop Name"
-                android:background="@drawable/textview_border"
-                android:layout_height="50dp"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.069" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_marginTop="150dp"
-                android:layout_marginStart="-350dp"
-                android:hint="Enter Shop Motto"
                 android:id="@+id/shopMottoTxtCreateShop"
-                android:background="@drawable/textview_border"
-                android:layout_height="50dp"/>
-            <EditText
                 android:layout_width="match_parent"
-                android:id="@+id/fullNameTxtCreateShop"
-                android:layout_marginTop="220dp"
-                android:layout_marginStart="-350dp"
-                android:hint="Enter your full name"
+                android:layout_height="50dp"
                 android:background="@drawable/textview_border"
-                android:layout_height="50dp"/>
+                android:hint="Enter Shop Motto"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.286" />
 
-        </LinearLayout>
+            <EditText
+                android:id="@+id/fullNameTxtCreateShop"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/textview_border"
+                android:hint="Enter your full name"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.717" />
+
+            <Spinner
+                android:id="@+id/createMyShopSpinnerSeller"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="200dp"
+                android:layout_weight="1"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.812" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 

@@ -6,21 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.diyhub.R;
 
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
-public class AddCustomSpecsSellerAdapter extends BaseAdapter {
+public class AddCustomSpecsSellerPreviewAdapter extends BaseAdapter {
 
     private Context context;
-    private List<AddCustomSpecsSellerList> varList;
+    private List<OrderCustomListSeller> varList;
 
-    public AddCustomSpecsSellerAdapter(Context context, List<AddCustomSpecsSellerList> varList) {
+    public AddCustomSpecsSellerPreviewAdapter(Context context, List<OrderCustomListSeller> varList) {
         this.context = context;
         this.varList = varList;
     }
