@@ -27,6 +27,9 @@
         android:theme="@style/Theme.DIYHub"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".PastTransaction.ViewReceiptPageSeller"
+            android:exported="false" />
+        <activity
             android:name=".Fragments.OrderDetailCustomPagePreviewProducts"
             android:exported="false" />
         <activity

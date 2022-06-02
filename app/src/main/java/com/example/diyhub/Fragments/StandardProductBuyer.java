@@ -112,6 +112,15 @@ public class StandardProductBuyer extends AppCompatActivity {
     private ItemViewModelCat3 viewModelCat3;
     private ItemViewModelCustomSpecsText viewModelSpecsTxt;
 
+    DatabaseReference referenceCustom;
+    DatabaseReference referenceSizeCustom;
+
+    ArrayList<String> listSizeCustom;
+    ArrayAdapter adapterSizeCustom;
+
+    ArrayList<String> listCustom;
+    ArrayAdapter adapterCustom;
+
 
 
 
@@ -187,9 +196,13 @@ public class StandardProductBuyer extends AppCompatActivity {
         shopNameTxt.setText(name);
         priceProduct.setText("₱" + String.valueOf(price));
 
+        //Standard Reference
         reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(sellerID).child(prodID).child("Variations-Standard").child("Color");
         referenceSize = FirebaseDatabase.getInstance().getReference("SellerProducts").child(sellerID).child(prodID).child("Variations-Standard").child("Size");
 
+        //Custom Reference
+        referenceCustom = FirebaseDatabase.getInstance().getReference("SellerProducts").child(sellerID).child(prodID).child("Variations-Custom").child("Color");
+        referenceSizeCustom = FirebaseDatabase.getInstance().getReference("SellerProducts").child(sellerID).child(prodID).child("Variations-Custom").child("Size");
 
 
         buyNow.setOnClickListener(new View.OnClickListener() {
@@ -462,6 +475,139 @@ public class StandardProductBuyer extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     StandardProductSecondVariationList standardProductSecondVariationList = snapshot.getValue(StandardProductSecondVariationList.class);
                     listSize.add(standardProductSecondVariationList.getVarSize());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    private void fetchDataColorCustom() {
+        //Color List
+        listCustom = new ArrayList<String>();
+        listCustom.add(0, "Choose Color Variation");
+
+        //Payment Spinner
+        adapterCustom = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, listCustom) {
+            @Override
+            public boolean isEnabled(int position) {
+                if (position == 0) {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                } else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        colorSpinnerBuyNow.setAdapter(adapterCustom);
+
+        //Get the data selected from dropdown spinner
+        colorSpinnerBuyNow.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position > 0) {
+                    selectedColor = listCustom.get(position);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        referenceCustom.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    StandardProductVariationList standardProductSecondVariationList = snapshot.getValue(StandardProductVariationList.class);
+                    listCustom.add(standardProductSecondVariationList.getVariationName());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void fetchDataSizeCustom() {
+        //Color List
+        listSizeCustom = new ArrayList<String>();
+        listSizeCustom.add(0, "Choose Size Variation");
+
+        //Payment Spinner
+        adapterSizeCustom = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, listSizeCustom) {
+            @Override
+            public boolean isEnabled(int position) {
+                if (position == 0) {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                } else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        sizeSpinnerBuyNow.setAdapter(adapterSizeCustom);
+
+        //Get the data selected from dropdown spinner
+        sizeSpinnerBuyNow.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position > 0) {
+                    selectedSize = listSizeCustom.get(position);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        referenceSizeCustom.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    StandardProductSecondVariationList standardProductSecondVariationList = snapshot.getValue(StandardProductSecondVariationList.class);
+                    listSizeCustom.add(standardProductSecondVariationList.getVarSize());
                 }
             }
 

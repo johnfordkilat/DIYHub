@@ -123,7 +123,7 @@ public class PastTransactionHistory extends AppCompatActivity implements DatePic
 
 
 
-    CompletedOrderRecyclerAdapter ordersAdapterCompleted;
+    CompletedOrderRecyclerSellerAdapter ordersAdapterCompleted;
     CancelledOrdersRecyclerAdapter ordersAdapterCancelled;
     ReturnRefundOrdersRecyclerAdapter ordersAdapterReturnOrRefund;
 
@@ -290,7 +290,7 @@ public class PastTransactionHistory extends AppCompatActivity implements DatePic
                 }
                 Log.d("SELLERERROR", "error");
 
-                ordersAdapterCompleted = new CompletedOrderRecyclerAdapter(getApplicationContext(), ordersListsCompleted);
+                ordersAdapterCompleted = new CompletedOrderRecyclerSellerAdapter(getApplicationContext(), ordersListsCompleted);
                 ordersAdapterCancelled = new CancelledOrdersRecyclerAdapter(getApplicationContext(), ordersListsCancelled);
                 ordersAdapterReturnOrRefund = new ReturnRefundOrdersRecyclerAdapter(getApplicationContext(), ordersListsReturnOrRefund);
 
