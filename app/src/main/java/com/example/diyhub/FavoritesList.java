@@ -1,16 +1,15 @@
 package com.example.diyhub;
 
 public class FavoritesList {
-    String ShopName, ProductName, SellerID, ProductImage, ProductID;
+    String ShopName, ProductName, ProductImage, ProductID;
     boolean isFavorites;
 
     public FavoritesList() {
     }
 
-    public FavoritesList(String shopName, String productName, String sellerID, String productImage, String productID, boolean isFavorites) {
+    public FavoritesList(String shopName, String productName, String productImage, String productID, boolean isFavorites) {
         ShopName = shopName;
         ProductName = productName;
-        SellerID = sellerID;
         ProductImage = productImage;
         ProductID = productID;
         this.isFavorites = isFavorites;
@@ -30,14 +29,6 @@ public class FavoritesList {
 
     public void setProductName(String productName) {
         ProductName = productName;
-    }
-
-    public String getSellerID() {
-        return SellerID;
-    }
-
-    public void setSellerID(String sellerID) {
-        SellerID = sellerID;
     }
 
     public String getProductImage() {

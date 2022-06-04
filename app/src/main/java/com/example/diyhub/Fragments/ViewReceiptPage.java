@@ -30,6 +30,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firestore.v1.StructuredQuery;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class ViewReceiptPage extends AppCompatActivity {
@@ -50,6 +52,9 @@ public class ViewReceiptPage extends AppCompatActivity {
     TextView subTotalTxt,delFeeTxt,taxTxt,total1Txt;
     TextView paymentOptionTxt,totalPaymentTxt;
     TextView additionalFeeTxt;
+
+    private static final DecimalFormat df = new DecimalFormat("0.00");
+
 
 
     @Override
@@ -103,17 +108,25 @@ public class ViewReceiptPage extends AppCompatActivity {
                         OrdersList list = snapshot.getValue(OrdersList.class);
                         if(list.getProductID().equalsIgnoreCase(prodID))
                         {
+                            double subtotal = list.getOrderProductPrice() * list.getOrderQuantity();
+                            double amount = subtotal + list.getOrderShippingFee() + list.getOrderAdditionalFee();
+                            double percent = 1.12;
+                            double incTxt = ((amount / percent) - amount ) * -1;
+
+
+                            double totalPayment = amount + incTxt;
+
                             orderIDTxt.setText(list.getOrderID());
                             orderFromTxt.setText(list.getShopName());
                             delAddressTxt.setText(list.getBookingAddress());
-                            totalTxt.setText("₱"+list.getOrderTotalPayment());
-                            subTotalTxt.setText("₱"+list.getOrderProductPrice());
+                            totalTxt.setText("₱"+df.format(totalPayment));
+                            subTotalTxt.setText("₱"+subtotal);
                             delFeeTxt.setText("₱"+list.getOrderShippingFee());
-                            taxTxt.setText("₱10.00");
-                            total1Txt.setText("₱"+list.getOrderTotalPayment());
+                            taxTxt.setText("₱"+df.format(incTxt));
+                            total1Txt.setText("₱"+df.format(totalPayment));
                             paymentOptionTxt.setText(list.getPaymentOption());
                             totalPaymentTxt.setText("₱"+list.getOrderTotalPayment());
-                            additionalFeeTxt.setText("₱"+list.getOrderAdditionalFee());
+                            additionalFeeTxt.setText("₱"+df.format(totalPayment));
 
                         }
                     }

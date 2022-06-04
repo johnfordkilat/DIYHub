@@ -141,6 +141,7 @@ public class ShopPage extends AppCompatActivity {
                             map1.put("ShopName", shopName);
                             map1.put("isFollowed",true);
                             map1.put("ShopImage",shopImage);
+                            map1.put("ShopRating",shopRating);
                             reference1.child("Following").child(user.getUid()).child(sellerID).updateChildren(map1);
                             Toast.makeText(ShopPage.this, "Added to following", Toast.LENGTH_SHORT).show();
                             favButton.setImageResource(R.drawable.heart);

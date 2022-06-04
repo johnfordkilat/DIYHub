@@ -156,6 +156,8 @@ public class BuyerOrdersPage extends AppCompatActivity{
     List<Integer> indexorder;
 
     APIService apiService = apiService = CLient.getClient("https://fcm.googleapis.com/").create(APIService.class);
+    int tabToBook;
+    int tabToReceive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -232,6 +234,16 @@ public class BuyerOrdersPage extends AppCompatActivity{
 
         if(user != null)
             showData();
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null)
+        {
+            tabToBook = extras.getInt("tabToBook");
+            tabToReceive = extras.getInt("tabToReceive");
+
+        }
+
+
 
 
         rvToPay.setVisibility(View.VISIBLE);
@@ -821,6 +833,73 @@ public class BuyerOrdersPage extends AppCompatActivity{
         updateOrdersNotificationsCountOrderRequest();
         updateOrdersNotificationsCountAccepted();
         updateOrdersNotificationsCountOngoing();
+
+        if(tabToBook == 1)
+        {
+            tabLayoutBuyerOrdersPage1.getTabAt(1).select();
+            rvToPay.setVisibility(View.INVISIBLE);
+            rvToBook.setVisibility(View.VISIBLE);
+            rvToReceive.setVisibility(View.INVISIBLE);
+            rvPending.setVisibility(View.INVISIBLE);
+            rvOngoing.setVisibility(View.INVISIBLE);
+            rvAccepted.setVisibility(View.INVISIBLE);
+            rvAll.setVisibility(View.INVISIBLE);
+            rvPickUp.setVisibility(View.INVISIBLE);
+            tabLayoutBuyerOrdersPage2.setVisibility(View.INVISIBLE);
+            tabLayoutToReceive.setVisibility(View.INVISIBLE);
+            ordersnotifCardviewOrderRequestB.setVisibility(View.INVISIBLE);
+            ordersnotifCardviewAcceptedB.setVisibility(View.INVISIBLE);
+            ordersnotifCardviewOngoingB.setVisibility(View.INVISIBLE);
+
+            if(acceptedTab == true)
+            {
+                rvAccepted.setVisibility(View.INVISIBLE);
+                ordersnotifCardviewOrderRequestB.setVisibility(View.INVISIBLE);
+                ordersnotifCardviewAcceptedB.setVisibility(View.INVISIBLE);
+                ordersnotifCardviewOngoingB.setVisibility(View.INVISIBLE);
+            }
+
+            if(ongoingTab == true)
+            {
+                rvOngoing.setVisibility(View.INVISIBLE);
+                ordersnotifCardviewOrderRequestB.setVisibility(View.INVISIBLE);
+                ordersnotifCardviewAcceptedB.setVisibility(View.INVISIBLE);
+                ordersnotifCardviewOngoingB.setVisibility(View.INVISIBLE);
+            }
+        }
+        if(tabToReceive == 2)
+        {
+            tabLayoutBuyerOrdersPage1.getTabAt(2).select();
+            rvToPay.setVisibility(View.INVISIBLE);
+            rvToBook.setVisibility(View.INVISIBLE);
+            rvToReceive.setVisibility(View.VISIBLE);
+            rvPending.setVisibility(View.INVISIBLE);
+            rvOngoing.setVisibility(View.INVISIBLE);
+            rvAccepted.setVisibility(View.INVISIBLE);
+            rvAll.setVisibility(View.INVISIBLE);
+            rvPickUp.setVisibility(View.INVISIBLE);
+            tabLayoutBuyerOrdersPage2.setVisibility(View.INVISIBLE);
+            tabLayoutToReceive.setVisibility(View.VISIBLE);
+            ordersnotifCardviewOrderRequestB.setVisibility(View.INVISIBLE);
+            ordersnotifCardviewAcceptedB.setVisibility(View.INVISIBLE);
+            ordersnotifCardviewOngoingB.setVisibility(View.INVISIBLE);
+
+            if(acceptedTab == true)
+            {
+                rvAccepted.setVisibility(View.INVISIBLE);
+                ordersnotifCardviewOrderRequestB.setVisibility(View.INVISIBLE);
+                ordersnotifCardviewAcceptedB.setVisibility(View.INVISIBLE);
+                ordersnotifCardviewOngoingB.setVisibility(View.INVISIBLE);
+            }
+
+            if(ongoingTab == true)
+            {
+                rvOngoing.setVisibility(View.INVISIBLE);
+                ordersnotifCardviewOrderRequestB.setVisibility(View.INVISIBLE);
+                ordersnotifCardviewAcceptedB.setVisibility(View.INVISIBLE);
+                ordersnotifCardviewOngoingB.setVisibility(View.INVISIBLE);
+            }
+        }
 
 
 

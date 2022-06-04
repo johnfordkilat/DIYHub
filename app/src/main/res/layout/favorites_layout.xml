@@ -33,7 +33,7 @@
                 android:id="@+id/imageView28"
                 android:layout_width="54dp"
                 android:layout_height="44dp"
-                app:srcCompat="@drawable/heart" />
+                app:srcCompat="@drawable/ic_baseline_star_24" />
 
             <TextView
                 android:id="@+id/productNameFavoritePage"

@@ -39,11 +39,11 @@
                 android:textSize="16dp"/>
 
             <ImageView
-                android:id="@+id/imageView33"
+                android:id="@+id/favButtonStandardProductBuyer"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_weight="1"
-                android:src="@drawable/heart" />
+                android:src="@drawable/ic_baseline_star_border_24" />
 
         </LinearLayout>
 

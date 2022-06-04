@@ -2,6 +2,7 @@ package com.example.diyhub;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,9 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.diyhub.Fragments.RecommendedShopsList;
+import com.example.diyhub.Fragments.ShopPage;
+import com.example.diyhub.Fragments.ShopsList;
 
 import java.util.ArrayList;
 
@@ -22,62 +26,58 @@ public class RecyclerViewAdapterShopsNearYou extends RecyclerView.Adapter<Recycl
     private static final String TAG = "RecyclerViewAdapterRecomShops";
 
     //vars
-    private ArrayList<String> mNames = new ArrayList<>();
-    private ArrayList<String> mImageUrls = new ArrayList<>();
+    private ArrayList<ShopsList> recomshops = new ArrayList<>();
     private Context mContext;
     private ArrayList<String> seq = new ArrayList<>();
 
 
-    public RecyclerViewAdapterShopsNearYou(Context context, ArrayList<String> names, ArrayList<String> imageUrls, ArrayList<String> sequence) {
-        mNames = names;
-        mImageUrls = imageUrls;
+    public RecyclerViewAdapterShopsNearYou(Context context, ArrayList<ShopsList> recomshops) {
+        this.recomshops = recomshops;
         mContext = context;
-        seq = sequence;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recommendedshopslayout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_all_recommshops, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
+        ShopsList shopsList = recomshops.get(position);
 
-        Glide.with(mContext)
-                .asBitmap()
-                .load(mImageUrls.get(position))
-                .into(holder.image);
 
-        holder.name.setText(mNames.get(position));
-        holder.numSeq.setText(seq.get(position));
-
-        holder.image.setOnClickListener(new View.OnClickListener() {
+        Glide.with(mContext).load(shopsList.getShopImage()).into(holder.shopimage);
+        holder.shopname.setText(shopsList.getShopName() + "    " + shopsList.getShopRating()+ "    " +shopsList.getDistance()+"km.");
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: clicked on an image: " + mNames.get(position));
-                Toast.makeText(mContext, mNames.get(position), Toast.LENGTH_SHORT).show();
-
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, ShopPage.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("SellerID", recomshops.get(position).getSellerID());
+                intent.putExtra("ShopName", recomshops.get(position).getShopName());
+                intent.putExtra("Rating", recomshops.get(position).getShopRating());
+                intent.putExtra("ShopImage", recomshops.get(position).getShopImage());
+                mContext.startActivity(intent);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return mImageUrls.size();
+        return recomshops.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        CircleImageView image;
-        TextView name,numSeq;
+        CircleImageView shopimage;
+        TextView shopname;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.image_view1);
-            name = itemView.findViewById(R.id.name1);
-            numSeq = itemView.findViewById(R.id.sequenceTxtview);
+            shopimage = itemView.findViewById(R.id.shopImageRecommShopHomePage);
+            shopname = itemView.findViewById(R.id.shopNameRecommShopHomePage);
         }
     }
 }

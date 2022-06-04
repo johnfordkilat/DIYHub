@@ -32,6 +32,8 @@ import com.example.diyhub.CartPageList;
 import com.example.diyhub.PlaceOrderPageBuyer;
 import com.example.diyhub.PlaceOrderPageBuyerAdapter;
 import com.example.diyhub.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -121,9 +123,9 @@ public class StandardProductBuyer extends AppCompatActivity {
     ArrayList<String> listCustom;
     ArrayAdapter adapterCustom;
 
+    ImageView favButton;
 
-
-
+    boolean isFav = false;
 
 
     @Override
@@ -146,10 +148,12 @@ public class StandardProductBuyer extends AppCompatActivity {
         addToCart = findViewById(R.id.addToCartStandard);
         backButton = findViewById(R.id.backButtonStandardProduct);
         hideCustom = findViewById(R.id.alertMessageCardViewCustomBuyer);
+        favButton = findViewById(R.id.favButtonStandardProductBuyer);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 
         allList = new ArrayList<>();
+
 
 
 
@@ -181,6 +185,47 @@ public class StandardProductBuyer extends AppCompatActivity {
             prodType = extras.getString("ProductType");
 
         }
+
+        favButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Favorites").child(user.getUid()).child(prodID);
+                reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists())
+                        {
+                            reference.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Toast.makeText(StandardProductBuyer.this, "Product removed from favorites", Toast.LENGTH_SHORT).show();
+                                    favButton.setImageResource(R.drawable.ic_baseline_star_border_24);
+                                }
+                            });
+                        }
+                        else
+                        {
+                            DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
+                            Map<String, Object> map = new HashMap<>();
+                            map.put("ShopName",shopName);
+                            map.put("ProductName",name);
+                            map.put("ProductImage",prodImage);
+                            map.put("ProductID",prodID);
+                            map.put("isFavorites",true);
+                            reference1.child("Favorites").child(user.getUid()).child(prodID).updateChildren(map);
+                            favButton.setImageResource(R.drawable.ic_baseline_star_24);
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
 
         StandardProductBuyerAdapter adapter = new StandardProductBuyerAdapter(getApplicationContext(), getSupportFragmentManager());
         standardCustomViewPager.setAdapter(adapter);

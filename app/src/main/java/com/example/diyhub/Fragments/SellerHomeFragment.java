@@ -37,6 +37,7 @@ import com.example.diyhub.PastTransaction.PastTransactionHistory;
 import com.example.diyhub.R;
 import com.example.diyhub.RestockProductsAdapter;
 import com.example.diyhub.RestockProductsList;
+import com.example.diyhub.Wallet.SellerWallet;
 import com.github.kittinunf.fuel.Fuel;
 import com.github.kittinunf.fuel.core.FuelError;
 import com.github.kittinunf.fuel.core.Handler;
@@ -186,6 +187,10 @@ public class SellerHomeFragment extends Fragment {
     String toDeleteBooking="";
     Button viewMyShop;
 
+    Button viewTandCButton;
+    Dialog customDialogTandC;
+
+
 
 
     @Override
@@ -245,7 +250,10 @@ public class SellerHomeFragment extends Fragment {
         addBooking = view.findViewById(R.id.addBookingOption);
         removeBooking = view.findViewById(R.id.removeBookingOption);
         viewMyShop = view.findViewById(R.id.viewMyShopButton);
+        viewTandCButton = view.findViewById(R.id.viewTandCButtonSellerHome);
         customDialog = new Dialog(getContext());
+        customDialogTandC = new Dialog(getContext());
+
 
 
         paymentBackendUrl  = getResources().getString(R.string.paymentBackendUrl);
@@ -267,6 +275,24 @@ public class SellerHomeFragment extends Fragment {
 
         list = new ArrayList<String>();
         list.add(0, "Choose Payment Method");
+
+        viewTandCButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*
+                customDialogTandC.setContentView(R.layout.terms_and_conditions);
+                //customDialogTandC.setCancelable(false);
+                customDialogTandC.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                customDialogTandC.show();
+
+                 */
+
+                Intent intent = new Intent(getContext(), SellerWallet.class);
+                startActivity(intent);
+
+            }
+        });
 
 
 

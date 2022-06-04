@@ -3,6 +3,7 @@ package com.example.diyhub;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -38,6 +39,8 @@ public class CreateMyShopPage extends AppCompatActivity {
     Spinner businessType;
     ArrayAdapter adapter;
     List<String> list;
+    private static final int SELECT_PHOTOGOV = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,15 @@ public class CreateMyShopPage extends AppCompatActivity {
         fullName = findViewById(R.id.fullNameTxtCreateShop);
         createShopButton = findViewById(R.id.createShopNowButtonCreateShop);
         businessType = findViewById(R.id.createMyShopSpinnerSeller);
+
+        chooseShopImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent,SELECT_PHOTOGOV);
+            }
+        });
 
         createShopButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +114,8 @@ public class CreateMyShopPage extends AppCompatActivity {
         //Payment List
         list = new ArrayList<String>();
         list.add(0, "Choose Business Type");
+        list.add(1, "Single Owner");
+        list.add(2, "Company");
 
         adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, list)
         {

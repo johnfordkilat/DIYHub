@@ -13,6 +13,21 @@
         android:background="@drawable/gradient_one"
         tools:context=".CartPage">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerFavoritesCartPage"
+            android:layout_width="408dp"
+            android:layout_height="604dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="16dp"
+            android:background="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout2"
+            app:layout_constraintVertical_bias="0.0" />
+
         <TextView
             android:id="@+id/textView13"
             android:layout_width="222dp"
@@ -32,8 +47,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerPromos1"
-            android:layout_width="411dp"
-            android:layout_height="500dp"
+            android:layout_width="408dp"
+            android:layout_height="604dp"
             android:layout_marginStart="1dp"
             android:layout_marginEnd="1dp"
             android:layout_marginBottom="16dp"

@@ -9,6 +9,19 @@
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="36dp">
 
+    <Button
+        android:id="@+id/viewMyShopButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:text="View My Shop >>>"
+        app:layout_constraintBottom_toTopOf="@+id/shopNameTxt2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
     <Spinner
         android:id="@+id/accountsVerifiedSpinner"
         android:layout_width="400dp"
@@ -344,16 +357,15 @@
         app:layout_constraintVertical_bias="0.263" />
 
     <Button
-        android:id="@+id/viewMyShopButton"
+        android:id="@+id/viewTandCButtonSellerHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
-        android:text="View My Shop >>>"
-        app:layout_constraintBottom_toTopOf="@+id/shopNameTxt2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:text="View Wallet"
+        app:layout_constraintBottom_toBottomOf="@+id/viewMyShopButton"
+        app:layout_constraintEnd_toStartOf="@+id/viewMyShopButton"
+        app:layout_constraintHorizontal_bias="0.909"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="@+id/viewMyShopButton"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

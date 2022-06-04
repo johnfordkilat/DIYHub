@@ -5,11 +5,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Rect;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,11 +21,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.diyhub.BuyerAccountHomePage;
 import com.example.diyhub.CartPageList;
+import com.example.diyhub.FavoritesAdapter;
+import com.example.diyhub.FavoritesList;
 import com.example.diyhub.FavoritesPage;
 import com.example.diyhub.MyAdapterCart;
 import com.example.diyhub.PlaceOrderFromCartBuyerTwo;
@@ -33,6 +38,7 @@ import com.github.kittinunf.fuel.Fuel;
 import com.github.kittinunf.fuel.core.FuelError;
 import com.github.kittinunf.fuel.core.Handler;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -77,6 +83,9 @@ public class BuyerCartFragment extends Fragment {
     List<CartPageList> listCart;
     MyAdapterCart myAdapterCart;
 
+    ArrayList<FavoritesList> listFav;
+    FavoritesAdapter favoritesAdapter;
+
     String prodID;
     String sellerID;
     int quantity;
@@ -88,6 +97,9 @@ public class BuyerCartFragment extends Fragment {
     boolean exists=false;
 
     private LocationRequest locationRequest;
+    RecyclerView recyclerFavorites;
+
+    TabLayout tabLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -101,7 +113,9 @@ public class BuyerCartFragment extends Fragment {
         dialog = new ProgressDialog(getContext());
 
         recyclerView = view.findViewById(R.id.recyclerPromos1);
+        recyclerFavorites = view.findViewById(R.id.recyclerFavoritesCartPage);
         checkoutButton = view.findViewById(R.id.checkoutButtonCartPage);
+        tabLayout = view.findViewById(R.id.tabLayout2);
 
         s1 = getResources().getStringArray(R.array.item_name);
         s2 = getResources().getStringArray(R.array.purchases);
@@ -121,6 +135,34 @@ public class BuyerCartFragment extends Fragment {
 
         }
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if(tab.getPosition() == 0)
+                {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    recyclerFavorites.setVisibility(View.INVISIBLE);
+                    showData();
+                }
+                if(tab.getPosition() == 1)
+                {
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    recyclerFavorites.setVisibility(View.VISIBLE);
+                    showDataFavorites();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         checkoutButton.setOnClickListener(v -> {
@@ -179,6 +221,15 @@ public class BuyerCartFragment extends Fragment {
 
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(mMessageReceiver,
                 new IntentFilter("ProceedToCartFromHomepage"));
+
+        int spanCount = 3; // 3 columns
+        int spacing = 50; // 50px
+        boolean includeEdge = false;
+        recyclerFavorites.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3, GridLayoutManager.VERTICAL, false);
+        recyclerFavorites.setLayoutManager(gridLayoutManager);
+        recyclerFavorites.setAdapter(favoritesAdapter);
 
 
 
@@ -249,6 +300,70 @@ public class BuyerCartFragment extends Fragment {
 
             }
         });
+    }
+
+    private void showDataFavorites(){
+        listFav = new ArrayList<>();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Favorites").child(user.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listFav.clear();
+                if(dataSnapshot.exists())
+                {
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                    {
+                        FavoritesList cartPageList = snapshot.getValue(FavoritesList.class);
+                        listFav.add(cartPageList);
+                    }
+                    exists = true;
+                    favoritesAdapter = new FavoritesAdapter(getContext(),listFav);
+                    recyclerFavorites.setAdapter(favoritesAdapter);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
+
+        private int spanCount;
+        private int spacing;
+        private boolean includeEdge;
+
+        public GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge) {
+            this.spanCount = spanCount;
+            this.spacing = spacing;
+            this.includeEdge = includeEdge;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            int position = parent.getChildAdapterPosition(view); // item position
+            int column = position % spanCount; // item column
+
+            if (includeEdge) {
+                outRect.left = spacing - column * spacing / spanCount; // spacing - column * ((1f / spanCount) * spacing)
+                outRect.right = (column + 1) * spacing / spanCount; // (column + 1) * ((1f / spanCount) * spacing)
+
+                if (position < spanCount) { // top edge
+                    outRect.top = spacing;
+                }
+                outRect.bottom = spacing; // item bottom
+            } else {
+                outRect.left = column * spacing / spanCount; // column * ((1f / spanCount) * spacing)
+                outRect.right = spacing - (column + 1) * spacing / spanCount; // spacing - (column + 1) * ((1f /    spanCount) * spacing)
+                if (position >= spanCount) {
+                    outRect.top = spacing; // item top
+                }
+            }
+        }
     }
 
     private void backPage() {

@@ -26,6 +26,7 @@ import com.bumptech.glide.Glide;
 import com.example.diyhub.Buyer.AddBookingAddressBuyer;
 import com.example.diyhub.Buyer.PastTransactionHistoryBuyer;
 import com.example.diyhub.BuyerOrdersPage;
+import com.example.diyhub.FollowingActivity;
 import com.example.diyhub.LoginPage;
 import com.example.diyhub.MESSAGES.User;
 import com.example.diyhub.MessageDialog;
@@ -80,6 +81,8 @@ public class BuyerProfileFragment extends Fragment {
     View view;
     TextView openBooking;
     TextView pastTransacButton;
+    Button toBook, toReceive;
+    TextView followingButton;
 
 
     @Override
@@ -97,6 +100,9 @@ public class BuyerProfileFragment extends Fragment {
         dbFirestore = FirebaseFirestore.getInstance();
         openBooking = view.findViewById(R.id.landBookingAdd);
         pastTransacButton = view.findViewById(R.id.pastTransacButtonBuyer);
+        toBook = view.findViewById(R.id.toBookButton);
+        toReceive = view.findViewById(R.id.toReceiveButton);
+        followingButton = view.findViewById(R.id.followingButtonProfilePageBuyer);
 
         changeP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +110,33 @@ public class BuyerProfileFragment extends Fragment {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
                 startActivityForResult(intent,SELECT_PHOTOGOV);
+            }
+        });
+
+        followingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), FollowingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        toBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), BuyerOrdersPage.class);
+                intent.putExtra("tabToBook",1);
+                startActivity(intent);
+
+            }
+        });
+        toReceive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), BuyerOrdersPage.class);
+                intent.putExtra("tabToReceive",2);
+                startActivity(intent);
+
             }
         });
 

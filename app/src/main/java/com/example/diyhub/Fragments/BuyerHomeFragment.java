@@ -3,7 +3,6 @@ package com.example.diyhub.Fragments;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -41,14 +40,11 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.diyhub.BuyerAccountHomePage;
-import com.example.diyhub.MainActivity;
 import com.example.diyhub.Nearby.DistanceList;
 import com.example.diyhub.R;
 import com.example.diyhub.RecyclerViewAdapterAll;
 import com.example.diyhub.RecyclerViewAdapterRecom;
 import com.example.diyhub.RecyclerViewAdapterShopsNear;
-import com.example.diyhub.ShopNearYouList;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.LocationCallback;
@@ -146,6 +142,9 @@ public class BuyerHomeFragment extends Fragment {
     ImageView filterButton;
     Dialog customDialog;
 
+    TextView recommButton;
+    TextView shopsNearYouButton;
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -161,6 +160,8 @@ public class BuyerHomeFragment extends Fragment {
         shopsNearRecycler = view.findViewById(R.id.recyclerView2);
         recomShops = view.findViewById(R.id.recyclerView3sample);
         filterButton = view.findViewById(R.id.filterButtonHomePage);
+        recommButton = view.findViewById(R.id.recommButtonBuyerHomePage);
+        shopsNearYouButton = view.findViewById(R.id.viewAllShopsNearYouButtonHomePage);
 
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -177,6 +178,24 @@ public class BuyerHomeFragment extends Fragment {
         });
         slist = new ArrayList<>();
         customDialog = new Dialog(getContext());
+
+        recommButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ViewAllRecommShopsListViewHomePage.class);
+                intent.putExtra("SellerID",sellerID);
+                startActivity(intent);
+            }
+        });
+
+        shopsNearYouButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ViewAllShopsNearYouListViewHomePage.class);
+                intent.putExtra("SellerID",sellerID);
+                startActivity(intent);
+            }
+        });
 
 
         filterButton.setOnClickListener(new View.OnClickListener() {
