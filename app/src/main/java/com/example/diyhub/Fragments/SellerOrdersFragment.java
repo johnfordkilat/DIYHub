@@ -1,6 +1,7 @@
 package com.example.diyhub.Fragments;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -157,6 +158,8 @@ public class SellerOrdersFragment extends Fragment {
 
     APIService apiService = apiService = CLient.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
+    int tabBelow;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -212,6 +215,11 @@ public class SellerOrdersFragment extends Fragment {
         ordersnotifCounterOngoing = view.findViewById(R.id.ordersNotifCounterOngoing);
 
 
+        Bundle extra = this.getArguments();
+        if(extra != null)
+        {
+            tabBelow = extra.getInt("TabBelow");
+        }
 
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -398,6 +406,8 @@ public class SellerOrdersFragment extends Fragment {
 
             }
         });
+
+
 
         tabLayoutOngoing.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -834,6 +844,11 @@ public class SellerOrdersFragment extends Fragment {
         updateOrdersNotificationsCountOrderRequest();
         updateOrdersNotificationsCountAccepted();
         updateOrdersNotificationsCountOngoing();
+
+        if(tabBelow == 1)
+        {
+            tabLayoutOngoing.getTabAt(1).select();
+        }
 
 
 

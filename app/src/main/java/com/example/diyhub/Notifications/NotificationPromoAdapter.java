@@ -27,6 +27,7 @@ import com.example.diyhub.MESSAGES.Bookmark;
 import com.example.diyhub.MESSAGES.Chat;
 import com.example.diyhub.MESSAGES.MessageActivity;
 import com.example.diyhub.MESSAGES.User;
+import com.example.diyhub.PastTransaction.PastTransactionHistory;
 import com.example.diyhub.R;
 import com.example.diyhub.SellerHomePage;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -80,6 +81,29 @@ public class NotificationPromoAdapter extends RecyclerView.Adapter<NotificationP
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(promoList.getNotifHeader().equalsIgnoreCase("Completed Order") || promoList.getNotifHeader().equalsIgnoreCase("Cancelled Order") || promoList.getNotifHeader().equalsIgnoreCase("Return/Refund Order"))
+                {
+                    Intent intent = new Intent(mContext, PastTransactionHistory.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mContext.startActivity(intent);
+                }
+                else if(promoList.getNotifHeader().equalsIgnoreCase("Order Request"))
+                {
+                    Intent intent = new Intent(mContext, SellerHomePage.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("Tab", 2);
+                    mContext.startActivity(intent);
+                }
+                else if(promoList.getNotifHeader().equalsIgnoreCase("Accepted"))
+                {
+                    Intent intent = new Intent(mContext, SellerHomePage.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("Tab", 2);
+                    intent.putExtra("TabBelow", 1);
+                    mContext.startActivity(intent);
+                }
+
                 holder.notifCardview.setCardBackgroundColor(Color.WHITE);
             }
         });

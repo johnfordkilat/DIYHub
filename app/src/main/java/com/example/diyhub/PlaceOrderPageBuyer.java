@@ -100,7 +100,6 @@ public class PlaceOrderPageBuyer extends AppCompatActivity {
         list = new ArrayList<>();
         stringList = new ArrayList<>();
 
-        Toast.makeText(this, "Specs: "+customSpecsTxt, Toast.LENGTH_SHORT).show();
 
         placeOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override

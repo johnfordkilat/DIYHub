@@ -178,6 +178,9 @@ public class SellerHomePage extends AppCompatActivity {
 
     ImageView image40;
 
+    int tab;
+    int tabBelow;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -231,6 +234,8 @@ public class SellerHomePage extends AppCompatActivity {
             passedTab = extras.getInt("Tab");
             ordersTab = extras.getInt("HomepageTab");
             orderRequestTab = extras.getInt("TablayoutTab");
+            tab = extras.getInt("Tab");
+            tabBelow = extras.getInt("TabBelow");
         }
 
         image40.setOnClickListener(new View.OnClickListener() {
@@ -243,10 +248,7 @@ public class SellerHomePage extends AppCompatActivity {
 
 
 
-        if(ordersTab == 2)
-        {
-            tabLayout.getTabAt(2).select();
-        }
+
 
 
 
@@ -259,6 +261,7 @@ public class SellerHomePage extends AppCompatActivity {
         userdata.add(locSell);
         userdata.add(phoneSell);
         userdata.add(emailSeller);
+        userdata.add(String.valueOf(tabBelow));
 
         PageAdapter adapter = new PageAdapter(getApplicationContext(), getSupportFragmentManager(), userdata);
         viewPager.setAdapter(adapter);
@@ -507,6 +510,10 @@ public class SellerHomePage extends AppCompatActivity {
         updateNotificationsCount();
         updateMessageCount();
         updateOrdersNotificationsCount();
+        if(tab == 2)
+        {
+            tabLayout.getTabAt(2).select();
+        }
     }
 
     @Override

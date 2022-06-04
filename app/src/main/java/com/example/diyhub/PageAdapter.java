@@ -56,7 +56,8 @@ public class PageAdapter extends FragmentPagerAdapter {
                 break;
             case 2:
                 fragment = new SellerOrdersFragment();
-
+                Bundle bundle2 = new Bundle();
+                bundle2.putInt("TabBelow", Integer.parseInt(data.get(5)));
                 break;
             case 3:
                 fragment = new SellerStatsFragment();
