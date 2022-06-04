@@ -100,6 +100,7 @@ public class BuyerCartFragment extends Fragment {
     RecyclerView recyclerFavorites;
 
     TabLayout tabLayout;
+    TextView textView13;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -116,6 +117,7 @@ public class BuyerCartFragment extends Fragment {
         recyclerFavorites = view.findViewById(R.id.recyclerFavoritesCartPage);
         checkoutButton = view.findViewById(R.id.checkoutButtonCartPage);
         tabLayout = view.findViewById(R.id.tabLayout2);
+        textView13 = view.findViewById(R.id.textView13);
 
         s1 = getResources().getStringArray(R.array.item_name);
         s2 = getResources().getStringArray(R.array.purchases);
@@ -143,12 +145,16 @@ public class BuyerCartFragment extends Fragment {
                 {
                     recyclerView.setVisibility(View.VISIBLE);
                     recyclerFavorites.setVisibility(View.INVISIBLE);
+                    checkoutButton.setVisibility(View.VISIBLE);
+                    textView13.setVisibility(View.VISIBLE);
                     showData();
                 }
                 if(tab.getPosition() == 1)
                 {
                     recyclerView.setVisibility(View.INVISIBLE);
                     recyclerFavorites.setVisibility(View.VISIBLE);
+                    checkoutButton.setVisibility(View.INVISIBLE);
+                    textView13.setVisibility(View.INVISIBLE);
                     showDataFavorites();
                 }
             }

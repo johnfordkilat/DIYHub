@@ -199,18 +199,6 @@ public class BuyerAccountHomePage extends AppCompatActivity {
         notif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(BuyerAccountHomePage.this, "Reminder Set", Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(BuyerAccountHomePage.this, NotificationPromoDisplay.class);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(BuyerAccountHomePage.this, 0, intent, FLAG_IMMUTABLE);
-
-                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-                long timeAtButtonClick = System.currentTimeMillis();
-
-                long tenSeconds = 500 * 10;
-
-                alarmManager.set(AlarmManager.RTC_WAKEUP, timeAtButtonClick + tenSeconds, pendingIntent);
 
                 openNotifPromoPage();
             }

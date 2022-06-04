@@ -23,7 +23,7 @@
         android:id="@+id/viewPriceLiquidationOrderAcceptedStandard"
         android:layout_width="156dp"
         android:layout_height="56dp"
-        android:text="View Price Liquidation"
+        android:text="View Price Breakdown"
         android:textSize="12dp"
         app:layout_constraintBottom_toTopOf="@+id/itemCodeTxtStandard2A"
         app:layout_constraintEnd_toEndOf="parent"

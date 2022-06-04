@@ -479,7 +479,7 @@
         android:layout_height="56dp"
         android:layout_marginTop="51dp"
         android:layout_marginBottom="2dp"
-        android:text="View Price Liquidation"
+        android:text="View Price Breakdown"
         android:textSize="12dp"
         app:layout_constraintBottom_toTopOf="@+id/buyerNameTxtStandard"
         app:layout_constraintEnd_toEndOf="parent"

@@ -12,9 +12,17 @@
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_customized_product_page.xml" value="0.3491847826086957" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_favorites_page.xml" value="0.21965579710144928" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_following.xml" value="0.3491847826086957" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_accepted_customization_page.xml" value="0.3491847826086957" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_accepted_standard_page.xml" value="0.3491847826086957" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_custom_page_preview.xml" value="0.3491847826086957" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_custom_page_preview_products.xml" value="0.3491847826086957" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_customization_page.xml" value="0.3491847826086957" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_ongoing_customization_page.xml" value="0.3491847826086957" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_ongoing_standard_page.xml" value="0.3491847826086957" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_standard_page.xml" value="0.3491847826086957" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_standard_page2.xml" value="0.21965579710144928" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_to_book_customization_page.xml" value="0.3491847826086957" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_order_detail_to_book_page.xml" value="0.3491847826086957" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_past_transaction_history.xml" value="0.3491847826086957" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_past_transaction_history_buyer.xml" value="0.3491847826086957" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_place_order_from_cart_buyer_two.xml" value="0.21965579710144928" />
@@ -25,6 +33,8 @@
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_seller_wallet.xml" value="0.3491847826086957" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_standard_product_buyer.xml" value="0.21965579710144928" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_standard_product_details.xml" value="0.21965579710144928" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_to_receive_customization_orders_page.xml" value="0.3491847826086957" />
+        <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_to_receive_order.xml" value="0.3491847826086957" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_view_all_shops_list_view_home_page.xml" value="0.3491847826086957" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_view_all_shops_near_you_list_view_home_page.xml" value="0.3491847826086957" />
         <entry key="..\:/Users/jfkta/AndroidStudioProjects/DIYHub/app/src/main/res/layout/activity_view_receipt_page.xml" value="0.3491847826086957" />
