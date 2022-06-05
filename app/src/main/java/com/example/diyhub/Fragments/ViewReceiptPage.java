@@ -114,19 +114,18 @@ public class ViewReceiptPage extends AppCompatActivity {
                             double incTxt = ((amount / percent) - amount ) * -1;
 
 
-                            double totalPayment = amount + incTxt;
 
                             orderIDTxt.setText(list.getOrderID());
                             orderFromTxt.setText(list.getShopName());
                             delAddressTxt.setText(list.getBookingAddress());
-                            totalTxt.setText("₱"+df.format(totalPayment));
+                            totalTxt.setText("₱"+list.getOrderTotalPayment());
                             subTotalTxt.setText("₱"+subtotal);
                             delFeeTxt.setText("₱"+list.getOrderShippingFee());
                             taxTxt.setText("₱"+df.format(incTxt));
-                            total1Txt.setText("₱"+df.format(totalPayment));
+                            total1Txt.setText("₱"+list.getOrderTotalPayment());
                             paymentOptionTxt.setText(list.getPaymentOption());
                             totalPaymentTxt.setText("₱"+list.getOrderTotalPayment());
-                            additionalFeeTxt.setText("₱"+df.format(totalPayment));
+                            additionalFeeTxt.setText("₱"+list.getOrderAdditionalFee());
 
                         }
                     }
