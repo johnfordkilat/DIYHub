@@ -147,28 +147,7 @@ public class PaymentPageBuyer extends AppCompatActivity {
             }
         });
 
-        requestPickupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(PaymentPageBuyer.this);
-                builder.setTitle("Request Pickup Confirmation");
-                builder.setMessage("Are you sure you want to have a Pick up option?");
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(PaymentPageBuyer.this, "Requested Pickup Successfully", Toast.LENGTH_SHORT).show();
-                        bookingSpinner.setEnabled(false);
-                    }
-                });
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                });
-                builder.show();
-            }
-        });
 
         Bundle extras = getIntent().getExtras();
         if(extras != null)
@@ -193,6 +172,30 @@ public class PaymentPageBuyer extends AppCompatActivity {
             category3 = extras.getString("Category3");
             customSpecsTxt = extras.getString("CustomSpecsTxt");
         }
+
+        requestPickupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(PaymentPageBuyer.this);
+                builder.setTitle("Request Pickup Confirmation");
+                builder.setMessage("Are you sure you want to have a Pick up option?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(PaymentPageBuyer.this, "Requested Pickup Successfully", Toast.LENGTH_SHORT).show();
+                        bookingSpinner.setEnabled(false);
+                        bookingOption = "For Pickup";
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.show();
+            }
+        });
 
 
         payButton.setOnClickListener(new View.OnClickListener() {
@@ -911,7 +914,6 @@ public class PaymentPageBuyer extends AppCompatActivity {
             map3.put("NotifImage",productImage);
             reference3.child("Notifications").child(sellerID).child(OrderID).setValue(map3);
             sendNotification(sellerID,buyerName + " made an Order of the Product "+ productName,"Order Request");
-
 
 
             DatabaseReference reference4 = FirebaseDatabase.getInstance().getReference("ShoppingCart").child(user.getUid());

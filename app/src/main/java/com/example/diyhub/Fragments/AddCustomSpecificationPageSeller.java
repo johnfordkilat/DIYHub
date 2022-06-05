@@ -27,7 +27,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.diyhub.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -40,6 +42,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -111,6 +116,16 @@ public class AddCustomSpecificationPageSeller extends AppCompatActivity {
 
     int counter = 0;
 
+    Button removeCat1,removeCat2,removeCat3;
+    String toDeleteCat1,toDeleteCat2,toDeleteCat3;
+
+    List<String> indexCat1;
+    List<String> indexCat2;
+    List<String> indexCat3;
+
+
+
+
 
 
     @Override
@@ -129,6 +144,9 @@ public class AddCustomSpecificationPageSeller extends AppCompatActivity {
         addCat2Button = findViewById(R.id.addCategory2Button);
         addCat3Button = findViewById(R.id.addCategory3Button);
         confirmButton = findViewById(R.id.confirmSelectionButton2);
+        removeCat1 = findViewById(R.id.removeCategory1Button);
+        removeCat2 = findViewById(R.id.removeCategory2Button);
+        removeCat3 = findViewById(R.id.removeCategory3Button);
         varDialogCat1 = new Dialog(this);
         varDialogCat2 = new Dialog(this);
         varDialogCat3 = new Dialog(this);
@@ -140,7 +158,14 @@ public class AddCustomSpecificationPageSeller extends AppCompatActivity {
         listCat2 = new ArrayList();
         listCat3 = new ArrayList();
 
+        indexCat1 = new ArrayList<>();
+        indexCat2 = new ArrayList<>();
+        indexCat3 = new ArrayList<>();
+
+
         fileNameListVar = new ArrayList<>();
+
+
 
 
 
@@ -150,6 +175,140 @@ public class AddCustomSpecificationPageSeller extends AppCompatActivity {
         {
             prodID = extras.getString("ProductID");
         }
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+
+        category1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                toDeleteCat1 = listCat1.get(position).getSpecsName();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        category2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                toDeleteCat2 = listCat2.get(position).getSpecsName();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        category3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                toDeleteCat3 = listCat3.get(position).getSpecsName();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        removeCat1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(listCat1.size() < 1)
+                {
+                    Toast.makeText(AddCustomSpecificationPageSeller.this, "Category 1 is empty", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(prodID).child("CustomSpecifications").child("Category-1");
+                    reference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                            {
+                                if(snapshot.getValue().toString().contains(toDeleteCat1))
+                                {
+                                    String word = snapshot.getRef().toString().replace(reference.toString(),"");
+                                    reference.child(word).removeValue();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                }
+            }
+        });
+        removeCat2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(listCat2.size() < 1)
+                {
+                    Toast.makeText(AddCustomSpecificationPageSeller.this, "Category 2 is empty", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(prodID).child("CustomSpecifications").child("Category-2");
+                    reference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                            {
+                                if(snapshot.getValue().toString().contains(toDeleteCat2))
+                                {
+                                    String word = snapshot.getRef().toString().replace(reference.toString(),"");
+                                    reference.child(word).removeValue();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+        });
+        removeCat3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(listCat3.size() < 1)
+                {
+                    Toast.makeText(AddCustomSpecificationPageSeller.this, "Category 3 is empty", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(prodID).child("CustomSpecifications").child("Category-3");
+                    reference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                            {
+                                if(snapshot.getValue().toString().contains(toDeleteCat3))
+                                {
+                                    String word = snapshot.getRef().toString().replace(reference.toString(),"");
+                                    reference.child(word).removeValue();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+        });
 
 
         showDataCat1();
@@ -248,24 +407,8 @@ public class AddCustomSpecificationPageSeller extends AppCompatActivity {
                                     }
                                     else
                                     {
-                                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(prodID).child("CustomSpecifications").child("Category-1");
-                                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                for(DataSnapshot snapshot : dataSnapshot.getChildren())
-                                                {
-                                                    uploadImageVariationCat1(dataCat1.toUpperCase());
-                                                    varDialogCat1.dismiss();
-                                                }
-
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
+                                        uploadImageVariationCat1(dataCat1.toUpperCase());
+                                        varDialogCat1.dismiss();
                                     }
 
 
@@ -339,24 +482,8 @@ public class AddCustomSpecificationPageSeller extends AppCompatActivity {
                                     }
                                     else
                                     {
-                                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(prodID).child("CustomSpecifications").child("Category-2");
-                                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                for(DataSnapshot snapshot : dataSnapshot.getChildren())
-                                                {
-                                                    uploadImageVariationCat2(dataCat2.toUpperCase());
-                                                    varDialogCat2.dismiss();
-                                                }
-
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
+                                        uploadImageVariationCat2(dataCat2.toUpperCase());
+                                        varDialogCat2.dismiss();
                                     }
 
 
@@ -430,24 +557,8 @@ public class AddCustomSpecificationPageSeller extends AppCompatActivity {
                                     }
                                     else
                                     {
-                                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SellerProducts").child(user.getUid()).child(prodID).child("CustomSpecifications").child("Category-3");
-                                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                for(DataSnapshot snapshot : dataSnapshot.getChildren())
-                                                {
-                                                    uploadImageVariationCat3(dataCat3.toUpperCase());
-                                                    varDialogCat3.dismiss();
-                                                }
-
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
+                                        uploadImageVariationCat3(dataCat3.toUpperCase());
+                                        varDialogCat3.dismiss();
                                     }
 
 
@@ -624,6 +735,7 @@ public class AddCustomSpecificationPageSeller extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         Toast.makeText(this, "Added: "+varNameLabel, Toast.LENGTH_SHORT).show();
 
+
         FirebaseStorage storage = FirebaseStorage.getInstance(); // add this
         firebaseStorage = storage.getReference(); // and this
         StorageReference ImageFolder =  firebaseStorage.child(user.getEmail());
@@ -648,7 +760,6 @@ public class AddCustomSpecificationPageSeller extends AppCompatActivity {
                             reference.child("SellerProducts").child(user.getUid()).child(prodID).child("CustomSpecifications").child("Category-1").child(varNameLabel).updateChildren(map);
                             ImageListVariation.clear();
                             //reference.child("Products").child(varNameLabel).setValue(map);
-
                         }
                     });
                 }
@@ -661,6 +772,8 @@ public class AddCustomSpecificationPageSeller extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         Toast.makeText(this, "Added: "+varNameLabel, Toast.LENGTH_SHORT).show();
+
+        indexCat2.add(varNameLabel);
 
 
         FirebaseStorage storage = FirebaseStorage.getInstance(); // add this
@@ -700,6 +813,8 @@ public class AddCustomSpecificationPageSeller extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         Toast.makeText(this, "Added: "+varNameLabel, Toast.LENGTH_SHORT).show();
+
+        indexCat3.add(varNameLabel);
 
 
         FirebaseStorage storage = FirebaseStorage.getInstance(); // add this

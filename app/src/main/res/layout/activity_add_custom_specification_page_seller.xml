@@ -66,7 +66,7 @@
         app:layout_constraintVertical_bias="0.681" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/removePaymentOption5"
+        android:id="@+id/removeCategory3Button"
         android:layout_width="63dp"
         android:layout_height="51dp"
         android:background="@drawable/custom_red"
@@ -92,7 +92,7 @@
         app:layout_constraintVertical_bias="0.567" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/removePaymentOption4"
+        android:id="@+id/removeCategory2Button"
         android:layout_width="63dp"
         android:layout_height="51dp"
         android:background="@drawable/custom_red"
@@ -118,7 +118,7 @@
         app:layout_constraintVertical_bias="0.466" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/removePaymentOption2"
+        android:id="@+id/removeCategory1Button"
         android:layout_width="63dp"
         android:layout_height="51dp"
         android:background="@drawable/custom_red"
