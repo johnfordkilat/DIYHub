@@ -238,15 +238,6 @@ public class SellerHomePage extends AppCompatActivity {
             tabBelow = extras.getInt("TabBelow");
         }
 
-        image40.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SellerHomePage.this, SellerStatsPage.class);
-                startActivity(intent);
-            }
-        });
-
-
 
 
 

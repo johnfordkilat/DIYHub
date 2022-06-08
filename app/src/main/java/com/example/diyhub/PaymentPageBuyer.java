@@ -185,6 +185,10 @@ public class PaymentPageBuyer extends AppCompatActivity {
                         Toast.makeText(PaymentPageBuyer.this, "Requested Pickup Successfully", Toast.LENGTH_SHORT).show();
                         bookingSpinner.setEnabled(false);
                         bookingOption = "For Pickup";
+                        deliveryType = "For Pickup";
+                        totalPayment = totalPayment - shippingFee;
+                        finalAmount.setText("Final amount to be paid ₱"+totalPayment);
+
                     }
                 });
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -241,7 +245,7 @@ public class PaymentPageBuyer extends AppCompatActivity {
                         paymentOption = "CASH ON DELIVERY";
                         paymentStatus = "TO PAY";
                     }
-                    if(bookingOption.equalsIgnoreCase("LALAMOVE") || bookingOption.equalsIgnoreCase("MAXIM") || !bookingOption.equalsIgnoreCase("PICKUP"))
+                    if(bookingOption.equalsIgnoreCase("LALAMOVE") || bookingOption.equalsIgnoreCase("MAXIM") || !bookingOption.equalsIgnoreCase("For Pickup") || bookingOption.equalsIgnoreCase("IN-HOUSE DELIVERY"))
                     {
                         deliveryType = "For Delivery";
                     }
@@ -253,6 +257,11 @@ public class PaymentPageBuyer extends AppCompatActivity {
                     String RiderName,PlateNumber;
                     String BookingOption;
                     String BuyerID;
+
+                    if(deliveryType.equalsIgnoreCase("For Pickup"))
+                    {
+                        shippingFee = 0;
+                    }
 
                     //Seller Database
                     DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
@@ -419,7 +428,7 @@ public class PaymentPageBuyer extends AppCompatActivity {
                         paymentOption = "CASH ON DELIVERY";
                         paymentStatus = "TO PAY";
                     }
-                    if(bookingOption.equalsIgnoreCase("LALAMOVE") || bookingOption.equalsIgnoreCase("MAXIM"))
+                    if(bookingOption.equalsIgnoreCase("LALAMOVE") || bookingOption.equalsIgnoreCase("MAXIM") || !bookingOption.equalsIgnoreCase("For Pickup") || bookingOption.equalsIgnoreCase("IN-HOUSE DELIVERY"))
                     {
                         deliveryType = "For Delivery";
                     }
@@ -431,6 +440,11 @@ public class PaymentPageBuyer extends AppCompatActivity {
                     String RiderName,PlateNumber;
                     String BookingOption;
                     String BuyerID;
+
+                    if(deliveryType.equalsIgnoreCase("For Pickup"))
+                    {
+                        shippingFee = 0;
+                    }
 
                     //Seller Database
                     DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
@@ -771,7 +785,7 @@ public class PaymentPageBuyer extends AppCompatActivity {
                 paymentOption = "CASH ON DELIVERY";
                 paymentStatus = "TO PAY";
             }
-            if(bookingOption.equalsIgnoreCase("LALAMOVE") || bookingOption.equalsIgnoreCase("MAXIM") || !bookingOption.equalsIgnoreCase("PICKUP"))
+            if(bookingOption.equalsIgnoreCase("LALAMOVE") || bookingOption.equalsIgnoreCase("MAXIM") || !bookingOption.equalsIgnoreCase("For Pickup") || bookingOption.equalsIgnoreCase("IN-HOUSE DELIVERY"))
             {
                 deliveryType = "For Delivery";
             }
@@ -780,6 +794,10 @@ public class PaymentPageBuyer extends AppCompatActivity {
                 deliveryType = "For Pickup";
             }
 
+            if(deliveryType.equalsIgnoreCase("For Pickup"))
+            {
+                shippingFee = 0;
+            }
 
             //Seller Database
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

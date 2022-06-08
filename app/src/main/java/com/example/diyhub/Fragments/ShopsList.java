@@ -11,12 +11,13 @@ public class ShopsList {
     String latitude,longitude;
     String distance;
     int ShopViews;
+    String BusinessType;
 
     public ShopsList() {
     }
 
     public ShopsList(String sellerID, String shopAddress, String shopName, double shopRating, String shopImage, String fullname, String shopMotto,
-                     String latitude, String longitude, String distance, int ShopViews) {
+                     String latitude, String longitude, String distance, int ShopViews, String businessType) {
         SellerID = sellerID;
         ShopAddress = shopAddress;
         ShopName = shopName;
@@ -28,6 +29,15 @@ public class ShopsList {
         this.longitude = longitude;
         this.distance = distance;
         ShopViews = ShopViews;
+        BusinessType = businessType;
+    }
+
+    public String getBusinessType() {
+        return BusinessType;
+    }
+
+    public void setBusinessType(String businessType) {
+        BusinessType = businessType;
     }
 
     public int getShopViews() {

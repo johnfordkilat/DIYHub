@@ -17,20 +17,28 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.bumptech.glide.Glide;
 import com.example.diyhub.MESSAGES.ChatPage;
 import com.example.diyhub.R;
+import com.example.diyhub.Wallet.WalletList;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class ToReceiveStandardOrderPage extends AppCompatActivity {
 
@@ -68,6 +76,7 @@ public class ToReceiveStandardOrderPage extends AppCompatActivity {
     int pos;
 
     Button viewPriceLiquidationButton;
+    double sellerBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -364,6 +373,78 @@ public class ToReceiveStandardOrderPage extends AppCompatActivity {
                             hashMapHistory.put("ShopName", list.get(pos).getShopName());
                             hashMapHistory.put("OrderStatus", item);
                             referenceHistory.child("TransactionHistory").child(user.getUid()).child(list.get(pos).getOrderID()).updateChildren(hashMapHistory);
+
+                            //Get Seller Balance
+                            DatabaseReference referenceBalance = FirebaseDatabase.getInstance().getReference("Wallet").child(user.getUid());
+                            referenceBalance.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if(dataSnapshot.exists())
+                                    {
+                                        for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                                        {
+                                            WalletList list1 = snapshot.getValue(WalletList.class);
+                                            sellerBalance = list1.getBalance();
+                                            if(list.get(pos).getPaymentOption().equalsIgnoreCase("ONLINE(VISA DEBIT CARD)"))
+                                            {
+                                                //Amount to be added to seller wallet
+                                                double amount = list.get(pos).getOrderTotalPayment();
+                                                double shipping = list.get(pos).getOrderShippingFee();
+                                                double exactAmount = amount - shipping;
+                                                double deduct = exactAmount * 0.02;
+                                                double totalAmountBefore = (exactAmount - deduct);
+                                                double totalAmount = (exactAmount - deduct) + sellerBalance;
+
+                                                //Seller Wallet
+                                                if(position == 1)
+                                                {
+                                                    DatabaseReference referenceWallet = FirebaseDatabase.getInstance().getReference();
+                                                    Map<String, Object> map = new HashMap<>();
+                                                    map.put("Balance", totalAmount);
+                                                    referenceWallet.child("Wallet").child(user.getUid()).child("Balance").setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            Toast.makeText(ToReceiveStandardOrderPage .this, "Total of ₱"+totalAmountBefore +" has been credited to your wallet", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                            else
+                                            {
+                                                //Amount to be added to seller wallet
+                                                double amount = list.get(pos).getOrderTotalPayment();
+                                                double shipping = list.get(pos).getOrderShippingFee();
+                                                double exactAmount = amount - shipping;
+                                                double deduct = exactAmount * 0.02;
+                                                double totalAmountBefore = (exactAmount - deduct);
+                                                double totalAmount = sellerBalance - deduct;
+
+                                                //Seller Wallet
+                                                if(position == 1)
+                                                {
+                                                    DatabaseReference referenceWallet = FirebaseDatabase.getInstance().getReference();
+                                                    Map<String, Object> map = new HashMap<>();
+                                                    map.put("Balance", totalAmount);
+                                                    referenceWallet.child("Wallet").child(user.getUid()).child("Balance").setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            Toast.makeText(ToReceiveStandardOrderPage .this, "Total of ₱"+deduct +" has been deducted from your wallet", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+
+
+
 
 
                             //Add to Orders Reference

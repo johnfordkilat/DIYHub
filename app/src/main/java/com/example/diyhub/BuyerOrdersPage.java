@@ -581,7 +581,6 @@ public class BuyerOrdersPage extends AppCompatActivity{
                         counterNotif++;
                     }
 
-
                     ordersnotifCounterOngoingB.setText(String.valueOf(counterNotif));
                     ordersnotifCardviewOngoingB.setVisibility(counterNotif == 0 ? View.INVISIBLE : View.VISIBLE);
                 }
